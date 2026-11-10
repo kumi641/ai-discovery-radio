@@ -84,6 +84,9 @@ def test_dates_outside_range_are_fatal(draft, candidates, monkeypatch):
     assert draft["news"][1]["publisher"] == "Anthropic"
 
 
-def test_use_idea_is_required(draft, candidates, cfg, topics):
-    draft["news"][0].pop("use_idea")
+def test_use_idea_is_optional_but_not_empty(draft, candidates, cfg, topics):
+    draft["news"][0]["use_idea"] = None          # news a listener cannot try: no idea is fine
+    draft["news"][1].pop("use_idea")
+    assert errors(draft, candidates, cfg, topics) == []
+    draft["news"][2]["use_idea"] = "  "           # but an idea that is there must say something
     assert any("use_idea" in e for e in errors(draft, candidates, cfg, topics))
