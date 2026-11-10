@@ -239,8 +239,7 @@ def main(argv=None) -> int:
     fresh = sum(1 for c in result["candidates"] if not c["is_backfill"])
     print(f"sources ok {ok}/{len(result['sources'])}; candidates {len(result['candidates'])} (fresh {fresh})")
     for s in result["sources"]:
-        if not s["ok"]:
-            print(f"  ! {s['source']}: {s['error']}")
+        print(f"  {'ok' if s['ok'] else '! '} {s['source']}: " + (f"{s['items']} items" if s["ok"] else s["error"]))
     if not result["candidates"]:
         raise RadioError("no candidates collected")
     return 0

@@ -47,6 +47,8 @@ def main(argv=None) -> int:
     date = t.date().isoformat()
     done = (EPISODES_DIR / f"{date}-ja.json").exists() and released(date)
     run, why = decide(t, cfg, done, args.event, args.force.lower() == "true")
+    if run and os.environ.get("SECRETS_READY") == "false":
+        run, why = False, "secrets CLAUDE_CODE_OAUTH_TOKEN / AZURE_SPEECH_KEY / AZURE_SPEECH_REGION are not all set"
     c = cfg.get("claude", {})
     out = {"run": str(run).lower(), "date": date, "model": c.get("model", ""), "max_turns": c.get("max_turns", 80),
            "timeout": c.get("timeout_minutes", 30), "fix_attempts": c.get("fix_attempts", 1)}

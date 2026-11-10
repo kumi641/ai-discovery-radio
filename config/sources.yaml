@@ -28,7 +28,7 @@ sources:
   - {id: meta-ai, name: Meta AI Blog, publisher: Meta, category: official, trust: primary, type: html_links,
      url: "https://ai.meta.com/blog/", link_pattern: "^https://ai\\.meta\\.com/blog/[a-z0-9-]+/?$", max_links: 5}
   - {id: microsoft-ai, name: Microsoft AI Blog, publisher: Microsoft, category: official, trust: primary, type: rss,
-     url: "https://blogs.microsoft.com/ai/feed/"}
+     url: "https://blogs.microsoft.com/ai/feed/", enabled: false}   # 2026-11-10 時点で 410 Gone。新しいフィードを確認したら差し替える
   - {id: github-changelog, name: GitHub Changelog, publisher: GitHub, category: agent-dev, trust: primary, type: rss,
      url: "https://github.blog/changelog/feed/",
      keywords: [copilot, agent, mcp, "models", ai, actions]}

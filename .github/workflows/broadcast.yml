@@ -40,6 +40,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # read-only: to see whether today's Release exists
           GH_REPO: ${{ github.repository }}
+          # only whether the secrets are set (true/false), never their values
+          SECRETS_READY: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' && secrets.AZURE_SPEECH_KEY != '' && secrets.AZURE_SPEECH_REGION != '' }}
         run: python -m radio.gate --event "${{ github.event_name }}" --force "${{ inputs.force || 'false' }}"
 
   # Reads the web and writes the draft. Read-only token, no git credentials on disk; the only secret
