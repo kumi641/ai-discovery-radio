@@ -589,7 +589,8 @@ function setTalking(on) {
 }
 
 // ---------- her as sprites ----------
-const SP = { ready: false, key: "", look: [0, 0], pointer: null, pointerAt: -1e9, nextBlink: 0, blinkAt: -1e9, mouth: 0, mouthAt: 0 };
+// key starts as null (not ""), so the first frame always draws the base, even for a character with no parts
+const SP = { ready: false, key: null, look: [0, 0], pointer: null, pointerAt: -1e9, nextBlink: 0, blinkAt: -1e9, mouth: 0, mouthAt: 0 };
 document.addEventListener("pointermove", e => {
   const r = $("cam").getBoundingClientRect();
   SP.pointer = [Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width / 2))),
