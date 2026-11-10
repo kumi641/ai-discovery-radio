@@ -35,7 +35,8 @@ def to_episode(d: dict, cards: dict[str, dict]) -> dict:
     for i, n in enumerate(d["news"]):
         news.append({"label": n["label"], "points": n["points"], "details": n["details"], "url": n["url"],
                      "lines": n["lines"], "link": cards.get(n["url"]) or link_card(n["url"], n["headline"]),
-                     "corner": n["corner"], "guide": f"guides/{d['date']}.html#news-{i + 1}"})
+                     "corner": n["corner"], "idea": n.get("use_idea"),
+                     "guide": f"guides/{d['date']}.html#news-{i + 1}"})
     ex = d["experiment"]
     ref = ex["refs"][0]
     news.append({"label": "今日の実験", "points": ex["points"], "details": [None] * len(ex["points"]), "url": ref,

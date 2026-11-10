@@ -42,3 +42,10 @@ def test_gate_runs_once_inside_window():
     assert gate.decide(at(7), cfg, True, "schedule", False)[0] is False   # already published
     assert gate.decide(at(15), cfg, False, "workflow_dispatch", False)[0] is True
     assert gate.decide(at(15), cfg, True, "workflow_dispatch", True)[0] is True
+
+
+def test_guide_puts_conclusion_and_use_idea_first(draft):
+    page = guide.html_page(draft, {"seconds": 540})
+    news1 = page[page.index('id="news-1"'):]
+    assert news1.index("結論：") < news1.index("こう使うと面白い") < news1.index("重要ポイント")
+    assert "毎朝のメモを要約して" in guide.markdown(draft)

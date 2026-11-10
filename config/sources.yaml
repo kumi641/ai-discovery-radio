@@ -75,7 +75,7 @@ sources:
   - {id: rel-remotion, name: Remotion Releases, publisher: Remotion, category: creative, trust: primary, type: rss,
      url: "https://github.com/remotion-dev/remotion/releases.atom", per_source_limit: 1}
   - {id: blender-news, name: Blender News, publisher: Blender, category: creative, trust: primary, type: rss,
-     url: "https://www.blender.org/feed/"}
+     url: "https://www.blender.org/feed/", keywords: [ai, "machine learning", generative, neural, diffusion]}   # AI に関係する記事だけ
 
   # ---------- 論文 ----------
   - {id: hf-daily-papers, name: Hugging Face Daily Papers, publisher: Hugging Face Papers, category: research, trust: secondary, type: hf_daily_papers,

@@ -34,7 +34,8 @@ def body(date: str) -> str:
         if n.get("corner") == "experiment":
             lines.append(f"🧪 今日の実験：{n.get('name') or n['label']}\n   {base}{n['guide']}")
         else:
-            lines.append(f"・{CORNER_NAMES.get(n.get('corner'), '')}｜{n['label']}\n   {n['url']}")
+            idea = f"\n   💡 {n['idea']}" if n.get("idea") else ""
+            lines.append(f"・{CORNER_NAMES.get(n.get('corner'), '')}｜{n['label']}{idea}\n   {n['url']}")
     return "\n".join(lines) + "\n\n— AI Discovery & Build Radio（自動送信）\n"
 
 

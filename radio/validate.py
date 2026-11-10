@@ -20,7 +20,7 @@ LINE_KEYS = ("say", "show")
 TASK_KEYS = ("name", "goal", "tools", "prep", "minutes", "steps", "deliverable", "success_check", "cost", "refs")
 NEWS_KEYS = ("candidate_id", "corner", "label", "headline", "url", "points", "details", "summary", "whats_new",
              "why_important", "difference", "technical_points", "terms", "feasibility", "reliability",
-             "applications", "quick_try", "build_idea", "lines", "scores")
+             "applications", "use_idea", "quick_try", "build_idea", "lines", "scores")
 CORNERS = ("news", "practice", "creative")
 BAD_STATUS = {0, 404, 410}
 URL_RE = re.compile(r"^https?://[^\s<>\"]+$")
@@ -155,7 +155,7 @@ def check_schema(draft: dict, candidates: dict, cfg: dict, topics: dict) -> Prob
             order.append(CORNERS.index(n["corner"]))
         _text(p, f"{w}.label", n.get("label"), 24)
         _text(p, f"{w}.headline", n.get("headline"), 120)
-        for k in ("summary", "whats_new", "why_important", "difference", "terms", "feasibility", "reliability"):
+        for k in ("summary", "whats_new", "why_important", "difference", "use_idea", "terms", "feasibility", "reliability"):
             _text(p, f"{w}.{k}", n.get(k), 1200)
         _str_list(p, f"{w}.points", n.get("points"), 2, 4)
         if isinstance(n.get("points"), list) and isinstance(n.get("details"), list) and len(n["points"]) != len(n["details"]):

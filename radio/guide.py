@@ -64,7 +64,10 @@ def markdown(d: dict) -> str:
     out += ["## 今日の実験", "", f"関連ニュース：{d['news'][ex['news_index']]['headline']}", ""] + _md_task(ex, "実験")
     for i, n in enumerate(d["news"], 1):
         out += [f"## {i}. {n['headline']}", "", f"*{CORNER_NAMES.get(n['corner'], '')}｜{_pub(n)}｜評価 {_total(n)}/100*", "",
-                f"出典：{n['url']}", "", "### 重要ポイント", ""]
+                f"出典：{n['url']}", "", f"**結論**：{n['summary']}", ""]
+        if n.get("use_idea"):
+            out += [f"> 💡 **こう使うと面白い**：{n['use_idea']}", ""]
+        out += ["### 重要ポイント", ""]
         out += [f"- **{p}**：{dd}" if dd else f"- **{p}**" for p, dd in zip(n["points"], n["details"])]
         out += ["", "### 技術解説", "", f"**何が新しいのか**：{n['whats_new']}", "", f"**なぜ重要か**：{n['why_important']}", "",
                 f"**従来との違い**：{n['difference']}", ""] + [f"- {t}" for t in n["technical_points"]]
@@ -102,6 +105,7 @@ dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl
 pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
 .snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
 ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
 details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
 footer{color:var(--muted);font-size:13px;margin-top:32px}
 """
@@ -178,7 +182,11 @@ def html_page(d: dict, ep: dict) -> str:
         h += [f'<section class="card" id="news-{i}"><span class="badge">{escape(CORNER_NAMES.get(n["corner"], ""))}</span>',
               f'<span class="meta">評価 <span class="score">{_total(n)}</span>/100</span>',
               f"<h2>{i}. {escape(n['headline'])}</h2>", f'<div class="meta">{escape(_pub(n))}</div>',
-              f'<div class="meta">出典：{_a(n["url"])}</div>', "<h3>重要ポイント</h3><ul class=\"pts\">"]
+              f'<div class="meta">出典：{_a(n["url"])}</div>',
+              f'<p class="concl"><b>結論：</b>{escape(n["summary"])}</p>']
+        if n.get("use_idea"):
+            h.append(f'<div class="idea">💡 <b>こう使うと面白い：</b>{escape(n["use_idea"])}</div>')
+        h += ["<h3>重要ポイント</h3><ul class=\"pts\">"]
         h += [f"<li><b>{escape(p)}</b>{'：' + escape(dd) if dd else ''}</li>" for p, dd in zip(n["points"], n["details"])]
         h += ["</ul><h3>技術解説</h3><dl class=\"kv\">", f"<dt>何が新しいか</dt><dd>{escape(n['whats_new'])}</dd>",
               f"<dt>なぜ重要か</dt><dd>{escape(n['why_important'])}</dd>", f"<dt>従来との違い</dt><dd>{escape(n['difference'])}</dd></dl><ul>"]
