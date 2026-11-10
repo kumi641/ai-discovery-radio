@@ -1,0 +1,260 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gemini 4 Carbonと「コードは君のもの」実験｜実践ガイド 2026-11-11</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-11/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月11日（水）・放送 約8分</div>
+<h1>Gemini 4 Carbonと「コードは君のもの」実験</h1>
+<p class="lead">Googleが最上位モデルGemini 4 Carbonを一般公開し、NVIDIAは待ち時間の多いエージェントを保存・復元で高密度に動かすAgent Substrateを紹介しました。実践面では、Claude Fable 5.2の公式ガイドが示す「コードの所有」を伝える一文など、エージェントの振る舞いを調整する知見がそろった一日です。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：「コードはあなたのもの」の一文でA/B比較</a></li>
+<li><a href="#news-1">Google、最上位モデルGemini 4 CarbonをGemini API有料枠などで一般公開。GitHub Copilotでも利用可能に</a></li>
+<li><a href="#news-2">NVIDIA、待機中のエージェントを保存・復元して高密度に動かすKubernetes向けOSS「Agent Substrate」を紹介</a></li>
+<li><a href="#news-3">Simon Willisonが引用：Claude Fable 5.2は「コードの持ち主」の書き方に強く反応する（Anthropic公式プロンプトガイド）</a></li>
+<li><a href="#news-4">GoogleChrome、コーディングエージェントを最新のWeb標準へ導くスキル集「modern-web-guidance」を公開</a></li>
+<li><a href="#news-5">Zenn：Claude Codeのskillとサブエージェントだけで「境界をまたぐ不整合」を探すレビューを組んだ記録</a></li>
+<li><a href="#news-6">Blender 5.3リリース：3D Gaussian Splatsにネイティブ対応、Vulkanが既定に、VSEにOpenTimelineIO初期対応</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>「コードはあなたのもの」の一文でA/B比較</h2>
+<div class="meta">関連ニュース：<a href="#news-3">Simon Willisonが引用：Claude Fable 5.2は「コードの持ち主」の書き方に強く反応する（Anthropic公式プロンプトガイド）</a></div>
+<div class="task"><h4>実験：「コードはあなたのもの」の一文でA/B比較</h4><dl class="kv"><dt>目的</dt><dd>Claude Fable 5.2で、所有の一文の有無によって直し方（重複の統合、頼んでいない変更）がどう変わるかを自分のコードで確かめる</dd><dt>使用ツール</dt><dd>Claude Code（Fable 5.2）、git</dd><dt>必要な準備</dt><dd>Claude Codeの利用環境（Fable 5.2を選べるプランまたはAPI）、少し重複のある小さな練習用リポジトリ（大事なコードは使わない）、gitで現在の状態をコミットしておく</dd><dt>所要時間</dt><dd>約30分</dd><dt>費用</dt><dd>Claude Codeの利用プランまたはAPI課金の範囲内（一文ありでは出力トークンが約1.5倍になる）</dd><dt>無料の代替</dt><dd>無料で同じ条件を再現できる方法は未確認。手元の別のコーディングエージェントで同じ比較をしてもよいが、公式ガイドの結果はFable 5.2についてのもの</dd></dl><b>手順</b><ol><li>重複のある練習用リポジトリを用意し、gitで今の状態をコミットする</li><li>フォルダごと2つにコピーし、Aを「一文なし」、Bを「一文あり」とする</li><li>両方で同じモデル（Fable 5.2）と同じeffortに設定する（設定方法は公式ドキュメントで確認）</li><li>Aでは機能追加の依頼文だけを、Bでは下の一文を先頭に付けた同じ依頼文を送る</li><li>両方で git diff を見て、重複が統合されたか、頼んでいない変更（テスト・ドキュメント・既存機能の挙動変更）の数、依頼した機能が動くかを記録する</li><li>可能なら2〜3回繰り返し、自分のプロジェクトでこの一文を使うかを決める</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>This codebase is yours: what it&#x27;s for and how it&#x27;s built are your call, and you&#x27;ll keep building on it.
+
+（ここに依頼文。A・Bで同じ文にする。例：既存のCSV出力と同じ形式で、JSONでも出力できるようにしてください。）</pre></div><div class="meta">出典：<a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2#say-who-owns-the-code" target="_blank" rel="noopener noreferrer">https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2#say-who-owns-the-code</a></div><dl class="kv"><dt>完成するもの</dt><dd>A・Bの差分と、統合の有無・頼んでいない変更の数・機能の動作を並べた比較メモ</dd><dt>確認方法</dt><dd>A・B両方で依頼した機能が動き、差分の違い（重複の統合、追加された変更）を具体的に記録できた。差がなかった場合も、その結果を記録できていれば成功</dd></dl><div class="meta">参考：<a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2" target="_blank" rel="noopener noreferrer">https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2</a>　<a href="https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/" target="_blank" rel="noopener noreferrer">https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-11 「コードはあなたのもの」の一文でA/B比較
+- 参考ニュース: Simon Willisonが引用：Claude Fable 5.2は「コードの持ち主」の書き方に強く反応する（Anthropic公式プロンプトガイド）
+- ガイド: guides/2026-11-11.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">83</span>/100</span>
+<h2>1. Google、最上位モデルGemini 4 CarbonをGemini API有料枠などで一般公開。GitHub Copilotでも利用可能に</h2>
+<div class="meta">Google DeepMind・公開 2026-11-10 16:03</div>
+<div class="meta">出典：<a href="https://deepmind.google/blog/gemini-4-carbon-is-now-available/" target="_blank" rel="noopener noreferrer">https://deepmind.google/blog/gemini-4-carbon-is-now-available/</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>Google最強の最上位モデル</b>：サイバーセキュリティと長時間のエージェント作業で最先端の性能とGoogleは説明。多くの作業はGemini 4 Argonが適するとも書いている。</li>
+<li><b>API有料枠とCopilotで利用可</b>：Google AI Studio（Gemini API有料枠）、Android Studio、Gemini Enterpriseなどで提供。GitHub CopilotではPro+・Max・Business・Enterpriseで選択可能。</li>
+<li><b>導入価格は11/30まで</b>：導入期間は100万トークンあたり入力$2・出力$10。11月30日の終了後は入力$4・出力$20。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>これまで一部のサイバー防御者向けだったCarbonが、Gemini API有料枠やGemini Enterprise、Google AI Ultra向けのAntigravity・Geminiアプリなどで使えるようになった。</dd>
+<dt>なぜ重要か</dt><dd>難しいコーディングやエージェント作業で、Claude・GPT系に加えてもう1つの最上位の選択肢が増え、詰まったタスクを別モデルで試せるようになる。</dd>
+<dt>従来との違い</dt><dd>下位のGemini 4 Argonより多くのトークンで探索・検証する設計。Googleは、多くのソフトウェア開発や知的作業にはArgonが適するとしており、Carbonは難しいタスク向けの位置づけ。</dd></dl><ul>
+<li>探索と検証により多くのトークンを使うことで難しいタスクの精度を上げる設計</li>
+<li>Google発表ではCursorBench 4.0などで1位、他社最良モデルの半分以下のタスク単価（自社発表の数値）</li>
+<li>安全性レポートで、プロンプトインジェクション耐性は引き続き改善が必要な領域と明記</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>普段のモデルで解けなかったバグ修正を、Carbonに再挑戦させて比較する</li>
+<li>自作エージェントの難しい工程だけを最上位モデルに振り分けるルーティング</li>
+<li>セキュリティを意識したコードレビューの第二意見として使う</li>
+</ul>
+<div class="task"><h4>今日すぐできること：詰まった修正をCarbonに再挑戦させる</h4><dl class="kv"><dt>目的</dt><dd>普段のモデルとGemini 4 Carbonで、同じ難しい修正への答え方を比べる</dd><dt>使用ツール</dt><dd>GitHub Copilot（Pro+など）またはGoogle AI Studio（Gemini API有料枠）</dd><dt>必要な準備</dt><dd>Copilotの対象プラン、またはGemini APIの有料枠、過去に手こずった小さなバグや関数を1つ</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>課金が必要（Copilot対象プラン、またはGemini API有料枠：導入期間中 入力$2・出力$10／100万トークン）</dd><dt>無料の代替</dt><dd>無料で使えるかは未確認。普段使っているモデル同士で同じプロンプトを比べる方法なら追加費用なしで試せる</dd></dl><b>手順</b><ol><li>過去に普段のモデルで直しきれなかった関数やバグを1つ選ぶ</li><li>普段のモデルに下のプロンプトを送り、答えを保存する</li><li>モデル選択でGemini 4 Carbonに切り替え、同じプロンプトを送る（順次提供のため、まだ表示されない場合もある）</li><li>反例の質と修正の正しさ、かかった時間を比べてメモする</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次の関数には境界条件のバグがあるかもしれません。修正する前に、(1) 入力の前提を列挙し、(2) バグを起こしうる具体的な入力を3つ挙げ、(3) なぜそれが問題かを説明してください。そのうえで最小限の修正案と、修正を確かめるテストを書いてください。
+
+（ここに関数を貼る）</pre></div><dl class="kv"><dt>完成するもの</dt><dd>2つのモデルの回答を並べた比較メモ</dd><dt>確認方法</dt><dd>どちらの回答がテストを通る修正を出したか、反例が実際に再現するかを手元で確認できた</dd></dl><div class="meta">参考：<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/" target="_blank" rel="noopener noreferrer">https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/</a>　<a href="https://github.blog/changelog/2026-11-10-gemini-4-carbon-in-github-copilot" target="_blank" rel="noopener noreferrer">https://github.blog/changelog/2026-11-10-gemini-4-carbon-in-github-copilot</a></div></div>
+<h4>発展：難しいタスクだけ最上位モデルに回すルーター（2〜3時間）</h4><p>タスクの難しさ（失敗回数やテスト結果）を見て、普段は安いモデル、詰まったときだけCarbonなどの最上位モデルに切り替える小さな仕組みを作る。</p><ol>
+<li>自分のタスクを5件ほど集め、普段のモデルでの成否を記録する</li>
+<li>失敗したタスクだけ最上位モデルで再実行する手順を決める</li>
+<li>成功率と費用を表にまとめ、切り替え条件を決める</li>
+</ol>
+<h3>利用条件・料金</h3><p>Gemini API有料枠：導入期間中は100万トークンあたり入力$2・出力$10、11月30日の導入期間終了後は入力$4・出力$20。一般向けの無料枠は発表に記載なし（未確認、公式の料金ページで確認）。GitHub CopilotではPro+・Max・Business・Enterpriseで利用でき、使用量ベースの課金（提供元の定価）。</p>
+<div class="meta">実践可能性：中：有料プランかAPI課金が必要だが、普段のツール（Copilot、AI Studio）から選ぶだけで試せる。<br>信頼性：Google公式ブログ（DeepMindの記事URLからのリダイレクト先）とGitHub Changelogで確認。ベンチマーク値はGoogleの自社発表。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">78</span>/100</span>
+<h2>2. NVIDIA、待機中のエージェントを保存・復元して高密度に動かすKubernetes向けOSS「Agent Substrate」を紹介</h2>
+<div class="meta">NVIDIA・公開 2026-11-10 15:00（更新 2026-11-10 15:05）</div>
+<div class="meta">出典：<a href="https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/" target="_blank" rel="noopener noreferrer">https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>エージェントは大半が待ち時間</b>：エージェントは人の入力、ツールの結果、モデルの応答を待って多くの時間を過ごす。1セッション1Podの方式はこれに向かない。</li>
+<li><b>待機中は保存し、器を解放</b>：待機中のセッション（actor）をメモリとファイルシステムごとスナップショットし、呼ばれたら空いているworkerに復元する。</li>
+<li><b>OSS・CNCF Sandbox</b>：Apache-2.0のオープンソースで、CNCF Sandboxに寄贈。ブログはAPIがまだ変化中と注意している。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>多数のエージェントセッションを少数の常駐workerに割り当て、アイドルになったセッションをメモリとファイルシステムごと退避・復元する仕組みを、通常のKubernetes Podの上で実現した点。</dd>
+<dt>なぜ重要か</dt><dd>エージェントは計算より待ち時間が長いため、1セッションに1つのPodを張り付ける方式では資源が無駄になる。待ちを前提にした設計は、エージェントを多数動かすサービスのコストを左右する。</dd>
+<dt>従来との違い</dt><dd>復元時にAPIサーバー・スケジューラー・kubeletを通る通常のPod作成経路を省く。workerは普通のPodなので、既存のスケジューリングやクォータの仕組みはそのまま使える。</dd></dl><ul>
+<li>actor（エージェント）とworker（Pod）を分け、制御プレーンが対応づける</li>
+<li>サンドボックスはgVisorまたはmicroVM</li>
+<li>NVIDIA Dynamoの推論ルーティングと連携し、保持・中断・再開の判断に使う信号をやり取りする</li>
+<li>GPU対応はKubernetesのDynamic Resource Allocationを土台に作り直し中</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自作エージェントのセッション状態を保存・復元できる設計にする</li>
+<li>コーディングエージェントを多数並列で動かす評価環境の構築</li>
+<li>待ち時間の多いワークロードのコスト見積もりの考え方として使う</li>
+</ul>
+<div class="task"><h4>今日すぐできること：counterデモのactorを動かす</h4><dl class="kv"><dt>目的</dt><dd>ローカルのkindクラスタでSubstrateを動かし、actorを作って応答を確かめる</dd><dt>使用ツール</dt><dd>Go、kubectl、Docker、kind（Go経由で管理）</dd><dt>必要な準備</dt><dd>Go、kubectl、Dockerをインストール済みにする、agent-substrate/substrateリポジトリをクローンし、そのフォルダに移動する</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（ローカル実行）</dd></dl><b>手順</b><ol><li>READMEの手順でkindクラスタとローカルレジストリを作る</li><li>Substrate本体とcounterデモをデプロイし、kubectl-ateをインストールする</li><li>counterのactorを作り、ローカルのポート8000にプロキシする</li><li>別のターミナルからlocalhost:8000にPOSTリクエストを送り、応答を確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>hack/create-kind-cluster.sh
+export ATE_INSTALL_KIND=true
+go run ./cmd/ate-setup deploy ate-system --credential-provider=&#x27;{&quot;name&quot;:&quot;k8s.io&quot;}&#x27; \
+  --ingress-allowed-spiffe-ids=spiffe://cluster.local/ns/ate-system/sa/atenet-client
+go run ./cmd/ate-setup deploy demo counter
+go install ./cmd/kubectl-ate
+kubectl ate create actor my-counter-1 -a ate-demo-counter --template counter
+kubectl ate proxy actor my-counter-1 -a ate-demo-counter
+# 別のターミナルで
+curl -X POST -i http://localhost:8000/</pre></div><div class="meta">出典：<a href="https://github.com/agent-substrate/substrate" target="_blank" rel="noopener noreferrer">https://github.com/agent-substrate/substrate</a></div><dl class="kv"><dt>完成するもの</dt><dd>ローカルで動くSubstrateとcounter actor</dd><dt>確認方法</dt><dd>curlのPOSTにHTTPの応答が返ってくる</dd></dl><div class="meta">参考：<a href="https://github.com/agent-substrate/substrate" target="_blank" rel="noopener noreferrer">https://github.com/agent-substrate/substrate</a>　<a href="https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/" target="_blank" rel="noopener noreferrer">https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/</a></div></div>
+<h4>発展：自作エージェントに「待機→保存→復元」を入れる（2〜4時間）</h4><p>Substrateの考え方を参考に、自作エージェントのセッション状態（会話・作業ファイル）を待機中に保存し、次の呼び出しで復元できるようにする。</p><ol>
+<li>自作エージェントのセッション状態として何を持っているかを書き出す</li>
+<li>待機に入る時点で状態を保存し、プロセスを終了する処理を作る</li>
+<li>次の入力で状態を読み戻して作業を続けられるか確かめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>Apache-2.0のオープンソースで無料。ローカルでの試用にはGo・kubectl・Dockerが必要。リポジトリは1.0到達と記載する一方、ブログはAPIがまだ変化中と注意している。</p>
+<div class="meta">実践可能性：中：ローカルのkindクラスタでデモを動かせるが、Kubernetesの基礎知識が必要。本番利用はまだ慎重に。<br>信頼性：NVIDIA技術ブログとGitHubのリポジトリ（README）で確認。10倍の密度はNVIDIAの主張。</div></section>
+<section class="card" id="news-3"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">91</span>/100</span>
+<h2>3. Simon Willisonが引用：Claude Fable 5.2は「コードの持ち主」の書き方に強く反応する（Anthropic公式プロンプトガイド）</h2>
+<div class="meta">Simon Willison・公開 2026-11-10 05:34</div>
+<div class="meta">出典：<a href="https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/" target="_blank" rel="noopener noreferrer">https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>持ち主の書き方で振る舞いが変化</b>：所有に触れない、または他人のコードとして渡すと、重複があっても既存構造に足していき、近くの問題は直さず報告しがち。</li>
+<li><b>所有の一文で重複統合が約5割に</b>：Anthropicの小さなコーディング課題の試験で、重複コードをまとめた割合が一文なしの1割未満から、一文ありで約半分に。</li>
+<li><b>代償：出力1.5倍と頼まない変更</b>：出力トークンは約1.5倍、頼んでいないテストやドキュメント追加も増える。要約は小さな変更を書き漏らすので差分を確認。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>コードの所有者をどう書くかで、構造改善をするか最小変更にとどめるかが大きく変わることを、Anthropicが具体的な一文と試験結果つきで公開した。</dd>
+<dt>なぜ重要か</dt><dd>同じ依頼でも一文の有無でリファクタリングの度合いが変わるため、自分のプロジェクトか他人のコードかに応じてプロンプトを使い分けられる。</dd>
+<dt>従来との違い</dt><dd>スコープを制限するルールを別に書いても、所有の一文の効果は打ち消されない。ガイドでは「No drive-by refactors…」を同じプロンプトに入れても、約3分の1の試行で重複を統合した。</dd></dl><ul>
+<li>推奨文：This codebase is yours: what it&#x27;s for and how it&#x27;s built are your call, and you&#x27;ll keep building on it.</li>
+<li>長いシステムプロンプトの中に置いても効果は保たれた</li>
+<li>既存機能の挙動を変えた試行が6〜10回に1回あり、effortが高いほど多い</li>
+<li>最小限の変更を望む場面ではこの一文を入れない</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自分のリポジトリのCLAUDE.mdに一文を入れるかどうかを判断する</li>
+<li>他人のコードや業務コードでは一文を外し、最小変更を保つ</li>
+<li>自作エージェントのシステムプロンプトに、案件ごとに所有の一文を切り替えて入れる</li>
+</ul>
+<div class="task"><h4>今日すぐできること：CLAUDE.mdをFable 5.2向けに棚卸し</h4><dl class="kv"><dt>目的</dt><dd>公式ガイドが見直しを勧める指示が、自分のCLAUDE.mdやメモに残っていないか洗い出す</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>CLAUDE.mdなど、エージェントへの指示ファイルがあるリポジトリ</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>Claude Codeの利用プランまたはAPI課金の範囲内（追加費用なし）</dd><dt>無料の代替</dt><dd>指示ファイルを自分で読み、公式ガイドの「Review instructions written for earlier models」の項目と照らし合わせる</dd></dl><b>手順</b><ol><li>対象のリポジトリでClaude Codeを開く</li><li>下のプロンプトを送り、変更せずに一覧だけ出させる</li><li>出てきた候補を公式ガイドの該当節と見比べ、残すか消すかを自分で決める</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このリポジトリのCLAUDE.mdと、エージェント向けの指示ファイルを読んでください。ファイルは変更しないでください。次に当てはまる行を一覧にし、それぞれ理由を一文で書いてください：(1) サブエージェントへの委任を常に求める行、(2) トークン予算を書いた行、(3) 考えずに答えるよう求める行、(4) 文の長さなどの細かい文体ルール、(5) 理由が分からなくなった禁止や注意。最後に、このコードの持ち主を示す記述があるかどうかも報告してください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>見直し候補の行の一覧</dd><dt>確認方法</dt><dd>一覧の各行について、残す・消す・書き直すの判断を自分で付けられた</dd></dl><div class="meta">参考：<a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2" target="_blank" rel="noopener noreferrer">https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2</a>　<a href="https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/" target="_blank" rel="noopener noreferrer">https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/</a></div></div>
+<h4>発展：所有の一文のA/B比較を記録する仕組み（1〜2時間）</h4><p>同じ依頼を一文あり・なしで実行し、差分の行数、重複の統合、頼んでいない変更の数を記録する比較表を作り、プロジェクトごとの採否を決める。</p><ol>
+<li>比較に使う小さな依頼を3つ用意する</li>
+<li>一文あり・なしで各依頼を実行し、差分を保存する</li>
+<li>統合の有無、頼まない変更、トークン量を表にまとめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>プロンプトの書き方の知見なので追加費用はないが、Fable 5.2の利用には該当プランまたはAPI課金が必要（料金は公式の料金ページで確認）。一文ありでは出力トークンが約1.5倍に増える。</p>
+<div class="meta">実践可能性：高：一文を足すだけで、今日の作業の中で比べられる。<br>信頼性：Simon Willisonの記事と、引用元のAnthropic公式ドキュメント「Prompting Claude Fable 5.2」の本文で確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">86</span>/100</span>
+<h2>4. GoogleChrome、コーディングエージェントを最新のWeb標準へ導くスキル集「modern-web-guidance」を公開</h2>
+<div class="meta">Hacker News・公開 2026-11-10 18:01</div>
+<div class="meta">出典：<a href="https://github.com/GoogleChrome/modern-web-guidance" target="_blank" rel="noopener noreferrer">https://github.com/GoogleChrome/modern-web-guidance</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>エージェント向けWeb標準スキル集</b>：古いパターンではなく、ブラウザ標準の新しいAPIを使うよう導く。Chrome・Edge・Firefox・MDNの各チームが関わる。</li>
+<li><b>250機能・203の実用例</b>：CSSとレイアウト140、HTMLとDOM 36、JavaScriptとAPI 74の機能と、203の実用例を収録。</li>
+<li><b>検索はローカル・APIキー不要</b>：ガイド検索は手元で動き、ネットワーク通信やAPIキーは不要。Apache-2.0ライセンス。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>主要ブラウザとMDNのチームが関わる形で、エージェントが必要なときだけ読み込める、トークン効率を意識したWeb開発ガイドを提供した点。モデルがすでに得意な内容は評価して削っている。</dd>
+<dt>なぜ重要か</dt><dd>AIが書くWebコードは学習データの影響で古い書き方になりがち。必要なガイドだけを文脈に入れることで、依存ライブラリを増やさずに新しい標準機能を使わせられる。</dd>
+<dt>従来との違い</dt><dd>汎用の指示ファイルに知識を書き込むのではなく、検索して該当ガイドだけを取り出すCLIとスキルの組み合わせ。既存コードの古いパターンを探すスキャン機能もある。</dd></dl><ul>
+<li>search でガイドを探し、retrieve でガイドIDを指定して文脈に読み込む</li>
+<li>legacy-scan でコードベースの古いパターンを検出</li>
+<li>スキルパックは modern-web-guidance と chrome-extensions から選べる</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人サイトやWebアプリの古い書き方を洗い出してモダン化する</li>
+<li>Claude Codeに入れて、新しいUI部品を標準APIで作らせる</li>
+<li>Chrome拡張の開発でスキルパックを使う</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分のWebコードを旧パターン検査</h4><dl class="kv"><dt>目的</dt><dd>手元のWebプロジェクトに残る古いパターンを一覧にする</dd><dt>使用ツール</dt><dd>Node.js（npx）</dd><dt>必要な準備</dt><dd>Node.jsをインストール済みにする、検査したいWebプロジェクトのフォルダ</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>検査したいWebプロジェクトのフォルダに移動する</li><li>下のコマンドを実行し、古いパターンの一覧を得る</li><li>気になった項目をsearchで調べ、対応するガイドを読む</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>npx modern-web-guidance@latest legacy-scan .
+npx modern-web-guidance@latest search &quot;animate a dialog modal backdrop&quot;</pre></div><div class="meta">出典：<a href="https://github.com/GoogleChrome/modern-web-guidance" target="_blank" rel="noopener noreferrer">https://github.com/GoogleChrome/modern-web-guidance</a></div><dl class="kv"><dt>完成するもの</dt><dd>プロジェクト内の古いパターンの一覧</dd><dt>確認方法</dt><dd>スキャン結果が表示され、少なくとも1項目について対応するガイドを見つけられた</dd></dl><div class="meta">参考：<a href="https://github.com/GoogleChrome/modern-web-guidance" target="_blank" rel="noopener noreferrer">https://github.com/GoogleChrome/modern-web-guidance</a></div></div>
+<h4>発展：Claude Codeで部品を1つモダン化（1〜2時間）</h4><p>Claude Codeにプラグインとして入れ、スキャンで見つかった古い部品（例：モーダルやアニメーション）を標準APIで書き直させ、差分とブラウザでの動作を確かめる。</p><ol>
+<li>Claude Codeで /plugin marketplace add GoogleChrome/modern-web-guidance と /plugin install modern-web-guidance@googlechrome を実行し、/reload-plugins する</li>
+<li>スキャンで見つかった部品を1つ選び、標準APIでの書き直しを依頼する</li>
+<li>ブラウザで動作を確認し、減ったコード量や依存を記録する</li>
+</ol>
+<h3>利用条件・料金</h3><p>Apache-2.0のオープンソースで無料。npxの実行にNode.jsが必要。</p>
+<div class="meta">実践可能性：高：コマンド1つでスキャンでき、Claude Codeへのプラグイン導入も数分。<br>信頼性：GoogleChrome公式のGitHubリポジトリのREADMEで確認（候補はHacker News経由）。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">76</span>/100</span>
+<h2>5. Zenn：Claude Codeのskillとサブエージェントだけで「境界をまたぐ不整合」を探すレビューを組んだ記録</h2>
+<div class="meta">Zenn・公開 2026-11-10 14:43</div>
+<div class="meta">出典：<a href="https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review" target="_blank" rel="noopener noreferrer">https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>テストを通る「層またぎのずれ」</b>：状態に値を足したのにfilterや集計が古いまま、など型検査・lint・テストでは見つからない不整合を対象にする。</li>
+<li><b>抽出と検証を別の役に分離</b>：書いた本人のセッションには判定させず、4つのレンズで並列に抽出し、別の1体が検証。block級は3体が別観点で反証する。</li>
+<li><b>97回中49回でblock級の指摘</b>：約2か月半で97回実行し、49回でblock相当の指摘。同じモデルなので独立性に限界、トークン消費も大きいと著者は明記。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>サブエージェントに役割と観点を分け、blockする指摘だけを3体が別々の観点で反証し、1体でも反証したら降格する多段の設計。</dd>
+<dt>なぜ重要か</dt><dd>AIに書かせたコードを同じセッションに確認させると見落としやすい。役割を分けたレビューは、別モデルが使えないときの現実的な代替になる。</dd>
+<dt>従来との違い</dt><dd>当初は多数決だったが、正確性・再現性・仕様適合は別々に満たすべき条件だとして「1体でも反証したら降格」に変えた。</dd></dl><ul>
+<li>6つの観点を4つのレンズに束ね、差分に該当するレンズだけを並列起動</li>
+<li>検証役に状態遷移表やフィールドの生成元〜消費先の対応表を証跡として作らせる</li>
+<li>結果はJSONLに記録し、重大度からblock/passを自動判定</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>push前やPR前に、層をまたぐ変更だけを確認するレビュー役を置く</li>
+<li>自作エージェントで「作る役」と「反証する役」を分ける</li>
+<li>仕様書やADRを用意して、レビューの根拠にする</li>
+</ul>
+<div class="task"><h4>今日すぐできること：越境チェック役のサブエージェントを作る</h4><dl class="kv"><dt>目的</dt><dd>差分の層またぎの不整合を探すレビュー役を1体だけ用意して使ってみる</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>gitで管理しているプロジェクト、最近の変更が入ったブランチ</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>Claude Codeの利用プランまたはAPI課金の範囲内</dd><dt>無料の代替</dt><dd>記事の6つの観点をチェックリストにして、自分で差分を確認する</dd></dl><b>手順</b><ol><li>プロジェクトの .claude/agents/ に下の内容で boundary-reviewer.md を作る（agentsフォルダを新しく作った場合はClaude Codeを再起動）</li><li>Claude Codeで「直近の差分を boundary-reviewer サブエージェントでレビューして」と頼む</li><li>指摘ごとに、生成元と消費先のファイルを自分で開いて本当にずれているか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>---
+name: boundary-reviewer
+description: 差分が層や境界をまたぐ不整合（値の種類の追加漏れ、フィールドの受け渡し漏れ、再送時の二重適用）を生んでいないか調べる。push前やPR前の確認で使う
+tools: Read, Glob, Grep
+---
+
+あなたは差分のレビュー担当です。不整合が存在する前提で探してください。見つからない場合だけ「不整合なし」と答えてください。
+各指摘には、値やフィールドの生成元と消費先のファイル名、到達する経路、重大度を書いてください。</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/sub-agents</a></div><dl class="kv"><dt>完成するもの</dt><dd>プロジェクト用のレビュー役サブエージェント</dd><dt>確認方法</dt><dd>サブエージェントが起動し、指摘（または「不整合なし」）を生成元・消費先つきで返した</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/sub-agents</a>　<a href="https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review" target="_blank" rel="noopener noreferrer">https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review</a></div></div>
+<h4>発展：抽出役と反証役の2段レビュー（2〜3時間）</h4><p>抽出役に加えて「誤検知である前提で反証する」役のサブエージェントを作り、反証されなかった指摘だけを残す2段構成にする。</p><ol>
+<li>反証役のサブエージェントを別ファイルで作る</li>
+<li>抽出役の結果を反証役に渡す手順をスキルにまとめる</li>
+<li>数回の差分で、残った指摘と降格した指摘を記録して比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Codeの機能のみで構成（利用プランまたはAPI課金の範囲内）。1回で最大8体のサブエージェントが動くため、トークン消費は大きいと著者は注意している。</p>
+<div class="meta">実践可能性：中：最小構成なら1つのサブエージェントから始められる。全体の再現には設計の理解が必要。<br>信頼性：Zennの個人記事（コミュニティ情報）。サブエージェントの書式はClaude Code公式ドキュメントで確認。</div></section>
+<section class="card" id="news-6"><span class="badge">クリエイティブAI</span>
+<span class="meta">評価 <span class="score">80</span>/100</span>
+<h2>6. Blender 5.3リリース：3D Gaussian Splatsにネイティブ対応、Vulkanが既定に、VSEにOpenTimelineIO初期対応</h2>
+<div class="meta">Blender・公開 2026-11-10 17:58</div>
+<div class="meta">出典：<a href="https://www.blender.org/press/blender-5-3-release/" target="_blank" rel="noopener noreferrer">https://www.blender.org/press/blender-5-3-release/</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>3D Gaussian Splatsに標準対応</b>：PLY・SPZ・glTFのスプラットを点群として読み込める。リリースの目玉と位置づけられている。</li>
+<li><b>Geometry Nodesで編集・3エンジン描画</b>：読み込んだスプラットはGeometry Nodesで加工でき、Workbench・EEVEE・Cyclesでレンダリングできる。</li>
+<li><b>Vulkan既定・OTIO初期対応</b>：Windows（ARM除く）とLinuxでVulkanが既定に。動画編集（VSE）にはOpenTimelineIOの初期対応とリップル編集。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>Gaussian Splatsを外部アドオンなしで読み込み・編集・レンダリングできるようになった。アセットライブラリを拡張機能として共有することも可能に。</dd>
+<dt>なぜ重要か</dt><dd>スプラットで取り込んだ立体データを、そのままBlenderのシーンや映像制作に組み込める。無料のツールだけでパイプラインを組みやすくなる。</dd>
+<dt>従来との違い</dt><dd>これまで外部の仕組みに頼っていたスプラットの表示・編集が、Geometry Nodesと標準のレンダーエンジンに統合された。</dd></dl><ul>
+<li>スプラットは点群として読み込まれ、Geometry Nodesで処理できる</li>
+<li>NVIDIA GPU向けにビューポートのDLSSデノイザーを追加</li>
+<li>Geometry Nodesに流体シミュレーションの部品となるボリュームグリッドのノード</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>スプラットで取り込んだ場所や物を、映像やMVの背景に使う</li>
+<li>Geometry Nodesでスプラットを加工したエフェクト表現</li>
+<li>VSEとOpenTimelineIOで他の編集ソフトとタイムラインをやり取りする</li>
+</ul>
+<div class="task"><h4>今日すぐできること：スプラットをBlender 5.3で表示する</h4><dl class="kv"><dt>目的</dt><dd>手元のGaussian SplatファイルをBlender 5.3に読み込み、EEVEEで描画する</dd><dt>使用ツール</dt><dd>Blender 5.3</dd><dt>必要な準備</dt><dd>blender.orgからBlender 5.3をダウンロード、PLYまたはSPZ形式のGaussian Splatファイル</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>Blender 5.3を起動し、新しいシーンを作る</li><li>リリースノートからリンクされたマニュアルの手順でPLYまたはSPZのスプラットを読み込む</li><li>レンダーエンジンをEEVEEにして、ビューで表示を確かめる</li><li>CyclesやWorkbenchに切り替えて見え方を比べる</li></ol><dl class="kv"><dt>完成するもの</dt><dd>スプラットを読み込んだBlenderのシーン</dd><dt>確認方法</dt><dd>スプラットが点群として読み込まれ、EEVEEのレンダリングで表示される</dd></dl><div class="meta">参考：<a href="https://www.blender.org/download/releases/5-3/" target="_blank" rel="noopener noreferrer">https://www.blender.org/download/releases/5-3/</a>　<a href="https://www.blender.org/press/blender-5-3-release/" target="_blank" rel="noopener noreferrer">https://www.blender.org/press/blender-5-3-release/</a></div></div>
+<h4>発展：スプラット背景の短い映像（2〜3時間）</h4><p>読み込んだスプラットを背景に、カメラワークをつけた10秒ほどの映像を作り、Geometry Nodesで簡単な加工も試す。</p><ol>
+<li>スプラットを読み込み、カメラの動きをキーフレームで付ける</li>
+<li>Geometry Nodesで点の密度や色を変える加工を試す</li>
+<li>EEVEEで書き出し、Cyclesとの違いを比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>Blenderは無料（オープンソース）。DLSSデノイザーはNVIDIA GPUが必要。</p>
+<div class="meta">実践可能性：高：無料でダウンロードでき、手元にスプラットのファイルがあればすぐ試せる。<br>信頼性：Blender公式のプレスリリースと5.3のリリースノートで確認。候補の要約にあった「5.2 LTS」の記述は本文と食い違うため、本文の5.3を採用。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>

@@ -82,3 +82,8 @@ def test_dates_outside_range_are_fatal(draft, candidates, monkeypatch):
     validate.check_dates(draft, candidates, p)
     assert any("outside the allowed range" in e for e in p.errors)
     assert draft["news"][1]["publisher"] == "Anthropic"
+
+
+def test_use_idea_is_required(draft, candidates, cfg, topics):
+    draft["news"][0].pop("use_idea")
+    assert any("use_idea" in e for e in errors(draft, candidates, cfg, topics))

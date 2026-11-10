@@ -29,7 +29,8 @@ def _news(i: int, cid: str, url: str, corner: str) -> dict:
         "points": ["要点A", "要点B"], "details": ["説明A", None], "summary": "要約。", "whats_new": "新しい点。",
         "why_important": "重要な理由。", "difference": "従来との違い。", "technical_points": ["仕組み"],
         "terms": "無料（公式ページで確認）", "feasibility": "高：すぐ試せる", "reliability": "公式ブログで確認",
-        "applications": ["個人開発への応用"], "quick_try": _task(),
+        "applications": ["個人開発への応用"], "use_idea": "毎朝のメモを要約して、やることリストに変える。",
+        "quick_try": _task(),
         "build_idea": {"title": "発展", "description": "説明", "time": "2時間", "steps": ["a", "b", "c"]},
         "lines": [_line(f"ニュース{i}の一文目です。"), _line(f"ニュース{i}の二文目です。")],
     }

@@ -98,6 +98,7 @@
 | `news[].corner` | `news`（最新AIニュース）・`practice`（エンジニアの実践ノウハウ）・`creative`（クリエイティブAI）・`experiment`（今日の実験） |
 | `news[].guide` | ガイド内のそのニュースの位置（`guides/<日付>.html#news-1`）。ニュース欄の「実践ガイドで手順を見る」 |
 | `news[].name` | `experiment` のときの実験の名前 |
+| `news[].idea` | 「こう使うと面白い」の一言（通知メールにも載る） |
 | 話す文の `speaker` | （任意）`main` / `sub`。`config/settings.yaml` の `tts.voices` の声で読む。2人のキャスターの会話に使う |
 | `tts` | 声を作ったときの記録（`provider`、`chars`、`voice`） |
 

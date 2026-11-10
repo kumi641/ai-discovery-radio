@@ -11,11 +11,8 @@ on:
         description: "今日の回がすでにあっても作り直す"
         type: boolean
         default: false
-  # 07:00 JST: a Claude Code cloud routine pushes an empty commit to this branch (GitHub's own schedule
-  # can be late or skipped). Every job checks out main, so the trigger commit never reaches main, and the
-  # gate skips a day that is already released (no remake, no second release).
-  push:
-    branches: ["claude/broadcast-trigger"]
+  # 07:00 JST: a Claude Code cloud routine pushes to claude/broadcast-trigger and kick.yml starts this
+  # workflow as a manual run on main. The gate skips a day that is already released (no remake).
 
 concurrency:
   group: broadcast
