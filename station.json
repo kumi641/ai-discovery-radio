@@ -19,7 +19,7 @@
  "character": {
   "pack": "character/character.json",
   "thumbnail": "character/base.png",
-  "note": "この局のオリジナルキャラクターです"
+  "note": "AI（Codex）で生成したキャラクターです"
  },
  "credits": [
   "声：Microsoft Azure AI Speech（ja-JP-NanamiNeural・合成音声）",

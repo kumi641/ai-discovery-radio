@@ -4,6 +4,13 @@
  "size": [896, 768],
  "background": "#161a26",
  "base": "base.png",
- "parts": {},
- "note": "1 枚絵のみ（口・まばたきの差分なし）。差分を足す方法は docs/character.md"
+ "parts": {
+  "mouth_half": {"src": "mouth_half.png", "x": 414, "y": 251},
+  "mouth_open": {"src": "mouth_open.png", "x": 414, "y": 251},
+  "blink": {"src": "blink.png", "x": 326, "y": 169}
+ },
+ "mouth": {"1": "mouth_half", "2": "mouth_open"},
+ "eye": {"blink": "blink"},
+ "expressions": {"smile": {"mouth": "mouth_open"}},
+ "note": "AI（Codex）で生成したキャラクター。base.png は口を閉じた絵、差分は Codex で同じ絵の口・目だけを描き変えて切り出したもの"
 }
