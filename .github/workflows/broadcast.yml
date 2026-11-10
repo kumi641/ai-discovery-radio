@@ -11,10 +11,11 @@ on:
         description: "今日の回がすでにあっても作り直す"
         type: boolean
         default: false
-  # fired at 07:00 JST by a Claude Code cloud routine (GitHub's own schedule can be late or skipped);
-  # never forces a remake: the gate skips a day that is already released
-  repository_dispatch:
-    types: [broadcast]
+  # 07:00 JST: a Claude Code cloud routine pushes an empty commit to this branch (GitHub's own schedule
+  # can be late or skipped). Every job checks out main, so the trigger commit never reaches main, and the
+  # gate skips a day that is already released (no remake, no second release).
+  push:
+    branches: ["claude/broadcast-trigger"]
 
 concurrency:
   group: broadcast
@@ -36,7 +37,7 @@ jobs:
       fix_attempts: ${{ steps.gate.outputs.fix_attempts }}
     steps:
       - uses: actions/checkout@v5
-        with: {persist-credentials: false}
+        with: {ref: main, persist-credentials: false}
       - uses: actions/setup-python@v6
         with: {python-version: "3.13"}
       - run: pip install -q PyYAML==6.0.3
@@ -61,7 +62,7 @@ jobs:
       attempt: ${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v5
-        with: {persist-credentials: false}
+        with: {ref: main, persist-credentials: false}
       - uses: actions/setup-python@v6
         with: {python-version: "3.13", cache: pip}
       - run: pip install -q -r requirements.txt
@@ -154,6 +155,7 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v5
+        with: {ref: main}   # always the main branch, whatever started the run
       - uses: actions/setup-python@v6
         with: {python-version: "3.13", cache: pip}
       - run: pip install -q -r requirements.txt
