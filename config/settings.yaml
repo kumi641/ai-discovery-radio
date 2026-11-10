@@ -1,0 +1,58 @@
+# AI Discovery & Build Radio — 動作設定
+# ここを書き換えるだけで、放送時刻・番組の長さ・音声・上限値を変えられます。
+
+timezone: Asia/Tokyo
+
+schedule:
+  # 放送を作り始める時刻（timezone の時刻）。GitHub Actions は毎時起動し、この時刻を過ぎていて
+  # その日の回がまだ無ければ制作を始めます。
+  time: "07:00"
+  # 失敗したときに、何時間後まで毎時リトライしてよいか（= 1日の最大試行回数）
+  retry_hours: 3
+
+collect:
+  window_hours: 48          # 新着として扱う範囲
+  backfill_days: 7          # 新着が少ない日に「過去の重要情報」として遡る範囲
+  min_fresh_candidates: 8   # 新着がこれ未満なら backfill を足す
+  max_candidates: 60        # Claude に渡す候補の上限（関連度順）
+  per_source_limit: 10      # 1 つの情報源から取る件数の上限
+  timeout_sec: 20
+  user_agent: "AIDiscoveryRadio/0.1 (+https://github.com/; personal news digest; respects robots.txt)"
+
+program:
+  target_minutes: 9
+  min_news: 3               # これ未満しか選べない日は、番組を短くする（0〜2 件なら失敗にして公開しない）
+  max_news: 6
+  max_per_publisher: 2      # 同じ発表元を何件まで採るか（偏り防止）
+  say_chars_min: 1200       # 読み上げ文字数の下限（ニュースが少ない日の短縮版）
+  say_chars_max: 4200       # 上限（音声枠を守るための安全装置）
+
+claude:
+  # 台本生成に使うモデル。Claude Max の利用枠で動きます（CLAUDE_CODE_OAUTH_TOKEN）。
+  model: claude-opus-5-5
+  max_turns: 80
+  timeout_minutes: 30
+  fix_attempts: 1           # JSON が壊れていたとき、修正を頼む回数
+
+tts:
+  provider: azure            # azure / fake（fake は無音の音声で動作確認するためのもの）
+  voices:
+    main: ja-JP-NanamiNeural # 1 人目のキャスター
+    sub: ja-JP-KeitaNeural   # 将来の 2 人目（台本の各文に "speaker": "sub" を付けると使われる）
+  rate: "+8%"
+  output_format: riff-24khz-16bit-mono-pcm
+  min_interval_sec: 3.3      # F0 の上限は 60 秒に 20 回。1 文ずつ合成するので間隔を空ける
+  max_retries: 3
+  request_timeout_sec: 60
+  lead_sec: 0.6
+  gap_line_sec: 0.25
+  gap_part_sec: 0.9
+  tail_sec: 0.6
+  mp3_bitrate: 64k
+  # 独自の安全上限（Azure F0 の無料枠は月 50 万文字）。これを超える回は作らずに止まる。
+  # 数え方は安全側：日本語など ASCII 以外の文字は 1 字を 2 と数える（約 3,500 字の回 ≒ 7,000）。
+  monthly_char_limit: 300000
+  per_episode_char_limit: 10000
+
+publish:
+  verify_timeout_sec: 600    # GitHub Pages に反映されるまで待つ最大秒数
