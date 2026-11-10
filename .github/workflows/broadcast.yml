@@ -11,6 +11,10 @@ on:
         description: "今日の回がすでにあっても作り直す"
         type: boolean
         default: false
+  # fired at 07:00 JST by a Claude Code cloud routine (GitHub's own schedule can be late or skipped);
+  # never forces a remake: the gate skips a day that is already released
+  repository_dispatch:
+    types: [broadcast]
 
 concurrency:
   group: broadcast
