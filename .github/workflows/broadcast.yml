@@ -65,6 +65,16 @@ jobs:
           name: candidates-${{ needs.gate.outputs.date }}
           path: work/candidates.json
           retention-days: 14
+      # checks only the shape of the token (prefix, no line breaks); the value itself is never printed
+      - name: Check the Claude token format
+        env:
+          TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          ok=true
+          [[ "$TOKEN" == sk-ant-oat01-* ]] || { echo "::error::CLAUDE_CODE_OAUTH_TOKEN does not start with sk-ant-oat01- (paste only the token printed by 'claude setup-token')"; ok=false; }
+          [[ "$TOKEN" =~ [[:space:]] ]] && { echo "::error::CLAUDE_CODE_OAUTH_TOKEN contains a space or line break (the terminal wrapped it; join it into one line)"; ok=false; }
+          $ok && echo "token format OK"
+          $ok
       - name: Claude edits the show
         uses: anthropics/claude-code-action@v1
         timeout-minutes: ${{ fromJSON(needs.gate.outputs.timeout) }}
