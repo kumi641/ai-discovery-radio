@@ -38,5 +38,53 @@
   "publisher": "Zenn",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+  "title": "Google、最上位モデルGemini 4 CarbonをGemini API有料枠などで一般公開。GitHub Copilotでも利用可能に",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/",
+  "title": "NVIDIA、待機中のエージェントを保存・復元して高密度に動かすKubernetes向けOSS「Agent Substrate」を紹介",
+  "publisher": "NVIDIA",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
+  "title": "Simon Willisonが引用：Claude Fable 5.2は「コードの持ち主」の書き方に強く反応する（Anthropic公式プロンプトガイド）",
+  "publisher": "Simon Willison",
+  "corner": "practice",
+  "experiment": "「コードはあなたのもの」の一文でA/B比較"
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://github.com/GoogleChrome/modern-web-guidance",
+  "title": "GoogleChrome、コーディングエージェントを最新のWeb標準へ導くスキル集「modern-web-guidance」を公開",
+  "publisher": "Hacker News",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review",
+  "title": "Zenn：Claude Codeのskillとサブエージェントだけで「境界をまたぐ不整合」を探すレビューを組んだ記録",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://www.blender.org/press/blender-5-3-release/",
+  "title": "Blender 5.3リリース：3D Gaussian Splatsにネイティブ対応、Vulkanが既定に、VSEにOpenTimelineIO初期対応",
+  "publisher": "Blender",
+  "corner": "creative",
+  "experiment": null
  }
 ]
