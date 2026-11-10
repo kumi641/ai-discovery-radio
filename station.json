@@ -19,12 +19,11 @@
  "character": {
   "pack": "character/character.json",
   "thumbnail": "character/base.png",
-  "note": "AIで生成したキャラクターです（ものラジオ / myradio テンプレートのキャラクター）"
+  "note": "この局のオリジナルキャラクターです"
  },
  "credits": [
   "声：Microsoft Azure AI Speech（ja-JP-NanamiNeural・合成音声）",
-  "台本：Claude（公開情報をもとにAIが作成）",
-  "キャラクター：myradio（ものラジオ）"
+  "台本：Claude（公開情報をもとにAIが作成）"
  ],
  "caster": "声：Azure AI Speech（合成音声）",
  "audio": {

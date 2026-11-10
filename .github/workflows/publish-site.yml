@@ -1,0 +1,37 @@
+name: publish-site
+
+# Re-publish GitHub Pages from main without making a new episode
+# (after changing the character, the player or the design). Keeps the recent audio on gh-pages.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: broadcast
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: {python-version: "3.13"}
+      - name: Keep the recent audio already on gh-pages
+        run: |
+          mkdir -p audio
+          if git fetch -q --depth=1 origin gh-pages; then
+            mkdir -p /tmp/old && git archive FETCH_HEAD audio 2>/dev/null | tar -x -C /tmp/old || true
+            [ -d /tmp/old/audio ] && cp -n /tmp/old/audio/* audio/ || true
+          fi
+          ls audio
+      - name: Publish
+        env:
+          PUBLISH_REMOTE: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          bash tools/publish.sh

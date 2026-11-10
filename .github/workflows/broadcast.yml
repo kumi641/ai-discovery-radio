@@ -197,12 +197,20 @@ jobs:
       - name: GitHub Release (e-mail notification)
         run: |
           python -m radio.site release-notes "$DATE" > /tmp/notes.md
+          TITLE=$(python -m radio.notify "$DATE" --dry-run | head -n 1)   # 【AIラジオ】11/10(火) タイトル
           if gh release view "ep-$DATE" >/dev/null 2>&1; then
-            gh release edit "ep-$DATE" --notes-file /tmp/notes.md
+            gh release edit "ep-$DATE" --title "$TITLE" --notes-file /tmp/notes.md
           else
-            TITLE=$(python -m radio.site title "$DATE")
-            gh release create "ep-$DATE" --target main --title "$DATE $TITLE" --notes-file /tmp/notes.md
+            gh release create "ep-$DATE" --target main --title "$TITLE" --notes-file /tmp/notes.md
           fi
+      - name: Gmail notification (when GMAIL_ADDRESS / GMAIL_APP_PASSWORD are set)
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+        run: |
+          if [ -z "$GMAIL_ADDRESS" ] || [ -z "$GMAIL_APP_PASSWORD" ]; then echo "Gmail secrets not set: skipped (GitHub Release mail only)"; exit 0; fi
+          python -m radio.notify "$DATE"
       - name: Save TTS usage even when the run failed
         if: failure()
         run: |
