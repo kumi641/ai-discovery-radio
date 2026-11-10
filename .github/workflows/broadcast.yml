@@ -51,6 +51,10 @@ jobs:
     if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    outputs:
+      # artifacts carry the attempt number, so a re-run never mixes files from two collections;
+      # publish reads this (kept when only the publish job is re-run)
+      attempt: ${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v5
         with: {persist-credentials: false}
@@ -62,7 +66,7 @@ jobs:
       # saved before Claude runs: the publish job checks the draft against this copy, which Claude cannot touch
       - uses: actions/upload-artifact@v4
         with:
-          name: candidates-${{ needs.gate.outputs.date }}
+          name: candidates-${{ needs.gate.outputs.date }}-a${{ github.run_attempt }}
           path: work/candidates.json
           retention-days: 14
       # checks only the shape of the token (prefix, no line breaks); the value itself is never printed
@@ -126,7 +130,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: draft-${{ needs.gate.outputs.date }}
+          name: draft-${{ needs.gate.outputs.date }}-a${{ github.run_attempt }}
           path: |
             work/draft.json
             work/validation.txt
@@ -152,11 +156,11 @@ jobs:
       - run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
       - uses: actions/download-artifact@v4
         with:
-          name: draft-${{ needs.gate.outputs.date }}
+          name: draft-${{ needs.gate.outputs.date }}-a${{ needs.generate.outputs.attempt }}
           path: work
       - uses: actions/download-artifact@v4
         with:
-          name: candidates-${{ needs.gate.outputs.date }}
+          name: candidates-${{ needs.gate.outputs.date }}-a${{ needs.generate.outputs.attempt }}
           path: work
       - name: Verify sources, dates and links
         run: python -m radio.validate --expect-date "$DATE"
