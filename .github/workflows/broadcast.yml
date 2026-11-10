@@ -80,6 +80,16 @@ jobs:
             --max-turns ${{ needs.gate.outputs.max_turns }}
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
             --disallowedTools "Bash"
+      # the action hides Claude's output; on failure show only the final error text (no prompts, no secrets)
+      - name: Show why Claude stopped
+        if: failure()
+        run: |
+          f="$RUNNER_TEMP/claude-execution-output.json"
+          [ -f "$f" ] || { echo "no execution log"; exit 0; }
+          jq -r '[.[] | select(.type == "result")] | last | "is_error=\(.is_error) subtype=\(.subtype) turns=\(.num_turns)\nresult: \(.result // "-" | tostring | .[0:600])"' "$f" \
+            | sed -E 's/sk-ant-[A-Za-z0-9_-]+/[REDACTED]/g'
+          jq -r '[.[] | select(.type == "assistant") | .message.content[]? | select(.type == "text") | .text] | last // "-" | .[0:600]' "$f" \
+            | sed -E 's/sk-ant-[A-Za-z0-9_-]+/[REDACTED]/g'
       - name: Check the draft (structure)
         id: schema
         continue-on-error: true
