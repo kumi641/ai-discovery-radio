@@ -1,1 +1,42 @@
-[]
+[
+ {
+  "date": "2026-11-10",
+  "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+  "title": "Anthropic、Claude Fable 5.2 と Claude Mythos 5.2 を発表",
+  "publisher": "Hacker News",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.321",
+  "title": "Claude Code v2.1.321：Fable 5.2 を既定のFableに、MCP OAuthやサンドボックスの修正",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://simonwillison.net/2026/Nov/9/details-summary/",
+  "title": "Simon Willison：エージェントが書いたPR説明を <details><summary> に隠し、人が選んだ短い冒頭を置く",
+  "publisher": "Simon Willison",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240",
+  "title": "Zenn：新人にClaude Codeを渡すための制限付き起動ラッパーと権限設計（--restrictedは社内名）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "denyルールで .env を本当に読ませないか検証する"
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://zenn.dev/okzaq/articles/claude-code-lowpoly-image",
+  "title": "Zenn：画像を出力できないClaude Codeに、PythonのCPUレンダラーでローポリの絵を描かせる",
+  "publisher": "Zenn",
+  "corner": "creative",
+  "experiment": null
+ }
+]
