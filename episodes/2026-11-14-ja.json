@@ -1,0 +1,822 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-14",
+ "title": "Claude Codeの安全設定と、MCPの握手を手で試す",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。今日は十一月十四日です。",
+   "show": "AI Discovery & Build Radio　2026年11月14日"
+  },
+  {
+   "say": "今日いちばん大事なのは、クロード コードの安全の設定が少し変わったことです。",
+   "show": "最重要：Claude Codeの安全設定が変更"
+  },
+  {
+   "say": "ほかに、ギットハブ コパイロットで使えなくなるモデルの予告と、エーアイに「指示」と「資料」を分けて渡す新しい書き方を紹介します。",
+   "show": "Copilotのモデル整理／指示と資料を分けるLLMON"
+  },
+  {
+   "say": "後半は、エムシーピーという、エーアイに道具をつなぐ仕組みがつながらないときの調べ方です。今日の実験もこれを手で試します。",
+   "show": "後半：MCPがつながらないときの調べ方"
+  }
+ ],
+ "news": [
+  {
+   "label": "Claude Code 安全設定の変更",
+   "points": [
+    "囲いの中でも確認が基本に",
+    "定期実行のスキルも確認",
+    "許可ルールの穴を修正",
+    "長い答えの途切れを改善"
+   ],
+   "details": [
+    "サンドボックス内のBashコマンドも、既定で通常の許可確認を通るようになった。今までどおり確認なしにするには sandbox.autoAllowBashIfSandboxed を true にする。",
+    "定期実行や /loop で、allowed-tools やフックを持つスキルを動かす前に確認が入る。無人で動かすなら permissions.allow に Skill(名前) を追加する。",
+    "Read(./.env) のような相対パスの禁止ルールが cd の後に効かなくなる問題や、一部の複合コマンドが確認なしで動く穴などを修正。",
+    "出力の上限で途切れたサブエージェントに、答え全体をもう一度短く出させるようになった。"
+   ],
+   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+   "lines": [
+    {
+     "say": "まずはクロード コードの新しい版です。安全の設定が、より慎重な方向に変わりました。",
+     "show": "Claude Code v2.1.325：安全設定がより慎重に"
+    },
+    {
+     "say": "サンドボックスとは、コマンドを囲いの中に閉じ込めて動かす仕組みです。",
+     "show": "サンドボックス＝コマンドを囲いの中で動かす仕組み"
+    },
+    {
+     "say": "これまでは、囲いの中のコマンドなら確認なしで動いていました。今回から、ふつうと同じように確認が入ります。",
+     "show": "囲いの中のコマンドも、既定で確認が入る"
+    },
+    {
+     "say": "前のように確認なしにしたい人は、設定で自分で選べます。",
+     "show": "確認なしに戻す設定も用意"
+    },
+    {
+     "say": "決まった時間に自動で動かす作業でも、スキルという手順書を動かす前に確認が入るようになりました。",
+     "show": "定期実行のスキルも、実行前に確認"
+    },
+    {
+     "say": "ほかにも、禁止ルールがすり抜けてしまう穴が、いくつも直されています。",
+     "show": "許可ルールの抜け穴も多数修正"
+    },
+    {
+     "say": "たとえば、自動の作業のうち本当に確認なしでいいものだけを書き出して許可すると、安全さと手軽さのちょうどいい線が見つかって面白いですよ。",
+     "show": "使い方：確認なしでよい作業だけを許可リストに"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+    "title": "Release v2.1.325 · anthropics/claude-code",
+    "site": "GitHub",
+    "description": "What's changed\n\nFixed a security issue in how zstd-compressed responses are decoded\nAdded a spinner tip in VS Code and similar integrated terminals about re-running a notebook cell, shown once Clau...",
+    "image": "https://opengraph.githubassets.com/ca414a63fb742e07df3b58de50ceef171f71b798d2612e6065dc31ed18aad7f5/anthropics/claude-code/releases/tag/v2.1.325",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "news",
+   "idea": "自動で動かしている作業のうち「本当に確認なしでいいもの」だけを書き出して許可リストに入れると、安全さと手軽さのちょうどいい線が見つかって面白いです。",
+   "guide": "guides/2026-11-14.html#news-1"
+  },
+  {
+   "label": "Copilot 12月にモデル整理",
+   "points": [
+    "12月14日に6モデル終了",
+    "代わりのモデルを明記",
+    "設定や自動化を見直す"
+   ],
+   "details": [
+    "Copilot のチャット、エージェントモード、コード補完など、すべての場面で使えなくなる。",
+    "Claude Fable 5→Fable 5.2、Claude Haiku 4.5→Haiku 5.5、Gemini 3.8 Flash→Gemini 4 Hydrogen、Gemini 4 Argon→Gemini 4 Carbon、Grok 4.6→4.7。Kimi K3 の代わりは未定。",
+    "GitHub は、終了日までに作業の流れや連携を対応モデルに切り替えるよう呼びかけている。"
+   ],
+   "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
+   "lines": [
+    {
+     "say": "次はギットハブ コパイロットです。十二月十四日に、六つのモデルが使えなくなります。",
+     "show": "GitHub Copilot：12月14日に6モデル終了"
+    },
+    {
+     "say": "たとえばクロード フェイブル ファイブは、フェイブル ファイブ ポイント ツーに切り替えるよう案内されています。",
+     "show": "Claude Fable 5 → Fable 5.2 など"
+    },
+    {
+     "say": "ジェミニ フォー アルゴンは、ジェミニ フォー カーボンが代わりです。",
+     "show": "Gemini 4 Argon → Gemini 4 Carbon"
+    },
+    {
+     "say": "チャットでも、自動で作業するエージェントモードでも、補完でも使えなくなります。",
+     "show": "チャット・エージェント・補完のすべてで終了"
+    },
+    {
+     "say": "モデルの名前を設定に書いている人は、それまでに書き換えておきましょう。",
+     "show": "設定に書いたモデル名を早めに書き換え"
+    },
+    {
+     "say": "たとえば、古いモデルと新しいモデルに同じお願いをして答えを比べておくと、乗り換え後の違いがすぐ分かって面白いですよ。",
+     "show": "使い方：新旧モデルに同じお願いをして比べる"
+    }
+   ],
+   "link": {
+    "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
+    "title": "Upcoming deprecation of selected GitHub Copilot models in December - GitHub Changelog",
+    "site": "The GitHub Blog",
+    "description": "We will deprecate the following models across all GitHub Copilot experiences (including Copilot Chat, inline edits, ask and agent modes, and code completions) on December 14, 2026: Model Deprecation date…",
+    "image": "https://github.blog/wp-content/uploads/2026/11/645867806-878ea927-48c9-4765-a896-4a5f3d7b8f2e.jpg",
+    "icon": "https://github.githubassets.com/favicon.ico"
+   },
+   "corner": "news",
+   "idea": "終了するモデルと代わりのモデルに同じお願いをして、答えの違いをメモしておくと、乗り換えた後に「何が変わったか」がすぐ分かって面白いです。",
+   "guide": "guides/2026-11-14.html#news-2"
+  },
+  {
+   "label": "指示と資料を分ける LLMON",
+   "points": [
+    "指示と資料をタグで区別",
+    "資料の中の命令に従いにくく",
+    "3Bと8Bの試作モデルで試せる"
+   ],
+   "details": [
+    "AIに渡す文章を「指示」「資料」「条件」に分けて印をつけ、どの指示をどの資料に使うかを結びつける。",
+    "資料や道具の結果は「読む材料」で「命令」ではない、と学習させてある。ただし保証ではなく、学習で身につけた振る舞い。",
+    "ibm-granite/granite-4.1-3b-llmon-preview と 8b の2つ。本番向けではない試作版で、ライセンスはApache 2.0。"
+   ],
+   "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
+   "lines": [
+    {
+     "say": "三つめは、アイビーエムが公開した、エルエルモンという新しい書き方です。",
+     "show": "IBM、LLMON（エルエルモン）を公開"
+    },
+    {
+     "say": "ひとことで言うと、エーアイに渡す文章の中で、どこが指示で、どこが資料かをはっきり分ける書き方です。",
+     "show": "指示と資料をはっきり分ける書き方"
+    },
+    {
+     "say": "エーアイにメールを読ませると、メールの中の「前の指示を無視して」という文に従ってしまうことがあります。",
+     "show": "資料の中の命令に従ってしまう問題"
+    },
+    {
+     "say": "エルエルモンでは、指示と資料と条件に別々の印をつけて、資料はあくまで読む材料だと教えています。",
+     "show": "資料＝読む材料、命令ではない"
+    },
+    {
+     "say": "ただし、これは学習で身につけた振る舞いで、絶対の保証ではないと記事は書いています。",
+     "show": "学習による振る舞いで、保証ではない"
+    },
+    {
+     "say": "対応する小さな試作モデルが二つ、ハギングフェイスで公開されています。",
+     "show": "Granite 4.1 3B／8B の試作モデルで試せる"
+    },
+    {
+     "say": "たとえば、わざと命令をまぜたメールを読ませて、ふつうの書き方と比べると、自分のエージェントの弱点が見えて面白いですよ。",
+     "show": "使い方：命令入りメールで書き方を比べる"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
+    "title": "LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B",
+    "site": "huggingface.co",
+    "description": "A Blog post by IBM Granite on Hugging Face",
+    "image": "https://cdn-uploads.huggingface.co/production/uploads/6484ca4d5ff9a3d2ee52a83b/6KFZDHIJkxpICiErHLqAw.gif",
+    "icon": null
+   },
+   "corner": "news",
+   "idea": "わざと「前の指示を無視して」と書いたメールを資料として渡し、ふつうの書き方と LLMON の書き方でAIの反応を比べると、自分のエージェントの弱点が見えて面白いです。",
+   "guide": "guides/2026-11-14.html#news-3"
+  },
+  {
+   "label": "MCP接続切れの調べ方",
+   "points": [
+    "エラーは原因を教えない",
+    "手で起動して確かめる",
+    "ログは標準エラーへ"
+   ],
+   "details": [
+    "Connection closed は、やりとりの途中で接続が閉じたことを示すだけで、理由までは分からない。",
+    "Claude Code を通さず、設定の command と args をそのままターミナルで動かし、すぐ終わるか・待つか・文字を出すかを見る。",
+    "stdio 型のサーバーは、標準出力に MCP のメッセージ以外を書いてはいけない。print のログが混ざると接続が切れる原因になる。"
+   ],
+   "url": "https://qiita.com/homhom44/items/babc6175e2b52d156949",
+   "lines": [
+    {
+     "say": "ここからは、エンジニアの実践ノウハウです。",
+     "show": "エンジニアの実践ノウハウ"
+    },
+    {
+     "say": "エムシーピーのサーバーが、つながったと思ったら切れる。そんなときの調べ方を、キータの記事から紹介します。",
+     "show": "MCPが「Connection closed」で切れるときの調べ方"
+    },
+    {
+     "say": "エムシーピーは、エーアイに外の道具をつなぐための共通の決まりです。",
+     "show": "MCP＝AIに道具をつなぐ共通の決まり"
+    },
+    {
+     "say": "結論は、クロード コードを通さずに、サーバーを手で起動して確かめることです。",
+     "show": "結論：サーバーを手で起動して確かめる"
+    },
+    {
+     "say": "よくある原因は、動作の記録を、本来やりとり専用の出口に書いてしまうことです。",
+     "show": "よくある原因：ログを標準出力に出している"
+    },
+    {
+     "say": "仕様でも、この出口にはエムシーピーのメッセージ以外を書いてはいけないと決まっています。記録は別の出口に出します。",
+     "show": "標準出力はMCPのメッセージ専用。ログは標準エラーへ"
+    },
+    {
+     "say": "たとえば、点検用のコマンドを一行用意しておくと、つながらないときにすぐ原因の場所が分かって便利ですよ。",
+     "show": "使い方：点検コマンドを1行用意しておく"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/homhom44/items/babc6175e2b52d156949",
+    "title": "Claude Code で \"MCP error -32000: Connection closed\" / \"Failed to reconnect to <server>\" が出たときの切り分け（stdout にログを出していないか、手で起動して確かめる） - Qiita",
+    "site": "Qiita",
+    "description": "Claude Code で MCP サーバをつないだら MCP error -32000: Connection closed や Failed to reconnect to と出て、ツールが使えない。そのときの切り分け手順です。 最初に断っておくと、こ...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRnMzLWFwLW5vcnRoZWFzdC0xLmFtYXpvbmF3cy5jb20lMkZxaWl0YS1pbWFnZS1zdG9yZSUyRjAlMkYxMzEzMTYlMkZmZGI0YmViYmNmZmM2N2VmODljNDMzZTc0ZjQzNjEwNGQ1YWUwMDM0JTJGbGFyZ2UucG5nJTNGMTc5MDUyODE5Mz9peGxpYj1yYi00LjEuMSZhcj0xJTNBMSZmaXQ9Y3JvcCZtYXNrPWVsbGlwc2UmYmc9RkZGRkZGJmZtPXBuZzMyJnM9NTRkNzZlODRiYzk4ODBhZjhlM2ViNjMwY2NlYzYyYjk%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3Db558c99d63a593a2c06c5d25864c250c?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9Q2xhdWRlJTIwQ29kZSUyMCVFMyU4MSVBNyUyMCUyMk1DUCUyMGVycm9yJTIwLTMyMDAwJTNBJTIwQ29ubmVjdGlvbiUyMGNsb3NlZCUyMiUyMCUyRiUyMCUyMkZhaWxlZCUyMHRvJTIwcmVjb25uZWN0JTIwdG8lMjAlM0NzZXJ2ZXIlM0UlMjIlMjAlRTIlODAlQTYmdHh0LWFsaWduPWxlZnQlMkN0b3AmdHh0LWNvbG9yPSUyMzFFMjEyMSZ0eHQtZm9udD1IaXJhZ2lubyUyMFNhbnMlMjBXNiZ0eHQtc2l6ZT01NiZ0eHQtcGFkPTAmcz05MjEyMDBkZmM3ZTMxOTE0YjAwYjU0ODkxNzM3MmEzYg&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBob21ob200NCZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPWZjZWJhNzlmZTU5ZWRkMjY3Y2IzNzYzYzgxZGQxM2M4&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=9637cd952debda9de18cd8807b9f6887",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "自作の MCP サーバーに「起動したら握手を試すだけの確認コマンド」を1行用意しておくと、つながらないときに5秒で原因の場所が分かって便利です。",
+   "guide": "guides/2026-11-14.html#news-4"
+  },
+  {
+   "label": "手順書は「貼る」「止める」",
+   "points": [
+    "指定しても読まれない",
+    "注意点は依頼文に貼る",
+    "2回起きた事故は機械で止める"
+   ],
+   "details": [
+    "ある2日間の記録では、指定した手順書が読まれたのは12回中2回だった。",
+    "依頼する側が、今回の作業に当てはまる注意点の本文を抜き出して依頼文に貼る。当てはまらなければ「該当なし」と書く。",
+    "同じ型の事故が同じ道すじで2回起きたら、人の注意ではなく、同期スクリプトや送信前のチェックで止める。"
+   ],
+   "url": "https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106",
+   "lines": [
+    {
+     "say": "次はゼンの記事です。クロード コードに手順書を読んでと指定しても、ほとんど読まれなかったという記録です。",
+     "show": "Zenn：手順書は指定しても読まれない"
+    },
+    {
+     "say": "結論は、注意点は読ませるのではなく、依頼文に直接貼るのが効いた、ということです。",
+     "show": "結論：注意点は依頼文に貼る"
+    },
+    {
+     "say": "ある二日間の記録では、指定した手順書が読まれたのは十二回中、二回だけでした。",
+     "show": "読まれたのは12回中2回"
+    },
+    {
+     "say": "貼った注意点は、手順書が読まれなくても守られました。",
+     "show": "貼った注意点は守られた"
+    },
+    {
+     "say": "そして、同じ失敗が二回起きたら、人の注意に頼らず、機械のチェックで止めるようにしたそうです。",
+     "show": "2回起きた失敗は、機械のチェックで止める"
+    },
+    {
+     "say": "たとえば、よく頼む作業ごとに注意点を三つ用意して毎回貼ると、失敗が減るか試せて面白いですよ。",
+     "show": "使い方：作業ごとに注意点3つを貼る"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106",
+    "title": "Claude Codeの手順書は、指定しても読まれない——教訓を「読ませる」から「貼る」「止める」へ変えた3か月の記録",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--geA_JqQ8--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Claude%2520Code%25E3%2581%25AE%25E6%2589%258B%25E9%25A0%2586%25E6%259B%25B8%25E3%2581%25AF%25E3%2580%2581%25E6%258C%2587%25E5%25AE%259A%25E3%2581%2597%25E3%2581%25A6%25E3%2582%2582%25E8%25AA%25AD%25E3%2581%25BE%25E3%2582%258C%25E3%2581%25AA%25E3%2581%2584%25E2%2580%2594%25E2%2580%2594%25E6%2595%2599%25E8%25A8%2593%25E3%2582%2592%25E3%2580%258C%25E8%25AA%25AD%25E3%2581%25BE%25E3%2581%259B%25E3%2582%258B%25E3%2580%258D%25E3%2581%258B%25E3%2582%2589%25E3%2580%258C%25E8%25B2%25BC%25E3%2582%258B%25E3%2580%258D%25E3%2580%258C%25E6%25AD%25A2%25E3%2582%2581%25E3%2582%258B%25E3%2580%258D%25E3%2581%25B8%25E5%25A4%2589%25E3%2581%2588%25E3%2581%259F3%25E3%2581%258B%25E6%259C%2588%25E3%2581%25AE%25E8%25A8%2598%25E9%258C%25B2%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:saitoko%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyL2UyOTg5NmFhMzguanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "よく頼む作業ごとに「注意点3つ」を短く用意して、依頼のたびに最後に貼ると、長い手順書を読ませるより失敗が減るか試せて面白いです。",
+   "guide": "guides/2026-11-14.html#news-5"
+  },
+  {
+   "label": "3D生成を自分好みに学習",
+   "points": [
+    "画像から3Dを作るAIを追加学習",
+    "形の部分だけを学習",
+    "コードと学習済みデータを公開"
+   ],
+   "details": [
+    "TRELLIS.2 という、画像から3Dの形を作るAIに、自分の3Dデータを少し覚えさせる方法を解説。",
+    "LoRA（元のモデルに小さな追加部品をつけて学習する方法）で形を作る2つの部分だけを学習し、色の部分は固定した。",
+    "学習用のコード、準備済みのデータ、学習済みの追加部品が公開されている。"
+   ],
+   "url": "https://huggingface.co/blog/3d-lora-finetuning",
+   "lines": [
+    {
+     "say": "クリエイティブエーアイのコーナーです。",
+     "show": "クリエイティブAI"
+    },
+    {
+     "say": "画像から立体の形を作るエーアイを、自分の作品に合わせて学習させる方法が、ハギングフェイスのブログで公開されました。",
+     "show": "3D生成AIを自分のデータで追加学習する方法"
+    },
+    {
+     "say": "元のエーアイに小さな追加部品をつけて、その部品だけを学習させるやり方です。",
+     "show": "LoRA＝小さな追加部品だけを学習"
+    },
+    {
+     "say": "靴の立体データ百八十八個で学習したところ、学習に使っていない靴でも、形の再現がぐっと良くなりました。",
+     "show": "靴188個で学習、未学習の靴でも形が改善"
+    },
+    {
+     "say": "ただし、大きなグラフィックボードか、有料のクラウドが必要です。",
+     "show": "必要：24GB以上のGPUか有料クラウド"
+    },
+    {
+     "say": "今日は、自分ならどんなデータを集めるか、計画を立てるところから始めてみてください。",
+     "show": "まずはデータ集めの計画から"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/3d-lora-finetuning",
+    "title": "The Definitive Fine-Tuning Guide for 3D Generation Models",
+    "site": "huggingface.co",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "https://huggingface.co/blog/assets/3d-lora-finetuning/thumbnail.gif",
+    "icon": null
+   },
+   "corner": "creative",
+   "idea": null,
+   "guide": "guides/2026-11-14.html#news-6"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "サーバーを手で起動する",
+    "最初のあいさつを送って返事を見る",
+    "先頭がJSONなら合格",
+    "ログは標準エラーへ移す"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://qiita.com/homhom44/items/babc6175e2b52d156949",
+   "lines": [
+    {
+     "say": "今日の実験です。エムシーピーのサーバーに、最初のあいさつを手で送ってみましょう。",
+     "show": "今日の実験：MCPサーバーとの握手を手で試す"
+    },
+    {
+     "say": "エーアイと道具は、つながるとき、まず「はじめまして」にあたるあいさつを交わします。",
+     "show": "最初に initialize というあいさつを交わす"
+    },
+    {
+     "say": "このあいさつを、クロード コードの代わりに、ターミナルから一行のコマンドで送ります。",
+     "show": "ターミナルから1行で initialize を送る"
+    },
+    {
+     "say": "返ってきた答えの先頭が、決まった形のデータで始まっていれば合格です。",
+     "show": "返事の先頭がJSONなら合格"
+    },
+    {
+     "say": "先に別の文字が出ていたら、それが接続が切れる原因の候補です。その記録は別の出口に移しましょう。",
+     "show": "余計な文字はログ。標準エラーへ移す"
+    },
+    {
+     "say": "直したら、クロード コードで再接続して、つながったと表示されれば成功です。",
+     "show": "再接続して Connected なら成功"
+    },
+    {
+     "say": "コマンドは番組のページにあります。二十分ほどでできます。",
+     "show": "コマンドは番組ページに掲載・約20分"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/homhom44/items/babc6175e2b52d156949",
+    "title": "Claude Code で \"MCP error -32000: Connection closed\" / \"Failed to reconnect to <server>\" が出たときの切り分け（stdout にログを出していないか、手で起動して確かめる） - Qiita",
+    "site": "Qiita",
+    "description": "Claude Code で MCP サーバをつないだら MCP error -32000: Connection closed や Failed to reconnect to と出て、ツールが使えない。そのときの切り分け手順です。 最初に断っておくと、こ...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRnMzLWFwLW5vcnRoZWFzdC0xLmFtYXpvbmF3cy5jb20lMkZxaWl0YS1pbWFnZS1zdG9yZSUyRjAlMkYxMzEzMTYlMkZmZGI0YmViYmNmZmM2N2VmODljNDMzZTc0ZjQzNjEwNGQ1YWUwMDM0JTJGbGFyZ2UucG5nJTNGMTc5MDUyODE5Mz9peGxpYj1yYi00LjEuMSZhcj0xJTNBMSZmaXQ9Y3JvcCZtYXNrPWVsbGlwc2UmYmc9RkZGRkZGJmZtPXBuZzMyJnM9NTRkNzZlODRiYzk4ODBhZjhlM2ViNjMwY2NlYzYyYjk%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3Db558c99d63a593a2c06c5d25864c250c?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9Q2xhdWRlJTIwQ29kZSUyMCVFMyU4MSVBNyUyMCUyMk1DUCUyMGVycm9yJTIwLTMyMDAwJTNBJTIwQ29ubmVjdGlvbiUyMGNsb3NlZCUyMiUyMCUyRiUyMCUyMkZhaWxlZCUyMHRvJTIwcmVjb25uZWN0JTIwdG8lMjAlM0NzZXJ2ZXIlM0UlMjIlMjAlRTIlODAlQTYmdHh0LWFsaWduPWxlZnQlMkN0b3AmdHh0LWNvbG9yPSUyMzFFMjEyMSZ0eHQtZm9udD1IaXJhZ2lubyUyMFNhbnMlMjBXNiZ0eHQtc2l6ZT01NiZ0eHQtcGFkPTAmcz05MjEyMDBkZmM3ZTMxOTE0YjAwYjU0ODkxNzM3MmEzYg&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBob21ob200NCZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPWZjZWJhNzlmZTU5ZWRkMjY3Y2IzNzYzYzgxZGQxM2M4&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=9637cd952debda9de18cd8807b9f6887",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "experiment",
+   "name": "MCP サーバーとの握手を手で試す",
+   "guide": "guides/2026-11-14.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。クロード コードは、囲いの中のコマンドも確認してから動かす形に変わりました。",
+   "show": "要点1：Claude Codeは囲いの中でも確認が基本"
+  },
+  {
+   "say": "コパイロットでは、十二月十四日に六つのモデルが終わります。設定に書いたモデル名を見直しましょう。",
+   "show": "要点2：Copilotは12月14日に6モデル終了"
+  },
+  {
+   "say": "そして、エーアイには指示と資料を分けて渡す。注意点は読ませるより貼る。この二つも覚えておいてください。",
+   "show": "要点3：指示と資料は分ける／注意点は貼る"
+  },
+  {
+   "say": "今日やってみることは、エムシーピーのサーバーに、あいさつを手で送ってみることです。",
+   "show": "今日やること：MCPサーバーとの握手を手で試す"
+  },
+  {
+   "say": "エーアイ ディスカバリー アンド ビルド ラジオ、また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio　また明日"
+  }
+ ],
+ "highlight": 6,
+ "guide": "guides/2026-11-14.html",
+ "seconds": 417.949,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 9.0,
+   "show": "AI Discovery & Build Radio　2026年11月14日",
+   "part": 0
+  },
+  {
+   "start": 9.25,
+   "end": 15.35,
+   "show": "最重要：Claude Codeの安全設定が変更",
+   "part": 0
+  },
+  {
+   "start": 15.6,
+   "end": 25.873,
+   "show": "Copilotのモデル整理／指示と資料を分けるLLMON",
+   "part": 0
+  },
+  {
+   "start": 26.123,
+   "end": 36.342,
+   "show": "後半：MCPがつながらないときの調べ方",
+   "part": 0
+  },
+  {
+   "start": 37.242,
+   "end": 45.239,
+   "show": "Claude Code v2.1.325：安全設定がより慎重に",
+   "part": 1
+  },
+  {
+   "start": 45.489,
+   "end": 50.929,
+   "show": "サンドボックス＝コマンドを囲いの中で動かす仕組み",
+   "part": 1
+  },
+  {
+   "start": 51.179,
+   "end": 60.785,
+   "show": "囲いの中のコマンドも、既定で確認が入る",
+   "part": 1
+  },
+  {
+   "start": 61.035,
+   "end": 66.139,
+   "show": "確認なしに戻す設定も用意",
+   "part": 1
+  },
+  {
+   "start": 66.389,
+   "end": 74.293,
+   "show": "定期実行のスキルも、実行前に確認",
+   "part": 1
+  },
+  {
+   "start": 74.543,
+   "end": 80.226,
+   "show": "許可ルールの抜け穴も多数修正",
+   "part": 1
+  },
+  {
+   "start": 80.476,
+   "end": 91.238,
+   "show": "使い方：確認なしでよい作業だけを許可リストに",
+   "part": 1
+  },
+  {
+   "start": 92.138,
+   "end": 99.708,
+   "show": "GitHub Copilot：12月14日に6モデル終了",
+   "part": 2
+  },
+  {
+   "start": 99.958,
+   "end": 106.867,
+   "show": "Claude Fable 5 → Fable 5.2 など",
+   "part": 2
+  },
+  {
+   "start": 107.117,
+   "end": 111.503,
+   "show": "Gemini 4 Argon → Gemini 4 Carbon",
+   "part": 2
+  },
+  {
+   "start": 111.753,
+   "end": 117.748,
+   "show": "チャット・エージェント・補完のすべてで終了",
+   "part": 2
+  },
+  {
+   "start": 117.998,
+   "end": 123.519,
+   "show": "設定に書いたモデル名を早めに書き換え",
+   "part": 2
+  },
+  {
+   "start": 123.769,
+   "end": 133.558,
+   "show": "使い方：新旧モデルに同じお願いをして比べる",
+   "part": 2
+  },
+  {
+   "start": 134.458,
+   "end": 140.662,
+   "show": "IBM、LLMON（エルエルモン）を公開",
+   "part": 3
+  },
+  {
+   "start": 140.912,
+   "end": 149.068,
+   "show": "指示と資料をはっきり分ける書き方",
+   "part": 3
+  },
+  {
+   "start": 149.318,
+   "end": 157.325,
+   "show": "資料の中の命令に従ってしまう問題",
+   "part": 3
+  },
+  {
+   "start": 157.575,
+   "end": 165.892,
+   "show": "資料＝読む材料、命令ではない",
+   "part": 3
+  },
+  {
+   "start": 166.142,
+   "end": 173.015,
+   "show": "学習による振る舞いで、保証ではない",
+   "part": 3
+  },
+  {
+   "start": 173.265,
+   "end": 179.121,
+   "show": "Granite 4.1 3B／8B の試作モデルで試せる",
+   "part": 3
+  },
+  {
+   "start": 179.371,
+   "end": 188.745,
+   "show": "使い方：命令入りメールで書き方を比べる",
+   "part": 3
+  },
+  {
+   "start": 189.645,
+   "end": 193.407,
+   "show": "エンジニアの実践ノウハウ",
+   "part": 4
+  },
+  {
+   "start": 193.657,
+   "end": 202.476,
+   "show": "MCPが「Connection closed」で切れるときの調べ方",
+   "part": 4
+  },
+  {
+   "start": 202.726,
+   "end": 208.397,
+   "show": "MCP＝AIに道具をつなぐ共通の決まり",
+   "part": 4
+  },
+  {
+   "start": 208.647,
+   "end": 214.931,
+   "show": "結論：サーバーを手で起動して確かめる",
+   "part": 4
+  },
+  {
+   "start": 215.181,
+   "end": 222.123,
+   "show": "よくある原因：ログを標準出力に出している",
+   "part": 4
+  },
+  {
+   "start": 222.373,
+   "end": 231.965,
+   "show": "標準出力はMCPのメッセージ専用。ログは標準エラーへ",
+   "part": 4
+  },
+  {
+   "start": 232.215,
+   "end": 240.459,
+   "show": "使い方：点検コマンドを1行用意しておく",
+   "part": 4
+  },
+  {
+   "start": 241.359,
+   "end": 249.981,
+   "show": "Zenn：手順書は指定しても読まれない",
+   "part": 5
+  },
+  {
+   "start": 250.231,
+   "end": 257.28,
+   "show": "結論：注意点は依頼文に貼る",
+   "part": 5
+  },
+  {
+   "start": 257.53,
+   "end": 264.566,
+   "show": "読まれたのは12回中2回",
+   "part": 5
+  },
+  {
+   "start": 264.816,
+   "end": 269.434,
+   "show": "貼った注意点は守られた",
+   "part": 5
+  },
+  {
+   "start": 269.684,
+   "end": 277.423,
+   "show": "2回起きた失敗は、機械のチェックで止める",
+   "part": 5
+  },
+  {
+   "start": 277.673,
+   "end": 286.04,
+   "show": "使い方：作業ごとに注意点3つを貼る",
+   "part": 5
+  },
+  {
+   "start": 286.94,
+   "end": 289.787,
+   "show": "クリエイティブAI",
+   "part": 6
+  },
+  {
+   "start": 290.037,
+   "end": 299.493,
+   "show": "3D生成AIを自分のデータで追加学習する方法",
+   "part": 6
+  },
+  {
+   "start": 299.743,
+   "end": 306.316,
+   "show": "LoRA＝小さな追加部品だけを学習",
+   "part": 6
+  },
+  {
+   "start": 306.566,
+   "end": 315.453,
+   "show": "靴188個で学習、未学習の靴でも形が改善",
+   "part": 6
+  },
+  {
+   "start": 315.703,
+   "end": 321.062,
+   "show": "必要：24GB以上のGPUか有料クラウド",
+   "part": 6
+  },
+  {
+   "start": 321.312,
+   "end": 328.001,
+   "show": "まずはデータ集めの計画から",
+   "part": 6
+  },
+  {
+   "start": 328.901,
+   "end": 336.019,
+   "show": "今日の実験：MCPサーバーとの握手を手で試す",
+   "part": 7
+  },
+  {
+   "start": 336.269,
+   "end": 342.959,
+   "show": "最初に initialize というあいさつを交わす",
+   "part": 7
+  },
+  {
+   "start": 343.209,
+   "end": 349.725,
+   "show": "ターミナルから1行で initialize を送る",
+   "part": 7
+  },
+  {
+   "start": 349.975,
+   "end": 355.875,
+   "show": "返事の先頭がJSONなら合格",
+   "part": 7
+  },
+  {
+   "start": 356.125,
+   "end": 365.162,
+   "show": "余計な文字はログ。標準エラーへ移す",
+   "part": 7
+  },
+  {
+   "start": 365.412,
+   "end": 371.789,
+   "show": "再接続して Connected なら成功",
+   "part": 7
+  },
+  {
+   "start": 372.039,
+   "end": 377.569,
+   "show": "コマンドは番組ページに掲載・約20分",
+   "part": 7
+  },
+  {
+   "start": 378.469,
+   "end": 386.836,
+   "show": "要点1：Claude Codeは囲いの中でも確認が基本",
+   "part": 8
+  },
+  {
+   "start": 387.086,
+   "end": 395.593,
+   "show": "要点2：Copilotは12月14日に6モデル終了",
+   "part": 8
+  },
+  {
+   "start": 395.843,
+   "end": 405.576,
+   "show": "要点3：指示と資料は分ける／注意点は貼る",
+   "part": 8
+  },
+  {
+   "start": 405.826,
+   "end": 412.065,
+   "show": "今日やること：MCPサーバーとの握手を手で試す",
+   "part": 8
+  },
+  {
+   "start": 412.315,
+   "end": 417.349,
+   "show": "AI Discovery & Build Radio　また明日",
+   "part": 8
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 37.242
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 37.242,
+   "end": 92.138
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 92.138,
+   "end": 134.458
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 134.458,
+   "end": 189.645
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 189.645,
+   "end": 241.359
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 241.359,
+   "end": 286.94
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 286.94,
+   "end": 328.901
+  },
+  {
+   "kind": "news",
+   "index": 6,
+   "start": 328.901,
+   "end": 378.469
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 378.469,
+   "end": 417.949
+  }
+ ],
+ "made_at": "2026-11-14T07:39:27",
+ "tts": {
+  "provider": "azure",
+  "chars": 4690,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}
