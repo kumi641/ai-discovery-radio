@@ -86,5 +86,53 @@
   "publisher": "Blender",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
+  "title": "Google、日常のコーディングとエージェント作業向けの速いモデル「Gemini 4 Hydrogen」を発表",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+  "title": "Google、はい・いいえ／選択／採点に特化したGemini Decisions APIを公開（モデルはGemini Decision 1）",
+  "publisher": "Google",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.323",
+  "title": "Claude Code v2.1.323：権限チェックやサンドボックスの穴を多数修正、試験的なCode Modeを追加、未知のモデルは1M扱いに",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/",
+  "title": "GitHub Blog：エージェントスキルの実践ガイド。手順はファイルで共有し、道具や権限は実行する側が用意する",
+  "publisher": "GitHub",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review",
+  "title": "Zenn：Claude Codeのauto memoryを見返させて整理したら、MEMORY.mdが146行→122行になり、終わった予約を答えに出さなくなった",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "Claude Codeの記憶の大そうじ"
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.com/huggingface/diffusers/releases/tag/v0.43.0",
+  "title": "Diffusers 0.43.0：MiniMax-H3-Image、Pika H3 Flex、P-H3-Image、Kandinsky S2V、PAN 2の5つのモデルに対応",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
  }
 ]
