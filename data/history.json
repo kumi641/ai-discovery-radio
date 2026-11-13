@@ -1,0 +1,186 @@
+[
+ {
+  "date": "2026-11-10",
+  "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+  "title": "Anthropic、Claude Fable 5.2 と Claude Mythos 5.2 を発表",
+  "publisher": "Hacker News",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.321",
+  "title": "Claude Code v2.1.321：Fable 5.2 を既定のFableに、MCP OAuthやサンドボックスの修正",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://simonwillison.net/2026/Nov/9/details-summary/",
+  "title": "Simon Willison：エージェントが書いたPR説明を <details><summary> に隠し、人が選んだ短い冒頭を置く",
+  "publisher": "Simon Willison",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240",
+  "title": "Zenn：新人にClaude Codeを渡すための制限付き起動ラッパーと権限設計（--restrictedは社内名）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "denyルールで .env を本当に読ませないか検証する"
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://zenn.dev/okzaq/articles/claude-code-lowpoly-image",
+  "title": "Zenn：画像を出力できないClaude Codeに、PythonのCPUレンダラーでローポリの絵を描かせる",
+  "publisher": "Zenn",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+  "title": "Google、最上位モデルGemini 4 CarbonをGemini API有料枠などで一般公開。GitHub Copilotでも利用可能に",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/",
+  "title": "NVIDIA、待機中のエージェントを保存・復元して高密度に動かすKubernetes向けOSS「Agent Substrate」を紹介",
+  "publisher": "NVIDIA",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
+  "title": "Simon Willisonが引用：Claude Fable 5.2は「コードの持ち主」の書き方に強く反応する（Anthropic公式プロンプトガイド）",
+  "publisher": "Simon Willison",
+  "corner": "practice",
+  "experiment": "「コードはあなたのもの」の一文でA/B比較"
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://github.com/GoogleChrome/modern-web-guidance",
+  "title": "GoogleChrome、コーディングエージェントを最新のWeb標準へ導くスキル集「modern-web-guidance」を公開",
+  "publisher": "Hacker News",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review",
+  "title": "Zenn：Claude Codeのskillとサブエージェントだけで「境界をまたぐ不整合」を探すレビューを組んだ記録",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://www.blender.org/press/blender-5-3-release/",
+  "title": "Blender 5.3リリース：3D Gaussian Splatsにネイティブ対応、Vulkanが既定に、VSEにOpenTimelineIO初期対応",
+  "publisher": "Blender",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
+  "title": "Google、日常のコーディングとエージェント作業向けの速いモデル「Gemini 4 Hydrogen」を発表",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+  "title": "Google、はい・いいえ／選択／採点に特化したGemini Decisions APIを公開（モデルはGemini Decision 1）",
+  "publisher": "Google",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.323",
+  "title": "Claude Code v2.1.323：権限チェックやサンドボックスの穴を多数修正、試験的なCode Modeを追加、未知のモデルは1M扱いに",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/",
+  "title": "GitHub Blog：エージェントスキルの実践ガイド。手順はファイルで共有し、道具や権限は実行する側が用意する",
+  "publisher": "GitHub",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review",
+  "title": "Zenn：Claude Codeのauto memoryを見返させて整理したら、MEMORY.mdが146行→122行になり、終わった予約を答えに出さなくなった",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "Claude Codeの記憶の大そうじ"
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.com/huggingface/diffusers/releases/tag/v0.43.0",
+  "title": "Diffusers 0.43.0：MiniMax-H3-Image、Pika H3 Flex、P-H3-Image、Kandinsky S2V、PAN 2の5つのモデルに対応",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+  "title": "Claude Code v2.1.325：サンドボックス内のBashも既定で通常の許可確認に。定期実行のスキルも事前確認、権限ルールの抜け穴を多数修正",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
+  "title": "GitHub Copilot、2026年12月14日にClaude Fable 5やGemini 4 Argonなど6モデルを提供終了。代わりのモデルも公表",
+  "publisher": "GitHub",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
+  "title": "IBM、指示・資料・条件をタグで分けてAIに渡す書き方「LLMON」を公開。対応するGranite 4.1 3B／8Bの試作モデルも",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://qiita.com/homhom44/items/babc6175e2b52d156949",
+  "title": "Qiita：Claude Codeで「MCP error -32000: Connection closed」が出たら、サーバーを手で起動して標準出力に余計な文字がないか確かめる",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": "MCP サーバーとの握手を手で試す"
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106",
+  "title": "Zenn：Claude Codeに手順書を指定しても12回中2回しか読まれなかった。効いたのは注意点の本文を依頼文に貼ることと、機械で止める仕組み",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://huggingface.co/blog/3d-lora-finetuning",
+  "title": "Hugging Face：3D生成モデルTRELLIS.2の形の部分だけをLoRAで追加学習するガイド。靴188個で形の再現度が大きく向上",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
+ }
+]

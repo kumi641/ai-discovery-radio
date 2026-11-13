@@ -1,0 +1,478 @@
+{
+ "date": "2026-11-13",
+ "made_at": "2026-11-13T09:17:29",
+ "seconds": 461.424,
+ "tts": {
+  "provider": "azure",
+  "chars": 5172,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 52,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 7.2
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.1
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.5
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 11.6
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 5,
+   "sec": 0.2
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 3,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.5
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.6
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 5.1
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.6
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.7
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.6
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.4
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.6
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.8
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.5
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.5
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 1.2
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.6
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.3
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 1.1
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.5
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_a8d5fa7d24",
+   "fetched": true,
+   "scores": {
+    "practice": 27,
+    "novelty": 15,
+    "reliability": 23,
+    "relevance": 17
+   },
+   "selected": true,
+   "reason": "Google公式ブログで内容・提供先・料金を確認。日常のコーディングと資料まとめに今日から使える。"
+  },
+  {
+   "candidate_id": "c_cce714811b",
+   "fetched": true,
+   "scores": {
+    "practice": 30,
+    "novelty": 18,
+    "reliability": 24,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "公式ブログとドキュメントで確認。無料枠で試せ、エージェントの判断部分に直結する新しい種類のAPI。"
+  },
+  {
+   "candidate_id": "c_1e1f91e95e",
+   "fetched": true,
+   "scores": {
+    "practice": 26,
+    "novelty": 12,
+    "reliability": 25,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "公式リリースノートで確認。権限チェックの穴の修正など、使っている人全員に関係する更新。"
+  },
+  {
+   "candidate_id": "c_01b49a7c7d",
+   "fetched": true,
+   "scores": {
+    "practice": 30,
+    "novelty": 12,
+    "reliability": 24,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "GitHub公式ブログ。スキルの書き方と使い回し方が具体的で、公式ドキュメントでも置き場所を確認できた。"
+  },
+  {
+   "candidate_id": "c_209bf729ae",
+   "fetched": true,
+   "scores": {
+    "practice": 32,
+    "novelty": 10,
+    "reliability": 17,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "コミュニティ記事だが手順と数値が具体的で、auto memoryの仕組みは公式ドキュメントで裏付けできた。"
+  },
+  {
+   "candidate_id": "c_acabbd1b36",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 16,
+    "reliability": 24,
+    "relevance": 15
+   },
+   "selected": true,
+   "reason": "公式リリースノートで5つの生成AIモデル追加を確認。クリエイティブAIの話題として採用。"
+  },
+  {
+   "candidate_id": "c_a5c3d32138",
+   "fetched": true,
+   "scores": {
+    "practice": 10,
+    "novelty": 12,
+    "reliability": 22,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "発表の多くが企業向けか提供時期未定で、個人がすぐ試せる部分が少ない。"
+  },
+  {
+   "candidate_id": "c_b22522d14a",
+   "fetched": true,
+   "scores": {
+    "practice": 14,
+    "novelty": 14,
+    "reliability": 20,
+    "relevance": 14
+   },
+   "selected": false,
+   "reason": "公開予定の小型モデルで、今日すぐ試せるかがはっきりしないため見送り。"
+  },
+  {
+   "candidate_id": "c_a82e8dc3d7",
+   "fetched": true,
+   "scores": {
+    "practice": 12,
+    "novelty": 6,
+    "reliability": 23,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "主に動画編集ツール自体の改善で、AIに関する変更はごく一部のため見送り。"
+  },
+  {
+   "candidate_id": "c_56dac742ff",
+   "fetched": true,
+   "scores": {
+    "practice": 8,
+    "novelty": 14,
+    "reliability": 22,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "A100級のGPUで数時間の学習が必要で、個人が今日試すのは難しい。"
+  },
+  {
+   "candidate_id": "c_22e8b7be33",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 8,
+    "reliability": 15,
+    "relevance": 14
+   },
+   "selected": false,
+   "reason": "役立つが本数と偏りを考えて見送り。AIの話はレビュー工程の一部にとどまる。"
+  },
+  {
+   "candidate_id": "c_ec65b35340",
+   "fetched": true,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "リリースページに変更内容が載っておらず、内容を確認できなかった。"
+  },
+  {
+   "candidate_id": "c_5078b34927",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 5,
+    "reliability": 8,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "同じ話題の一次情報（公式リリースノート）を採用したため重複として除外。"
+  },
+  {
+   "candidate_id": "c_624a305adf",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 5,
+    "reliability": 8,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "Decisions APIの二次情報。公式ブログを採用したため重複として除外。"
+  },
+  {
+   "candidate_id": "c_e10b6b9196",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 5,
+    "reliability": 6,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "Decisions APIの二次情報のまとめで重複。"
+  },
+  {
+   "candidate_id": "c_ad614f81e4",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 5,
+    "reliability": 10,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "Gemini 4 Hydrogenの検索向け発表で、本体の発表と重複。"
+  },
+  {
+   "candidate_id": "c_d40fca9fd5",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 5,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "Gemini 4 Hydrogen関連の重複。"
+  },
+  {
+   "candidate_id": "c_8fdb0296ea",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 5,
+    "reliability": 8,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "Gemini 4 Hydrogen本体の発表と同じ記事（掲示板経由）で重複。"
+  },
+  {
+   "candidate_id": "c_05a61ad7e4",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 2,
+    "reliability": 15,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "AIと直接関係のない実行環境の提供終了のお知らせ。"
+  },
+  {
+   "candidate_id": "c_871ae47d30",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 3,
+    "reliability": 15,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "大企業向けの管理機能で、個人には関係が薄い。"
+  },
+  {
+   "candidate_id": "c_5b0f73df89",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 3,
+    "reliability": 12,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "企業の導入事例で、個人が真似できる手順が少ない。"
+  },
+  {
+   "candidate_id": "c_90d7922370",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 3,
+    "reliability": 12,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "企業の導入事例のため見送り。"
+  },
+  {
+   "candidate_id": "c_0990939c7d",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 3,
+    "reliability": 12,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "企業の導入事例のため見送り。"
+  }
+ ],
+ "warnings": []
+}

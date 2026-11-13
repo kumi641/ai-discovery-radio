@@ -1,0 +1,490 @@
+{
+ "date": "2026-11-11",
+ "made_at": "2026-11-11T07:27:13",
+ "seconds": 494.33,
+ "tts": {
+  "provider": "azure",
+  "chars": 5675,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 60,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.6
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 6.8
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.1
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 9.4
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 7,
+   "sec": 0.1
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.3
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 6.5
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.9
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.5
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.4
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.5
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.3
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 9,
+   "sec": 1.0
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.8
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.4
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.1
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.3
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_fc6b6a56df",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 16,
+    "reliability": 25,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "Google公式ブログ（リダイレクト先）で提供範囲・料金・注意点まで確認でき、エージェント開発の新しい選択肢として重要。"
+  },
+  {
+   "candidate_id": "c_0fe8b882db",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 10,
+    "reliability": 25,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "Gemini 4 Carbonの話題と重複するため、Google公式の発表を本体とし、Copilotでの提供はその中で触れる。"
+  },
+  {
+   "candidate_id": "c_1dc08ada76",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 18,
+    "reliability": 24,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "エージェントの待機時間に着目した保存・復元の設計が新しく、READMEにローカルで試せる手順もある。"
+  },
+  {
+   "candidate_id": "c_6f6fff4821",
+   "fetched": true,
+   "scores": {
+    "practice": 33,
+    "novelty": 14,
+    "reliability": 24,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "引用元のAnthropic公式ガイドで内容と試験結果を確認でき、今日すぐA/B比較できる。"
+  },
+  {
+   "candidate_id": "c_5175b6a2b7",
+   "fetched": true,
+   "scores": {
+    "practice": 32,
+    "novelty": 14,
+    "reliability": 22,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "GoogleChrome公式リポジトリでインストール手順を確認でき、Claude Codeにそのまま入れられる。"
+  },
+  {
+   "candidate_id": "c_40b83d2d9e",
+   "fetched": true,
+   "scores": {
+    "practice": 29,
+    "novelty": 13,
+    "reliability": 15,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "サブエージェントの役割分離と反証の設計が具体的で、運用実績と限界も書かれている。"
+  },
+  {
+   "candidate_id": "c_aa8a6e5567",
+   "fetched": true,
+   "scores": {
+    "practice": 26,
+    "novelty": 15,
+    "reliability": 25,
+    "relevance": 14
+   },
+   "selected": true,
+   "reason": "公式発表とリリースノートでGaussian Splats対応を確認。無料で今日から試せるクリエイティブの話題。"
+  },
+  {
+   "candidate_id": "c_16bad01b11",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 10,
+    "reliability": 25,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "音楽系ノード追加はあるが有料のパートナーノード中心で料金を確認できず、今回はBlenderを優先。"
+  },
+  {
+   "candidate_id": "c_058642157c",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 9,
+    "reliability": 25,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "細かな改善の集まりで、今日の番組では優先度が下がる。"
+  },
+  {
+   "candidate_id": "c_685df55878",
+   "fetched": true,
+   "scores": {
+    "practice": 14,
+    "novelty": 8,
+    "reliability": 25,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "MSBuildのC++プロジェクト向けで、リスナーの関心との接点が小さい。"
+  },
+  {
+   "candidate_id": "c_0b82c5b065",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 12,
+    "reliability": 14,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "キャッシュ指標を見る教訓は有益だが、小規模1回の検証で、実践枠は他の話題を優先。"
+  },
+  {
+   "candidate_id": "c_f8c1a7370c",
+   "fetched": true,
+   "scores": {
+    "practice": 6,
+    "novelty": 19,
+    "reliability": 24,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "研究成果として新規性は高いが、開発者が使える製品やAPIは示されていない。"
+  },
+  {
+   "candidate_id": "c_52703aebee",
+   "fetched": true,
+   "scores": {
+    "practice": 8,
+    "novelty": 3,
+    "reliability": 20,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "リリースページに変更内容の記載がなく、解説できない。"
+  },
+  {
+   "candidate_id": "c_f7d3d2f1a8",
+   "fetched": true,
+   "scores": {
+    "practice": 8,
+    "novelty": 4,
+    "reliability": 25,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "Vertex向けfast modeの1項目のみで、個人の利用者への影響が小さい。"
+  },
+  {
+   "candidate_id": "c_773234e7b2",
+   "fetched": false,
+   "scores": {
+    "practice": 18,
+    "novelty": 6,
+    "reliability": 10,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "Fable 5.2自体は前日に扱っており、Copilot対応は本文未確認のため見送り。"
+  },
+  {
+   "candidate_id": "c_2ec4f6ad3a",
+   "fetched": false,
+   "scores": {
+    "practice": 15,
+    "novelty": 10,
+    "reliability": 8,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "本文を確認していないため採用しない。"
+  },
+  {
+   "candidate_id": "c_1afd9e5737",
+   "fetched": false,
+   "scores": {
+    "practice": 15,
+    "novelty": 12,
+    "reliability": 8,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "一次情報を確認していないため見送り。"
+  },
+  {
+   "candidate_id": "c_096f075e11",
+   "fetched": false,
+   "scores": {
+    "practice": 12,
+    "novelty": 6,
+    "reliability": 8,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "Gemini 4 Carbonの話題と重複。"
+  },
+  {
+   "candidate_id": "c_ac841c16ab",
+   "fetched": false,
+   "scores": {
+    "practice": 12,
+    "novelty": 4,
+    "reliability": 8,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "Fable 5.2関連で前日の内容と重複。"
+  },
+  {
+   "candidate_id": "c_405fdcad1c",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 10,
+    "reliability": 10,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "NVIDIAはAgent Substrateを採用済みで、インフラ寄りの話題のため見送り。"
+  },
+  {
+   "candidate_id": "c_85a32fe124",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 2,
+    "reliability": 10,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "企業の資本政策の話題で、制作・開発への応用がない。"
+  },
+  {
+   "candidate_id": "c_23b94c6976",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 4,
+    "reliability": 10,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "企業事例で、個人がすぐ試せる要素が少ない。"
+  },
+  {
+   "candidate_id": "c_af66eeb10c",
+   "fetched": false,
+   "scores": {
+    "practice": 15,
+    "novelty": 6,
+    "reliability": 6,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "本文未確認のため採用しない。"
+  },
+  {
+   "candidate_id": "c_c001930597",
+   "fetched": false,
+   "scores": {
+    "practice": 15,
+    "novelty": 6,
+    "reliability": 6,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "本文未確認のため採用しない。"
+  }
+ ],
+ "warnings": []
+}

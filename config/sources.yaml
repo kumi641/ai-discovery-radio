@@ -1,0 +1,98 @@
+# 情報源の一覧。追加・停止はここだけで行えます（コードの変更は不要）。
+#
+# type:
+#   rss           RSS / Atom（GitHub Releases の .atom もこれ）
+#   html_links    一覧ページから記事リンクを拾い、記事ページの公開日時（meta / JSON-LD / <time>）を読む。
+#                 RSS の無いサイト用。link_pattern は記事 URL の正規表現。robots.txt で禁止なら取得しない
+#   hn_algolia    Hacker News（Algolia の公開 API）。keywords に当たる、points が min_points 以上の記事
+#   hf_daily_papers  Hugging Face の Daily Papers（公開 API）
+# trust:   primary（公式・一次情報）/ secondary（技術メディア・著名エンジニア）/ community（コミュニティ）
+# keywords: 指定すると、タイトルか要約にどれかを含むものだけを採る（大きなブログ用）
+# enabled: false で停止
+
+sources:
+  # ---------- A. AI企業・メガベンダーの公式発表 ----------
+  - {id: openai-news, name: OpenAI News, publisher: OpenAI, category: official, trust: primary, type: rss,
+     url: "https://openai.com/news/rss.xml"}
+  - {id: anthropic-news, name: Anthropic News, publisher: Anthropic, category: official, trust: primary, type: html_links,
+     url: "https://www.anthropic.com/news", link_pattern: "^https://www\\.anthropic\\.com/news/[a-z0-9-]+$", max_links: 6}
+  - {id: anthropic-engineering, name: Anthropic Engineering, publisher: Anthropic, category: agent-dev, trust: primary, type: html_links,
+     url: "https://www.anthropic.com/engineering", link_pattern: "^https://www\\.anthropic\\.com/engineering/[a-z0-9-]+$", max_links: 4}
+  - {id: deepmind-blog, name: Google DeepMind Blog, publisher: Google DeepMind, category: official, trust: primary, type: rss,
+     url: "https://deepmind.google/blog/rss.xml"}
+  - {id: google-ai-blog, name: Google AI (The Keyword), publisher: Google, category: official, trust: primary, type: rss,
+     url: "https://blog.google/technology/ai/rss/"}
+  - {id: google-developers, name: Google Developers Blog, publisher: Google, category: agent-dev, trust: primary, type: rss,
+     url: "https://developers.googleblog.com/feeds/posts/default",
+     keywords: [gemini, ai, agent, model, genai, adk]}
+  - {id: meta-ai, name: Meta AI Blog, publisher: Meta, category: official, trust: primary, type: html_links,
+     url: "https://ai.meta.com/blog/", link_pattern: "^https://ai\\.meta\\.com/blog/[a-z0-9-]+/?$", max_links: 5}
+  - {id: microsoft-ai, name: Microsoft AI Blog, publisher: Microsoft, category: official, trust: primary, type: rss,
+     url: "https://blogs.microsoft.com/ai/feed/", enabled: false}   # 2026-11-10 時点で 410 Gone。新しいフィードを確認したら差し替える
+  - {id: github-changelog, name: GitHub Changelog, publisher: GitHub, category: agent-dev, trust: primary, type: rss,
+     url: "https://github.blog/changelog/feed/",
+     keywords: [copilot, agent, mcp, "models", ai, actions]}
+  - {id: github-blog-ai, name: GitHub Blog, publisher: GitHub, category: agent-dev, trust: primary, type: rss,
+     url: "https://github.blog/feed/",
+     keywords: [copilot, agent, mcp, ai, llm]}
+  - {id: nvidia-blog, name: NVIDIA Blog, publisher: NVIDIA, category: official, trust: primary, type: rss,
+     url: "https://blogs.nvidia.com/feed/",
+     keywords: [ai, model, agent, generative, omniverse, cosmos, rtx]}
+  - {id: nvidia-developer, name: NVIDIA Technical Blog, publisher: NVIDIA, category: agent-dev, trust: primary, type: rss,
+     url: "https://developer.nvidia.com/blog/feed",
+     keywords: [llm, agent, inference, model, generative, diffusion, video, 3d]}
+  - {id: huggingface-blog, name: Hugging Face Blog, publisher: Hugging Face, category: official, trust: primary, type: rss,
+     url: "https://huggingface.co/blog/feed.xml"}
+  - {id: stability-news, name: Stability AI News, publisher: Stability AI, category: creative, trust: primary, type: html_links,
+     url: "https://stability.ai/news", link_pattern: "^https://stability\\.ai/news/[a-z0-9-]+$", max_links: 4}
+  - {id: bfl-blog, name: Black Forest Labs, publisher: Black Forest Labs, category: creative, trust: primary, type: html_links,
+     url: "https://bfl.ai/blog", link_pattern: "^https://bfl\\.ai/blog/[a-z0-9-]+$", max_links: 4}
+  - {id: runway-news, name: Runway News, publisher: Runway, category: creative, trust: primary, type: html_links,
+     url: "https://runwayml.com/news", link_pattern: "^https://runwayml\\.com/news/[a-z0-9-]+$", max_links: 4}
+  - {id: elevenlabs-blog, name: ElevenLabs Blog, publisher: ElevenLabs, category: creative, trust: primary, type: html_links,
+     url: "https://elevenlabs.io/blog", link_pattern: "^https://elevenlabs\\.io/blog/[a-z0-9-]+$", max_links: 4}
+  - {id: adobe-firefly, name: Adobe Blog (Generative AI), publisher: Adobe, category: creative, trust: primary, type: rss,
+     url: "https://blog.adobe.com/en/topics/generative-ai.rss", enabled: false}   # URL 未確認。初回の収集結果を見て有効化
+  - {id: luma-blog, name: Luma AI, publisher: Luma AI, category: creative, trust: primary, type: html_links,
+     url: "https://lumalabs.ai/blog", link_pattern: "^https://lumalabs\\.ai/(blog|news)/[a-z0-9-]+$", max_links: 4, enabled: false}
+  # Pika / Suno / Udio は公開フィードを確認できていないため未登録（GitHub やブログで確認できたら追加）
+
+  # ---------- B. AIエージェント・開発技術（GitHub Releases） ----------
+  - {id: rel-claude-code, name: Claude Code Releases, publisher: Anthropic, category: agent-dev, trust: primary, type: rss,
+     url: "https://github.com/anthropics/claude-code/releases.atom", per_source_limit: 2}
+  - {id: rel-codex, name: OpenAI Codex Releases, publisher: OpenAI, category: agent-dev, trust: primary, type: rss,
+     url: "https://github.com/openai/codex/releases.atom", per_source_limit: 2}
+  - {id: rel-mcp-spec, name: MCP Spec Releases, publisher: Model Context Protocol, category: agent-dev, trust: primary, type: rss,
+     url: "https://github.com/modelcontextprotocol/modelcontextprotocol/releases.atom", per_source_limit: 2}
+  - {id: rel-claude-agent-sdk, name: Claude Agent SDK (Python) Releases, publisher: Anthropic, category: agent-dev, trust: primary, type: rss,
+     url: "https://github.com/anthropics/claude-agent-sdk-python/releases.atom", per_source_limit: 2}
+
+  # ---------- C. クリエイティブAI（OSS ツール） ----------
+  - {id: rel-comfyui, name: ComfyUI Releases, publisher: ComfyUI, category: creative, trust: primary, type: rss,
+     url: "https://github.com/comfyanonymous/ComfyUI/releases.atom", per_source_limit: 1}
+  - {id: rel-diffusers, name: Diffusers Releases, publisher: Hugging Face, category: creative, trust: primary, type: rss,
+     url: "https://github.com/huggingface/diffusers/releases.atom", per_source_limit: 1}
+  - {id: rel-remotion, name: Remotion Releases, publisher: Remotion, category: creative, trust: primary, type: rss,
+     url: "https://github.com/remotion-dev/remotion/releases.atom", per_source_limit: 1}
+  - {id: blender-news, name: Blender News, publisher: Blender, category: creative, trust: primary, type: rss,
+     url: "https://www.blender.org/feed/", keywords: [ai, "machine learning", generative, neural, diffusion]}   # AI に関係する記事だけ
+
+  # ---------- 論文 ----------
+  - {id: hf-daily-papers, name: Hugging Face Daily Papers, publisher: Hugging Face Papers, category: research, trust: secondary, type: hf_daily_papers,
+     url: "https://huggingface.co/api/daily_papers", min_upvotes: 20, per_source_limit: 6}
+
+  # ---------- D. エンジニア・ユーザーの実践事例 ----------
+  - {id: simonwillison, name: Simon Willison's Weblog, publisher: Simon Willison, category: practice, trust: secondary, type: rss,
+     url: "https://simonwillison.net/atom/everything/", per_source_limit: 6}
+  - {id: latent-space, name: Latent Space, publisher: Latent Space, category: practice, trust: secondary, type: rss,
+     url: "https://www.latent.space/feed", per_source_limit: 3}
+  - {id: hn-ai, name: Hacker News (AI), publisher: Hacker News, category: practice, trust: community, type: hn_algolia,
+     url: "https://hn.algolia.com/api/v1/search_by_date", min_points: 150, per_source_limit: 8,
+     keywords: ["ai", "llm", "agent", "claude", "gpt", "gemini", "mcp", "model", "diffusion", "openai", "anthropic", "copilot", "codex"]}
+  - {id: zenn-claudecode, name: Zenn (Claude Code), publisher: Zenn, category: practice, trust: community, type: rss,
+     url: "https://zenn.dev/topics/claudecode/feed", per_source_limit: 4}
+  - {id: zenn-aiagent, name: Zenn (AIエージェント), publisher: Zenn, category: practice, trust: community, type: rss,
+     url: "https://zenn.dev/topics/aiagent/feed", per_source_limit: 3}
+  - {id: qiita-claudecode, name: Qiita (Claude Code), publisher: Qiita, category: practice, trust: community, type: rss,
+     url: "https://qiita.com/tags/claudecode/feed", per_source_limit: 3}
+  # Reddit / X は無理にスクレイピングしない方針のため未登録（必要なら公開 RSS の利用規約を確認して追加）

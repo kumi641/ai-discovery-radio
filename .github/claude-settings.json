@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash",
+      "Read(//proc/**)",
+      "Read(//etc/**)",
+      "Read(//home/runner/.claude/**)",
+      "Read(//home/runner/.config/**)",
+      "Read(//home/runner/work/_temp/**)",
+      "Read(./.git/**)",
+      "Edit(./radio/**)",
+      "Edit(./config/**)",
+      "Edit(./.github/**)",
+      "Write(./radio/**)",
+      "Write(./config/**)",
+      "Write(./.github/**)"
+    ]
+  }
+}
