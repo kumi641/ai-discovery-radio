@@ -134,5 +134,53 @@
   "publisher": "Hugging Face",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+  "title": "Claude Code v2.1.325：サンドボックス内のBashも既定で通常の許可確認に。定期実行のスキルも事前確認、権限ルールの抜け穴を多数修正",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
+  "title": "GitHub Copilot、2026年12月14日にClaude Fable 5やGemini 4 Argonなど6モデルを提供終了。代わりのモデルも公表",
+  "publisher": "GitHub",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
+  "title": "IBM、指示・資料・条件をタグで分けてAIに渡す書き方「LLMON」を公開。対応するGranite 4.1 3B／8Bの試作モデルも",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://qiita.com/homhom44/items/babc6175e2b52d156949",
+  "title": "Qiita：Claude Codeで「MCP error -32000: Connection closed」が出たら、サーバーを手で起動して標準出力に余計な文字がないか確かめる",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": "MCP サーバーとの握手を手で試す"
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106",
+  "title": "Zenn：Claude Codeに手順書を指定しても12回中2回しか読まれなかった。効いたのは注意点の本文を依頼文に貼ることと、機械で止める仕組み",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://huggingface.co/blog/3d-lora-finetuning",
+  "title": "Hugging Face：3D生成モデルTRELLIS.2の形の部分だけをLoRAで追加学習するガイド。靴188個で形の再現度が大きく向上",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
  }
 ]

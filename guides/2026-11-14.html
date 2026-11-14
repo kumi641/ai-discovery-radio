@@ -1,0 +1,270 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Codeの安全設定と、MCPの握手を手で試す｜実践ガイド 2026-11-14</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-14/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月14日（土）・放送 約7分</div>
+<h1>Claude Codeの安全設定と、MCPの握手を手で試す</h1>
+<p class="lead">Claude Codeが「囲いの中のコマンドも確認してから動かす」形に変わり、GitHub Copilotは12月に古いモデルを整理します。IBMはAIに「どこが指示でどこが資料か」を教える新しい書き方LLMONを公開しました。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：MCP サーバーとの握手を手で試す</a></li>
+<li><a href="#news-1">Claude Code v2.1.325：サンドボックス内のBashも既定で通常の許可確認に。定期実行のスキルも事前確認、権限ルールの抜け穴を多数修正</a></li>
+<li><a href="#news-2">GitHub Copilot、2026年12月14日にClaude Fable 5やGemini 4 Argonなど6モデルを提供終了。代わりのモデルも公表</a></li>
+<li><a href="#news-3">IBM、指示・資料・条件をタグで分けてAIに渡す書き方「LLMON」を公開。対応するGranite 4.1 3B／8Bの試作モデルも</a></li>
+<li><a href="#news-4">Qiita：Claude Codeで「MCP error -32000: Connection closed」が出たら、サーバーを手で起動して標準出力に余計な文字がないか確かめる</a></li>
+<li><a href="#news-5">Zenn：Claude Codeに手順書を指定しても12回中2回しか読まれなかった。効いたのは注意点の本文を依頼文に貼ることと、機械で止める仕組み</a></li>
+<li><a href="#news-6">Hugging Face：3D生成モデルTRELLIS.2の形の部分だけをLoRAで追加学習するガイド。靴188個で形の再現度が大きく向上</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>MCP サーバーとの握手を手で試す</h2>
+<div class="meta">関連ニュース：<a href="#news-4">Qiita：Claude Codeで「MCP error -32000: Connection closed」が出たら、サーバーを手で起動して標準出力に余計な文字がないか確かめる</a></div>
+<div class="task"><h4>実験：MCP サーバーとの握手を手で試す</h4><dl class="kv"><dt>目的</dt><dd>自分の stdio 型 MCP サーバーに最初のあいさつ（initialize）を手で送り、標準出力に余計な文字が出ていないかを確かめる</dd><dt>使用ツール</dt><dd>ターミナル（macOS／Linux、Windows は WSL など）、Claude Code、Python で動く MCP サーバー（自作でも既存でも）</dd><dt>必要な準備</dt><dd>Claude Code をインストールしておく、Python で起動する stdio 型の MCP サーバーを1つ用意する、そのサーバーの起動コマンド（command と args）を確認しておく</dd><dt>所要時間</dt><dd>約20分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>claude mcp list でサーバーの状態を見る。失敗していれば claude mcp get &lt;名前&gt; で詳しく見る</li><li>設定にある起動コマンドをそのままターミナルで実行する。何も出さずに待っていれば正常。Ctrl+C で止める</li><li>下のコマンドの your_server.py を自分のサーバーに替え、protocolVersion を自分のサーバーが対応する版に替えて実行する</li><li>出力の先頭が {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;result&quot;: で始まるか確かめる</li><li>JSON 以外の行が先に出ていたら、その行を出している print を print(..., file=sys.stderr) に変える</li><li>Claude Code の中で /mcp を開いて再接続し、claude mcp list で Connected になるか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>printf &#x27;%s\n&#x27; &#x27;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;initialize&quot;,&quot;params&quot;:{&quot;protocolVersion&quot;:&quot;2025-06-18&quot;,&quot;capabilities&quot;:{},&quot;clientInfo&quot;:{&quot;name&quot;:&quot;check&quot;,&quot;version&quot;:&quot;0&quot;}}}&#x27; | python3 your_server.py 2&gt;/dev/null | head -c 400</pre></div><div class="meta">出典：<a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle" target="_blank" rel="noopener noreferrer">https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle</a></div><dl class="kv"><dt>完成するもの</dt><dd>initialize への返事が JSON で返ってくる MCP サーバーと、確認に使ったコマンドのメモ</dd><dt>確認方法</dt><dd>コマンドの出力の先頭が JSON の返事（&quot;result&quot; を含む）で、claude mcp list でそのサーバーが ✔ Connected と表示される</dd></dl><div class="meta">参考：<a href="https://qiita.com/homhom44/items/babc6175e2b52d156949" target="_blank" rel="noopener noreferrer">https://qiita.com/homhom44/items/babc6175e2b52d156949</a>　<a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/mcp</a>　<a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/transports" target="_blank" rel="noopener noreferrer">https://modelcontextprotocol.io/specification/2025-06-18/basic/transports</a>　<a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle" target="_blank" rel="noopener noreferrer">https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-14 MCP サーバーとの握手を手で試す
+- 参考ニュース: Qiita：Claude Codeで「MCP error -32000: Connection closed」が出たら、サーバーを手で起動して標準出力に余計な文字がないか確かめる
+- ガイド: guides/2026-11-14.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">86</span>/100</span>
+<h2>1. Claude Code v2.1.325：サンドボックス内のBashも既定で通常の許可確認に。定期実行のスキルも事前確認、権限ルールの抜け穴を多数修正</h2>
+<div class="meta">Anthropic・公開 2026-11-13 20:40</div>
+<div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.325" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.325</a></div>
+<p class="concl"><b>結論：</b>Claude Code v2.1.325 は、安全まわりを中心にした大きめの更新です。サンドボックス（コマンドを閉じ込めて動かす囲い）の中のBashも既定で許可確認を通るようになり、定期実行で動くスキルにも事前確認が入りました。権限ルールの抜け穴や、zstd圧縮の応答の読み取りにあった安全上の問題も直されています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自動で動かしている作業のうち「本当に確認なしでいいもの」だけを書き出して許可リストに入れると、安全さと手軽さのちょうどいい線が見つかって面白いです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>囲いの中でも確認が基本に</b>：サンドボックス内のBashコマンドも、既定で通常の許可確認を通るようになった。今までどおり確認なしにするには sandbox.autoAllowBashIfSandboxed を true にする。</li>
+<li><b>定期実行のスキルも確認</b>：定期実行や /loop で、allowed-tools やフックを持つスキルを動かす前に確認が入る。無人で動かすなら permissions.allow に Skill(名前) を追加する。</li>
+<li><b>許可ルールの穴を修正</b>：Read(./.env) のような相対パスの禁止ルールが cd の後に効かなくなる問題や、一部の複合コマンドが確認なしで動く穴などを修正。</li>
+<li><b>長い答えの途切れを改善</b>：出力の上限で途切れたサブエージェントに、答え全体をもう一度短く出させるようになった。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>サンドボックス内のコマンドが既定で通常の許可確認を通るように変更。定期実行や /loop でスキルを動かす前の確認、相対パスの禁止ルールの修正、サブエージェントが途切れたときの再回答など。</dd>
+<dt>なぜ重要か</dt><dd>「囲いの中なら確認なしで動いてよい」という前提が変わるので、自動化を組んでいる人は、急に確認待ちで止まる可能性があります。逆に、うっかり危ない命令が通る心配は減ります。</dd>
+<dt>従来との違い</dt><dd>以前はサンドボックス内のBashコマンドが確認なしで動いていました。今回から既定では確認が入り、確認なしにしたい人が自分で設定を選ぶ形になりました。</dd></dl><ul>
+<li>sandbox.autoAllowBashIfSandboxed: true で、サンドボックス内のコマンドを確認なしで動かす以前の挙動に戻せる（リリースノートより）。公式ドキュメントのサンドボックスのページには、まだ既定が true と書かれた箇所があるため、実際の動きで確かめるのが安全。</li>
+<li>定期実行のスキルを無人で動かすには、permissions.allow に Skill(名前) を追加する。</li>
+<li>読み取りだけのgitコマンドも、プロジェクト外や信頼していないリポジトリでは確認を求めるように変わった。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>夜に自動で動かしている作業が確認待ちで止まっていないか点検する</li>
+<li>定期実行に使うスキルだけを許可リストに入れ、ほかは確認を残す</li>
+<li>サンドボックスの確認を残したまま、安全に新しいリポジトリを試す</li>
+</ul>
+<div class="task"><h4>今日すぐできること：アップデート後の確認待ちを点検</h4><dl class="kv"><dt>目的</dt><dd>新しい既定の動きで、自分の自動化が止まらないかを確かめる</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code を v2.1.325 以降にする</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料（Claude Code の利用枠の範囲）</dd></dl><b>手順</b><ol><li>Claude Code を起動し、/sandbox でサンドボックスの状態を見る</li><li>サンドボックス内で簡単なコマンド（ファイル一覧など）を頼み、確認が出るか見る</li><li>確認なしに戻したいときだけ、下の設定を settings.json の sandbox に加える</li><li>定期実行しているスキルがあれば、permissions.allow に Skill(名前) を加えるか検討する</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>{
+  &quot;sandbox&quot;: {
+    &quot;enabled&quot;: true,
+    &quot;autoAllowBashIfSandboxed&quot;: true
+  }
+}</pre></div><div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.325" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.325</a></div><dl class="kv"><dt>完成するもの</dt><dd>自分の環境で、どのコマンドに確認が出るかのメモ</dd><dt>確認方法</dt><dd>サンドボックス内のコマンドで、確認の出る・出ないが自分の決めたとおりになっている</dd></dl><div class="meta">参考：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.325" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.325</a>　<a href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/sandboxing</a></div></div>
+<h4>発展：自動化の「許可表」を作る（1〜2時間）</h4><p>自分が Claude Code に自動でやらせている作業を一覧にし、確認なしでよいもの・確認を残すものを表に分けて、設定ファイルに反映する。</p><ol>
+<li>定期実行や /loop で使っている作業とスキルを書き出す</li>
+<li>それぞれ、失敗したときの被害の大きさで3段階に分ける</li>
+<li>被害が小さいものだけ permissions.allow に入れ、ほかは確認を残す</li>
+<li>1週間動かして、止まった場所を見直す</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code 自体の利用には Claude の有料プランかAPIの利用料が必要（料金は公式の料金ページで確認）。今回の更新に追加費用はない。</p>
+<div class="meta">実践可能性：高：アップデートして設定を見直すだけで、今日すぐ確認できる。<br>信頼性：GitHub の公式リリースページで変更点を確認。サンドボックスの設定は公式ドキュメントでも確認。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">73</span>/100</span>
+<h2>2. GitHub Copilot、2026年12月14日にClaude Fable 5やGemini 4 Argonなど6モデルを提供終了。代わりのモデルも公表</h2>
+<div class="meta">GitHub・公開 2026-11-13 20:40</div>
+<div class="meta">出典：<a href="https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december" target="_blank" rel="noopener noreferrer">https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december</a></div>
+<p class="concl"><b>結論：</b>GitHub は、Copilot で使えるモデルのうち6つを2026年12月14日に終了すると発表しました。それぞれの代わりのモデルも示されています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>終了するモデルと代わりのモデルに同じお願いをして、答えの違いをメモしておくと、乗り換えた後に「何が変わったか」がすぐ分かって面白いです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>12月14日に6モデル終了</b>：Copilot のチャット、エージェントモード、コード補完など、すべての場面で使えなくなる。</li>
+<li><b>代わりのモデルを明記</b>：Claude Fable 5→Fable 5.2、Claude Haiku 4.5→Haiku 5.5、Gemini 3.8 Flash→Gemini 4 Hydrogen、Gemini 4 Argon→Gemini 4 Carbon、Grok 4.6→4.7。Kimi K3 の代わりは未定。</li>
+<li><b>設定や自動化を見直す</b>：GitHub は、終了日までに作業の流れや連携を対応モデルに切り替えるよう呼びかけている。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>Claude Fable 5、Claude Haiku 4.5、Gemini 3.8 Flash、Gemini 4 Argon、Grok 4.6、Kimi K3 の提供終了日と、代わりのモデルが公表された。</dd>
+<dt>なぜ重要か</dt><dd>モデル名を決め打ちした設定や自動化は、終了日を過ぎると動かなくなるおそれがあります。早めに切り替えておけば、年末に慌てずにすみます。</dd>
+<dt>従来との違い</dt><dd>新しいモデルが出るたびに古いモデルが静かに消えるのではなく、終了日と代わりのモデルが前もって示されている。</dd></dl><ul>
+<li>Claude Haiku 4.5 は、年払いの個人向けプランでは引き続き使える。</li>
+<li>Business と Enterprise では、管理者が既定を切っていなければ、代わりのモデルが自動で有効になる。</li>
+<li>終了したモデルを手で消す必要はない。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>Copilot のエージェントモードで使うモデルを、代わりのモデルに切り替えて使い心地を比べる</li>
+<li>モデル名を書いている設定や手順書をまとめて洗い出す</li>
+</ul>
+<div class="task"><h4>今日すぐできること：使っているモデル名の棚卸し</h4><dl class="kv"><dt>目的</dt><dd>12月14日で止まるモデルを使っていないか確かめる</dd><dt>使用ツール</dt><dd>GitHub Copilot、テキストエディタの全文検索</dd><dt>必要な準備</dt><dd>GitHub Copilot が使える状態にしておく</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料（Copilot の利用枠の範囲）</dd></dl><b>手順</b><ol><li>Copilot のチャットのモデル選びの画面で、いま選んでいるモデルを見る</li><li>自分のリポジトリやメモを、終了する6つのモデル名で全文検索する</li><li>見つかったら、Changelog の表にある代わりのモデルに書き換える</li><li>同じ質問を新しいモデルにして、答え方の違いをメモする</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このリポジトリの中から、次のモデル名が書かれている場所をすべて探して一覧にしてください：Claude Fable 5、Claude Haiku 4.5、Gemini 3.8 Flash、Gemini 4 Argon、Grok 4.6、Kimi K3。ファイル名と行番号、その行の内容を表にしてください。まだ書き換えないでください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>終了するモデル名が書かれている場所の一覧</dd><dt>確認方法</dt><dd>一覧の場所をすべて代わりのモデルに直し、もう一度検索して0件になる</dd></dl><div class="meta">参考：<a href="https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december" target="_blank" rel="noopener noreferrer">https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december</a>　<a href="https://docs.github.com/en/copilot/reference/ai-models/supported-models" target="_blank" rel="noopener noreferrer">https://docs.github.com/en/copilot/reference/ai-models/supported-models</a></div></div>
+<h4>発展：モデル乗り換えチェック表（1〜2時間）</h4><p>よく使うお願いを5つ決めて、古いモデルと新しいモデルの答えを並べて比べる表を作る。次にモデルが変わるときにも使い回せる。</p><ol>
+<li>ふだんよく頼む作業を5つ選び、お願いの文を固定する</li>
+<li>古いモデルと新しいモデルで同じお願いをする</li>
+<li>答えの正しさ・長さ・速さを表にまとめる</li>
+<li>表をリポジトリに残し、次の乗り換えでも使う</li>
+</ol>
+<h3>利用条件・料金</h3><p>Copilot の各プランの料金は公式の料金ページで確認。今回の変更自体に費用はない。</p>
+<div class="meta">実践可能性：高：使っているモデル名を確認して切り替えるだけ。<br>信頼性：GitHub 公式の Changelog で確認。</div></section>
+<section class="card" id="news-3"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">80</span>/100</span>
+<h2>3. IBM、指示・資料・条件をタグで分けてAIに渡す書き方「LLMON」を公開。対応するGranite 4.1 3B／8Bの試作モデルも</h2>
+<div class="meta">Hugging Face・公開 2026-11-12 19:07</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite</a></div>
+<p class="concl"><b>結論：</b>IBM は、AIへの入力の中で「どこが指示で、どこが資料か」をはっきり書き分けるための書き方 LLMON を公開しました。これに対応した Granite 4.1 の小さな試作モデルも Hugging Face で公開されています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>わざと「前の指示を無視して」と書いたメールを資料として渡し、ふつうの書き方と LLMON の書き方でAIの反応を比べると、自分のエージェントの弱点が見えて面白いです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>指示と資料をタグで区別</b>：AIに渡す文章を「指示」「資料」「条件」に分けて印をつけ、どの指示をどの資料に使うかを結びつける。</li>
+<li><b>資料の中の命令に従いにくく</b>：資料や道具の結果は「読む材料」で「命令」ではない、と学習させてある。ただし保証ではなく、学習で身につけた振る舞い。</li>
+<li><b>3Bと8Bの試作モデルで試せる</b>：ibm-granite/granite-4.1-3b-llmon-preview と 8b の2つ。本番向けではない試作版で、ライセンスはApache 2.0。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>指示・資料・条件にそれぞれ固有の印をつけ、実行する組み合わせを別のブロックで指定する形式。JSON とのあいだで相互に変換する道具もある。</dd>
+<dt>なぜ重要か</dt><dd>AIにメールやWebページを読ませると、その中に書かれた「前の指示を無視して」といった文に従ってしまうことがあります（プロンプトインジェクション）。指示と資料を形で分けることで、これを防ぎやすくする試みです。</dd>
+<dt>従来との違い</dt><dd>ふつうのチャットの形式では、指示も資料も同じ「ユーザーの発言」に混ざります。LLMON では役割ごとに区切り、どの指示が本物かをモデルが見分けられるようにしています。</dd></dl><ul>
+<li>messages の中で instruction、data、requirement を分けて書き、それぞれ exec: True で実行ブロックに結びつける。</li>
+<li>チャットの形式を置き換えるのではなく、広げる作り。apply_chat_template にそのまま渡せる。</li>
+<li>記事は、これは学習した振る舞いで、強制的な保証ではないと明記している。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自作のエージェントで、Webページやメールを「資料」として渡し、混ざった命令に従うか確かめる</li>
+<li>要約ボットで、要約の指示と本文をはっきり分けて渡す</li>
+</ul>
+<div class="task"><h4>今日すぐできること：LLMON の書き方を読んでみる</h4><dl class="kv"><dt>目的</dt><dd>指示・資料・条件を分けた messages の形を自分の用途に当てはめる</dd><dt>使用ツール</dt><dd>テキストエディタ、Hugging Face のモデルカード</dd><dt>必要な準備</dt><dd>Python の基本が分かると読みやすい</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>ブログの messages の例を読み、instruction・data・requirement の役割を確かめる</li><li>自分がAIによく頼む作業を1つ選び、指示・資料・条件に分けて書き直す</li><li>モデルカードの生成例のうち messages の部分を、自分の書き直したものに替える</li><li>動かせる人は、資料の中に命令文を混ぜて結果を比べる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>messages = [ { &quot;role&quot;: &quot;user&quot;,
+               &quot;instruction&quot;: [{ &quot;value&quot;: &quot;Write a short paragraph about&quot;, &quot;exec&quot;: True }],
+               &quot;data&quot;: [{ &quot;value&quot;: &quot;IBM Company&quot;, &quot;exec&quot;: True }],
+               &quot;requirement&quot;: [ {&quot;value&quot;: &quot;Use less than 10 words&quot;, &quot;exec&quot;: True},
+                                {&quot;value&quot;: &quot;Do not use commas&quot;, &quot;exec&quot;: True}]
+             } ]</pre></div><div class="meta">出典：<a href="https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite</a></div><dl class="kv"><dt>完成するもの</dt><dd>自分の作業を LLMON の形に書き直した messages</dd><dt>確認方法</dt><dd>指示・資料・条件がそれぞれ別の欄に入っていて、資料の欄に命令が混ざっていない</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite</a>　<a href="https://huggingface.co/ibm-granite/granite-4.1-3b-llmon-preview" target="_blank" rel="noopener noreferrer">https://huggingface.co/ibm-granite/granite-4.1-3b-llmon-preview</a></div></div>
+<h4>発展：命令まぎれ込みテスト台（2〜3時間）</h4><p>命令文を混ぜた資料を10個ほど用意し、ふつうの形式と LLMON 形式で同じモデル系統に読ませ、命令に従ってしまった回数を数える小さな検査台を作る。</p><ol>
+<li>命令を混ぜたメールやWeb記事の例を10個作る</li>
+<li>モデルカードの生成例をもとに、3Bの試作モデルを手元で動かす</li>
+<li>ふつうの形式と LLMON 形式で同じ資料を渡し、結果を記録する</li>
+<li>従ってしまった割合を表にまとめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>モデルは Apache 2.0（モデルカードで確認）。試作版で本番向けではない。手元で動かす場合は無料。</p>
+<div class="meta">実践可能性：中：パソコンで小さなモデルを動かせる人ならすぐ試せる。モデルは約40億パラメータ。<br>信頼性：Hugging Face の IBM Granite 公式ブログとモデルカード、GitHub のリポジトリで確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">80</span>/100</span>
+<h2>4. Qiita：Claude Codeで「MCP error -32000: Connection closed」が出たら、サーバーを手で起動して標準出力に余計な文字がないか確かめる</h2>
+<div class="meta">Qiita・公開 2026-11-13 21:32</div>
+<div class="meta">出典：<a href="https://qiita.com/homhom44/items/babc6175e2b52d156949" target="_blank" rel="noopener noreferrer">https://qiita.com/homhom44/items/babc6175e2b52d156949</a></div>
+<p class="concl"><b>結論：</b>MCP サーバーをつないだのにツールが使えないときの切り分け手順です。まず claude mcp list と get で状態を見て、次にサーバーを手で起動し、最初のあいさつ（initialize）への返事が JSON で返るかを確かめます。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自作の MCP サーバーに「起動したら握手を試すだけの確認コマンド」を1行用意しておくと、つながらないときに5秒で原因の場所が分かって便利です。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>エラーは原因を教えない</b>：Connection closed は、やりとりの途中で接続が閉じたことを示すだけで、理由までは分からない。</li>
+<li><b>手で起動して確かめる</b>：Claude Code を通さず、設定の command と args をそのままターミナルで動かし、すぐ終わるか・待つか・文字を出すかを見る。</li>
+<li><b>ログは標準エラーへ</b>：stdio 型のサーバーは、標準出力に MCP のメッセージ以外を書いてはいけない。print のログが混ざると接続が切れる原因になる。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>エラー文だけでは分からない原因を、Claude Code の外で一つずつ確かめる手順にまとめている。</dd>
+<dt>なぜ重要か</dt><dd>自作の MCP サーバーでよくある失敗は、ログを標準出力に出してしまうことです。仕様でも、標準出力には有効な MCP メッセージだけを書くよう決められています。</dd>
+<dt>従来との違い</dt><dd>設定を何度も書き直して試すのではなく、サーバー単体の動きを先に確かめるので、原因の場所が早く絞れる。</dd></dl><ul>
+<li>claude mcp list で各サーバーの状態（Connected、Failed to connect など）が見られる。</li>
+<li>Python なら print(..., file=sys.stderr)、Node.js なら console.error でログを標準エラーに出す。</li>
+<li>起動が遅いだけなら MCP_TIMEOUT で待ち時間を延ばせる（例：MCP_TIMEOUT=10000 claude で10秒）。</li>
+<li>OAuth 型のコネクタは起動の問題ではないことがあり、この方法では原因が分からない。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自作の MCP サーバーを公開する前の点検手順にする</li>
+<li>つながらないサーバーの原因を、AIに聞く前に自分で絞り込む</li>
+</ul>
+<div class="task"><h4>今日すぐできること：MCP サーバーの状態を一覧で見る</h4><dl class="kv"><dt>目的</dt><dd>つないでいる MCP サーバーが正しく動いているかを確かめる</dd><dt>使用ツール</dt><dd>Claude Code、ターミナル</dd><dt>必要な準備</dt><dd>Claude Code をインストールし、MCP サーバーを1つ以上登録しておく</dd><dt>所要時間</dt><dd>約5分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>ターミナルで claude mcp list を実行し、各サーバーの状態を見る</li><li>Failed to connect のものがあれば、claude mcp get &lt;名前&gt; で詳しく見る</li><li>Claude Code の中で /mcp を開き、同じ状態になっているか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>claude mcp list</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/mcp</a></div><dl class="kv"><dt>完成するもの</dt><dd>MCP サーバーごとの状態のメモ</dd><dt>確認方法</dt><dd>すべてのサーバーの状態が分かり、失敗しているものの名前が書き出せている</dd></dl><div class="meta">参考：<a href="https://qiita.com/homhom44/items/babc6175e2b52d156949" target="_blank" rel="noopener noreferrer">https://qiita.com/homhom44/items/babc6175e2b52d156949</a>　<a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/mcp</a></div></div>
+<h4>発展：MCP サーバーの自己点検スクリプト（1〜2時間）</h4><p>自作の MCP サーバーを起動し、initialize を送って返事の先頭が JSON かを確かめる小さな点検スクリプトを作り、変更のたびに走らせる。</p><ol>
+<li>今日の実験のコマンドをスクリプトにまとめる</li>
+<li>返事の先頭が JSON として読めるかを判定する</li>
+<li>失敗したら標準出力に出ていた最初の行を表示する</li>
+<li>コミット前に実行する習慣にする</li>
+</ol>
+<h3>利用条件・料金</h3><p>無料（Claude Code の利用枠の範囲）。</p>
+<div class="meta">実践可能性：高：ターミナルがあればすぐ試せる。<br>信頼性：Qiita の記事に加え、Claude Code 公式ドキュメント（MCP）と MCP 仕様の Transports の章で確認。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">72</span>/100</span>
+<h2>5. Zenn：Claude Codeに手順書を指定しても12回中2回しか読まれなかった。効いたのは注意点の本文を依頼文に貼ることと、機械で止める仕組み</h2>
+<div class="meta">Zenn・公開 2026-11-13 15:07</div>
+<div class="meta">出典：<a href="https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106" target="_blank" rel="noopener noreferrer">https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106</a></div>
+<p class="concl"><b>結論：</b>Claude Code で複数のエージェントに仕事を分けている人が、手順書を「読んでね」と指定してもほとんど読まれないことに気づき、3か月かけて対策を試した記録です。効いたのは、注意点を依頼文に直接貼ることと、繰り返す事故を機械で止めることでした。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>よく頼む作業ごとに「注意点3つ」を短く用意して、依頼のたびに最後に貼ると、長い手順書を読ませるより失敗が減るか試せて面白いです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>指定しても読まれない</b>：ある2日間の記録では、指定した手順書が読まれたのは12回中2回だった。</li>
+<li><b>注意点は依頼文に貼る</b>：依頼する側が、今回の作業に当てはまる注意点の本文を抜き出して依頼文に貼る。当てはまらなければ「該当なし」と書く。</li>
+<li><b>2回起きた事故は機械で止める</b>：同じ型の事故が同じ道すじで2回起きたら、人の注意ではなく、同期スクリプトや送信前のチェックで止める。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>「読ませる」仕組みを強めるのではなく、「貼る」「止める」に切り替えたという実際の記録と数字。</dd>
+<dt>なぜ重要か</dt><dd>教訓を書き残すほど手順書は長くなりますが、読まれなければ効きません。どこに書けば本当に効くかを考えるきっかけになります。</dd>
+<dt>従来との違い</dt><dd>手順書の読み込みを強制するフックを作るのではなく、必要な分だけを依頼文に入れる方法をとった。</dd></dl><ul>
+<li>失敗を「指定忘れ」「指定しても未読」「読んでも効かない」「検査の結果が見えていても止まらない」の4段に分けて考えている。</li>
+<li>貼った項目は、手順書が読まれなくても守られた。貼らなかった範囲では見落としが出た。</li>
+<li>記事は、2日間・1種類のエージェントの記録なので、割合として一般化はできないと断っている。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>Claude Code に仕事を頼むとき、関係する注意点だけを依頼文の最後に貼る</li>
+<li>2回同じミスをした作業に、公開前のチェックを足す</li>
+</ul>
+<div class="task"><h4>今日すぐできること：依頼文に注意点を貼る</h4><dl class="kv"><dt>目的</dt><dd>手順書を指定する代わりに、必要な注意点だけを依頼文に入れて効き目を比べる</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>ふだん Claude Code に頼んでいる作業を1つ決める</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（Claude Code の利用枠の範囲）</dd></dl><b>手順</b><ol><li>その作業で過去に失敗したことを3つ書き出す</li><li>下のひな形に、作業内容と注意点を入れる</li><li>Claude Code に頼み、注意点が守られたかを確かめる</li><li>当てはまる注意点がない作業では「該当なし」と書く</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次の作業をお願いします。
+作業：（ここに作業内容）
+
+この作業で守ってほしい注意点（過去に起きた失敗から）：
+1. （注意点1：NG例とOK例）
+2. （注意点2：NG例とOK例）
+3. （注意点3：NG例とOK例）
+
+終わったら、上の注意点を1つずつ守れたかどうか、理由と一緒に報告してください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>注意点を貼った依頼文と、その結果のメモ</dd><dt>確認方法</dt><dd>報告で3つの注意点すべてに「守れた」と理由が書かれ、実際の結果でも確かめられる</dd></dl><div class="meta">参考：<a href="https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106" target="_blank" rel="noopener noreferrer">https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106</a></div></div>
+<h4>発展：注意点の引き出し箱（1〜2時間）</h4><p>作業の種類ごとに注意点を短く分けて保存し、依頼のときに当てはまるものだけを選んで貼れる「引き出し箱」を作る。</p><ol>
+<li>作業の種類を5つほど決める</li>
+<li>それぞれの注意点を3つずつ、NG例とOK例つきで書く</li>
+<li>依頼のたびに当てはまる箱から貼る</li>
+<li>2回同じ失敗をしたものは、チェックで止める仕組みに移す</li>
+</ol>
+<h3>利用条件・料金</h3><p>無料（考え方と手順の話）。</p>
+<div class="meta">実践可能性：高：今日の依頼文から試せる。<br>信頼性：Zenn の個人の実践記録（一次の体験談）。数字は筆者の環境のもの。</div></section>
+<section class="card" id="news-6"><span class="badge">クリエイティブAI</span>
+<span class="meta">評価 <span class="score">72</span>/100</span>
+<h2>6. Hugging Face：3D生成モデルTRELLIS.2の形の部分だけをLoRAで追加学習するガイド。靴188個で形の再現度が大きく向上</h2>
+<div class="meta">Hugging Face・公開 2026-11-12 00:00</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/3d-lora-finetuning" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/3d-lora-finetuning</a></div>
+<p class="concl"><b>結論：</b>Hugging Face のブログで、画像から3Dモデルを作るAI「TRELLIS.2」を、自分の3Dデータに合わせて追加学習する手順が公開されました。靴の3Dデータ188個で学習し、学習に使っていない9個の靴で、形の再現度が大きく上がったと報告されています。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>画像から3Dを作るAIを追加学習</b>：TRELLIS.2 という、画像から3Dの形を作るAIに、自分の3Dデータを少し覚えさせる方法を解説。</li>
+<li><b>形の部分だけを学習</b>：LoRA（元のモデルに小さな追加部品をつけて学習する方法）で形を作る2つの部分だけを学習し、色の部分は固定した。</li>
+<li><b>コードと学習済みデータを公開</b>：学習用のコード、準備済みのデータ、学習済みの追加部品が公開されている。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>3D生成モデルの形の部分にだけ LoRA をつけて学習する、具体的な手順と道具一式。</dd>
+<dt>なぜ重要か</dt><dd>3D生成AIは、何でもそれなりに作れる反面、特定のジャンルの形は苦手なことがあります。自分の作品のジャンルに合わせて学習させる道が、手順つきで開かれました。</dd>
+<dt>従来との違い</dt><dd>モデル全体を学習し直すのではなく、小さな追加部品だけを学習するので、必要な計算が少なくてすむ。</dd></dl><ul>
+<li>形の大まかな配置を作る部分と、形の細部を作る部分にだけ LoRA をつけた。色の部分は、元のデータに光の当たり方が焼き込まれているため固定した。</li>
+<li>記事では、データセンター向けの大きなGPU1台で、準備に約1時間、学習に合わせて約11時間かかった。</li>
+<li>リポジトリによると、手元で動かす場合は24GB以上のメモリを持つNVIDIAのGPUが必要。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自分の作るアクセサリーや小物の3Dデータで学習させ、新しい形の下書きを作る</li>
+<li>ゲーム用の小物を、決まった雰囲気でたくさん作る</li>
+</ul>
+<div class="task"><h4>今日すぐできること：学習用データの計画を立てる</h4><dl class="kv"><dt>目的</dt><dd>自分の3D作品で追加学習するなら、どんなデータが何個いるかを決める</dd><dt>使用ツール</dt><dd>Claude などのチャットAI、ブログ記事</dd><dt>必要な準備</dt><dd>ブログ記事を開いておく</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>ブログを読み、靴188個で学習したことと、9個を確認用に残したことを確かめる</li><li>自分が作りたいジャンルを1つ決める</li><li>下のプロンプトでAIに相談し、データ集めの計画を作る</li><li>手元のGPUかクラウドのどちらで動かすかを決める</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>画像から3Dモデルを作るAIを、私の作品ジャンル「（ここにジャンル）」に合わせて追加学習したいです。参考にする例では、靴の3Dデータ188個のうち9個を確認用に残し、残りで学習しています。私のジャンルで同じことをするなら、どんな3Dデータを何個くらい、どんな基準で集めればよいか、確認用データの選び方も含めて計画を作ってください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>学習用データ集めの計画</dd><dt>確認方法</dt><dd>集めるデータの種類・数・確認用に残すデータが決まっている</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/3d-lora-finetuning" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/3d-lora-finetuning</a>　<a href="https://github.com/suvadityamuk/trellis2-finetuning" target="_blank" rel="noopener noreferrer">https://github.com/suvadityamuk/trellis2-finetuning</a></div></div>
+<h4>発展：自分のジャンル専用の3D下書き生成（数時間（学習の待ち時間は別））</h4><p>集めた3Dデータで TRELLIS.2 の形の部分を追加学習し、自分の作品ジャンルらしい形の下書きを作れるようにする。</p><ol>
+<li>リポジトリの説明に沿って、3Dデータを準備する</li>
+<li>24GB以上のGPUか Hugging Face Jobs を用意する</li>
+<li>形の配置と形の細部の2つの部分を順に学習する</li>
+<li>確認用データで、学習前後の形を見比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>コードはMITライセンス（リポジトリで確認）。Hugging Face Jobs で動かす場合は課金が必要（料金は未確認。公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：低〜中：手順は公開されているが、大きなGPUか有料のクラウドが必要。<br>信頼性：Hugging Face 公式ブログと、GitHub の学習用リポジトリで確認。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>

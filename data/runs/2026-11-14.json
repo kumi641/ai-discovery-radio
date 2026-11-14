@@ -1,0 +1,778 @@
+{
+ "date": "2026-11-14",
+ "made_at": "2026-11-14T07:39:27",
+ "seconds": 417.949,
+ "tts": {
+  "provider": "azure",
+  "chars": 4690,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 48,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 7.2
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 10.0
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 7,
+   "sec": 0.1
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 3,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 1.1
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.8
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.9
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.7
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 5.2
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.1
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.4
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.0
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.6
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.7
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.5
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.1
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.3
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_3578b3def0",
+   "fetched": true,
+   "scores": {
+    "practice": 30,
+    "novelty": 12,
+    "reliability": 25,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "サンドボックス内コマンドの扱いや権限ルールの修正など、毎日使う人の動きが変わる一次情報。"
+  },
+  {
+   "candidate_id": "c_bc1ca702be",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 6,
+    "reliability": 25,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "12月14日に使えなくなるモデルと代わりのモデルが公式に明記され、今週中に設定を見直せる。"
+  },
+  {
+   "candidate_id": "c_a88bddb172",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 18,
+    "reliability": 23,
+    "relevance": 17
+   },
+   "selected": true,
+   "reason": "指示と資料を分けて書く新しい形式で、プロンプトインジェクション対策として新規性が高く、公開モデルで試せる。"
+  },
+  {
+   "candidate_id": "c_8566bfc16f",
+   "fetched": true,
+   "scores": {
+    "practice": 33,
+    "novelty": 8,
+    "reliability": 20,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "MCPの接続切れを手で切り分ける手順が具体的で、公式ドキュメントと仕様で裏づけが取れた。"
+  },
+  {
+   "candidate_id": "c_0c4c743d4f",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 12,
+    "reliability": 15,
+    "relevance": 17
+   },
+   "selected": true,
+   "reason": "手順書を「読ませる」より「貼る」「止める」が効いたという3か月の実録で、すぐ真似できる。"
+  },
+  {
+   "candidate_id": "c_56dac742ff",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 16,
+    "reliability": 23,
+    "relevance": 15
+   },
+   "selected": true,
+   "reason": "3D生成モデルを自分の形に合わせて追加学習する手順とコードが公開されている、クリエイティブ枠の一次情報。"
+  },
+  {
+   "candidate_id": "c_40e78db660",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 10,
+    "reliability": 24,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "版の付け方が安定した節目の発表で、今日すぐ試せる新機能は少なく、同じ発表元の上限もあり見送り。"
+  },
+  {
+   "candidate_id": "c_3eb957304a",
+   "fetched": true,
+   "scores": {
+    "practice": 26,
+    "novelty": 8,
+    "reliability": 14,
+    "relevance": 17
+   },
+   "selected": false,
+   "reason": "内容は有用だが、MCPの切り分け記事と重なり、作者の配布ツールの紹介も含むため見送り。"
+  },
+  {
+   "candidate_id": "c_e675b5e1cb",
+   "fetched": true,
+   "scores": {
+    "practice": 14,
+    "novelty": 10,
+    "reliability": 10,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "概要だけで原因と対策の本文が別サイトにあり、記事単体では確かめられないため見送り。"
+  },
+  {
+   "candidate_id": "c_b9c6621858",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 8,
+    "reliability": 11,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "Windows限定の事例で公式ドキュメントへの裏づけがなく、Qiitaの枠はMCP記事を優先。"
+  },
+  {
+   "candidate_id": "c_57d405a0b2",
+   "fetched": true,
+   "scores": {
+    "practice": 6,
+    "novelty": 2,
+    "reliability": 20,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "リリースノートが空で、何が変わったか確かめられない。"
+  },
+  {
+   "candidate_id": "c_ec65b35340",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 2,
+    "reliability": 10,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "前日の小さな版で、変更内容が要約から分からない。"
+  },
+  {
+   "candidate_id": "c_e8c3c46993",
+   "fetched": false,
+   "scores": {
+    "practice": 14,
+    "novelty": 6,
+    "reliability": 15,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "Gemini 4 Hydrogenは昨日の放送で扱ったため見送り。"
+  },
+  {
+   "candidate_id": "c_ad614f81e4",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 6,
+    "reliability": 15,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "検索サービスの話で、昨日扱ったHydrogenと重なるため見送り。"
+  },
+  {
+   "candidate_id": "c_9f0b516152",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 4,
+    "reliability": 10,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "Hydrogenの料金の話で二次情報、昨日の話題と重なる。"
+  },
+  {
+   "candidate_id": "c_fba640cc6c",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 6,
+    "reliability": 12,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "組織向けの管理機能で、個人の制作への応用が小さい。"
+  },
+  {
+   "candidate_id": "c_18a36c2817",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 4,
+    "reliability": 12,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "企業向けサーバー製品への対応で、個人には関係が薄い。"
+  },
+  {
+   "candidate_id": "c_05a61ad7e4",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 2,
+    "reliability": 12,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "AIと直接関係のない実行環境の終了告知。"
+  },
+  {
+   "candidate_id": "c_8f2daa11c5",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 10,
+    "reliability": 12,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "高価な専用機2台が前提で、個人には真似しにくい。"
+  },
+  {
+   "candidate_id": "c_408f1e399c",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 8,
+    "reliability": 12,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "特定の組み込み機器向けで、関心領域から遠い。"
+  },
+  {
+   "candidate_id": "c_5b0f73df89",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 4,
+    "reliability": 12,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "企業の導入事例で、個人の実践に直結しにくい。"
+  },
+  {
+   "candidate_id": "c_90d7922370",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 2,
+    "reliability": 12,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "企業の導入事例。"
+  },
+  {
+   "candidate_id": "c_0990939c7d",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 2,
+    "reliability": 12,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "企業の導入事例。"
+  },
+  {
+   "candidate_id": "c_5bf4951adb",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 8,
+    "reliability": 12,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "AIに買い物をさせる機能で、制作・開発への応用が小さい。"
+  },
+  {
+   "candidate_id": "c_f7e0112842",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 8,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "試作版で変更内容の説明がない。"
+  },
+  {
+   "candidate_id": "c_211c809ec5",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 8,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "試作版で変更内容の説明がない。"
+  },
+  {
+   "candidate_id": "c_1736212f97",
+   "fetched": false,
+   "scores": {
+    "practice": 12,
+    "novelty": 8,
+    "reliability": 10,
+    "relevance": 14
+   },
+   "selected": false,
+   "reason": "MCPの話題は今日2件あり、同じ発表元の上限もあるため見送り。"
+  },
+  {
+   "candidate_id": "c_73df028b87",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 8,
+    "reliability": 8,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "同じ話題の一次情報（Hugging FaceのLLMON記事）を採用したため重複として除外。"
+  },
+  {
+   "candidate_id": "c_6941941996",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 8,
+    "reliability": 8,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "長い本の形式で、今日の枠では確かめきれないため見送り。"
+  },
+  {
+   "candidate_id": "c_2427bacb74",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 6,
+    "reliability": 10,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "ロボットのシミュレーションで関心領域から遠い。"
+  },
+  {
+   "candidate_id": "c_8400bdfe1e",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 8,
+    "reliability": 10,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "評価用データの研究で、個人の制作に直結しにくい。"
+  },
+  {
+   "candidate_id": "c_67061733cd",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 2,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "変更内容の説明がない小さな版。"
+  },
+  {
+   "candidate_id": "c_44da454e79",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 6,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "一時的な障害情報で、制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_22bcd83804",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 4,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "障害情報と重複。"
+  },
+  {
+   "candidate_id": "c_ece4b84db3",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 4,
+    "reliability": 10,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "医療分野の事例紹介で関心領域から遠い。"
+  },
+  {
+   "candidate_id": "c_b06379671e",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 4,
+    "reliability": 10,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "研究支援の発表で、制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_f28f90d289",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 10,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "企業トップへのインタビュー。"
+  },
+  {
+   "candidate_id": "c_12f357dd39",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 4,
+    "reliability": 6,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "経営の話題で二次情報、本文未確認。"
+  },
+  {
+   "candidate_id": "c_0f77776f7c",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 6,
+    "reliability": 6,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "インタビュー中心の二次情報で、本文未確認。"
+  },
+  {
+   "candidate_id": "c_e10b6b9196",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 6,
+    "reliability": 6,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "まとめ記事の二次情報で、本文未確認。"
+  },
+  {
+   "candidate_id": "c_f980cc1f1e",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 8,
+    "reliability": 4,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "本文未確認で、性能の主張を検証できない。"
+  },
+  {
+   "candidate_id": "c_e940fd9875",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 6,
+    "reliability": 6,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "一般ニュースで制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_5f1afeeb96",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 4,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "一般ニュースで制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_7ac7b8ca9e",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 4,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "論評記事で制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_d096a8a420",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 6,
+    "reliability": 4,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "検証の難しい主張で、制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_10ab378046",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 4,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "アプリ審査の話題で本文未確認。"
+  },
+  {
+   "candidate_id": "c_42bbfb6155",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 2,
+    "reliability": 6,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "AIが主題ではない個人アプリの開発記録。"
+  },
+  {
+   "candidate_id": "c_582c495c10",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 2,
+    "reliability": 6,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "組織論の記事で、個人の制作への応用が小さい。"
+  }
+ ],
+ "warnings": []
+}
