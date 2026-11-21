@@ -182,5 +182,53 @@
   "publisher": "Hugging Face",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+  "title": "Claude Code v2.1.330：頼むとグラフを描く内蔵mod「easel」、定期タスクと/loopが最長30日に、危険なrmは承認が必要に",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+  "title": "Google、Gemini API（Interactions API）に Tool Retrieval をプレビュー公開。ツールの定義を必要なときだけ読み込む",
+  "publisher": "Google",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+  "title": "Hugging Face、エージェントの実行環境ごとにモデルを強化学習で合わせる「harness adapters」を公開（Qwen3.8-27B 向け）",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611",
+  "title": "Zenn：Claude Code の開発手順（2026年11月）。書くのはAI、疑うのは経緯を知らない別のAI、commit と push は自分で",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "git push を止めて、理由と代わりの手順を返すフック"
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a",
+  "title": "Qiita：Claude Code の VS Code 拡張で CLAUDE.md が読まれなくなった原因は「フォルダの信頼」（v2.1.323 以降、筆者の解析）",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/",
+  "title": "NVIDIA：開発者が最先端のAIエージェントに指示して、Omniverse の3Dシミュレーションを作る事例を紹介",
+  "publisher": "NVIDIA",
+  "corner": "creative",
+  "experiment": null
  }
 ]

@@ -1,0 +1,800 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-21",
+ "title": "AIの止め方と確かめ方：フックと別AIレビュー",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。十一月二十一日、土曜日の放送です。",
+   "show": "AI Discovery & Build Radio／11月21日(土)"
+  },
+  {
+   "say": "今日いちばん大事なのは、エーアイに作業を任せるときの「止め方」と「確かめ方」です。",
+   "show": "今日のテーマ：AIの止め方と確かめ方"
+  },
+  {
+   "say": "クロード コードの最新版は、危ない削除を実行前に確認するようになり、グラフも描けるようになりました。",
+   "show": "Claude Code最新版：rm確認強化とグラフ描画"
+  },
+  {
+   "say": "ほかに、ジェミニの道具探しの新機能と、エージェント向けの追加学習、そして実践ノウハウを紹介します。",
+   "show": "Gemini、harness adapters、実践ノウハウも"
+  },
+  {
+   "say": "最後の実験では、エーアイが勝手に送信しないように止める仕組みを、十五分ほどで作ります。",
+   "show": "今日の実験：git pushを止めるフック"
+  }
+ ],
+ "news": [
+  {
+   "label": "Claude Code 2.1.330",
+   "points": [
+    "頼むとグラフを描くeasel",
+    "定期作業が最長30日に",
+    "危ないrmは確認が必要に"
+   ],
+   "details": [
+    "内蔵の追加機能easelが、頼んだときやMCPの数値結果の下にグラフを描く。Pro・Maxなど、macOSとLinuxで利用でき、自動表示は/configでオフにできる",
+    "くり返しの定期タスクと/loopが、セッションを開いている間は7日ではなく最長30日動くようになった（以前に作ったものは7日のまま）",
+    "ルートやホーム、作業フォルダなどを狙うrmは、実行前に承認を求める。答える人がいない場面では断られる"
+   ],
+   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+   "lines": [
+    {
+     "say": "まずは、クロード コードの最新版です。結論から言うと、頼むとグラフを描いてくれるようになりました。",
+     "show": "Claude Code v2.1.330：頼めばグラフを描く"
+    },
+    {
+     "say": "イーゼルという組み込みの追加機能で、プロとマックスのプランの、マックとリナックスで使えます。",
+     "show": "内蔵mod「easel」。Pro/Max、macOS・Linux"
+    },
+    {
+     "say": "勝手にグラフが出るのが嫌なら、設定画面で止められます。",
+     "show": "自動グラフは /config でオフにできる"
+    },
+    {
+     "say": "もう一つ、決まった間隔で作業をくり返す機能が、画面を開いている間なら、最長七日から三十日に延びました。",
+     "show": "定期タスクと /loop が最長7日→30日に"
+    },
+    {
+     "say": "さらに、ホームフォルダや作業フォルダを丸ごと消すような削除は、実行前に確認を求めるようになりました。",
+     "show": "危険な rm は承認が必要に"
+    },
+    {
+     "say": "たとえば、毎日のコミット数を数えさせてグラフにしてもらうと、自分の進み具合が見えて面白そうですね。",
+     "show": "使い方例：毎日のコミット数をグラフに"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+    "title": "Release v2.1.330 · anthropics/claude-code",
+    "site": "GitHub",
+    "description": "What's changed\n\nAdded sign-in to organizations managed in Anthropic's Enterprise Admin Console: after claude auth login, Claude Code applies the organization's settings and uses its cloud provider ...",
+    "image": "https://opengraph.githubassets.com/039682c0eddced240ab97c729ba18cf64b6d2a8143b2f64e8694fb42caf41007/anthropics/claude-code/releases/tag/v2.1.330",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "news",
+   "idea": "毎日のコミット数やテストの成功数を数えさせて「グラフにして」と頼むと、自分の進み具合がひと目で分かって面白そうです。",
+   "guide": "guides/2026-11-21.html#news-1"
+  },
+  {
+   "label": "Gemini APIのツール検索",
+   "points": [
+    "道具の説明書を必要な分だけ",
+    "探すのはGoogle側",
+    "追加料金なし"
+   ],
+   "details": [
+    "使わない道具は名前と短い説明だけを渡し、必要になった道具の詳しい定義だけを読み込む",
+    "tool_search を足し、道具に defer_loading を付けるだけ。検索の仕組みを自分で作らなくてよい（自前の検索も可能）",
+    "別料金はなく、通常のトークン料金。ただし道具が少ないと普通に渡す方が安いこともある"
+   ],
+   "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+   "lines": [
+    {
+     "say": "次は、グーグルのジェミニです。結論は、たくさんの道具を持つエーアイを、軽く正確に動かす仕組みが出ました。",
+     "show": "Gemini API に Tool Retrieval（プレビュー）"
+    },
+    {
+     "say": "ここで言う道具とは、エーアイが呼び出せる機能のことです。たとえば返金の手続きや、予定の登録です。",
+     "show": "道具＝AIが呼び出せる機能"
+    },
+    {
+     "say": "これまでは、道具の詳しい説明書を、毎回ぜんぶエーアイに渡す必要がありました。",
+     "show": "従来は全ツールの定義を毎回送っていた"
+    },
+    {
+     "say": "新しい仕組みでは、名前と短い説明だけを渡し、必要になった道具だけ説明書を読み込みます。",
+     "show": "名前と説明だけ渡し、必要時に定義を読み込む"
+    },
+    {
+     "say": "探す作業はグーグル側がやってくれます。追加料金もなく、使った分だけの通常料金です。",
+     "show": "検索はサーバー側。追加料金なし"
+    },
+    {
+     "say": "たとえば、メールや予定表など道具が何十個もある自分専用アシスタントでも、軽く動かせそうで面白いですね。",
+     "show": "使い方例：道具が多い自分用アシスタント"
+    }
+   ],
+   "link": {
+    "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+    "title": "Introducing Tool Retrieval in the Gemini API",
+    "site": "Google",
+    "description": "Give your agents access to hundreds of tools while using fewer tokens with Tool Retrieval, now in preview in the Gemini API.",
+    "image": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Tool_retrieval_hero.width-1300.png",
+    "icon": "https://blog.google/static/blogv2/images/favicon.ico?version=pr20261117-1738"
+   },
+   "corner": "news",
+   "idea": "メールや予定表、メモ帳など道具が何十個もある自分専用アシスタントでも、必要な道具だけ呼び出して軽く動かせそうで面白いですね。",
+   "guide": "guides/2026-11-21.html#news-2"
+  },
+  {
+   "label": "ハーネス専用の追加学習",
+   "points": [
+    "動かすソフトに合わせて鍛える",
+    "元のモデルはそのまま",
+    "道具の呼び出しが大幅減"
+   ],
+   "details": [
+    "Pi、Hermes Agent、OpenCode という3つのエージェント用ソフトの中で、実際に作業させながら強化学習した",
+    "Qwen3.8-27B は変えず、小さな追加部品（LoRA）だけを学習。3つをまとめた統合版も公開",
+    "よく解ける問題では、道具の呼び出し回数が約53〜73%減った"
+   ],
+   "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+   "lines": [
+    {
+     "say": "三つ目は、ハギングフェイスの発表です。結論は、エーアイを、それを動かすソフトに合わせて鍛えると強くなる、という結果です。",
+     "show": "HF：harness adapters を公開"
+    },
+    {
+     "say": "エージェントは、頭脳にあたるモデルと、それを動かす作業用ソフトの組み合わせでできています。",
+     "show": "エージェント＝モデル＋動かすソフト"
+    },
+    {
+     "say": "今回は、クウェンという公開モデルはそのままに、小さな追加部品だけを学習させました。",
+     "show": "Qwen3.8-27Bに小さなLoRAを追加"
+    },
+    {
+     "say": "実際の作業用ソフトの中で練習問題を解かせ、正解したらほめる方法で鍛えたそうです。",
+     "show": "実際のハーネス内で強化学習"
+    },
+    {
+     "say": "その結果、プログラム修正の正解率が上がり、道具を呼ぶ回数も半分前後に減りました。",
+     "show": "正解率UP、ツール呼び出しは約53〜73%減"
+    },
+    {
+     "say": "個人で学習するのは大変ですが、ソフトとの相性で力が変わる、という点は覚えておくと役に立ちます。",
+     "show": "モデルとソフトの相性が大事"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+    "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+    "site": "huggingface.co",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "https://huggingface.co/blog/assets/harness-adapters-at-scale/thumbnail.png",
+    "icon": null
+   },
+   "corner": "news",
+   "idea": null,
+   "guide": "guides/2026-11-21.html#news-3"
+  },
+  {
+   "label": "書くAIと疑うAI",
+   "points": [
+    "経緯を知らないAIに見せる",
+    "思い込みを書かない",
+    "2回目の失敗はhookで止める"
+   ],
+   "details": [
+    "履歴を持たない読み取り専用のClaudeと、Codex の codex review の2つに同じ差分を同時に見せる",
+    "依頼文はリポジトリの場所と対象だけ。「ここは大丈夫なはず」と書くとレビュー側も引っぱられる",
+    "同じ失敗が2回起きたら、ルールの文を増やさず PreToolUse hook で止め、理由と代わりの手順を返す"
+   ],
+   "url": "https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611",
+   "lines": [
+    {
+     "say": "ここからは、エンジニアの実践ノウハウです。結論は、書くのはエーアイ、疑うのは別のエーアイ、決めるのは自分、というやり方です。",
+     "show": "書くのはAI、疑うのは別のAI、決めるのは自分"
+    },
+    {
+     "say": "ゼンの記事で、筆者は、作ったコードを、作った経緯を知らないエーアイ二つに同時に見せています。",
+     "show": "経緯を知らないレビュー役を2つ同時に"
+    },
+    {
+     "say": "一つは会話の履歴を持たないクロード、もう一つは別の会社のコーデックスです。",
+     "show": "履歴なしのClaudeと codex review"
+    },
+    {
+     "say": "コツは、頼むときに「ここは大丈夫なはず」と書かないことです。書くと、見る側も同じ思い込みに引っぱられます。",
+     "show": "依頼文に思い込みを書かない"
+    },
+    {
+     "say": "指摘はすぐに直さず、本当に起きるかを動かして確かめます。",
+     "show": "指摘は再現して確かめてから直す"
+    },
+    {
+     "say": "そして、同じ失敗が二回起きたら、ルールの文を増やさず、フックという自動の見張り役で止めています。",
+     "show": "同じ失敗2回→hookで機械的に止める"
+    },
+    {
+     "say": "たとえば、自分のアプリの変更を、何も説明せずに新しい会話のエーアイに見せると、思わぬ見落としが見つかって面白いですよ。",
+     "show": "使い方例：説明なしで新しい会話にレビュー"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611",
+    "title": "僕の Claude Code 開発のやり方（2026年11月）- AI に書かせて、別の AI に疑わせる",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--R2pZ5I4X--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:%25E5%2583%2595%25E3%2581%25AE%2520Claude%2520Code%2520%25E9%2596%258B%25E7%2599%25BA%25E3%2581%25AE%25E3%2582%2584%25E3%2582%258A%25E6%2596%25B9%25EF%25BC%25882026%25E5%25B9%25B411%25E6%259C%2588%25EF%25BC%2589-%2520AI%2520%25E3%2581%25AB%25E6%259B%25B8%25E3%2581%258B%25E3%2581%259B%25E3%2581%25A6%25E3%2580%2581%25E5%2588%25A5%25E3%2581%25AE%2520AI%2520%25E3%2581%25AB%25E7%2596%2591%25E3%2582%258F%25E3%2581%259B%25E3%2582%258B%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:%25E3%2581%25B2%25E3%2582%258D%25E3%2583%258E%25E3%2582%25A2%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSWpEU2NEdENzSGU0RHVnZTJWRjl5cnNaa19uWFdEbi16Nm42b0xYWm9zZFU5clNPQmM9czI1MC1j%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "自分で作ったアプリの変更を、何も説明せずに新しい会話のAIに見せて「おかしな所を探して」と頼むと、思わぬ見落としが見つかって面白いですよ。",
+   "guide": "guides/2026-11-21.html#news-4"
+  },
+  {
+   "label": "CLAUDE.mdが効かない時",
+   "points": [
+    "未信頼だとCLAUDE.mdが無効",
+    "まず読まれているか確認",
+    "フォルダを信頼し直す"
+   ],
+   "details": [
+    "筆者の解析では、VS Code 拡張 v2.1.323 以降、未信頼のフォルダは user の設定だけで起動し、プロジェクトの CLAUDE.md・settings・MCP が読まれない",
+    "Claude に CLAUDE.md の内容を受け取っているか聞く、拡張のログで警告を探す、などで確かめられる",
+    "Developer: Reload Window → 新しいチャットで「Trust folder」を選ぶ"
+   ],
+   "url": "https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a",
+   "lines": [
+    {
+     "say": "次は、キータの記事です。結論は、ブイエスコードでクロード コードがルールを守らなくなったら、フォルダの信頼を疑おう、という話です。",
+     "show": "CLAUDE.mdが効かない→フォルダの信頼を確認"
+    },
+    {
+     "say": "クロード エムディーは、プロジェクトのルールを書いておく、説明書のようなファイルです。",
+     "show": "CLAUDE.md＝プロジェクトのルールを書くファイル"
+    },
+    {
+     "say": "筆者の調べでは、拡張機能のバージョン二ポイント一ポイント三百二十三から、信頼していないフォルダでは、このファイルが読まれません。",
+     "show": "v2.1.323以降、未信頼フォルダでは読まれない"
+    },
+    {
+     "say": "公式の説明には、設定とエムシーピーが使われないとしか書かれておらず、気づきにくいそうです。",
+     "show": "公式の説明は settings と MCP のみ"
+    },
+    {
+     "say": "直し方は、ウィンドウを読み込み直して、新しいチャットで「フォルダを信頼する」を選ぶことです。",
+     "show": "Reload Window→新チャットで Trust folder"
+    },
+    {
+     "say": "新しいプロジェクトを開いたら、まず「ルールを受け取っている？」と聞く習慣をつけると、空回りを防げて便利です。",
+     "show": "使い方例：最初にルールが届いているか聞く"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a",
+    "title": "Claude Code の VS Code 拡張で CLAUDE.md が急に効かなくなった原因は「フォルダの信頼」だった - Qiita",
+    "site": "Qiita",
+    "description": "はじめに Claude Code の VS Code 拡張を使っていて、プロジェクトの CLAUDE.md に書いたルールを急に守ってくれなくなりました。 CLAUDE.md の中身も置き場所も変えていません。ところが拡張機能が更新されたころから、書いておいたワークフロー...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRmxoMy5nb29nbGV1c2VyY29udGVudC5jb20lMkZhJTJGQUNnOG9jTE9ZLS1GcXVBckYxSnA4YzhPclZGODYwdGcwbG5KOG5nbDFjQ1hCTDJweFYxNzJEODYlM0RzOTYtYz9peGxpYj1yYi00LjEuMSZhcj0xJTNBMSZmaXQ9Y3JvcCZtYXNrPWVsbGlwc2UmYmc9RkZGRkZGJmZtPXBuZzMyJnM9ZTAwMTE5MDA4MWFkNzE5ZGU2NzhjMTRlMWIxZDE4YjI%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3D6db11c8020956484d3cc9e9dbff4d8d0?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9Q2xhdWRlJTIwQ29kZSUyMCVFMyU4MSVBRSUyMFZTJTIwQ29kZSUyMCVFNiU4QiVBMSVFNSVCQyVCNSVFMyU4MSVBNyUyMENMQVVERS5tZCUyMCVFMyU4MSU4QyVFNiU4MCVBNSVFMyU4MSVBQiVFNSU4QSVCOSVFMyU4MSU4QiVFMyU4MSVBQSVFMyU4MSU4RiVFMyU4MSVBQSVFMyU4MSVBMyVFMyU4MSU5RiVFNSU4RSU5RiVFNSU5QiVBMCVFMyU4MSVBRiVFMyU4MCU4QyVFMyU4MyU5NSVFMyU4MiVBOSVFMyU4MyVBQiVFMyU4MyU4MCVFMyU4MSVBRSVFNCVCRiVBMSVFOSVBMCVCQyVFMyU4MCU4RCVFMyU4MSVBMCVFMyU4MSVBMyVFMyU4MSU5RiZ0eHQtYWxpZ249bGVmdCUyQ3RvcCZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTU2JnR4dC1wYWQ9MCZzPTU5NDg5MjQxMjMxN2EzOGY4NzQ0NDA1ZWUwNTM3NDZj&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBhZ2VudF9ub3RlczM3NiZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPWUyOGQ5NjI4YTg4MDlmZjNhNjhkMmZjNTRlNzlhNWE4&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=4fc1aab118718df7fa23b37838964c7a",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "新しいプロジェクトを開いたら、最初に Claude へ「CLAUDE.md の内容を受け取っている？」と聞く習慣をつけると、ルールが効かない空回りを防げて便利です。",
+   "guide": "guides/2026-11-21.html#news-5"
+  },
+  {
+   "label": "AIで3Dシミュレーション",
+   "points": [
+    "言葉で指示して3Dを作る",
+    "ロボットや倉庫の事例",
+    "画像と記録で自己チェック"
+   ],
+   "details": [
+    "開発者が自然な言葉で指示し、エージェントが素材集め・物理・描画をつなぎ、人が結果を見て直させる",
+    "ICUを歩く小型ロボット、800個の箱が流れる倉庫、声で操作するVRアプリなど",
+    "エージェントには描画結果・ログ・数値を見せて、自分の作業を確かめさせることが大事"
+   ],
+   "url": "https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/",
+   "lines": [
+    {
+     "say": "最後はクリエイティブエーアイです。結論は、エーアイエージェントに話しかけて、三次元のシミュレーションを作る例が、エヌビディアから紹介されました。",
+     "show": "NVIDIA：AIエージェントで3Dシミュレーション制作"
+    },
+    {
+     "say": "開発者が言葉で指示し、エージェントが部品を集めて、物の動きや見た目をつなげます。",
+     "show": "言葉で指示→素材・物理・描画をAIがつなぐ"
+    },
+    {
+     "say": "使われたエーアイには、クロード コードや、ジーピーティー シックス アストラなどが挙がっています。",
+     "show": "Claude Code、GPT-6 Astra などを使用"
+    },
+    {
+     "say": "病院の部屋を小さなロボットが歩く例や、倉庫で八百個の箱を運ぶ例などがあります。",
+     "show": "ICUを歩くロボット、800箱の倉庫など"
+    },
+    {
+     "say": "大事なのは、エーアイに画像や記録を見せて、自分の作業を確かめさせることだそうです。",
+     "show": "AIに描画とログで自己チェックさせる"
+    },
+    {
+     "say": "病院のデモは一部屋ならふつうのパソコンで動くので、まず動画にして、ロボットの数を変えてもらうと面白そうです。",
+     "show": "使い方例：ICUデモを動画にして改造"
+    }
+   ],
+   "link": {
+    "url": "https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/",
+    "title": "Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents",
+    "site": "NVIDIA Blog",
+    "description": "See how developers are combining AI agents with NVIDIA Omniverse libraries to build simulation applications, test physical behavior and guide improvements.",
+    "image": "https://blogs.nvidia.com/wp-content/uploads/2026/10/Copy-of-nvidia-ov-x-astra-4up-KV-r1-press-4k-r2-1680x945.png",
+    "icon": null
+   },
+   "corner": "creative",
+   "idea": "病院の部屋をロボットが歩くデモは1部屋ならふつうのパソコンで動くので、まず動画に書き出して、Claude Code に「ロボットの数を変えて」と頼んでみると面白そうです。",
+   "guide": "guides/2026-11-21.html#news-6"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "exit 2 で道具の実行を止める",
+    "止めた理由は stderr でAIに届く",
+    "理由に「代わりの手順」を書く",
+    "他のコマンドは普段どおり"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://code.claude.com/docs/en/hooks",
+   "lines": [
+    {
+     "say": "ここからは今日の実験です。テーマは、エーアイに勝手にプッシュさせない見張り役を作ることです。",
+     "show": "今日の実験：git push を止めるフック"
+    },
+    {
+     "say": "プッシュとは、手元で作った変更を、インターネット上の保管場所に送ることです。",
+     "show": "push＝変更をリモートに送ること"
+    },
+    {
+     "say": "使うのはフックという仕組みです。エーアイが道具を使う直前に、自分の小さなプログラムを動かせます。",
+     "show": "PreToolUse hook：道具を使う直前に動く"
+    },
+    {
+     "say": "そのプログラムが「二」という番号を返して終わると、操作は止まり、エラーとして書いた文がエーアイに伝わります。",
+     "show": "exit 2 で止まり、stderr の文がAIに届く"
+    },
+    {
+     "say": "手順は三つです。見張り役のファイルを作り、設定に登録し、クロードに「プッシュして」と頼んでみます。",
+     "show": "作る→登録する→pushを頼んで試す"
+    },
+    {
+     "say": "コツは、理由の文に「代わりに変更の要約を見せて」と書くことです。止めるだけだと、別のやり方で同じことをしようとするからです。",
+     "show": "理由に「代わりの手順」を書くのがコツ"
+    },
+    {
+     "say": "止まって理由が出たら成功です。ほかのコマンドが今まで通り動くかも確かめましょう。コードは番組ページに載せています。",
+     "show": "止まれば成功。他のコマンドも確認"
+    }
+   ],
+   "link": {
+    "url": "https://code.claude.com/docs/en/hooks",
+    "title": "Hooks reference - Claude Code Docs",
+    "site": "Claude Code Docs",
+    "description": "Reference for Claude Code hook events, configuration schema, JSON input/output formats, exit codes, async hooks, HTTP hooks, prompt hooks, and MCP tool hooks.",
+    "image": "https://claude-code.mintlify.site/docs/_mintlify/api/og/v2?division=Reference&title=Hooks+reference&description=Reference+for+Claude+Code+hook+events%2C+configuration+schema%2C+JSON+input%2Foutput+formats%2C+exit+codes%2C+async+hooks%2C+HTTP+hooks%2C+prompt+hooks%2C+and+MCP+tool+hooks.&theme=e2d30309a4005a9870b526a1&signature=3ee00bf3e4235b01a55a6134f08d95c0015c42b7debbe57ef63d20ddb71729bb",
+    "icon": "https://code.claude.com/docs/mintlify-assets/_mintlify/favicons/claude-code/pLsy-mRpNksna2sx/_generated/favicon/android-chrome-192x192.png"
+   },
+   "corner": "experiment",
+   "name": "git push を止めて、理由と代わりの手順を返すフック",
+   "guide": "guides/2026-11-21.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。クロード コードはグラフと長い定期作業に対応し、ジェミニは道具を必要な分だけ読む仕組みを出しました。",
+   "show": "要点：Claude Codeのグラフ、Geminiのツール検索"
+  },
+  {
+   "say": "実践では、経緯を知らない別のエーアイに疑わせること、そしてルールが本当に読まれているか確かめることが大事でした。",
+   "show": "別のAIに疑わせる／ルールが届いているか確認"
+  },
+  {
+   "say": "今日やってみることは、プッシュを止めるフックを一つ作ることです。十五分ほどでできます。",
+   "show": "今日やること：push を止める hook を作る"
+  },
+  {
+   "say": "エーアイ ディスカバリー アンド ビルド ラジオ、また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio、また明日"
+  }
+ ],
+ "highlight": 6,
+ "guide": "guides/2026-11-21.html",
+ "seconds": 455.549,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 10.158,
+   "show": "AI Discovery & Build Radio／11月21日(土)",
+   "part": 0
+  },
+  {
+   "start": 10.408,
+   "end": 17.468,
+   "show": "今日のテーマ：AIの止め方と確かめ方",
+   "part": 0
+  },
+  {
+   "start": 17.718,
+   "end": 25.808,
+   "show": "Claude Code最新版：rm確認強化とグラフ描画",
+   "part": 0
+  },
+  {
+   "start": 26.058,
+   "end": 34.484,
+   "show": "Gemini、harness adapters、実践ノウハウも",
+   "part": 0
+  },
+  {
+   "start": 34.734,
+   "end": 42.047,
+   "show": "今日の実験：git pushを止めるフック",
+   "part": 0
+  },
+  {
+   "start": 42.947,
+   "end": 51.625,
+   "show": "Claude Code v2.1.330：頼めばグラフを描く",
+   "part": 1
+  },
+  {
+   "start": 51.875,
+   "end": 58.935,
+   "show": "内蔵mod「easel」。Pro/Max、macOS・Linux",
+   "part": 1
+  },
+  {
+   "start": 59.185,
+   "end": 63.907,
+   "show": "自動グラフは /config でオフにできる",
+   "part": 1
+  },
+  {
+   "start": 64.157,
+   "end": 73.458,
+   "show": "定期タスクと /loop が最長7日→30日に",
+   "part": 1
+  },
+  {
+   "start": 73.708,
+   "end": 81.998,
+   "show": "危険な rm は承認が必要に",
+   "part": 1
+  },
+  {
+   "start": 82.248,
+   "end": 90.487,
+   "show": "使い方例：毎日のコミット数をグラフに",
+   "part": 1
+  },
+  {
+   "start": 91.387,
+   "end": 100.82,
+   "show": "Gemini API に Tool Retrieval（プレビュー）",
+   "part": 2
+  },
+  {
+   "start": 101.07,
+   "end": 109.819,
+   "show": "道具＝AIが呼び出せる機能",
+   "part": 2
+  },
+  {
+   "start": 110.069,
+   "end": 116.828,
+   "show": "従来は全ツールの定義を毎回送っていた",
+   "part": 2
+  },
+  {
+   "start": 117.078,
+   "end": 125.052,
+   "show": "名前と説明だけ渡し、必要時に定義を読み込む",
+   "part": 2
+  },
+  {
+   "start": 125.302,
+   "end": 133.646,
+   "show": "検索はサーバー側。追加料金なし",
+   "part": 2
+  },
+  {
+   "start": 133.896,
+   "end": 142.553,
+   "show": "使い方例：道具が多い自分用アシスタント",
+   "part": 2
+  },
+  {
+   "start": 143.453,
+   "end": 154.194,
+   "show": "HF：harness adapters を公開",
+   "part": 3
+  },
+  {
+   "start": 154.444,
+   "end": 161.573,
+   "show": "エージェント＝モデル＋動かすソフト",
+   "part": 3
+  },
+  {
+   "start": 161.823,
+   "end": 169.195,
+   "show": "Qwen3.8-27Bに小さなLoRAを追加",
+   "part": 3
+  },
+  {
+   "start": 169.445,
+   "end": 176.899,
+   "show": "実際のハーネス内で強化学習",
+   "part": 3
+  },
+  {
+   "start": 177.149,
+   "end": 184.615,
+   "show": "正解率UP、ツール呼び出しは約53〜73%減",
+   "part": 3
+  },
+  {
+   "start": 184.865,
+   "end": 193.242,
+   "show": "モデルとソフトの相性が大事",
+   "part": 3
+  },
+  {
+   "start": 194.142,
+   "end": 205.482,
+   "show": "書くのはAI、疑うのは別のAI、決めるのは自分",
+   "part": 4
+  },
+  {
+   "start": 205.732,
+   "end": 213.457,
+   "show": "経緯を知らないレビュー役を2つ同時に",
+   "part": 4
+  },
+  {
+   "start": 213.707,
+   "end": 220.2,
+   "show": "履歴なしのClaudeと codex review",
+   "part": 4
+  },
+  {
+   "start": 220.45,
+   "end": 230.438,
+   "show": "依頼文に思い込みを書かない",
+   "part": 4
+  },
+  {
+   "start": 230.688,
+   "end": 235.838,
+   "show": "指摘は再現して確かめてから直す",
+   "part": 4
+  },
+  {
+   "start": 236.088,
+   "end": 244.158,
+   "show": "同じ失敗2回→hookで機械的に止める",
+   "part": 4
+  },
+  {
+   "start": 244.408,
+   "end": 254.504,
+   "show": "使い方例：説明なしで新しい会話にレビュー",
+   "part": 4
+  },
+  {
+   "start": 255.404,
+   "end": 266.698,
+   "show": "CLAUDE.mdが効かない→フォルダの信頼を確認",
+   "part": 5
+  },
+  {
+   "start": 266.948,
+   "end": 273.024,
+   "show": "CLAUDE.md＝プロジェクトのルールを書くファイル",
+   "part": 5
+  },
+  {
+   "start": 273.274,
+   "end": 283.459,
+   "show": "v2.1.323以降、未信頼フォルダでは読まれない",
+   "part": 5
+  },
+  {
+   "start": 283.709,
+   "end": 291.239,
+   "show": "公式の説明は settings と MCP のみ",
+   "part": 5
+  },
+  {
+   "start": 291.489,
+   "end": 299.371,
+   "show": "Reload Window→新チャットで Trust folder",
+   "part": 5
+  },
+  {
+   "start": 299.621,
+   "end": 308.012,
+   "show": "使い方例：最初にルールが届いているか聞く",
+   "part": 5
+  },
+  {
+   "start": 308.912,
+   "end": 320.056,
+   "show": "NVIDIA：AIエージェントで3Dシミュレーション制作",
+   "part": 6
+  },
+  {
+   "start": 320.306,
+   "end": 327.274,
+   "show": "言葉で指示→素材・物理・描画をAIがつなぐ",
+   "part": 6
+  },
+  {
+   "start": 327.524,
+   "end": 334.005,
+   "show": "Claude Code、GPT-6 Astra などを使用",
+   "part": 6
+  },
+  {
+   "start": 334.255,
+   "end": 341.315,
+   "show": "ICUを歩くロボット、800箱の倉庫など",
+   "part": 6
+  },
+  {
+   "start": 341.565,
+   "end": 348.567,
+   "show": "AIに描画とログで自己チェックさせる",
+   "part": 6
+  },
+  {
+   "start": 348.817,
+   "end": 357.554,
+   "show": "使い方例：ICUデモを動画にして改造",
+   "part": 6
+  },
+  {
+   "start": 358.454,
+   "end": 366.322,
+   "show": "今日の実験：git push を止めるフック",
+   "part": 7
+  },
+  {
+   "start": 366.572,
+   "end": 372.961,
+   "show": "push＝変更をリモートに送ること",
+   "part": 7
+  },
+  {
+   "start": 373.211,
+   "end": 381.764,
+   "show": "PreToolUse hook：道具を使う直前に動く",
+   "part": 7
+  },
+  {
+   "start": 382.014,
+   "end": 390.865,
+   "show": "exit 2 で止まり、stderr の文がAIに届く",
+   "part": 7
+  },
+  {
+   "start": 391.115,
+   "end": 400.258,
+   "show": "作る→登録する→pushを頼んで試す",
+   "part": 7
+  },
+  {
+   "start": 400.508,
+   "end": 411.431,
+   "show": "理由に「代わりの手順」を書くのがコツ",
+   "part": 7
+  },
+  {
+   "start": 411.681,
+   "end": 421.924,
+   "show": "止まれば成功。他のコマンドも確認",
+   "part": 7
+  },
+  {
+   "start": 422.824,
+   "end": 432.811,
+   "show": "要点：Claude Codeのグラフ、Geminiのツール検索",
+   "part": 8
+  },
+  {
+   "start": 433.061,
+   "end": 442.033,
+   "show": "別のAIに疑わせる／ルールが届いているか確認",
+   "part": 8
+  },
+  {
+   "start": 442.283,
+   "end": 449.665,
+   "show": "今日やること：push を止める hook を作る",
+   "part": 8
+  },
+  {
+   "start": 449.915,
+   "end": 454.949,
+   "show": "AI Discovery & Build Radio、また明日",
+   "part": 8
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 42.947
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 42.947,
+   "end": 91.387
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 91.387,
+   "end": 143.453
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 143.453,
+   "end": 194.142
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 194.142,
+   "end": 255.404
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 255.404,
+   "end": 308.912
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 308.912,
+   "end": 358.454
+  },
+  {
+   "kind": "news",
+   "index": 6,
+   "start": 358.454,
+   "end": 422.824
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 422.824,
+   "end": 455.549
+  }
+ ],
+ "made_at": "2026-11-21T18:14:51",
+ "tts": {
+  "provider": "azure",
+  "chars": 5082,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}
