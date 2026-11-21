@@ -1,0 +1,767 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-22",
+ "title": "AIに任せた仕事の確かめ方と、手元で動くAI",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。",
+   "show": "AI Discovery & Build Radio"
+  },
+  {
+   "say": "十一月二十二日、日曜日の放送です。",
+   "show": "2026年11月22日（日）"
+  },
+  {
+   "say": "今日いちばん大事なのは、「エーアイに任せた仕事を、どう確かめるか」です。",
+   "show": "今日の注目：AIに任せた仕事の確かめ方"
+  },
+  {
+   "say": "自動で動いた結果を、件数の足し算で確かめる方法を、今日の実験で試します。",
+   "show": "実験：件数の足し算で結果を確かめる"
+  },
+  {
+   "say": "ほかに、自分のパソコンで動く新しいエーアイ、エーアイの能力の持ち出しを防ぐ取り組み、クロード コードが落ちたときの直し方も届けます。",
+   "show": "手元で動くAI／能力の持ち出し対策／落ちた時の対処"
+  },
+  {
+   "say": "最後は、四十年以上前のパソコンで動く、エーアイの助手の話です。",
+   "show": "40年以上前のPCで動くAI助手"
+  }
+ ],
+ "news": [
+  {
+   "label": "手元で動くAI Inkling 2 Mini",
+   "points": [
+    "自分のPCで動かせる中型AI",
+    "全体は大きく、動く部分は一部",
+    "真ん中の層を3回くり返す",
+    "コマンド1行で起動できる"
+   ],
+   "details": [
+    "文章と画像を読め、一度に覚えておける文章の量は100万トークン。手元の環境向けとして紹介されている。",
+    "全体は約260億の部品（パラメータ）だが、言葉1つごとに動くのは約30億。128の専門家から8つを選んで使う作り。",
+    "24層のうち真ん中の12層を3回通すことで、記憶する部品を増やさずに考える力を足していると作者は説明している。",
+    "Llama Appやllama.cppで「llama serve -hf …」の1行から起動できる。必要なメモリ量は記事に書かれていない。"
+   ],
+   "url": "https://huggingface.co/blog/inkling2mini",
+   "lines": [
+    {
+     "say": "まずは、自分のパソコンで動かせる、新しいエーアイの話です。",
+     "show": "自分のPCで動かせる新しいAI"
+    },
+    {
+     "say": "シンキング マシーンズ ラボが、インクリング ツー ミニというエーアイを公開し、ハギング フェイスのブログで紹介されました。",
+     "show": "Thinking Machines Lab「Inkling 2 Mini」"
+    },
+    {
+     "say": "文章と画像を読めて、一度に覚えておける文章の量も、とても多いエーアイです。",
+     "show": "文章と画像に対応、100万トークン"
+    },
+    {
+     "say": "中身は、たくさんの専門家の中から、言葉ごとに八人だけを呼び出す作りです。全体は大きくても、一度に動くのは一部だけです。",
+     "show": "128の専門家から8つを選んで動かす"
+    },
+    {
+     "say": "さらに、真ん中の層を三回くり返して通すことで、部品を増やさずに、考える力を足しているそうです。",
+     "show": "真ん中の12層を3回くり返す設計"
+    },
+    {
+     "say": "ラマ アプリなどの道具を使えば、コマンド一行で起動できます。ただ、必要なメモリの量は書かれていないので、確かめてから試してください。",
+     "show": "llama serve で起動／必要メモリは未記載"
+    },
+    {
+     "say": "たとえば、ネットに出したくない日記やメモを、手元でこのエーアイに要約させると、安心して整理できて面白そうですね。",
+     "show": "活用例：外に出さないメモ要約"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/inkling2mini",
+    "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+    "site": "huggingface.co",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "https://huggingface.co/blog/assets/inkling2mini/thumbnail.png",
+    "icon": null
+   },
+   "corner": "news",
+   "idea": "ネットに出したくない日記や作業メモを、手元で動くこのAIに要約させると、内容を外に送らずに整理できて面白そうです。",
+   "guide": "guides/2026-11-22.html#news-1"
+  },
+  {
+   "label": "AI能力の無断コピー対策",
+   "points": [
+    "答えをまねて別AIを育てる悪用",
+    "考えの途中は特に狙われやすい",
+    "訓練・見張り・取り締まりを重ねる",
+    "履歴の書き換えに影響あり"
+   ],
+   "details": [
+    "蒸留（distillation）は、あるAIの答えをお手本に別のAIを育てる方法。無断で行い、安全のブレーキを外したAIを作るのが問題になっている。",
+    "OpenAIの社内実験では、考えの途中をそのまま学んだAIの方が、要約だけを学んだAIより性能が高くなりやすかった。",
+    "抜き出しを断る訓練、入力と出力の見張り、組織的な悪用を見つけてアカウントごと止める仕組みを組み合わせている。",
+    "新しいモデルでは、前のメッセージを書き換えると、そのあとの考えの記録がAPIで捨てられる。"
+   ],
+   "url": "https://openai.com/index/combatting-adversarial-distillation",
+   "lines": [
+    {
+     "say": "次は、オープンエーアイが公開した、エーアイの能力の持ち出しを防ぐ取り組みです。",
+     "show": "OpenAI、AI能力の無断コピー対策を説明"
+    },
+    {
+     "say": "蒸留とは、あるエーアイの答えをお手本にして、別のエーアイを育てる方法です。",
+     "show": "蒸留＝AIの答えをお手本に別AIを育てる"
+    },
+    {
+     "say": "これを無断で行い、安全のブレーキを外したエーアイを作ることが問題になっています。",
+     "show": "無断で行い、安全の仕組みを外すのが問題"
+    },
+    {
+     "say": "特に、答えにたどり着くまでの考えの途中は、答えだけよりも学びやすい材料になると、社内の実験で確かめたそうです。",
+     "show": "考えの途中は特に狙われやすい"
+    },
+    {
+     "say": "そこで、抜き出しを断る訓練、怪しいやり取りの見張り、組織的な悪用の取り締まりを重ねています。",
+     "show": "訓練・見張り・取り締まりの多層対策"
+    },
+    {
+     "say": "開発者にも関係があります。新しいモデルでは、前のメッセージを書き換えると、そのあとの考えの記録が捨てられます。",
+     "show": "履歴を書き換えると推論の記録は破棄"
+    }
+   ],
+   "link": {
+    "url": "https://openai.com/index/combatting-adversarial-distillation",
+    "title": "Combatting adversarial distillation",
+    "site": "OpenAI",
+    "description": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.",
+    "image": "https://images.ctfassets.net/kftzwdyauwt9/5SUtPGdssrttC7LfP1yoJ1/b6b000846ab3576c1735c29534ab20b0/combatting-adversarial-distillation-social.png?w=1600&h=900&fit=fill",
+    "icon": "https://openai.com/favicon.svg"
+   },
+   "corner": "news",
+   "idea": null,
+   "guide": "guides/2026-11-22.html#news-2"
+  },
+  {
+   "label": "Claude Codeが落ちた時",
+   "points": [
+    "本体のメモリ切れで落ちる",
+    "2.5GB超えで警告が出る",
+    "--continueで会話ごと再開",
+    "--safe-modeで原因を絞る"
+   ],
+   "details": [
+    "「JavaScript heap out of memory」は、APIのエラーではなく Claude Code 本体のメモリが上限に達したという意味。",
+    "公式ドキュメントでは、使用量が2.5GBを超えると警告が出る。落ちる前に対処できる。",
+    "一度終了して claude --continue で起動すると、同じ会話を新しいプロセスで続けられ、メモリが空く。",
+    "プラグイン・MCPサーバー・フックなどを切って起動し、メモリが減れば設定側が原因と分かる。"
+   ],
+   "url": "https://qiita.com/homhom44/items/e41dca096fb741f1b3b0",
+   "lines": [
+    {
+     "say": "ここからは、エンジニアの実践ノウハウです。",
+     "show": "エンジニアの実践ノウハウ"
+    },
+    {
+     "say": "まずは、クロード コードが突然落ちたときの直し方です。キータで手順がまとめられました。",
+     "show": "Qiita：Claude Code が落ちた時の対処"
+    },
+    {
+     "say": "「ヒープ アウト オブ メモリー」と出たら、クロード コード自身が使えるメモリを、使い切ったという意味です。",
+     "show": "heap out of memory＝本体のメモリ切れ"
+    },
+    {
+     "say": "公式の説明では、メモリが二・五ギガバイトを超えると、落ちる前に警告が出ます。",
+     "show": "2.5GB超えで警告（公式）"
+    },
+    {
+     "say": "そのときは一度終わらせて、コンティニューを付けて起動し直すと、同じ会話のまま、メモリが空きます。",
+     "show": "claude --continue で会話ごと再開"
+    },
+    {
+     "say": "何度も起きるなら、セーフモードで起動します。追加した道具や設定を切って、メモリが減るかを見て原因を絞ります。",
+     "show": "claude --safe-mode で原因を切り分け"
+    },
+    {
+     "say": "調べる記録を書き出す命令もありますが、その記録には会話や鍵も入るので、人に見せるのは診断用の小さいファイルだけにしましょう。",
+     "show": "/heapdump：共有は diagnostics.json だけ"
+    },
+    {
+     "say": "たとえば、長い作業を任せる日の前に、この直し方を三行のメモにしておくと、落ちても慌てずに済みそうですね。",
+     "show": "活用例：落ちた時の3行メモ"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/homhom44/items/e41dca096fb741f1b3b0",
+    "title": "Claude Code で \"JavaScript heap out of memory\" が出て落ちるときの対処(再起動・/compact・--safe-mode・/heapdump) - Qiita",
+    "site": "Qiita",
+    "description": "Claude Code が作業の途中で突然終了し、端末に FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory と出たときの手順です。これは Claude Code...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRnMzLWFwLW5vcnRoZWFzdC0xLmFtYXpvbmF3cy5jb20lMkZxaWl0YS1pbWFnZS1zdG9yZSUyRjAlMkYxMzEzMTYlMkZmZGI0YmViYmNmZmM2N2VmODljNDMzZTc0ZjQzNjEwNGQ1YWUwMDM0JTJGbGFyZ2UucG5nJTNGMTc5MDUyODE5Mz9peGxpYj1yYi00LjEuMSZhcj0xJTNBMSZmaXQ9Y3JvcCZtYXNrPWVsbGlwc2UmYmc9RkZGRkZGJmZtPXBuZzMyJnM9NTRkNzZlODRiYzk4ODBhZjhlM2ViNjMwY2NlYzYyYjk%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3Db558c99d63a593a2c06c5d25864c250c?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9Q2xhdWRlJTIwQ29kZSUyMCVFMyU4MSVBNyUyMCUyMkphdmFTY3JpcHQlMjBoZWFwJTIwb3V0JTIwb2YlMjBtZW1vcnklMjIlMjAlRTMlODElOEMlRTUlODclQkElRTMlODElQTYlRTglOTAlQkQlRTMlODElQTElRTMlODIlOEIlRTMlODElQTglRTMlODElOEQlRTMlODElQUUlRTUlQUYlQkUlRTUlODclQTYlMjglRTUlODYlOEQlRTglQjUlQjclRTUlOEIlOTUlRTMlODMlQkIlMkZjb21wYWN0JUUzJTgzJUJCLS0lRTIlODAlQTYmdHh0LWFsaWduPWxlZnQlMkN0b3AmdHh0LWNvbG9yPSUyMzFFMjEyMSZ0eHQtZm9udD1IaXJhZ2lubyUyMFNhbnMlMjBXNiZ0eHQtc2l6ZT01NiZ0eHQtcGFkPTAmcz0zMDEyYzVmZDc1ZjlmOWQwM2QwZWJlY2EyZDdiNDI2OA&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBob21ob200NCZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPWZjZWJhNzlmZTU5ZWRkMjY3Y2IzNzYzYzgxZGQxM2M4&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=acbb2d6e7da16e6acfb645d281be7feb",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "長い作業をAIに任せる日の前に、「警告が出たら終了して再開、くり返すならセーフモード」という3行の手順メモを手元に置いておくと、落ちても慌てずに済みそうです。",
+   "guide": "guides/2026-11-22.html#news-3"
+  },
+  {
+   "label": "自動化を確かめる3つの関門",
+   "points": [
+    "怖いのは静かな間違い",
+    "飛ばした理由を記録に残す",
+    "件数の足し算で行方不明を探す",
+    "先頭・末尾・ランダムを目で見る"
+   ],
+   "details": [
+    "「正常終了」と出ても、データが更新されていなかったり空になっていたりすることがある。",
+    "記録をJSONL形式にし、スキップした行には理由とIDを残す。WARNの件数が異変の目印になる。",
+    "入力件数＝成功＋スキップ＋エラー が合わなければ、どこかでデータが失われている。",
+    "境界の先頭と末尾、特殊文字を含む行、複雑な分岐を通った行、ランダムな1件を確認し、差分で関係ない欄の変化も見る。"
+   ],
+   "url": "https://zenn.dev/automation_lab/articles/automation-verification-gates",
+   "lines": [
+    {
+     "say": "次は、自動化の結果を信じる前に通す、三つの関門です。ゼンの記事です。",
+     "show": "Zenn：自動化の出力を確かめる3つの関門"
+    },
+    {
+     "say": "筆者いわく、本当にこわいのは、エラーで止まることではありません。何も言わずに、間違った結果を残すことです。",
+     "show": "怖いのは「静かな間違い」"
+    },
+    {
+     "say": "一つ目は記録です。うまくいった行だけでなく、飛ばした行にも、その理由と番号を残します。",
+     "show": "①飛ばした理由とIDをログに残す"
+    },
+    {
+     "say": "二つ目は、データの会計です。入ってきた件数が、成功と飛ばしと失敗の合計と、ぴったり合うかを確かめます。",
+     "show": "②入力件数＝成功＋スキップ＋エラー"
+    },
+    {
+     "say": "一件でも合わなければ、どこかでデータが行方不明になっています。",
+     "show": "合わなければデータが行方不明"
+    },
+    {
+     "say": "三つ目は人の目です。最初と最後の行、変な記号が入った行、ランダムな一件を、実際に見て確かめます。",
+     "show": "③先頭・末尾・特殊文字・ランダムを確認"
+    },
+    {
+     "say": "たとえば、エーアイに作らせた家計簿の取り込みに、この足し算チェックを入れると、こっそり消えた一行に気づけて面白そうですね。",
+     "show": "活用例：家計簿の取り込みに件数チェック"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/automation_lab/articles/automation-verification-gates",
+    "title": "自動化の出力を信じる前に通す3つの検証ゲート — 実行ログ・件数照合・差分確認",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--LnWzT5UO--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:%25E8%2587%25AA%25E5%258B%2595%25E5%258C%2596%25E3%2581%25AE%25E5%2587%25BA%25E5%258A%259B%25E3%2582%2592%25E4%25BF%25A1%25E3%2581%2598%25E3%2582%258B%25E5%2589%258D%25E3%2581%25AB%25E9%2580%259A%25E3%2581%25993%25E3%2581%25A4%25E3%2581%25AE%25E6%25A4%259C%25E8%25A8%25BC%25E3%2582%25B2%25E3%2583%25BC%25E3%2583%2588%2520%25E2%2580%2594%2520%25E5%25AE%259F%25E8%25A1%258C%25E3%2583%25AD%25E3%2582%25B0%25E3%2583%25BB%25E4%25BB%25B6%25E6%2595%25B0%25E7%2585%25A7%25E5%2590%2588%25E3%2583%25BB%25E5%25B7%25AE%25E5%2588%2586%25E7%25A2%25BA%25E8%25AA%258D%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:automation_lab%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly96ZW5uLWRldi5naXRodWIuaW8vZGVmYXVsdC1hdmF0YXJzL2RhcmsvYS5wbmc=%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "AIに作らせた家計簿やファイル整理の自動化に「入力の数＝成功＋飛ばし＋失敗」の足し算チェックを1行入れると、こっそり消えた1件に気づけて面白そうです。",
+   "guide": "guides/2026-11-22.html#news-4"
+  },
+  {
+   "label": "古いPCで動くAI助手ClawDOS",
+   "points": [
+    "40年以上前のPCで動くAI助手",
+    "書く・動かす・結果を読む",
+    "通信は別のPCが中継",
+    "変更前に毎回確認する"
+   ],
+   "details": [
+    "IBM PC XT（8088、640KB）のDOSで CLAWDOS と打つと、Claude と会話しながら作業できる。",
+    "ファイルの読み書き、Turbo C でのコンパイルと実行、画面の撮影と送信、メモの保存ができる。",
+    "古いPCは暗号化通信ができないため、別のPCがトンネル役になる。APIキーもそちらに置ける。",
+    "安全モードが既定でオンで、ファイル・メモリ・ポートの変更は先に確認を求める。"
+   ],
+   "url": "http://ricapar.net/ClawDOS/",
+   "lines": [
+    {
+     "say": "最後は、四十年以上前のパソコンで動く、エーアイの助手、クロー ドスです。",
+     "show": "ClawDOS：DOSで動くAIコーディング助手"
+    },
+    {
+     "say": "アイビーエムの古いパソコンで、ドスという昔の画面に打ち込むと、クロードと会話しながら、プログラムを書いて動かし、結果を読めます。",
+     "show": "IBM PC XT上で Claude と会話して開発"
+    },
+    {
+     "say": "古いパソコンは、暗号をかけた通信ができません。そこで、別のパソコンが中継役になります。鍵もそちらに置けます。",
+     "show": "通信は別PCのトンネルが中継"
+    },
+    {
+     "say": "安全のため、ファイルを書き換える前には、毎回確認を求める作りです。",
+     "show": "安全モード：変更前に毎回確認"
+    },
+    {
+     "say": "そして作者によると、このプログラムは、作者の一言をのぞいて、すべてクロードが書いたそうです。",
+     "show": "コードはほぼ全部 Claude が執筆"
+    },
+    {
+     "say": "会話のくり返し、道具、記憶、確認。エージェントの基本の部品が、小さく見える作りです。",
+     "show": "エージェントの基本部品が見える"
+    },
+    {
+     "say": "たとえば、自分のエージェントを、この四つの部品で見直すと、足りないところが見つかって面白そうですね。",
+     "show": "活用例：4つの部品で自作AIを点検"
+    }
+   ],
+   "link": {
+    "url": "http://ricapar.net/ClawDOS/",
+    "title": "ClawDOS",
+    "site": "ClawDOS",
+    "description": "An AI chat and coding harness for DOS, on a real IBM PC 5160 (8088 at 4.77 MHz)",
+    "image": null,
+    "icon": null
+   },
+   "corner": "practice",
+   "idea": "自分のエージェントを「会話のくり返し・道具・記憶・確認」の4つの部品で見直すと、足りない部分が見つかって面白そうです。",
+   "guide": "guides/2026-11-22.html#news-5"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "飛ばした行に理由を残す",
+    "入力＝成功＋スキップ＋エラー",
+    "合わなければ止める",
+    "わざと壊して止まるか確認"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://zenn.dev/automation_lab/articles/automation-verification-gates",
+   "lines": [
+    {
+     "say": "今日の実験です。エーアイに作らせた自動化に、データの会計を入れてみましょう。",
+     "show": "今日の実験：自動化に「データの会計」"
+    },
+    {
+     "say": "まず練習用のフォルダで、クロード コードに、小さな表のファイルと、それを読むスクリプトを作ってもらいます。",
+     "show": "①サンプルCSVと小さなスクリプトを作る"
+    },
+    {
+     "say": "メールの欄が空の行は飛ばして、残りを別のファイルに書き出す、簡単なものです。",
+     "show": "メール欄が空の行はスキップ"
+    },
+    {
+     "say": "次に、番組のページにあるお願い文を貼ります。一行ごとの記録、件数の足し算チェック、三件の見本表示を足してもらいます。",
+     "show": "②お願い文で3つの検証を追加"
+    },
+    {
+     "say": "動かしたら、入力の件数と、成功、飛ばし、失敗の合計が、合っているかを見ます。",
+     "show": "③入力件数と合計が一致するか確認"
+    },
+    {
+     "say": "最後に、わざと飛ばした件数を数え忘れるように変えて、チェックがちゃんと止めてくれるかを確かめます。止まれば成功です。",
+     "show": "④わざと壊して止まれば成功"
+    },
+    {
+     "say": "時間は三十分ほどです。",
+     "show": "所要時間：約30分"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/automation_lab/articles/automation-verification-gates",
+    "title": "自動化の出力を信じる前に通す3つの検証ゲート — 実行ログ・件数照合・差分確認",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--LnWzT5UO--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:%25E8%2587%25AA%25E5%258B%2595%25E5%258C%2596%25E3%2581%25AE%25E5%2587%25BA%25E5%258A%259B%25E3%2582%2592%25E4%25BF%25A1%25E3%2581%2598%25E3%2582%258B%25E5%2589%258D%25E3%2581%25AB%25E9%2580%259A%25E3%2581%25993%25E3%2581%25A4%25E3%2581%25AE%25E6%25A4%259C%25E8%25A8%25BC%25E3%2582%25B2%25E3%2583%25BC%25E3%2583%2588%2520%25E2%2580%2594%2520%25E5%25AE%259F%25E8%25A1%258C%25E3%2583%25AD%25E3%2582%25B0%25E3%2583%25BB%25E4%25BB%25B6%25E6%2595%25B0%25E7%2585%25A7%25E5%2590%2588%25E3%2583%25BB%25E5%25B7%25AE%25E5%2588%2586%25E7%25A2%25BA%25E8%25AA%258D%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:automation_lab%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly96ZW5uLWRldi5naXRodWIuaW8vZGVmYXVsdC1hdmF0YXJzL2RhcmsvYS5wbmc=%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "experiment",
+   "name": "AIに作らせた自動化に「データの会計」を入れる",
+   "guide": "guides/2026-11-22.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。手元で動く新しいエーアイが出て、エーアイの能力を守る取り組みも進んでいます。",
+   "show": "要点：手元で動くAI／AI能力の保護"
+  },
+  {
+   "say": "そして、エーアイに任せた仕事は、件数と中身で確かめることが大事です。",
+   "show": "AIに任せた仕事は件数と中身で確かめる"
+  },
+  {
+   "say": "今日やってみることは、自動化に、件数の足し算チェックを一つ入れることです。",
+   "show": "今日やること：件数チェックを1つ入れる"
+  },
+  {
+   "say": "エーアイ ディスカバリー アンド ビルド ラジオ、また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio、また明日"
+  }
+ ],
+ "highlight": 5,
+ "guide": "guides/2026-11-22.html",
+ "seconds": 423.349,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 5.968,
+   "show": "AI Discovery & Build Radio",
+   "part": 0
+  },
+  {
+   "start": 6.218,
+   "end": 10.408,
+   "show": "2026年11月22日（日）",
+   "part": 0
+  },
+  {
+   "start": 10.658,
+   "end": 16.606,
+   "show": "今日の注目：AIに任せた仕事の確かめ方",
+   "part": 0
+  },
+  {
+   "start": 16.856,
+   "end": 23.812,
+   "show": "実験：件数の足し算で結果を確かめる",
+   "part": 0
+  },
+  {
+   "start": 24.062,
+   "end": 34.373,
+   "show": "手元で動くAI／能力の持ち出し対策／落ちた時の対処",
+   "part": 0
+  },
+  {
+   "start": 34.623,
+   "end": 40.757,
+   "show": "40年以上前のPCで動くAI助手",
+   "part": 0
+  },
+  {
+   "start": 41.657,
+   "end": 47.048,
+   "show": "自分のPCで動かせる新しいAI",
+   "part": 1
+  },
+  {
+   "start": 47.298,
+   "end": 55.625,
+   "show": "Thinking Machines Lab「Inkling 2 Mini」",
+   "part": 1
+  },
+  {
+   "start": 55.875,
+   "end": 62.679,
+   "show": "文章と画像に対応、100万トークン",
+   "part": 1
+  },
+  {
+   "start": 62.929,
+   "end": 74.442,
+   "show": "128の専門家から8つを選んで動かす",
+   "part": 1
+  },
+  {
+   "start": 74.692,
+   "end": 82.924,
+   "show": "真ん中の12層を3回くり返す設計",
+   "part": 1
+  },
+  {
+   "start": 83.174,
+   "end": 94.18,
+   "show": "llama serve で起動／必要メモリは未記載",
+   "part": 1
+  },
+  {
+   "start": 94.43,
+   "end": 103.681,
+   "show": "活用例：外に出さないメモ要約",
+   "part": 1
+  },
+  {
+   "start": 104.581,
+   "end": 111.189,
+   "show": "OpenAI、AI能力の無断コピー対策を説明",
+   "part": 2
+  },
+  {
+   "start": 111.439,
+   "end": 118.106,
+   "show": "蒸留＝AIの答えをお手本に別AIを育てる",
+   "part": 2
+  },
+  {
+   "start": 118.356,
+   "end": 124.976,
+   "show": "無断で行い、安全の仕組みを外すのが問題",
+   "part": 2
+  },
+  {
+   "start": 125.226,
+   "end": 134.855,
+   "show": "考えの途中は特に狙われやすい",
+   "part": 2
+  },
+  {
+   "start": 135.105,
+   "end": 143.252,
+   "show": "訓練・見張り・取り締まりの多層対策",
+   "part": 2
+  },
+  {
+   "start": 143.502,
+   "end": 153.409,
+   "show": "履歴を書き換えると推論の記録は破棄",
+   "part": 2
+  },
+  {
+   "start": 154.309,
+   "end": 158.071,
+   "show": "エンジニアの実践ノウハウ",
+   "part": 3
+  },
+  {
+   "start": 158.321,
+   "end": 165.82,
+   "show": "Qiita：Claude Code が落ちた時の対処",
+   "part": 3
+  },
+  {
+   "start": 166.07,
+   "end": 173.335,
+   "show": "heap out of memory＝本体のメモリ切れ",
+   "part": 3
+  },
+  {
+   "start": 173.585,
+   "end": 180.575,
+   "show": "2.5GB超えで警告（公式）",
+   "part": 3
+  },
+  {
+   "start": 180.825,
+   "end": 188.613,
+   "show": "claude --continue で会話ごと再開",
+   "part": 3
+  },
+  {
+   "start": 188.863,
+   "end": 198.363,
+   "show": "claude --safe-mode で原因を切り分け",
+   "part": 3
+  },
+  {
+   "start": 198.613,
+   "end": 208.98,
+   "show": "/heapdump：共有は diagnostics.json だけ",
+   "part": 3
+  },
+  {
+   "start": 209.23,
+   "end": 218.29,
+   "show": "活用例：落ちた時の3行メモ",
+   "part": 3
+  },
+  {
+   "start": 219.19,
+   "end": 226.435,
+   "show": "Zenn：自動化の出力を確かめる3つの関門",
+   "part": 4
+  },
+  {
+   "start": 226.685,
+   "end": 236.083,
+   "show": "怖いのは「静かな間違い」",
+   "part": 4
+  },
+  {
+   "start": 236.333,
+   "end": 244.631,
+   "show": "①飛ばした理由とIDをログに残す",
+   "part": 4
+  },
+  {
+   "start": 244.881,
+   "end": 254.846,
+   "show": "②入力件数＝成功＋スキップ＋エラー",
+   "part": 4
+  },
+  {
+   "start": 255.096,
+   "end": 260.304,
+   "show": "合わなければデータが行方不明",
+   "part": 4
+  },
+  {
+   "start": 260.554,
+   "end": 270.149,
+   "show": "③先頭・末尾・特殊文字・ランダムを確認",
+   "part": 4
+  },
+  {
+   "start": 270.399,
+   "end": 279.894,
+   "show": "活用例：家計簿の取り込みに件数チェック",
+   "part": 4
+  },
+  {
+   "start": 280.794,
+   "end": 287.252,
+   "show": "ClawDOS：DOSで動くAIコーディング助手",
+   "part": 5
+  },
+  {
+   "start": 287.502,
+   "end": 297.756,
+   "show": "IBM PC XT上で Claude と会話して開発",
+   "part": 5
+  },
+  {
+   "start": 298.006,
+   "end": 308.802,
+   "show": "通信は別PCのトンネルが中継",
+   "part": 5
+  },
+  {
+   "start": 309.052,
+   "end": 315.151,
+   "show": "安全モード：変更前に毎回確認",
+   "part": 5
+  },
+  {
+   "start": 315.401,
+   "end": 323.013,
+   "show": "コードはほぼ全部 Claude が執筆",
+   "part": 5
+  },
+  {
+   "start": 323.263,
+   "end": 331.746,
+   "show": "エージェントの基本部品が見える",
+   "part": 5
+  },
+  {
+   "start": 331.996,
+   "end": 339.966,
+   "show": "活用例：4つの部品で自作AIを点検",
+   "part": 5
+  },
+  {
+   "start": 340.866,
+   "end": 347.857,
+   "show": "今日の実験：自動化に「データの会計」",
+   "part": 6
+  },
+  {
+   "start": 348.107,
+   "end": 356.255,
+   "show": "①サンプルCSVと小さなスクリプトを作る",
+   "part": 6
+  },
+  {
+   "start": 356.505,
+   "end": 363.076,
+   "show": "メール欄が空の行はスキップ",
+   "part": 6
+  },
+  {
+   "start": 363.326,
+   "end": 374.263,
+   "show": "②お願い文で3つの検証を追加",
+   "part": 6
+  },
+  {
+   "start": 374.513,
+   "end": 382.129,
+   "show": "③入力件数と合計が一致するか確認",
+   "part": 6
+  },
+  {
+   "start": 382.379,
+   "end": 392.135,
+   "show": "④わざと壊して止まれば成功",
+   "part": 6
+  },
+  {
+   "start": 392.385,
+   "end": 395.07,
+   "show": "所要時間：約30分",
+   "part": 6
+  },
+  {
+   "start": 395.97,
+   "end": 404.431,
+   "show": "要点：手元で動くAI／AI能力の保護",
+   "part": 7
+  },
+  {
+   "start": 404.681,
+   "end": 411.023,
+   "show": "AIに任せた仕事は件数と中身で確かめる",
+   "part": 7
+  },
+  {
+   "start": 411.273,
+   "end": 417.465,
+   "show": "今日やること：件数チェックを1つ入れる",
+   "part": 7
+  },
+  {
+   "start": 417.715,
+   "end": 422.749,
+   "show": "AI Discovery & Build Radio、また明日",
+   "part": 7
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 41.657
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 41.657,
+   "end": 104.581
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 104.581,
+   "end": 154.309
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 154.309,
+   "end": 219.19
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 219.19,
+   "end": 280.794
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 280.794,
+   "end": 340.866
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 340.866,
+   "end": 395.97
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 395.97,
+   "end": 423.349
+  }
+ ],
+ "made_at": "2026-11-22T07:16:53",
+ "tts": {
+  "provider": "azure",
+  "chars": 4614,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}

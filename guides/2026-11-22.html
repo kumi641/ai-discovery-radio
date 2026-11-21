@@ -1,0 +1,239 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIに任せた仕事の確かめ方と、手元で動くAI｜実践ガイド 2026-11-22</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-22/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月22日（日）・放送 約7分</div>
+<h1>AIに任せた仕事の確かめ方と、手元で動くAI</h1>
+<p class="lead">手元のパソコンで動かせる新しいAI「Inkling 2 Mini」が公開され、OpenAIはAIの能力の無断コピーを防ぐ仕組みを説明しました。実践面では、AIに任せた自動化の結果を件数と中身で確かめる考え方が注目です。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：AIに作らせた自動化に「データの会計」を入れる</a></li>
+<li><a href="#news-1">Thinking Machines Lab、手元の環境向けの中型AI「Inkling 2 Mini」を公開（文章と画像に対応、Hugging Faceブログで紹介）</a></li>
+<li><a href="#news-2">OpenAI、AIの能力を無断で抜き出して別のAIを育てる「adversarial distillation」への多層的な対策を説明</a></li>
+<li><a href="#news-3">Qiita：Claude Code が「JavaScript heap out of memory」で落ちたときの対処（--continue で再開、--safe-mode で切り分け、/heapdump で調査）</a></li>
+<li><a href="#news-4">Zenn：自動化の出力を信じる前に通す3つの検証ゲート（理由つきの実行ログ・件数の照合・差分とサンプルの確認）</a></li>
+<li><a href="#news-5">ClawDOS：1983年ごろのIBM PC XT（8088・640KB）の DOS 上で動く、Claude の Messages API を使うAIコーディングエージェント</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>AIに作らせた自動化に「データの会計」を入れる</h2>
+<div class="meta">関連ニュース：<a href="#news-4">Zenn：自動化の出力を信じる前に通す3つの検証ゲート（理由つきの実行ログ・件数の照合・差分とサンプルの確認）</a></div>
+<div class="task"><h4>実験：AIに作らせた自動化に「データの会計」を入れる</h4><dl class="kv"><dt>目的</dt><dd>自動化スクリプトに件数の照合を入れ、データが黙って消えたら止まるようにする</dd><dt>使用ツール</dt><dd>Claude Code（または同様のAIコーディング助手）、Python 3</dd><dt>必要な準備</dt><dd>Claude Code などのAIコーディング助手が使える環境、Python 3、練習用の空のフォルダ</dd><dt>所要時間</dt><dd>約30分</dd><dt>費用</dt><dd>Claude Code の利用料（料金は未確認：公式の料金ページで確認）。Python は無料</dd><dt>無料の代替</dt><dd>AIを使わず、記事の式「入力件数 = 成功 + スキップ + エラー」を自分でスクリプトの最後に書き足す</dd></dl><b>手順</b><ol><li>練習用フォルダでAIコーディング助手を起動し、「名前とメール欄がある10行ほどのサンプルCSVと、メール欄が空の行は飛ばして残りを別のCSVに書き出す小さなPythonスクリプトを作って」と頼む</li><li>スクリプトを一度動かし、出力のCSVができることを確かめる</li><li>下のお願い文を貼り、記録・件数の照合・見本の表示を足してもらう</li><li>もう一度動かし、入力件数と「成功＋スキップ＋エラー」の合計が表示され、一致していることを確かめる</li><li>run_log.jsonl を開き、スキップした行に理由が書かれているかを見る</li><li>AIに「スキップの件数を数え忘れるように一時的に変えて」と頼んで動かし、照合で止まることを確かめてから元に戻す</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このフォルダの自動化スクリプトに、次の3つを足してください。既存の処理内容は変えないでください。
+1. 1行ごとの結果を run_log.jsonl に JSON Lines 形式で書く。項目は id、status（success / skip / error）、reason。
+2. 最後に「入力件数 = 成功 + スキップ + エラー」を計算して表示し、合わなければエラーメッセージを出して終了コード1で止める。
+3. 結果から先頭・末尾・ランダムの合計3件を選び、入力と出力を並べて表示する。
+変更点の説明と、件数がずれたときに本当に止まるかの確かめ方も教えてください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>理由つきログと件数の照合が入った自動化スクリプト</dd><dt>確認方法</dt><dd>正常時は件数が一致して最後まで動き、わざとスキップを数え忘れさせたときは照合で止まって終了コード1になる</dd></dl><div class="meta">参考：<a href="https://zenn.dev/automation_lab/articles/automation-verification-gates" target="_blank" rel="noopener noreferrer">https://zenn.dev/automation_lab/articles/automation-verification-gates</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-22 AIに作らせた自動化に「データの会計」を入れる
+- 参考ニュース: Zenn：自動化の出力を信じる前に通す3つの検証ゲート（理由つきの実行ログ・件数の照合・差分とサンプルの確認）
+- ガイド: guides/2026-11-22.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">79</span>/100</span>
+<h2>1. Thinking Machines Lab、手元の環境向けの中型AI「Inkling 2 Mini」を公開（文章と画像に対応、Hugging Faceブログで紹介）</h2>
+<div class="meta">Hugging Face・公開 2026-11-20 00:00</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/inkling2mini" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/inkling2mini</a></div>
+<p class="concl"><b>結論：</b>Thinking Machines Lab が、文章と画像を読める中型のAI「Inkling 2 Mini」を公開し、Hugging Face のブログで紹介されました。全体は約260億パラメータですが、言葉ごとに動くのは約30億で、手元の環境向けのモデルとされています。Transformers、llama.cpp、MLX、SGLang などで動かす方法が示されています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>ネットに出したくない日記や作業メモを、手元で動くこのAIに要約させると、内容を外に送らずに整理できて面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>自分のPCで動かせる中型AI</b>：文章と画像を読め、一度に覚えておける文章の量は100万トークン。手元の環境向けとして紹介されている。</li>
+<li><b>全体は大きく、動く部分は一部</b>：全体は約260億の部品（パラメータ）だが、言葉1つごとに動くのは約30億。128の専門家から8つを選んで使う作り。</li>
+<li><b>真ん中の層を3回くり返す</b>：24層のうち真ん中の12層を3回通すことで、記憶する部品を増やさずに考える力を足していると作者は説明している。</li>
+<li><b>コマンド1行で起動できる</b>：Llama Appやllama.cppで「llama serve -hf …」の1行から起動できる。必要なメモリ量は記事に書かれていない。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>128の専門家から言葉ごとに8つを選ぶ作り（Mixture-of-Experts）に加え、24層のうち真ん中の12層を3回くり返して通す「ループ」の設計を持つ点。くり返しの回数を変えられる研究用の版も公開された。</dd>
+<dt>なぜ重要か</dt><dd>同じくらいの大きさのAIと比べて、48のテストのうち32で上回ったと作者は報告している。ネットに出さずに手元で動かせる選択肢が増える。</dd>
+<dt>従来との違い</dt><dd>ふつうのモデルは層を1回ずつ通るが、このモデルは一部の層を3回通すことで、保存する部品を増やさずに計算を深くしている。また、考える深さを none から max まで、または0.0〜0.99の数字で調整できる（既定は high）。</dd></dl><ul>
+<li>約260億パラメータのうち、1トークンあたり約30億が動く Mixture-of-Experts</li>
+<li>24層のうち6〜17層目を3回ループし、前の周回からの情報を小さな制御部で混ぜる</li>
+<li>多くの層は1,024トークンの範囲だけを見る注意の仕組みで、6層に1層だけ全体を見る</li>
+<li>ツール呼び出しに対応（記事では気温を調べる関数の例）</li>
+<li>4ビット（IQ4_NL）と8ビット（Q8_0）のGGUF版が用意されている</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>ネットに出したくないメモや日記を、手元で要約する</li>
+<li>画像を読ませて、作品の説明文やタグを手元で作る</li>
+<li>ツール呼び出しを使い、オフラインで動く小さなエージェントの試作に使う</li>
+</ul>
+<div class="task"><h4>今日すぐできること：Inkling 2 Mini を手元で起動してみる</h4><dl class="kv"><dt>目的</dt><dd>自分のパソコンで新しいAIを起動し、質問に答えるか確かめる</dd><dt>使用ツール</dt><dd>Llama App（macOS/Windows）または llama.cpp</dd><dt>必要な準備</dt><dd>Llama App（https://llama.app/）または llama.cpp を入れる、ディスクとメモリに余裕を作る（必要量は未確認）</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（ダウンロードと電気代のみ）</dd></dl><b>手順</b><ol><li>ターミナルを開き、下のコマンドを実行する（初回はモデルのダウンロードに時間がかかる）</li><li>起動したら、表示される接続先のアドレスを確認する</li><li>Llama App の説明に従い、そのアドレスへ短い質問を送る</li><li>返事が返ってくるか、返るまでの速さはどうかをメモする</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>llama serve -hf ggml-org/Inkling-2-Mini-GGUF:IQ4_NL</pre></div><div class="meta">出典：<a href="https://huggingface.co/blog/inkling2mini" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/inkling2mini</a></div><dl class="kv"><dt>完成するもの</dt><dd>手元で動く Inkling 2 Mini と、速さのメモ</dd><dt>確認方法</dt><dd>質問を送ると、手元のモデルから返事が返ってくる</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/inkling2mini" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/inkling2mini</a>　<a href="https://huggingface.co/thinkingmachines/Inkling-2-Mini" target="_blank" rel="noopener noreferrer">https://huggingface.co/thinkingmachines/Inkling-2-Mini</a></div></div>
+<h4>発展：外に出さないメモ要約ツール（2〜3時間）</h4><p>手元で起動した Inkling 2 Mini の窓口に、フォルダ内のメモを1つずつ送り、3行の要約をまとめたファイルを作る小さなスクリプト。</p><ol>
+<li>quick_try の方法でモデルを起動しておく</li>
+<li>Claude Code などに、フォルダ内のテキストを読んで手元の窓口に送り、要約を1つのファイルにまとめるスクリプトを書いてもらう</li>
+<li>数件のメモで試し、要約の質と時間を確かめる</li>
+<li>考える深さの設定を変えて、速さと質の違いを比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>モデルは無料で入手できるが、ライセンスは記事に書かれていない（モデルページで確認）。必要なメモリ量も未確認。</p>
+<div class="meta">実践可能性：中：コマンド1行で起動できるが、必要なメモリ量が記事に書かれておらず、260億パラメータのモデルなのでパソコンの性能によっては動かない可能性がある。<br>信頼性：Hugging Face 公式ブログ（2026-11-20公開）の本文で確認。性能の比較は作者側の報告。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">60</span>/100</span>
+<h2>2. OpenAI、AIの能力を無断で抜き出して別のAIを育てる「adversarial distillation」への多層的な対策を説明</h2>
+<div class="meta">OpenAI・公開 2026-11-20 10:00</div>
+<div class="meta">出典：<a href="https://openai.com/index/combatting-adversarial-distillation" target="_blank" rel="noopener noreferrer">https://openai.com/index/combatting-adversarial-distillation</a></div>
+<p class="concl"><b>結論：</b>OpenAI が、AIの答えや考えの途中を無断で集めて別のAIを育てる「adversarial distillation」への対策を説明しました。モデルの訓練、入力と出力の見張り、APIでの制限、組織的な悪用の検出と取り締まりを重ねています。開発者向けには、会話履歴を書き換えると考えの記録が捨てられるなどの影響があります。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>答えをまねて別AIを育てる悪用</b>：蒸留（distillation）は、あるAIの答えをお手本に別のAIを育てる方法。無断で行い、安全のブレーキを外したAIを作るのが問題になっている。</li>
+<li><b>考えの途中は特に狙われやすい</b>：OpenAIの社内実験では、考えの途中をそのまま学んだAIの方が、要約だけを学んだAIより性能が高くなりやすかった。</li>
+<li><b>訓練・見張り・取り締まりを重ねる</b>：抜き出しを断る訓練、入力と出力の見張り、組織的な悪用を見つけてアカウントごと止める仕組みを組み合わせている。</li>
+<li><b>履歴の書き換えに影響あり</b>：新しいモデルでは、前のメッセージを書き換えると、そのあとの考えの記録がAPIで捨てられる。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>考えの途中（推論の記録）の保護を強めた点。新しいモデル（GPT-6.2 Astra と Sol）では、考えの記録をそれを生んだ会話履歴に結びつけ、前のメッセージを編集すると、その後の記録が捨てられる。</dd>
+<dt>なぜ重要か</dt><dd>安全のための制限を外したコピーが出回ると、サイバー攻撃などに悪用されるおそれがある。同時に、正当な開発者のアプリの動きにも影響が出る可能性がある。</dd>
+<dt>従来との違い</dt><dd>1回ずつのやり取りを守るだけでなく、たくさんのアカウントを使った組織的な動きをまとめて見つけ、ネットワークごと取り締まる。発見はやり取り単位の守りにも返される。</dd></dl><ul>
+<li>抜き出しの試みを見分けて断る訓練（攻撃例を学習に使う）</li>
+<li>入力と出力の両方を分類器で見張り、ツール呼び出しの引数も確認する</li>
+<li>考えの記録を、ユーザー・組織・モデルの種類をまたいで再利用できないようにする</li>
+<li>固定の攻撃の再生と、相手に合わせて変わる自動の攻撃役で、守りの強さを測る</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自分のAIアプリが会話履歴を書き換えていないか見直す</li>
+<li>出力が見張りで止められた場合のエラー処理を用意する</li>
+<li>自分のAIサービスでも、大量の不自然な利用を見つける仕組みを考えるきっかけにする</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分のアプリの会話履歴の扱いを点検する</h4><dl class="kv"><dt>目的</dt><dd>履歴の書き換えや、出力が止められたときの処理があるかを把握する</dd><dt>使用ツール</dt><dd>Claude Code などのAIコーディング助手</dd><dt>必要な準備</dt><dd>AIを呼び出す自作のアプリかスクリプトのフォルダ</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>AIコーディング助手の利用料（料金は未確認：各サービスの公式料金ページで確認）</dd><dt>無料の代替</dt><dd>エディターの検索で messages という語を探し、自分で読む</dd></dl><b>手順</b><ol><li>自作のAIアプリのフォルダで、AIコーディング助手を起動する</li><li>下のお願い文を貼って調べてもらう</li><li>見つかった場所を一覧にして、直すかどうかを決める</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このフォルダのコードで、AIに送る会話履歴（messages）を後から書き換えたり、途中のメッセージを編集・削除したりしている場所を探して、ファイル名と行を一覧にしてください。あわせて、AIの返事が空だったり拒否されたりしたときのエラー処理があるかも確認してください。コードはまだ変更しないでください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>会話履歴の書き換え箇所とエラー処理の一覧</dd><dt>確認方法</dt><dd>書き換えている場所の有無と、エラー処理の有無が一覧で分かる</dd></dl><div class="meta">参考：<a href="https://openai.com/index/combatting-adversarial-distillation" target="_blank" rel="noopener noreferrer">https://openai.com/index/combatting-adversarial-distillation</a></div></div>
+<h4>発展：自分のAIサービスの使われ方の見張り番（2〜3時間）</h4><p>自作のAIサービスで、利用者ごとの1日の呼び出し回数を記録し、いつもと違う大量利用があれば知らせる仕組みを作る。</p><ol>
+<li>AIを呼び出す場所に、利用者IDと時刻を記録する処理を足す</li>
+<li>1日ごとに利用者別の回数を集計するスクリプトを作る</li>
+<li>平均より大きく多い利用者がいれば、自分にメールなどで知らせる</li>
+</ol>
+<h3>利用条件・料金</h3><p>API利用者向けの新しい料金や条件の発表はない。利用規約に反する大量の抜き出しは、アカウント単位の取り締まりの対象になる。</p>
+<div class="meta">実践可能性：低：個人が手を動かして使う技術ではない。会話履歴を書き換えるアプリを作っている人は動作の変化に注意する程度。<br>信頼性：OpenAI 公式ブログの本文で確認。数値はOpenAIの社内評価による。</div></section>
+<section class="card" id="news-3"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">75</span>/100</span>
+<h2>3. Qiita：Claude Code が「JavaScript heap out of memory」で落ちたときの対処（--continue で再開、--safe-mode で切り分け、/heapdump で調査）</h2>
+<div class="meta">Qiita・公開 2026-11-21 21:31</div>
+<div class="meta">出典：<a href="https://qiita.com/homhom44/items/e41dca096fb741f1b3b0" target="_blank" rel="noopener noreferrer">https://qiita.com/homhom44/items/e41dca096fb741f1b3b0</a></div>
+<p class="concl"><b>結論：</b>Claude Code が作業中に「JavaScript heap out of memory」と出て落ちたときの手順を、公式ドキュメントと GitHub の issue をもとにまとめた記事です。再起動して会話を戻す、設定を切って原因を絞る、/heapdump で調べる、の順に対処します。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>長い作業をAIに任せる日の前に、「警告が出たら終了して再開、くり返すならセーフモード」という3行の手順メモを手元に置いておくと、落ちても慌てずに済みそうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>本体のメモリ切れで落ちる</b>：「JavaScript heap out of memory」は、APIのエラーではなく Claude Code 本体のメモリが上限に達したという意味。</li>
+<li><b>2.5GB超えで警告が出る</b>：公式ドキュメントでは、使用量が2.5GBを超えると警告が出る。落ちる前に対処できる。</li>
+<li><b>--continueで会話ごと再開</b>：一度終了して claude --continue で起動すると、同じ会話を新しいプロセスで続けられ、メモリが空く。</li>
+<li><b>--safe-modeで原因を絞る</b>：プラグイン・MCPサーバー・フックなどを切って起動し、メモリが減れば設定側が原因と分かる。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>公式のトラブルシューティングにある手順（2.5GBの警告、--continue、--safe-mode、/heapdump）を、実際のエラー表示と結びつけて1つの流れにまとめた点。</dd>
+<dt>なぜ重要か</dt><dd>長い作業を任せている途中で落ちても、慌てずに会話を取り戻し、原因が自分の設定かどうかを見分けられる。</dd>
+<dt>従来との違い</dt><dd>やみくもに再インストールするのではなく、再開・切り分け・記録の順で原因を絞り込む。</dd></dl><ul>
+<li>セッションのヒープが2.5GBを超えると警告が表示される（公式）</li>
+<li>claude --continue で直前の会話を新しいプロセスで再開（公式）</li>
+<li>claude --safe-mode でプラグイン・MCPサーバー・フックなどを切って起動し比較（公式）</li>
+<li>/heapdump は ~/Desktop（無ければホーム）に .heapsnapshot と -diagnostics.json を書き出す。前者は会話や認証情報を含むので共有しない（公式）</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>長時間の自動作業を任せる前の備えとして手順をメモしておく</li>
+<li>プラグインやMCPサーバーを増やしたあと、メモリへの影響を確かめる</li>
+<li>不具合報告に、会話を含まない診断ファイルだけを添える</li>
+</ul>
+<div class="task"><h4>今日すぐできること：落ちたときの3つの手を試しておく</h4><dl class="kv"><dt>目的</dt><dd>再開・切り分け・記録の3つの手順を、困る前に一度体験する</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code が使える環境、試しに使ってよいプロジェクトのフォルダ</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>追加費用なし（Claude Code の利用料は公式の料金ページで確認）</dd></dl><b>手順</b><ol><li>プロジェクトで Claude Code を使い、一度終了してから claude --continue で同じ会話が戻るか確かめる</li><li>claude --safe-mode で起動し、いつもの設定が切れた状態を見ておく</li><li>通常の起動に戻し、/heapdump を全文入力して、書き出される2つのファイルと要約を確認する</li><li>-diagnostics.json だけが共有してよいファイルだとメモしておく</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>claude --continue
+claude --safe-mode
+/heapdump</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/troubleshooting" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/troubleshooting</a></div><dl class="kv"><dt>完成するもの</dt><dd>自分用の「落ちたときの手順メモ」</dd><dt>確認方法</dt><dd>--continue で会話が戻り、/heapdump で2つのファイルが書き出される</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/troubleshooting" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/troubleshooting</a>　<a href="https://qiita.com/homhom44/items/e41dca096fb741f1b3b0" target="_blank" rel="noopener noreferrer">https://qiita.com/homhom44/items/e41dca096fb741f1b3b0</a></div></div>
+<h4>発展：設定ごとのメモリ比較表（1〜2時間）</h4><p>セーフモードから始め、プラグイン・MCPサーバー・フックを1つずつ戻しながら、/heapdump の要約で使用量を比べた表を作る。</p><ol>
+<li>claude --safe-mode で起動し、同じ作業をしてから /heapdump の要約を記録する</li>
+<li>通常の起動で同じ作業をし、要約を記録する</li>
+<li>差が大きければ、原因になっている設定を順番に外して絞り込む</li>
+<li>結果を表にまとめ、重い設定を見直す</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code の機能のため追加費用なし（Claude Code 自体の料金は公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：高：コマンドは公式ドキュメントに載っており、すぐ使える。<br>信頼性：Qiita記事の主要な手順を、Claude Code 公式トラブルシューティングで確認。メモリ上限を上げる環境変数は公式手順ではないため番組では扱わない。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">66</span>/100</span>
+<h2>4. Zenn：自動化の出力を信じる前に通す3つの検証ゲート（理由つきの実行ログ・件数の照合・差分とサンプルの確認）</h2>
+<div class="meta">Zenn・公開 2026-11-21 16:21</div>
+<div class="meta">出典：<a href="https://zenn.dev/automation_lab/articles/automation-verification-gates" target="_blank" rel="noopener noreferrer">https://zenn.dev/automation_lab/articles/automation-verification-gates</a></div>
+<p class="concl"><b>結論：</b>自動化で本当に怖いのは、エラーで止まることではなく、何も言わずに間違った結果を残すことだと筆者は述べます。そこで、理由つきの実行ログ、件数の照合（データの会計）、人の目によるサンプルと差分の確認、という3つの関門を通してから結果を信じる方法を紹介しています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>AIに作らせた家計簿やファイル整理の自動化に「入力の数＝成功＋飛ばし＋失敗」の足し算チェックを1行入れると、こっそり消えた1件に気づけて面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>怖いのは静かな間違い</b>：「正常終了」と出ても、データが更新されていなかったり空になっていたりすることがある。</li>
+<li><b>飛ばした理由を記録に残す</b>：記録をJSONL形式にし、スキップした行には理由とIDを残す。WARNの件数が異変の目印になる。</li>
+<li><b>件数の足し算で行方不明を探す</b>：入力件数＝成功＋スキップ＋エラー が合わなければ、どこかでデータが失われている。</li>
+<li><b>先頭・末尾・ランダムを目で見る</b>：境界の先頭と末尾、特殊文字を含む行、複雑な分岐を通った行、ランダムな1件を確認し、差分で関係ない欄の変化も見る。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>新しい道具ではなく、AIエージェントで大量の処理を一瞬で動かせる時代に合わせた「確かめ方」の整理。特に件数の照合を「データの会計」と呼んで足し算で確かめる点。</dd>
+<dt>なぜ重要か</dt><dd>Claude Code のようなAIに自動化を作らせると速く動くぶん、間違いにも気づきにくい。終了コードだけでなく件数と中身で確かめると、静かな失敗を見つけられる。</dd>
+<dt>従来との違い</dt><dd>「エラーが出たか」だけを見る従来の確認に対し、「期待どおりの内訳で処理されたか」「件数が合うか」「中身が正しいか」の3段で見る。</dd></dl><ul>
+<li>ログをJSONL形式にして、スクリプトで集計できるようにする</li>
+<li>入力件数 = 処理成功件数 + スキップ件数 + エラー件数 で照合する</li>
+<li>件数はDBの読み込み数、APIの呼び出し回数、最終的な更新行数など複数の地点で取る</li>
+<li>既存データの更新では diff や Git の差分で、対象外の欄が変わっていないかを見る</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>AIに作らせたデータ変換スクリプトに件数チェックを足す</li>
+<li>定期実行のエージェントの結果を毎回ログで集計する</li>
+<li>画像や音声ファイルの一括処理で、入力と出力のファイル数を照合する</li>
+</ul>
+<div class="task"><h4>今日すぐできること：AIに「静かな失敗」の場所を探させる</h4><dl class="kv"><dt>目的</dt><dd>最近作った自動化スクリプトのうち、エラーを出さずにデータが消える場所を見つける</dd><dt>使用ツール</dt><dd>Claude Code などのAIコーディング助手</dd><dt>必要な準備</dt><dd>最近作った自動化スクリプト1つ</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>AIコーディング助手の利用料（料金は未確認：各サービスの公式料金ページで確認）</dd><dt>無料の代替</dt><dd>記事の3つのゲートをチェックリストにして、自分でコードを読む</dd></dl><b>手順</b><ol><li>自動化スクリプトのフォルダで、AIコーディング助手を起動する</li><li>下のお願い文を貼る</li><li>挙がった場所のうち、件数がずれそうなものを1つ選んでメモする</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このフォルダの自動化スクリプトを読んで、エラーを出さずにデータが消えたり、飛ばされたりする可能性がある場所を探してください。たとえば、条件に合わない行を黙って捨てている所、例外を握りつぶしている所、待ち合わせが足りない所です。場所ごとに、ファイル名・行・起こりうること・確かめ方を表にしてください。コードはまだ変更しないでください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>静かな失敗が起きそうな場所の一覧表</dd><dt>確認方法</dt><dd>少なくとも1か所、件数がずれる可能性のある場所が分かる</dd></dl><div class="meta">参考：<a href="https://zenn.dev/automation_lab/articles/automation-verification-gates" target="_blank" rel="noopener noreferrer">https://zenn.dev/automation_lab/articles/automation-verification-gates</a></div></div>
+<h4>発展：使い回せる「検証ゲート」の部品（2〜3時間）</h4><p>どの自動化スクリプトにも差し込める、JSONLログの記録・件数の照合・サンプル表示の3つをまとめた小さな部品を作る。</p><ol>
+<li>1件ごとに id・status・reason をJSONLで書く関数を作る</li>
+<li>最後に入力件数と成功・スキップ・エラーの合計を比べ、合わなければ止める関数を作る</li>
+<li>先頭・末尾・ランダムの1件を表示する関数を作る</li>
+<li>手元の自動化2つに組み込み、同じように使えるか確かめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>考え方の記事のため費用なし。</p>
+<div class="meta">実践可能性：高：手元のどんな自動化スクリプトにもすぐ足せる。<br>信頼性：Zenn の個人記事。考え方とログの例を本文で確認。公式情報ではないため、番組では一般的な確認方法として紹介。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">70</span>/100</span>
+<h2>5. ClawDOS：1983年ごろのIBM PC XT（8088・640KB）の DOS 上で動く、Claude の Messages API を使うAIコーディングエージェント</h2>
+<div class="meta">Hacker News・公開 2026-11-21 05:38</div>
+<div class="meta">出典：<a href="http://ricapar.net/ClawDOS/" target="_blank" rel="noopener noreferrer">http://ricapar.net/ClawDOS/</a></div>
+<p class="concl"><b>結論：</b>ClawDOS は、IBM PC XT の DOS 上で動くAIコーディングエージェントです。Claude の Messages API を使い、会話しながらプログラムを書き、Turbo C でコンパイルして実行し、結果を読めます。作者によると、作者の一言を除いてリポジトリのすべてを Claude が書いたそうです。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分のエージェントを「会話のくり返し・道具・記憶・確認」の4つの部品で見直すと、足りない部分が見つかって面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>40年以上前のPCで動くAI助手</b>：IBM PC XT（8088、640KB）のDOSで CLAWDOS と打つと、Claude と会話しながら作業できる。</li>
+<li><b>書く・動かす・結果を読む</b>：ファイルの読み書き、Turbo C でのコンパイルと実行、画面の撮影と送信、メモの保存ができる。</li>
+<li><b>通信は別のPCが中継</b>：古いPCは暗号化通信ができないため、別のPCがトンネル役になる。APIキーもそちらに置ける。</li>
+<li><b>変更前に毎回確認する</b>：安全モードが既定でオンで、ファイル・メモリ・ポートの変更は先に確認を求める。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>約176KBの HARNESS.EXE に、会話画面・エージェントのくり返し・道具をまとめ、8088のような非常に弱いマシンでもエージェントを成り立たせた点。</dd>
+<dt>なぜ重要か</dt><dd>エージェントに必要な部品（会話のくり返し・道具・記憶・危ない操作の前の確認）が、小さく分かりやすい形で見える。プロンプトの一部を使い回すキャッシュで、送る量を減らす工夫も参考になる。</dd>
+<dt>従来との違い</dt><dd>ふつうのエージェントは現代のPCで動くが、ClawDOS は暗号化通信を外のPCに任せ、送るデータを小さくすることで、古いPCでも動くようにしている。</dd></dl><ul>
+<li>Messages API のストリーミング、ツール呼び出し、画像、プロンプトキャッシュを使用</li>
+<li>TLSは別のPCのトンネル（tunnel.py、socat、stunnel）が担当し、APIキーもそちらに置ける</li>
+<li>会話はAPIのメッセージ形式のままファイルに保存し、あとで再開できる</li>
+<li>C:\MEMORY にメモを残す記憶の仕組み</li>
+<li>APIキー無しで試せるオフラインの模擬API（mockapi.py）とエミュレーターでのテスト</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自作エージェントの部品（くり返し・道具・記憶・確認）を見直す手本にする</li>
+<li>通信やキーを外に任せる設計を、小さなデバイスでのAI利用に応用する</li>
+<li>危ない操作の前に確認する安全モードの作りを、自分のエージェントにも入れる</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分のエージェントを4つの部品で見直す</h4><dl class="kv"><dt>目的</dt><dd>ClawDOS の作りを手本に、自作エージェントや Claude Code の設定の足りない部分を見つける</dd><dt>使用ツール</dt><dd>Claude Code などのAIコーディング助手</dd><dt>必要な準備</dt><dd>自作のエージェント、または Claude Code の設定があるフォルダ</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>AIコーディング助手の利用料（料金は未確認：各サービスの公式料金ページで確認）</dd><dt>無料の代替</dt><dd>ClawDOS のページを読みながら、4つの部品を自分で紙に書き出す</dd></dl><b>手順</b><ol><li>ClawDOS のページの How it works を読む</li><li>自作エージェントのフォルダでAIコーディング助手を起動し、下のお願い文を貼る</li><li>表を見て、いちばん足りない部品を1つ選ぶ</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このフォルダにあるエージェント（またはAIの設定）を、次の4つの部品で表にしてください。①会話を回すくり返し（いつ止まるか）②使える道具の一覧 ③記憶（どこに何を保存するか）④危ない操作の前の確認（どの操作で確認するか）。足りない部品があれば、いちばん小さく足す方法を1つずつ提案してください。コードはまだ変更しないでください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>自分のエージェントの部品の表と、足すべき部品1つ</dd><dt>確認方法</dt><dd>4つの部品それぞれについて、あり・なしと場所が表で分かる</dd></dl><div class="meta">参考：<a href="http://ricapar.net/ClawDOS/" target="_blank" rel="noopener noreferrer">http://ricapar.net/ClawDOS/</a>　<a href="https://github.com/Ricapar/ClawDOS" target="_blank" rel="noopener noreferrer">https://github.com/Ricapar/ClawDOS</a></div></div>
+<h4>発展：エミュレーターでClawDOSを動かす（1〜2時間）</h4><p>APIキー無しの模擬APIを使い、エミュレーターの古いPCで ClawDOS を起動して、エージェントの動きを観察する。</p><ol>
+<li>リポジトリを取得し、python3 scripts/setup-tools.py で必要な道具をそろえる</li>
+<li>python3 scripts/build.py で起動用のディスクイメージを作る</li>
+<li>python3 tunnel/mockapi.py で模擬APIを動かす</li>
+<li>python3 scripts/run86box.py でエミュレーターを起動し、CLAWDOS 10.0.2.2:18023 と打って !help を送る</li>
+</ol>
+<h3>利用条件・料金</h3><p>GPLv3以降のオープンソース。実際に使うにはAnthropic APIキー（従量課金、料金は公式の料金ページで確認）が必要。模擬APIなら無料で動作確認できる。Turbo C を含むディスクイメージの再配布はしないよう作者が注意している。</p>
+<div class="meta">実践可能性：中：実機は珍しいが、エミュレーターと模擬APIでAPIキー無しでも試せる。準備にはPython 3が必要。<br>信頼性：作者のプロジェクトページと GitHub リポジトリの説明で確認。Hacker News で話題。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>
