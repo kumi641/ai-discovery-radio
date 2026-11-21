@@ -87,6 +87,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          allowed_bots: "github-actions,github-actions[bot]"   # kick.yml starts this run as the Actions bot
           settings: .github/claude-settings.json
           prompt: |
             今日は ${{ needs.gate.outputs.date }} です。prompts/editor.md を読み、その指示どおりに work/draft.json を作ってください。
@@ -117,6 +118,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          allowed_bots: "github-actions,github-actions[bot]"   # kick.yml starts this run as the Actions bot
           settings: .github/claude-settings.json
           prompt: |
             work/draft.json が検証に失敗しました。work/validation.txt の ERROR をすべて直してください。

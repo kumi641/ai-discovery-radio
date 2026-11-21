@@ -8,7 +8,7 @@ schedule:
   # その日の回がまだ無ければ制作を始めます。
   time: "07:00"
   # 失敗したときに、何時間後まで毎時リトライしてよいか（= 1日の最大試行回数）
-  retry_hours: 3
+  retry_hours: 12
 
 collect:
   window_hours: 48          # 新着として扱う範囲
