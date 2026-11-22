@@ -1,0 +1,610 @@
+{
+ "date": "2026-11-22",
+ "made_at": "2026-11-22T07:16:53",
+ "seconds": 423.349,
+ "tts": {
+  "provider": "azure",
+  "chars": 4614,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 34,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 6.9
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 10.2
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 1,
+   "sec": 0.1
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.7
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 5.1
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.7
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.6
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.4
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.7
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.7
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.2
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.6
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.5
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.5
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.1
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.3
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_80d31a6dee",
+   "fetched": true,
+   "scores": {
+    "practice": 26,
+    "novelty": 17,
+    "reliability": 23,
+    "relevance": 13
+   },
+   "selected": true,
+   "reason": "手元で動かせる新モデルで、起動コマンドも公式ブログで確認できたため採用。"
+  },
+  {
+   "candidate_id": "c_3ea993db7e",
+   "fetched": true,
+   "scores": {
+    "practice": 12,
+    "novelty": 14,
+    "reliability": 24,
+    "relevance": 10
+   },
+   "selected": true,
+   "reason": "一次情報で、会話履歴を書き換えるアプリへの影響など開発者に関係する点があるため採用。"
+  },
+  {
+   "candidate_id": "c_5c9f546d61",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 8,
+    "reliability": 21,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "Claude Codeが落ちたときの手順で、主要部分を公式トラブルシューティングで確認できたため採用。"
+  },
+  {
+   "candidate_id": "c_255cdb01cc",
+   "fetched": true,
+   "scores": {
+    "practice": 27,
+    "novelty": 8,
+    "reliability": 15,
+    "relevance": 16
+   },
+   "selected": true,
+   "reason": "AIに任せた自動化を確かめる地味だが役立つ方法で、今日の実験にしやすいため採用。"
+  },
+  {
+   "candidate_id": "c_56c8c69722",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 15,
+    "reliability": 17,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "エージェントの基本部品が小さく見える作りで、作者のページで詳細を確認できたため採用。"
+  },
+  {
+   "candidate_id": "c_9166064c2f",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 8,
+    "reliability": 25,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "前回の放送でより新しいv2.1.330を紹介済みのため見送り。"
+  },
+  {
+   "candidate_id": "c_e486efe85b",
+   "fetched": true,
+   "scores": {
+    "practice": 10,
+    "novelty": 10,
+    "reliability": 12,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "元は動画で、ブログ紹介文から確認できる内容が少ないため見送り。"
+  },
+  {
+   "candidate_id": "c_d23ed58291",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 12,
+    "reliability": 12,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "ベータ機能の触ってみた記事で、料金や手順が確認できないため見送り。"
+  },
+  {
+   "candidate_id": "c_5aa08f312f",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "リリースノート本文を読めなかったため見送り。"
+  },
+  {
+   "candidate_id": "c_37e9a925d7",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "リリースノート本文を読めなかったため見送り。"
+  },
+  {
+   "candidate_id": "c_480c7f59bb",
+   "fetched": true,
+   "scores": {
+    "practice": 10,
+    "novelty": 5,
+    "reliability": 14,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "プラグインの小さな修正で、話題として薄いため見送り。"
+  },
+  {
+   "candidate_id": "c_c89ec8c212",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "アルファ版で変更内容の記載がないため見送り。"
+  },
+  {
+   "candidate_id": "c_0f08e9a78a",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "アルファ版で変更内容の記載がないため見送り。"
+  },
+  {
+   "candidate_id": "c_48489bd22e",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 8,
+    "reliability": 12,
+    "relevance": 17
+   },
+   "selected": false,
+   "reason": "記事自体が詳細不明の項目を多く含み、Qiitaの別記事を採用したため見送り。"
+  },
+  {
+   "candidate_id": "c_7429ad9963",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "リリースノート本文を読めなかったため見送り。"
+  },
+  {
+   "candidate_id": "c_d15c456432",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 5,
+    "reliability": 10,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "企業向けの事例紹介で個人の制作に結びつきにくいため見送り。"
+  },
+  {
+   "candidate_id": "c_f4784c3040",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 10,
+    "reliability": 10,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "創薬向けの評価で関心領域から遠いため見送り。"
+  },
+  {
+   "candidate_id": "c_9afed0143c",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 2,
+    "reliability": 15,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "株式公開の話で制作への応用がないため見送り。"
+  },
+  {
+   "candidate_id": "c_1177dfbd92",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "二次情報の株式市場ニュースのため見送り。"
+  },
+  {
+   "candidate_id": "c_2b32d4b379",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 10,
+    "reliability": 5,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "要約が空で、数学の話題のため見送り。"
+  },
+  {
+   "candidate_id": "c_81ce5b24dd",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 5,
+    "reliability": 8,
+    "relevance": 0
+   },
+   "selected": false,
+   "reason": "AIを使わない数学の話題のため見送り。"
+  },
+  {
+   "candidate_id": "c_b8e1839046",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 12,
+    "reliability": 6,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "引用のみで検証が難しく、制作への応用がないため見送り。"
+  },
+  {
+   "candidate_id": "c_c989db0d32",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 10,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "本文を確認しておらず、優先度の高い候補が十分あるため見送り。"
+  },
+  {
+   "candidate_id": "c_70b2f56458",
+   "fetched": true,
+   "scores": {
+    "practice": 14,
+    "novelty": 8,
+    "reliability": 8,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "取得できたのは目次と概要だけで、フックのコードを確認できなかったため見送り。"
+  },
+  {
+   "candidate_id": "c_b9afa900f6",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 5,
+    "reliability": 8,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "関心領域との関連が弱いため見送り。"
+  },
+  {
+   "candidate_id": "c_cd5b2565e4",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "AIを使わない道具の話のため見送り。"
+  },
+  {
+   "candidate_id": "c_f647e5e99f",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 3,
+    "reliability": 6,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "経営者の発言の要約で制作に結びつきにくいため見送り。"
+  },
+  {
+   "candidate_id": "c_83c2a3afcc",
+   "fetched": true,
+   "scores": {
+    "practice": 12,
+    "novelty": 6,
+    "reliability": 6,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "有料書籍で目次しか読めず、本文の手順を確認できないため見送り。"
+  },
+  {
+   "candidate_id": "c_366b2a15d1",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 5,
+    "reliability": 6,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "優先度の高い候補が十分あるため見送り。"
+  },
+  {
+   "candidate_id": "c_65edf14fd7",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 2,
+    "reliability": 6,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "社会・労働の話題で制作への応用がないため見送り。"
+  },
+  {
+   "candidate_id": "c_fd28116146",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 2,
+    "reliability": 6,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "株式市場の話題のため見送り。"
+  },
+  {
+   "candidate_id": "c_0000282282",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 12,
+    "reliability": 5,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "本文を確認しておらず、個人が試しにくい研究の話のため見送り。"
+  },
+  {
+   "candidate_id": "c_c4ca83ba57",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 5,
+    "reliability": 6,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "本文を確認しておらず、制作への応用が少ないため見送り。"
+  },
+  {
+   "candidate_id": "c_ed33061e28",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 5,
+    "reliability": 4,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "個人のランキングサイトで検証が難しいため見送り。"
+  }
+ ],
+ "warnings": []
+}

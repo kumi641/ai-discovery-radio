@@ -230,5 +230,45 @@
   "publisher": "NVIDIA",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://huggingface.co/blog/inkling2mini",
+  "title": "Thinking Machines Lab、手元の環境向けの中型AI「Inkling 2 Mini」を公開（文章と画像に対応、Hugging Faceブログで紹介）",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://openai.com/index/combatting-adversarial-distillation",
+  "title": "OpenAI、AIの能力を無断で抜き出して別のAIを育てる「adversarial distillation」への多層的な対策を説明",
+  "publisher": "OpenAI",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://qiita.com/homhom44/items/e41dca096fb741f1b3b0",
+  "title": "Qiita：Claude Code が「JavaScript heap out of memory」で落ちたときの対処（--continue で再開、--safe-mode で切り分け、/heapdump で調査）",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://zenn.dev/automation_lab/articles/automation-verification-gates",
+  "title": "Zenn：自動化の出力を信じる前に通す3つの検証ゲート（理由つきの実行ログ・件数の照合・差分とサンプルの確認）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "AIに作らせた自動化に「データの会計」を入れる"
+ },
+ {
+  "date": "2026-11-22",
+  "url": "http://ricapar.net/ClawDOS/",
+  "title": "ClawDOS：1983年ごろのIBM PC XT（8088・640KB）の DOS 上で動く、Claude の Messages API を使うAIコーディングエージェント",
+  "publisher": "Hacker News",
+  "corner": "practice",
+  "experiment": null
  }
 ]
