@@ -1,0 +1,406 @@
+{
+ "date": "2026-11-23",
+ "made_at": "2026-11-23T07:15:07",
+ "seconds": 472.57,
+ "tts": {
+  "provider": "azure",
+  "chars": 5292,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 17,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 6.8
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 12.0
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 1,
+   "sec": 0.2
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.5
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.5
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.7
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 5.2
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.7
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.6
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.7
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.7
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.3
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.4
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.6
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.4
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.1
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.3
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_bee17adb51",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 15,
+    "reliability": 19,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "Claude Code の答えを探索で良くする道具の計測結果と失敗例を、GitHub の README とあわせて確認できた。"
+  },
+  {
+   "candidate_id": "c_5aa08f312f",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "リリースページと CHANGELOG のどちらでも 0.2.187 の変更点を確認できなかったため見送り。"
+  },
+  {
+   "candidate_id": "c_c89ec8c212",
+   "fetched": true,
+   "scores": {
+    "practice": 3,
+    "novelty": 2,
+    "reliability": 10,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "試験版で、リリースノートの本文が空だったため見送り。"
+  },
+  {
+   "candidate_id": "c_0f08e9a78a",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 2,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "alpha.4 と同じく本文のない試験版のため見送り。"
+  },
+  {
+   "candidate_id": "c_4e45c5afd2",
+   "fetched": true,
+   "scores": {
+    "practice": 27,
+    "novelty": 14,
+    "reliability": 20,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "公式のセッション間メッセージの仕組みを使った実例。公式ドキュメントで仕組みを確かめられ、今日の実験につなげやすい。"
+  },
+  {
+   "candidate_id": "c_205401b273",
+   "fetched": true,
+   "scores": {
+    "practice": 27,
+    "novelty": 12,
+    "reliability": 17,
+    "relevance": 17
+   },
+   "selected": false,
+   "reason": "有用な導入記事だが、Zenn は2件までという決まりがあり、計測のある記事と公式機能につながる記事を優先した。"
+  },
+  {
+   "candidate_id": "c_36de1231c5",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 12,
+    "reliability": 16,
+    "relevance": 17
+   },
+   "selected": false,
+   "reason": "c_205401b273 と同じ Orca の話題で重複し、発表元の上限もあるため見送り。"
+  },
+  {
+   "candidate_id": "c_ef718cc169",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 4,
+    "reliability": 17,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "役立つ対処法だが、筆者の手元ではエラーを再現しておらず新しさも小さいため見送り。"
+  },
+  {
+   "candidate_id": "c_1ef5a345ac",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 12,
+    "reliability": 20,
+    "relevance": 17
+   },
+   "selected": true,
+   "reason": "Claude Code の Web ページ読み込みの仕組みの変更。主要な点を公式のサブエージェントのページで確認できた。"
+  },
+  {
+   "candidate_id": "c_de5cd1a6d5",
+   "fetched": true,
+   "scores": {
+    "practice": 6,
+    "novelty": 14,
+    "reliability": 25,
+    "relevance": 8
+   },
+   "selected": true,
+   "reason": "OpenAI 研究責任者による一次情報で、AI の進む速さを知る手がかりになる。個人では真似しにくいため use_idea は無し。"
+  },
+  {
+   "candidate_id": "c_7e26aba88b",
+   "fetched": true,
+   "scores": {
+    "practice": 15,
+    "novelty": 4,
+    "reliability": 8,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "一般的な確認項目だけで、具体的なサービスの規約や一次情報への参照が無いため見送り。"
+  },
+  {
+   "candidate_id": "c_21bd1d482a",
+   "fetched": true,
+   "scores": {
+    "practice": 8,
+    "novelty": 8,
+    "reliability": 14,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "AIの使い方の記述が少なく、Python サーバーの話が中心のため見送り。"
+  },
+  {
+   "candidate_id": "c_2b32d4b379",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 10,
+    "reliability": 5,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "二次情報のまとめで、要約もなく本文も確認していないため見送り。"
+  },
+  {
+   "candidate_id": "c_3c4f4993ad",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 13,
+    "reliability": 18,
+    "relevance": 15
+   },
+   "selected": true,
+   "reason": "人がAIの手伝い役になって遊ぶゲーム。オフラインでも動かせて、AIへの指示の出し方を見直すきっかけになる。"
+  },
+  {
+   "candidate_id": "c_0ea6a99532",
+   "fetched": true,
+   "scores": {
+    "practice": 12,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "1台・1回の体験談で、AIというより一般的なプロセス調査の話のため見送り。"
+  },
+  {
+   "candidate_id": "c_38c61351fe",
+   "fetched": false,
+   "scores": {
+    "practice": 1,
+    "novelty": 4,
+    "reliability": 5,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "電力の話題で制作への応用がなく、本文も確認していないため見送り。"
+  },
+  {
+   "candidate_id": "c_67786b6377",
+   "fetched": false,
+   "scores": {
+    "practice": 1,
+    "novelty": 3,
+    "reliability": 5,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "AIの意識をめぐる論考で実践につながらないため見送り。"
+  }
+ ],
+ "warnings": []
+}
