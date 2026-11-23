@@ -310,5 +310,45 @@
   "publisher": "Hacker News",
   "corner": "practice",
   "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+  "title": "Claude Code v2.1.331：claude doctor に API 接続の確認、MCP ツールが止まる不具合の修正など",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+  "title": "Google DeepMind、AIエージェントのチームと形式検証で量子アルゴリズムを効率化",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://huggingface.co/blog/agentic-evals",
+  "title": "Hugging Face「How to build and maintain an agentic evaluation」：エージェント評価の作り方と保ち方",
+  "publisher": "Hugging Face",
+  "corner": "practice",
+  "experiment": "AI作業に小さなテストを作る"
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://zenn.dev/murzim/articles/f5066afd82976c",
+  "title": "AIに「公開しないで」と頼むより、MCPサーバーから公開の操作そのものを外した設計（OAuth×Supabase）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://github.com/remotion-dev/remotion/releases/tag/v4.0.546",
+  "title": "Remotion v4.0.546：npx remotion whisper で手元のPCで文字起こし、Studio で任意の要素にエフェクト",
+  "publisher": "Remotion",
+  "corner": "creative",
+  "experiment": null
  }
 ]
