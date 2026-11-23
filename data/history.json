@@ -270,5 +270,45 @@
   "publisher": "Hacker News",
   "corner": "practice",
   "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://openai.com/index/perplexity-and-intelligence",
+  "title": "OpenAI、AIの進歩を比べる共通の物差しとして perplexity（次の言葉の当てにくさ）を使おうと提案し、社内の数値を公開",
+  "publisher": "OpenAI",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://zenn.dev/natsu529/articles/ef09f78c0dde1d",
+  "title": "Zenn：Claude Code に同じ修正を何通りも試させる agent-mcts。課題文から先にテストを書かせると20回中16回で改善、あいまいなバグ報告では失敗し v0.4.1 で対策",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://zenn.dev/hummer/articles/claude-kitty-omoiyari",
+  "title": "Zenn：Claude Code のセッション間メッセージで並列作業の配管を減らし、状態を背景色で示す claude-kitty を作成。足りなかったのは人の認知への配慮",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "2つの Claude Code に伝言をさせる"
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://qiita.com/akihidem/items/97eac4cb7a451c94a60a",
+  "title": "Qiita：Claude Code の公式ドキュメント 11/22 更新まとめ。Web ページを読む組み込みサブエージェント web-fetch を軸に、権限・フック・環境変数の説明が追記",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://github.com/gulivan/worker755",
+  "title": "Show HN：Worker 755。本物のLLMが上司になり、プレイヤーがその「サブエージェント」として指示をこなすブラウザゲーム（MIT、オフラインのモックモードあり）",
+  "publisher": "Hacker News",
+  "corner": "practice",
+  "experiment": null
  }
 ]

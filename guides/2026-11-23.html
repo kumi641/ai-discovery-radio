@@ -1,0 +1,225 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIを並べて動かすコツと、何通りも試させる工夫｜実践ガイド 2026-11-23</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-23/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月23日（月）・放送 約8分</div>
+<h1>AIを並べて動かすコツと、何通りも試させる工夫</h1>
+<p class="lead">Claude Code の画面どうしが直接伝言できる仕組みを使い、人に見やすい作業場を作った例や、同じ修正を何通りも試させて良い答えを選ぶ道具の計測が共有されました。OpenAI は AI の進歩を測る共通の物差しとして perplexity を提案しています。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：2つの Claude Code に伝言をさせる</a></li>
+<li><a href="#news-1">OpenAI、AIの進歩を比べる共通の物差しとして perplexity（次の言葉の当てにくさ）を使おうと提案し、社内の数値を公開</a></li>
+<li><a href="#news-2">Zenn：Claude Code に同じ修正を何通りも試させる agent-mcts。課題文から先にテストを書かせると20回中16回で改善、あいまいなバグ報告では失敗し v0.4.1 で対策</a></li>
+<li><a href="#news-3">Zenn：Claude Code のセッション間メッセージで並列作業の配管を減らし、状態を背景色で示す claude-kitty を作成。足りなかったのは人の認知への配慮</a></li>
+<li><a href="#news-4">Qiita：Claude Code の公式ドキュメント 11/22 更新まとめ。Web ページを読む組み込みサブエージェント web-fetch を軸に、権限・フック・環境変数の説明が追記</a></li>
+<li><a href="#news-5">Show HN：Worker 755。本物のLLMが上司になり、プレイヤーがその「サブエージェント」として指示をこなすブラウザゲーム（MIT、オフラインのモックモードあり）</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>2つの Claude Code に伝言をさせる</h2>
+<div class="meta">関連ニュース：<a href="#news-3">Zenn：Claude Code のセッション間メッセージで並列作業の配管を減らし、状態を背景色で示す claude-kitty を作成。足りなかったのは人の認知への配慮</a></div>
+<div class="task"><h4>実験：2つの Claude Code に伝言をさせる</h4><dl class="kv"><dt>目的</dt><dd>セッション間メッセージで、片方の Claude Code からもう片方へ知らせを届け、届き方と安全の決まりを確かめる</dd><dt>使用ツール</dt><dd>Claude Code（v2.1.232 以降。@ での指定に必要）、ターミナル2つ</dd><dt>必要な準備</dt><dd>Claude Code をインストールしてログインしておく、claude --version で v2.1.232 以降か確認する（終わったら知らせる機能は v2.1.236 以降）、同じパソコンでターミナルを2つ開く（コンテナの中と外ではつながらない）</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>課金が必要（Claude Code が使える有料プランか API。届いたメッセージも通常の入力と同じく利用量に数えられる）</dd><dt>無料の代替</dt><dd>Claude Code の無料枠は未確認（公式の料金ページで確認）。費用を抑えるなら短い伝言を数回だけ送る</dd></dl><b>手順</b><ol><li>ターミナルBで claude を起動し、/rename worker-b と打って名前を付ける</li><li>ターミナルAで claude を起動し、/list-agents を打って worker-b が一覧に出るか確かめる</li><li>ターミナルAで下のプロンプトを送る（@ と打って worker-b を候補から選ぶ）</li><li>ターミナルBに『Message from @…』という薄い一行が届くか見る。Ctrl+O で全文を読む</li><li>ターミナルBに何か作業を頼んでから、Aで『worker-b の作業が終わったら教えて』と頼み、知らせが届くか確かめる</li><li>終わったら、/config の『Messages from your other sessions』で受け取り方（accept / hold / refuse）を確認する</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>@worker-b に、こちらの作業の結果を3行でまとめて伝えてください。相手に何かを実行させたり、設定を変えさせたりする依頼は入れないでください。</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cross-session-messaging</a></div><dl class="kv"><dt>完成するもの</dt><dd>セッションAからBへ届いた伝言と、作業終了の知らせ</dd><dt>確認方法</dt><dd>ターミナルBの会話に Message from の一行が表示され、Ctrl+O の画面で全文が読める。終了の知らせがAに届く</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cross-session-messaging</a>　<a href="https://github.com/hummer98/claude-kitty" target="_blank" rel="noopener noreferrer">https://github.com/hummer98/claude-kitty</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-23 2つの Claude Code に伝言をさせる
+- 参考ニュース: Zenn：Claude Code のセッション間メッセージで並列作業の配管を減らし、状態を背景色で示す claude-kitty を作成。足りなかったのは人の認知への配慮
+- ガイド: guides/2026-11-23.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">53</span>/100</span>
+<h2>1. OpenAI、AIの進歩を比べる共通の物差しとして perplexity（次の言葉の当てにくさ）を使おうと提案し、社内の数値を公開</h2>
+<div class="meta">OpenAI・公開 2026-11-22 00:00</div>
+<div class="meta">出典：<a href="https://openai.com/index/perplexity-and-intelligence" target="_blank" rel="noopener noreferrer">https://openai.com/index/perplexity-and-intelligence</a></div>
+<p class="concl"><b>結論：</b>OpenAI の研究責任者 Jakub Pachocki 氏が、AI の進歩を比べる共通の物差しとして perplexity を使うことを提案しました。社内のプログラムの文章で測った数値を公開し、数値が下がるにつれてどんな力が現れたかを説明しています。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>進歩を測る共通の物差しを提案</b>：perplexity は、AI が次に来る言葉をどれだけ迷わず当てられるかを表す数字。小さいほど良く当てられる。</li>
+<li><b>社内の数値を初めて公開</b>：社内のプログラムの文章で測った数値と、各モデルでできるようになったことを並べて公開した。</li>
+<li><b>力の現れ方は事前に読めない</b>：筆者は、新しい力がいつ現れるかは前もってはっきり分からなかったと書いている。</li>
+<li><b>越えない線を各社で決めようと提案</b>：安全を見守る仕組みが追いつくまで、各社で越えない数値の線を決めようと呼びかけている。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>これまで社内だけで持っていた perplexity の数値を、ある時点の分について公開した点です。新しい道具やデータの公開はありません。</dd>
+<dt>なぜ重要か</dt><dd>AI の力は細かい試験の点数で語られがちですが、学習のもとになる予測の上手さという一つの数字で進み方を追えば、全体の速さが見えやすくなる、という主張です。安全のルールづくりにも使おうとしています。</dd>
+<dt>従来との違い</dt><dd>個別の試験の点数ではなく、事前学習（大量の文章から次の言葉を当てる練習）の段階の数値に注目します。ただし会社ごとにデータが違うため比べにくい、実際の仕事の上手さと直接は結びつかない、などの限界も本人が挙げています。</dd></dl><ul>
+<li>perplexity は、まだ見せていない文章で次の言葉を予測させたときの外れにくさを表す</li>
+<li>GPT-4 の頃に、順を追って考える力が役立つようになったと説明している</li>
+<li>順を追って考える工夫のように、事前学習の外で伸びた力はこの数字に表れないと認めている</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>AI の進む速さをつかむ背景知識として、ツール選びや学ぶ順番を考える参考にする</li>
+</ul>
+<div class="task"><h4>今日すぐできること：物差しの考え方をAIに説明してもらう</h4><dl class="kv"><dt>目的</dt><dd>perplexity が何を測る数字なのかを、自分の言葉で説明できるようにする</dd><dt>使用ツール</dt><dd>Claude や ChatGPT など手元の AI チャット</dd><dt>必要な準備</dt><dd>記事のページを開いておく</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料（AIチャットの無料枠で可能）</dd></dl><b>手順</b><ol><li>記事を開き、本文をコピーする</li><li>下のプロンプトのあとに本文を貼って送る</li><li>返ってきたたとえ話を読み、分からない言葉をもう一度質問する</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次の文章を、高校生にも分かるように説明してください。1) perplexity は何を測る数字か、身近なたとえで 2) 筆者が挙げている限界を3つ 3) 筆者の提案を1文で。文章にない内容は付け足さないでください。
+
+（ここに本文を貼る）</pre></div><div class="meta">出典：<a href="https://openai.com/index/perplexity-and-intelligence" target="_blank" rel="noopener noreferrer">https://openai.com/index/perplexity-and-intelligence</a></div><dl class="kv"><dt>完成するもの</dt><dd>perplexity と筆者の主張を短くまとめたメモ</dd><dt>確認方法</dt><dd>まとめを見ずに、perplexity が小さいほど何が良いのかを1文で言える</dd></dl><div class="meta">参考：<a href="https://openai.com/index/perplexity-and-intelligence" target="_blank" rel="noopener noreferrer">https://openai.com/index/perplexity-and-intelligence</a></div></div>
+<h4>発展：AIニュースの読み方ノート（1〜2時間）</h4><p>気になった発表を読むたびに、AI に『何を測っているか』『限界は何か』を整理させ、自分用のノートにためていく。</p><ol>
+<li>ノートの見出し（何の話か・何を測るか・限界・自分への影響）を決める</li>
+<li>読んだ記事ごとに AI にこの見出しで整理させる</li>
+<li>1週間分たまったら、似た話題をまとめ直す</li>
+</ol>
+<h3>利用条件・料金</h3><p>読み物のため費用なし。</p>
+<div class="meta">実践可能性：低：考え方の提案で、個人がすぐ使う道具ではない。<br>信頼性：OpenAI 公式サイトの本文で確認。</div></section>
+<section class="card" id="news-2"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">81</span>/100</span>
+<h2>2. Zenn：Claude Code に同じ修正を何通りも試させる agent-mcts。課題文から先にテストを書かせると20回中16回で改善、あいまいなバグ報告では失敗し v0.4.1 で対策</h2>
+<div class="meta">Zenn・公開 2026-11-22 19:28</div>
+<div class="meta">出典：<a href="https://zenn.dev/natsu529/articles/ef09f78c0dde1d" target="_blank" rel="noopener noreferrer">https://zenn.dev/natsu529/articles/ef09f78c0dde1d</a></div>
+<p class="concl"><b>結論：</b>Claude Code に同じ修正を何通りか試させ、探索で一番よい答えを選ぶ道具 agent-mcts の測り直しの記録です。課題文から先にテストを書かせる方法で、20回中16回は一回だけ頼んだ場合より良い答えになりました。一方、あいまいなバグ報告では失敗し、その対策も公開されています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>仕様がはっきりした小さな関数づくりで、一回だけ頼んだ答えと、何通りも試させた答えを並べて比べると、AI に任せるときの頼み方のコツが見えてきて面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>答えを木のように枝分かれで探す</b>：agent-mcts は Claude Code の1回の作業を木の1つの枝として扱い、よさそうな枝に予算を回す。</li>
+<li><b>先に確認用テストを別AIが作る</b>：答えを見せずに、課題文と元のコードだけから別のエージェントがテストを書くので、答えに合わせたテストになりにくい。</li>
+<li><b>20回中16回で一回目より良く</b>：作者の計測（haiku、課題2つ、各20回）で、最初の答えより良くなったのが16回、悪くなったのが2回。</li>
+<li><b>あいまいなバグ報告では失敗</b>：テストを書く AI もバグと同じ勘違いをして、直す前のコードを選んだ。v0.4.1 で元からあるテストを優先する規則にした。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>`--generate-tests` で、探索の前に別のエージェントが課題文と元のコードだけを見てテストを書き、その結果で答えを採点・修正するようにした点です。</dd>
+<dt>なぜ重要か</dt><dd>AI に一回だけ頼むより、落ちたテストを見せて直させるほうが答えが良くなる、という傾向を数字で示しています。作者は、伸びた主な理由は『選ぶこと』より『直すこと』だったと分析しています。</dd>
+<dt>従来との違い</dt><dd>AI に差分を読ませて点を付ける `--judge` は平均では伸びましたが、その大半は壊れていた最初の答えを直した2回の分でした。生成テストのほうが安定して良くなりました。</dd></dl><ul>
+<li>各候補は git worktree（同じリポジトリの別の作業場所）と、分岐させたエージェントの会話でできている</li>
+<li>採点は、プロジェクトのテストと生成テストの通過率を半分ずつ合わせる</li>
+<li>v0.4.1 では、プロジェクト自身のテストで悪化していない答えの中から最高点を選び、それ以外の指標だけが修正前を推したら警告する</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>仕様のはっきりした関数をエージェントに作らせるとき、一回だけ頼んだ答えと探索の答えを比べる</li>
+<li>自分の Claude Code 自動化に『落ちたテストを見せて直させる』手順を取り入れる</li>
+</ul>
+<div class="task"><h4>今日すぐできること：agent-mcts を小さなリポジトリで動かす</h4><dl class="kv"><dt>目的</dt><dd>探索の木と、選ばれた答えの中身を自分の目で確かめる</dd><dt>使用ツール</dt><dd>agent-mcts、Claude Code、uv、git</dd><dt>必要な準備</dt><dd>uv と Claude Code をインストールしてログインしておく、テストが通る小さな練習用リポジトリを用意する</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>課金が必要（Claude Code の利用料。作者の計測では1回あたり約0.4〜2.4ドル）</dd><dt>無料の代替</dt><dd>Claude Code 以外の無料の手段は未確認。費用を抑えるなら、まず小さな課題と少ない予算で試す</dd></dl><b>手順</b><ol><li>uv で agent-mcts をインストールする</li><li>練習用リポジトリで、小さな修正を頼む run を実行する（実行前に予算の計画が表示される）</li><li>show で探索の木と各候補の評価を見る</li><li>良ければ apply で一番よい候補の変更を取り込む</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>uv tool install agent-mcts
+agent-mcts run &quot;fix the flaky test in tests/test_auth.py&quot;
+agent-mcts show
+agent-mcts apply</pre></div><div class="meta">出典：<a href="https://github.com/natsu0529/agent-mcts" target="_blank" rel="noopener noreferrer">https://github.com/natsu0529/agent-mcts</a></div><dl class="kv"><dt>完成するもの</dt><dd>探索の木と、取り込んだ一番よい答え</dd><dt>確認方法</dt><dd>agent-mcts show で複数の候補と評価が表示され、apply 後に git diff で変更が見える</dd></dl><div class="meta">参考：<a href="https://github.com/natsu0529/agent-mcts" target="_blank" rel="noopener noreferrer">https://github.com/natsu0529/agent-mcts</a>　<a href="https://zenn.dev/natsu529/articles/ef09f78c0dde1d" target="_blank" rel="noopener noreferrer">https://zenn.dev/natsu529/articles/ef09f78c0dde1d</a></div></div>
+<h4>発展：一回勝負と探索の比べっこ表（2〜3時間）</h4><p>同じ課題を『一回だけ頼む』『--judge』『--generate-tests』で解かせ、点数・費用・時間を表にまとめて、自分のプロジェクトに合う頼み方を見つける。</p><ol>
+<li>仕様と隠しテストを用意した小さな課題を2つ作る</li>
+<li>3つのやり方で数回ずつ実行し、結果と費用を記録する</li>
+<li>表にまとめ、どの課題でどのやり方が向くかを書く</li>
+</ol>
+<h3>利用条件・料金</h3><p>agent-mcts は MIT ライセンスで無料。Claude Code の利用料が別にかかる。作者の計測では生成テスト付きで1回約2.44ドル・約19分（haiku の場合）。</p>
+<div class="meta">実践可能性：中：git とテストのあるプロジェクトなら試せるが、何度も AI を動かすため費用と時間がかかる。<br>信頼性：Zenn の記事本文と、GitHub の README（インストールとコマンド）で確認。計測はモデル1つ・課題3つで、他の条件での結果は未確認と作者自身が書いている。</div></section>
+<section class="card" id="news-3"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">79</span>/100</span>
+<h2>3. Zenn：Claude Code のセッション間メッセージで並列作業の配管を減らし、状態を背景色で示す claude-kitty を作成。足りなかったのは人の認知への配慮</h2>
+<div class="meta">Zenn・公開 2026-11-22 20:05</div>
+<div class="meta">出典：<a href="https://zenn.dev/hummer/articles/claude-kitty-omoiyari" target="_blank" rel="noopener noreferrer">https://zenn.dev/hummer/articles/claude-kitty-omoiyari</a></div>
+<p class="concl"><b>結論：</b>AI エージェントを並べる道具を4回作り直した作者が、Claude Code のセッション間メッセージを使って、ターミナル kitty に約10個のセッションを並べる claude-kitty を作りました。残った問題は AI の管理ではなく人とのやりとりで、状態の色分けなど『人の認知への配慮』で解決したと書いています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>調べもの担当とプログラム担当のクロード コードを分けて、調べた結果を担当どうしで直接渡させると、コピーと貼り付けの手間が減って面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>セッション同士が直接伝言</b>：Claude Code にはセッション間メッセージがあり、同じパソコン内ならサーバーを通らずに届く。</li>
+<li><b>状態を背景の色で見分ける</b>：作業中・返事待ち・完了などを、フックがペインの背景色とステータス行に塗る。</li>
+<li><b>1画面に1つの話題</b>：人は担当のセッションと直接話し、決まったことは担当がまとめ役に原文つきで送る。</li>
+<li><b>人を呼ぶのは1か所だけ</b>：デスクトップ通知を止め、必要なときだけまとめ役が人を呼ぶ。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>以前はほかの画面にキーを打ち込んで指示していましたが、Claude Code 本体のセッション間メッセージ（v2.1.224 以降）を使うことで、その配管がいらなくなった点です。</dd>
+<dt>なぜ重要か</dt><dd>AI を何個も並べると、人がどこを見ればいいか分からなくなります。色・画面の分け方・呼び出し口を整理すれば、人の負担を減らせることを実例で示しています。</dd>
+<dt>従来との違い</dt><dd>前の道具は AI が AI の画面を読んで管理していましたが、今回はフックが書いた確かな状態を読み、まとめ役は主に『人に何を見せるか』を決めます。</dd></dl><ul>
+<li>公式ドキュメントによると、同じパソコン内のメッセージはセッションごとのソケット（プログラム同士の専用の受け口）を通り、Anthropic のサーバーを通らない</li>
+<li>届いたメッセージは許可を代わりに出せず、設定も変えられない（公式ドキュメント）</li>
+<li>claude-kitty は kitty の操作機能でペインを並べ替え、状態ごとに背景色を変える（MIT ライセンス）</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>調べもの担当と実装担当のセッションを分け、結果を直接渡させる</li>
+<li>長いテストを流すセッションから、終わったら知らせてもらう</li>
+<li>フックで状態を色分けし、待っているセッションをひと目で見つける</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分のセッションの受け口を確かめる</h4><dl class="kv"><dt>目的</dt><dd>手元の Claude Code がセッション間メッセージに対応しているか確認する</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code をインストールしてログインしておく</dd><dt>所要時間</dt><dd>約5分</dd><dt>費用</dt><dd>課金が必要（Claude Code が使える有料プランか API。確認だけなら追加の費用はほぼかからない）</dd><dt>無料の代替</dt><dd>Claude Code の無料枠は未確認（公式の料金ページで確認）</dd></dl><b>手順</b><ol><li>ターミナルで claude --version を実行し、v2.1.224 以降か確かめる</li><li>claude を起動して /status を打ち、Peer address の行を見る</li><li>/list-agents を打ち、使えるかどうかを確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>claude --version
+/status
+/list-agents</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cross-session-messaging</a></div><dl class="kv"><dt>完成するもの</dt><dd>自分の環境で伝言が使えるかどうかの確認結果</dd><dt>確認方法</dt><dd>/status に uds: で始まる Peer address が表示され、/list-agents が認識される</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cross-session-messaging</a>　<a href="https://zenn.dev/hummer/articles/claude-kitty-omoiyari" target="_blank" rel="noopener noreferrer">https://zenn.dev/hummer/articles/claude-kitty-omoiyari</a></div></div>
+<h4>発展：待っているセッションが光る作業場（2〜4時間）</h4><p>claude-kitty を参考に、返事を待っているセッションだけ色が変わる、自分用の並列作業場を作る。</p><ol>
+<li>claude-kitty の README を読み、claude-kitty doctor で足りないものを確認する</li>
+<li>役割ごとにセッションを並べ、/rename で名前を付ける</li>
+<li>状態の色分けを試し、自分に見やすい色に調整する</li>
+</ol>
+<h3>利用条件・料金</h3><p>claude-kitty は MIT ライセンスで無料。Claude Code の利用には有料プランか API の利用料が必要。メッセージも通常の入力と同じく利用量に数えられる（公式ドキュメント）。</p>
+<div class="meta">実践可能性：中：セッション間メッセージ自体は Claude Code の新しい版ならすぐ試せる。claude-kitty は作者の環境が Linux（KDE）で、macOS は試験的な対応。<br>信頼性：Zenn の記事本文、claude-kitty の GitHub README、Claude Code 公式ドキュメント（cross-session messaging）で確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">69</span>/100</span>
+<h2>4. Qiita：Claude Code の公式ドキュメント 11/22 更新まとめ。Web ページを読む組み込みサブエージェント web-fetch を軸に、権限・フック・環境変数の説明が追記</h2>
+<div class="meta">Qiita・公開 2026-11-22 17:55</div>
+<div class="meta">出典：<a href="https://qiita.com/akihidem/items/97eac4cb7a451c94a60a" target="_blank" rel="noopener noreferrer">https://qiita.com/akihidem/items/97eac4cb7a451c94a60a</a></div>
+<p class="concl"><b>結論：</b>Claude Code の公式ドキュメントに、Web ページの読み込みを担う組み込みサブエージェント web-fetch についての説明が加わりました。Qiita の記事が、サブエージェント・フック・権限・環境変数の各ページへの追記をまとめています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>エーアイが読んだページのアドレスを、日記のように自動で記録しておくと、あとで調べものの道のりを振り返れて面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>ページ読みは専門の手伝い役</b>：web-fetch は Claude が Web ページを読むときに使う組み込みのサブエージェント。</li>
+<li><b>軽いモデル Haiku で動く</b>：Haiku で動き、Haiku が使えないときは呼び出し元の会話のモデルを使う（公式ドキュメント）。</li>
+<li><b>メインの会話は道具を持たない</b>：この仕組みを使う会話では、メインの会話やフォークは WebFetch ツールを持たない。他のサブエージェントは使える。</li>
+<li><b>フックの見張り方に注意</b>：記事によると、web-fetch の開始・終了のフックは管理者が配る設定のものだけ動く。代わりに WebFetch を見張る方法が案内されている。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>Web ページを読む作業を、メインの会話ではなく専用のサブエージェント（Haiku で動く）が担う形が文書化された点です。</dd>
+<dt>なぜ重要か</dt><dd>WebFetch を前提にフックや許可ルールを作っていた人は、どのエージェントがページを読むのかによって、見張りや許可の効き方が変わる可能性があります。</dd>
+<dt>従来との違い</dt><dd>以前はメインの会話が WebFetch を直接呼んでいましたが、この仕組みを使うセッションでは、メインの会話から WebFetch が外れます。</dd></dl><ul>
+<li>サブエージェントは、メインの AI から仕事を任される小さな AI</li>
+<li>公式ドキュメントでは、Agent ツールで起動した他のサブエージェントは引き続き WebFetch を自分で呼べる</li>
+<li>記事によると、ドメイン単位の許可ルールがタスク内の全 URL を覆う場合、auto mode の確認の一部が省かれるため、許可の書き方が挙動に直結する</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自分のフック設定で、Web ページ読み込みを見張る部分を点検する</li>
+<li>AI が読んだページのアドレスを記録する仕組みを作る</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分のフックと許可ルールを点検する</h4><dl class="kv"><dt>目的</dt><dd>Web ページ読み込みにかかわる設定が、今の仕組みでも意図どおり効くか確認する</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code をインストールしておく</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>課金が必要（Claude Code が使える有料プランか API）</dd><dt>無料の代替</dt><dd>設定ファイルをテキストエディタで開いて、自分の目で確認する</dd></dl><b>手順</b><ol><li>Claude Code を起動し、下のプロンプトを送る</li><li>一覧に SubagentStart / SubagentStop や WebFetch を使う設定があるか見る</li><li>気になる点があれば、公式ドキュメントのサブエージェントとフックのページで確かめる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このプロジェクトの .claude/settings.json と、ユーザー設定の ~/.claude/settings.json を読んで、1) 設定されているフックの一覧（イベント名と matcher） 2) WebFetch に関する許可・拒否ルール を表にしてください。ファイルは変更しないでください。</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/sub-agents</a></div><dl class="kv"><dt>完成するもの</dt><dd>Web ページ読み込みにかかわる自分の設定の一覧表</dd><dt>確認方法</dt><dd>SubagentStart / SubagentStop と WebFetch にかかわる設定が、有るか無いかをはっきり言える</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/sub-agents</a>　<a href="https://qiita.com/akihidem/items/97eac4cb7a451c94a60a" target="_blank" rel="noopener noreferrer">https://qiita.com/akihidem/items/97eac4cb7a451c94a60a</a></div></div>
+<h4>発展：AIの調べもの日記（1〜2時間）</h4><p>WebFetch が使われたときに動くフックで、読んだページのアドレスと時刻をファイルに書きためる仕組みを作る。</p><ol>
+<li>公式ドキュメントのフックのページで PostToolUse と matcher の書き方を確認する</li>
+<li>WebFetch に合わせたフックで、入力の URL と時刻を1行ずつ記録するスクリプトを作る</li>
+<li>何回か調べものをさせ、記録が残るか確かめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code の機能のため、Claude Code の利用料の範囲。追加の料金は記事・ドキュメントに記載なし。</p>
+<div class="meta">実践可能性：中：自分の設定にフックや許可ルールがある人は、すぐ見直せる。<br>信頼性：Qiita の記事本文と、Claude Code 公式ドキュメントのサブエージェントのページで主要な点を確認。フックに関する細かい条件は記事の記述にもとづく。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">68</span>/100</span>
+<h2>5. Show HN：Worker 755。本物のLLMが上司になり、プレイヤーがその「サブエージェント」として指示をこなすブラウザゲーム（MIT、オフラインのモックモードあり）</h2>
+<div class="meta">Hacker News・公開 2026-11-22 13:56</div>
+<div class="meta">出典：<a href="https://github.com/gulivan/worker755" target="_blank" rel="noopener noreferrer">https://github.com/gulivan/worker755</a></div>
+<p class="concl"><b>結論：</b>AI のマネージャーが、あなたを自分のサブエージェントだと思い込んでいるブラウザゲームです。指示をこなすと上司が確認し、最後に成績表を書きます。依頼主のダンさんの大事な写真のそばで作業する、という設定です。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分がふだんエーアイに出している指示を、受け取る側の立場で体験すると、指示の書き方を見直すきっかけになって面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>上司役は本物のAI</b>：上司役は Claude・GPT・Gemini などの本物の AI で、仕事の一覧と『手伝い役を呼ぶ』道具を持っている。</li>
+<li><b>指示は90秒以内にこなす</b>：ターミナル風の画面に指示が届き、90秒の制限時間の中でこなすかどうかを決める。</li>
+<li><b>最後に成績表を書かれる</b>：上司が仕事を確かめ、やり直しや事故報告を出し、最後に評価を書く。</li>
+<li><b>上司の見逃しも記録される</b>：各任務に隠れた正解チェックがあり、上司の AI が壊れた仕事を合格にした回数も分かる。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>ふだん AI に指示を出す側の人が、AI から指示を受ける側を体験できる点です。上司の AI が壊れた仕事を見逃したかどうかも記録されます。</dd>
+<dt>なぜ重要か</dt><dd>AI エージェントがサブエージェントにどんな指示を出し、どう確認するかを、遊びながら体で知ることができます。自分の指示の書き方を見直すきっかけになります。</dd>
+<dt>従来との違い</dt><dd>AI エージェントの評価は、ふつう AI 同士で行います。このゲームでは人がサブエージェント役になり、上司 AI の確認の甘さも見えるようにしています。</dd></dl><ul>
+<li>自作の仮のファイルシステム、シェル、小さな SQLite 風エンジンを使い、本物のパソコンには触れない</li>
+<li>サーバーは TypeScript、画面は React と Vite で作られている</li>
+<li>OpenAI 互換のローカルサーバー（Ollama など）にもつなげられる</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自分のエージェントの指示文を、受け取る側の目で見直す</li>
+<li>AI に作業を任せるときの確認の大切さを、チームや友だちに体験してもらう</li>
+</ul>
+<div class="task"><h4>今日すぐできること：モックモードで1回遊ぶ</h4><dl class="kv"><dt>目的</dt><dd>API キーなしで、AI の手伝い役を体験する</dd><dt>使用ツール</dt><dd>Node.js 24 以上、Worker 755</dd><dt>必要な準備</dt><dd>Node.js 24 以上をインストールする、GitHub からリポジトリを手元に取得する</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（モックモード）</dd><dt>無料の代替</dt><dd>本物の AI を上司にしたい場合も、Ollama などのローカルモデルにつなげられる</dd></dl><b>手順</b><ol><li>リポジトリのフォルダで npm run setup を実行し、必要なものを入れる</li><li>npm run mock で、台本どおりに動く上司役のオフライン版を起動する</li><li>表示されたアドレスをブラウザで開き、指示を1つこなしてみる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>npm run setup
+npm run mock</pre></div><div class="meta">出典：<a href="https://github.com/gulivan/worker755" target="_blank" rel="noopener noreferrer">https://github.com/gulivan/worker755</a></div><dl class="kv"><dt>完成するもの</dt><dd>1回分のプレイと、上司からの評価</dd><dt>確認方法</dt><dd>ブラウザに指示が届き、こなした後に上司からの返事が表示される</dd></dl><div class="meta">参考：<a href="https://github.com/gulivan/worker755" target="_blank" rel="noopener noreferrer">https://github.com/gulivan/worker755</a></div></div>
+<h4>発展：自分のエージェント用の指示文テスト（1〜2時間）</h4><p>ゲームで感じた『分かりにくい指示』の特徴をメモし、自分のサブエージェントへの指示文を書き直して、作業の成功率が変わるか比べる。</p><ol>
+<li>ゲームで受けた指示のうち、迷ったものを3つメモする</li>
+<li>自分がふだん使う指示文を同じ目で見直し、直す</li>
+<li>直す前と後で同じ作業をさせ、結果を比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>MIT ライセンス。オフラインのモックモードは無料。本物の AI を上司にするには OpenRouter などの API キーが必要（料金は各サービスの料金ページで確認）。</p>
+<div class="meta">実践可能性：高：Node 24 以上があれば、モックモードですぐ遊べる。<br>信頼性：GitHub の README で確認。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>
