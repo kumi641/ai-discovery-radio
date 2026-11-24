@@ -350,5 +350,45 @@
   "publisher": "Remotion",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://simonwillison.net/2026/Nov/24/datasette-charts/",
+  "title": "Simon Willison、datasette-charts 0.2a0 を公開。Datasette Agent に「グラフにして」と頼むと、チャットの中にグラフを作る",
+  "publisher": "Simon Willison",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+  "title": "OpenAI、アマチュア天文家2人が Codex と Astra を使い、NASA の Kepler・TESS の公開データから系外惑星の候補を見つけた事例を紹介",
+  "publisher": "OpenAI",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://qiita.com/supportapp3/items/b73c21efacc605616bf9",
+  "title": "Qiita：claude mcp add --header の鍵は画面では伏せ字でも、.mcp.json や ~/.claude.json に平文で保存される。grep 1行で洗い出す方法",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": "MCPの鍵を環境変数へ移す"
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://zenn.dev/sbkm/articles/0a8d9931015ba9",
+  "title": "Zenn：AIが書いたポッドキャスト台本は機械のチェックを全部通ったのに、日付などの中身を間違えていた。チェックは形を見て、中身は見ていない",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://developer.nvidia.com/blog/how-to-run-nvidia-cosmos-3-on-local-ai-devices-using-hugging-face-diffusers/",
+  "title": "NVIDIA、動画生成もできる世界モデル Cosmos 3 Nano を、12GB の GPU から Hugging Face Diffusers で動かす方法を解説",
+  "publisher": "NVIDIA",
+  "corner": "creative",
+  "experiment": null
  }
 ]

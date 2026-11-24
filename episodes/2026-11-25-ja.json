@@ -1,0 +1,787 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-25",
+ "title": "MCPの鍵は平文で残る？とチェックが見ないもの",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。今日は二〇二六年十一月二十五日です。",
+   "show": "AI Discovery & Build Radio／2026年11月25日"
+  },
+  {
+   "say": "今日いちばん大事なのは、エーアイの道具につなぐ鍵が、ファイルにそのまま残っているかもしれない、という話です。",
+   "show": "今日の注目：MCPの鍵がファイルに平文で残る"
+  },
+  {
+   "say": "画面では伏せ字になっていても、保存されたファイルには、鍵がそのまま書かれていることがあります。",
+   "show": "画面は伏せ字、ファイルは平文"
+  },
+  {
+   "say": "ほかに、エーアイにグラフを描かせる道具、エーアイと公開データで惑星を探した話、自動チェックの落とし穴、手元のパソコンで動く動画生成エーアイを紹介します。",
+   "show": "グラフ／惑星探し／チェックの限界／動画生成"
+  },
+  {
+   "say": "最後の実験では、自分の設定ファイルから鍵を追い出して、安全な形に直します。",
+   "show": "今日の実験：MCPの鍵を環境変数へ移す"
+  }
+ ],
+ "news": [
+  {
+   "label": "AIに頼むとグラフを作る",
+   "points": [
+    "チャットで頼むとグラフを作成",
+    "#で表を探して指定できる",
+    "横の画面で直すとAIも把握",
+    "公開デモで試せる"
+   ],
+   "details": [
+    "Datasette Agent に頼むと、グラフ用の道具を使って、チャットの中にグラフを表示する。",
+    "チャットで「#stats」のように打つと、表を探す欄が開き、使うデータを選べる。",
+    "「チャートビルダーで開く」で横の画面に出し、そこで変えたグラフについてAIに聞くと、変えた後の内容を説明した。",
+    "agent.datasette.io でギットハブのアカウントを使ってログインすると試せる。"
+   ],
+   "url": "https://simonwillison.net/2026/Nov/24/datasette-charts/",
+   "lines": [
+    {
+     "say": "まずは最新エーアイニュースです。チャットで頼むだけで、エーアイがグラフを作ってくれる道具が出ました。",
+     "show": "AIに頼むとグラフを作る datasette-charts"
+    },
+    {
+     "say": "作ったのは、サイモン・ウィリソンさん。データを入れておく道具、データセットのためのグラフ機能です。",
+     "show": "Simon Willison／Datasette 用グラフ機能"
+    },
+    {
+     "say": "今回の版から、データセット エージェントというチャットの相棒とつながりました。",
+     "show": "0.2a0：Datasette Agent と連携"
+    },
+    {
+     "say": "「このデータの変化をグラフにして」と頼むと、チャットの中にグラフが出ます。",
+     "show": "頼むとチャット内にグラフ"
+    },
+    {
+     "say": "ポイントは、エーアイが好き勝手に絵を描くのではなく、もともとあるグラフの道具を呼び出して使うことです。",
+     "show": "用意されたグラフ道具をAIが使う"
+    },
+    {
+     "say": "横の画面でグラフを変えると、エーアイもその変化を知った上で答えてくれます。",
+     "show": "画面で直した内容もAIが把握"
+    },
+    {
+     "say": "たとえば、ブログのアクセス数をためておいて、「先月いちばん伸びた日を見せて」と話しかけると、ふり返りが楽しくなりそうですね。",
+     "show": "使い方：アクセス数のふり返り"
+    }
+   ],
+   "link": {
+    "url": "https://simonwillison.net/2026/Nov/24/datasette-charts/",
+    "title": "Release: datasette-charts 0.2a0",
+    "site": "Simon Willison’s Weblog",
+    "description": "A charting plugin for Datasette",
+    "image": null,
+    "icon": null
+   },
+   "corner": "news",
+   "idea": "自分のブログやアプリのアクセス数を SQLite にためておき、AI に「先月いちばん伸びた日をグラフで見せて」と話しかけるだけで、ふり返りのグラフを作ると面白そうです。",
+   "guide": "guides/2026-11-25.html#news-1"
+  },
+  {
+   "label": "AIと公開データで惑星探し",
+   "points": [
+    "個人2人が惑星の候補を発見",
+    "AIで探すプログラムを作成",
+    "公開データだけを使用",
+    "確定には専門家の確認が必要"
+   ],
+   "details": [
+    "アマチュア天文家2人が、太陽系の外の惑星かもしれない信号を見つけた。",
+    "ひとりは Codex で発表済みの探し方を比べて1つのプログラムにまとめ、もうひとりは Astra で探す道具を作った。",
+    "NASA の Kepler と TESS という宇宙望遠鏡の、誰でも使えるデータを調べた。",
+    "惑星と決まるには、ほかの原因ではないことを専門家が確かめる必要があり、数か月から数年かかることもある。"
+   ],
+   "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+   "lines": [
+    {
+     "say": "次は、エーアイを使って、個人が宇宙の惑星の候補を探したお話です。",
+     "show": "AIと公開データで系外惑星の候補を探索"
+    },
+    {
+     "say": "オープンエーアイが、二人のアマチュア天文家の事例を紹介しました。",
+     "show": "OpenAI がアマチュア天文家2人の事例を紹介"
+    },
+    {
+     "say": "二人は、ナサの宇宙望遠鏡、ケプラーとテスの、誰でも使えるデータを調べました。",
+     "show": "NASA Kepler・TESS の公開データ"
+    },
+    {
+     "say": "星が一定の間隔で少しだけ暗くなる、つまり惑星が前を横切る合図を探したんです。",
+     "show": "星が定期的に暗くなる信号を探す"
+    },
+    {
+     "say": "エーアイには、論文にある探し方を比べて、一つのプログラムにまとめる手伝いをさせました。",
+     "show": "Codex・Astra で探すプログラムを作成"
+    },
+    {
+     "say": "ひとりは約十万個の星から有力な候補を二つ、もうひとりは約千九百万個の星から四十九の候補を出しました。",
+     "show": "約10万個→2候補／約1,900万個→49候補"
+    },
+    {
+     "say": "ただし、まだ候補です。本当に惑星かは、専門家の確認に数か月から数年かかることもあります。",
+     "show": "確定には専門家の確認が必要"
+    },
+    {
+     "say": "たとえば、気になる公開データで、まず「答えが分かっている例が見つかるか」を確かめるプログラムをエーアイに作らせると、趣味の研究が始められそうですね。",
+     "show": "使い方：既知の答えで確かめて研究開始"
+    }
+   ],
+   "link": {
+    "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+    "title": "Searching for distant planets with Astra",
+    "site": "OpenAI",
+    "description": "See how two amateur astronomers used Codex and Astra to find potential exoplanets in public data from NASA’s Kepler and TESS space telescopes.",
+    "image": "https://images.ctfassets.net/kftzwdyauwt9/318YLaAKlMKQFzOdMutjeX/8b6e4e516fd1a7894c97318838f43a0f/searching-for-distant-planets-with-astra-social.png?w=1600&h=900&fit=fill",
+    "icon": "https://openai.com/favicon.svg"
+   },
+   "corner": "news",
+   "idea": "気になる公開データを1つ選び、AI に「既に分かっている答えがちゃんと見つかるか」から確かめるプログラムを作らせると、趣味の小さな研究が始められて面白そうです。",
+   "guide": "guides/2026-11-25.html#news-2"
+  },
+  {
+   "label": "MCPの鍵が平文で残る",
+   "points": [
+    "画面は伏せ字、保存は平文",
+    "保存先は登録の範囲で変わる",
+    "grep 1行で洗い出せる",
+    "鍵は環境変数で参照する"
+   ],
+   "details": [
+    "--header で登録した鍵は、画面では [REDACTED] と伏せられるが、.mcp.json には平文で書かれていた。",
+    "project は .mcp.json、既定の local と user は ~/.claude.json に保存される。.mcp.json だけ見ても見つからない。",
+    "値は表示せず、ファイル名と行番号だけを出す grep で、鍵の直書きを探せる。",
+    "公式ドキュメントのとおり ${API_KEY} の形で書けば、本当の値は環境変数に置ける。"
+   ],
+   "url": "https://qiita.com/supportapp3/items/b73c21efacc605616bf9",
+   "lines": [
+    {
+     "say": "ここからは、エンジニアの実践ノウハウです。エムシーピーの鍵が、ファイルにそのまま残っているかもしれません。",
+     "show": "MCPの鍵がファイルに平文で残る"
+    },
+    {
+     "say": "エムシーピーは、エーアイに外の道具をつなぐための仕組みです。つなぐときには、合言葉のような鍵を使います。",
+     "show": "MCP＝AIに外の道具をつなぐ仕組み"
+    },
+    {
+     "say": "キータの記事によると、クロード コードで鍵つきで登録すると、画面では伏せ字になります。",
+     "show": "画面では [REDACTED] と伏せ字"
+    },
+    {
+     "say": "でも、保存されたファイルには、鍵がそのまま書かれていました。",
+     "show": "保存ファイルには平文"
+    },
+    {
+     "say": "しかも保存先は、登録のしかたで変わります。チーム用の設定ファイルのほか、ホームにある設定ファイルにも入ります。",
+     "show": ".mcp.json と ~/.claude.json"
+    },
+    {
+     "say": "記事では、値を表示せずに、場所だけを探すグレップというコマンドを紹介しています。",
+     "show": "grep 1行で場所だけを洗い出す"
+    },
+    {
+     "say": "対策は、ファイルには鍵の名前だけを書き、本当の値はパソコンの環境変数に置くことです。公式の説明にも、この書き方があります。",
+     "show": "対策：${API_KEY} で環境変数を参照"
+    },
+    {
+     "say": "たとえば、週に一度このグレップを実行する習慣をつけると、うっかり公開する事故を防げて安心ですね。",
+     "show": "使い方：週1回の鍵チェック"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/supportapp3/items/b73c21efacc605616bf9",
+    "title": "claude mcp add --header の Authorization は画面では [REDACTED] でも .mcp.json には平文：MCP のキー直書きを ~/.claude.json まで grep 1行で洗い出す（Claude Code 2.1.330で確認） - Qiita",
+    "site": "Qiita",
+    "description": "先に結論 HTTP の MCP サーバーを claude mcp add --header \"Authorization: Bearer キー\" で登録すると、画面には \"Authorization\": \"[REDACTED]\" と伏せ字で出ます。でも、--scope p...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRmxoMy5nb29nbGV1c2VyY29udGVudC5jb20lMkZhJTJGQUNnOG9jSUZSWHFwZGtCR29hZGEtTGFPVi1pYjVuQVRGcFVzN29WdDZXT08tMm9sa05HLXBRJTNEczk2LWM_aXhsaWI9cmItNC4xLjEmYXI9MSUzQTEmZml0PWNyb3AmbWFzaz1lbGxpcHNlJmJnPUZGRkZGRiZmbT1wbmczMiZzPWFiN2FhZjJmY2UyZGI5YTgyNDlmYmRiODFlMTVlODll%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3De5eb047b894f3f856d249b9e2715777f?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9Y2xhdWRlJTIwbWNwJTIwYWRkJTIwLS1oZWFkZXIlMjAlRTMlODElQUUlMjBBdXRob3JpemF0aW9uJTIwJUUzJTgxJUFGJUU3JTk0JUJCJUU5JTlEJUEyJUUzJTgxJUE3JUUzJTgxJUFGJTIwJTVCUkVEQUNURUQlNUQlMjAlRTMlODElQTclRTMlODIlODIlMjAubWNwLmpzb24lMjAlRTMlODElQUIlRTMlODElQUYlRTUlQjklQjMlRTYlOTYlODclRUYlQkMlOUElRTIlODAlQTYmdHh0LWFsaWduPWxlZnQlMkN0b3AmdHh0LWNvbG9yPSUyMzFFMjEyMSZ0eHQtZm9udD1IaXJhZ2lubyUyMFNhbnMlMjBXNiZ0eHQtc2l6ZT01NiZ0eHQtcGFkPTAmcz1iN2FhZDk0M2RjYTVkMzMyMWU1ZDY5OWM2MjMzYTY3ZA&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBzdXBwb3J0YXBwMyZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPTA5NGJiODkwZjg4NzU1MWU1NTAwZTNjZGViZGJhYmJi&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=5aecfe4febf65d02623f23205ebb64e4",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "週に一度、記事の grep を実行して、鍵の直書きが増えていないかを確かめる習慣をつけると、うっかり公開する事故を防げて安心です。",
+   "guide": "guides/2026-11-25.html#news-3"
+  },
+  {
+   "label": "チェックは形しか見ない",
+   "points": [
+    "全チェック通過でも誤りが4つ",
+    "チェックは「形」だけを測る",
+    "誤りはAIの読み直しで発見",
+    "PASSの意味を問い直す"
+   ],
+   "details": [
+    "AIが書いた台本などが全部のチェックを通ったのに、日付・言い切り・重複・見出しの誤りが合わせて4つ見つかった。",
+    "鮮度のチェックは日付の形と「7日以内か」だけを見ていたので、話題になった日を発表日と書いても通った。",
+    "4つとも、チェックではなく、AIが元の資料や過去の回を読み直したときに見つかった。",
+    "チェックを置くたびに「このPASSは何が正しいと言っているのか」を問うべきだと筆者は書いている。"
+   ],
+   "url": "https://zenn.dev/sbkm/articles/0a8d9931015ba9",
+   "lines": [
+    {
+     "say": "次も実践ノウハウです。チェックを全部通ったのに、中身が間違っていた、という報告です。",
+     "show": "全チェック通過でも中身に誤り"
+    },
+    {
+     "say": "筆者は、エーアイが台本を書くポッドキャストを、毎日出しています。",
+     "show": "AIが台本を書くポッドキャストの記録"
+    },
+    {
+     "say": "全部は読めないので、日付が新しいか、過去の回と重ならないか、などを機械でチェックしていました。",
+     "show": "日付・重複などを機械でチェック"
+    },
+    {
+     "say": "それでも、日付、言い切り、重なり、見出しの言い過ぎ、という四つの誤りが通ってしまいました。",
+     "show": "通った誤り：日付・言い切り・重複・見出し"
+    },
+    {
+     "say": "たとえば日付のチェックは、形と七日以内かだけを見ていて、話題になった日を発表日と書いても通りました。",
+     "show": "日付チェックは形と範囲だけ"
+    },
+    {
+     "say": "誤りに気づいたのは、チェックではなく、エーアイが元の資料を読み直したときでした。",
+     "show": "発見したのは元資料の読み直し"
+    },
+    {
+     "say": "筆者は、チェックを置くたびに、この合格は何が正しいと言っているのか、を問うべきだと書いています。",
+     "show": "「このPASSは何が正しいと言っている？」"
+    },
+    {
+     "say": "たとえば、自分のチェックを一覧にして、横に保証していることを一言ずつ書くと、見落としている穴が見えて面白いと思います。",
+     "show": "使い方：チェックの保証範囲を書き出す"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/sbkm/articles/0a8d9931015ba9",
+    "title": "AIが書いた原稿は、チェックを全部通ったうえで日付を間違えていた — チェックは形を見て、中身は見ていない",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--4F8HVZXy--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:AI%25E3%2581%258C%25E6%259B%25B8%25E3%2581%2584%25E3%2581%259F%25E5%258E%259F%25E7%25A8%25BF%25E3%2581%25AF%25E3%2580%2581%25E3%2583%2581%25E3%2582%25A7%25E3%2583%2583%25E3%2582%25AF%25E3%2582%2592%25E5%2585%25A8%25E9%2583%25A8%25E9%2580%259A%25E3%2581%25A3%25E3%2581%259F%25E3%2581%2586%25E3%2581%2588%25E3%2581%25A7%25E6%2597%25A5%25E4%25BB%2598%25E3%2582%2592%25E9%2596%2593%25E9%2581%2595%25E3%2581%2588%25E3%2581%25A6%25E3%2581%2584%25E3%2581%259F%2520%25E2%2580%2594%2520%25E3%2583%2581%25E3%2582%25A7%25E3%2583%2583%25E3%2582%25AF%25E3%2581%25AF%25E5%25BD%25A2%25E3%2582%2592%25E8%25A6%258B%25E3%2581%25A6%25E3%2580%2581%25E4%25B8%25AD%25E8%25BA%25AB%25E3%2581%25AF%25E8%25A6%258B%25E3%2581%25A6%25E3%2581%2584%25E3%2581%25AA%25E3%2581%2584%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:%25E3%2581%2597%25E3%2581%25B0%25E3%2581%2593%25E3%2581%25BE%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyL2I4NWM3ZjQ1NGYuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "自分の自動化のチェックを一覧にして、横に「これが通ると何が正しいと言えるか」を一言ずつ書くと、見落としている穴が見えて面白いと思います。",
+   "guide": "guides/2026-11-25.html#news-4"
+  },
+  {
+   "label": "動画生成AIを手元で動かす",
+   "points": [
+    "12GBのGPUから動かせる",
+    "使わない部分は本体メモリへ",
+    "文章・画像・動画から動画を作る",
+    "本体メモリは多めに必要"
+   ],
+   "details": [
+    "記事では、画像処理用のメモリ（VRAM）が12GBのGPUでも動くと説明している。",
+    "使っていない部分をパソコン本体のメモリに置き、必要なときだけGPUへ運ぶ。",
+    "文章から動画、画像から動画、動画から動画などの作り方が紹介されている。",
+    "試したパソコンは本体メモリが約128GB。これは最低限の量ではないと書かれている。"
+   ],
+   "url": "https://developer.nvidia.com/blog/how-to-run-nvidia-cosmos-3-on-local-ai-devices-using-hugging-face-diffusers/",
+   "lines": [
+    {
+     "say": "最後はクリエイティブエーアイです。動画を作るエーアイを、家庭用のパソコンで動かす方法が出ました。",
+     "show": "動画生成AIを手元のGPUで動かす"
+    },
+    {
+     "say": "エヌビディアが、コスモス スリー ナノというモデルを、画像処理用の部品、ジーピーユーのメモリが十二ギガバイトでも動かす方法を説明しました。",
+     "show": "NVIDIA Cosmos 3 Nano／12GBのGPUから"
+    },
+    {
+     "say": "文章から動画、画像から動画など、いろいろな作り方ができます。",
+     "show": "文章・画像・動画から動画を作る"
+    },
+    {
+     "say": "工夫は、使っていない部分をパソコン本体のメモリに置いて、必要なときだけ運ぶことです。",
+     "show": "使わない部分は本体メモリへ"
+    },
+    {
+     "say": "ただし、試したパソコンは本体メモリがかなり多く、高い画質だと一本に四十分以上かかった例も載っています。",
+     "show": "本体メモリは多め・時間もかかる"
+    },
+    {
+     "say": "モデルカードには、商用でも使えるライセンスと書かれています。",
+     "show": "OpenMDW 1.1／商用・非商用で利用可"
+    },
+    {
+     "say": "たとえば、自分で描いたイラストを数秒だけ動かして、作品の紹介に使うと面白そうですね。",
+     "show": "使い方：イラストを動かして作品紹介"
+    }
+   ],
+   "link": {
+    "url": "https://developer.nvidia.com/blog/how-to-run-nvidia-cosmos-3-on-local-ai-devices-using-hugging-face-diffusers/",
+    "title": "How to Run NVIDIA Cosmos 3 on Local AI Devices Using Hugging Face Diffusers | NVIDIA Technical Blog",
+    "site": "NVIDIA Technical Blog",
+    "description": "Running video generation models locally can be challenging when model weights and intermediate data exceed available GPU memory. NVIDIA Cosmos 3 Nano is a world foundation model that generates videos…",
+    "image": "https://developer-blogs.nvidia.com/wp-content/uploads/2026/11/ai-model.webp",
+    "icon": "https://developer-blogs.nvidia.com/wp-content/themes/nvidia/dist/images/favicon_300a1064.ico"
+   },
+   "corner": "creative",
+   "idea": "自分で描いたイラストを入れて、画像から動画を作る機能で数秒だけ動かしてみると、作品の紹介に使えて面白そうです。",
+   "guide": "guides/2026-11-25.html#news-5"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "grepで鍵の直書きを探す",
+    "ファイルには ${変数名} だけ",
+    "Claude Code用の変数名は避ける",
+    "漏れた鍵は作り直す"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://code.claude.com/docs/en/mcp",
+   "lines": [
+    {
+     "say": "ここで、今日の実験です。エムシーピーの鍵を、ファイルから追い出してみましょう。",
+     "show": "今日の実験：MCPの鍵を環境変数へ移す"
+    },
+    {
+     "say": "まず、記事のグレップを実行して、鍵がそのまま書かれているファイルと行を探します。値は画面に出ないので安心です。",
+     "show": "① grep で直書きの場所を探す"
+    },
+    {
+     "say": "見つかったら、設定ファイルの鍵の部分を、ドル記号と波かっこで変数の名前を囲んだ形に書き換えます。公式の説明にある書き方です。",
+     "show": "② \"Bearer ${API_KEY}\" の形に書き換え"
+    },
+    {
+     "say": "変数の名前は、クロード コード自身の鍵の名前と重ならないようにします。重なると、安全のため空として扱われます。",
+     "show": "③ ANTHROPIC_API_KEY などは避ける"
+    },
+    {
+     "say": "本当の鍵の値は、パソコンの環境変数に置いて、クロード コードを起動し直します。",
+     "show": "④ 値は環境変数に置いて再起動"
+    },
+    {
+     "say": "クロード エムシーピー リストで警告が出ず、もう一度グレップしても何も出なければ成功です。",
+     "show": "⑤ claude mcp list と grep で確認"
+    },
+    {
+     "say": "もし鍵を一度でもギットハブに上げていたら、ファイルを直すだけでは足りません。鍵そのものを作り直してください。",
+     "show": "⑥ 公開済みの鍵は作り直す"
+    }
+   ],
+   "link": {
+    "url": "https://code.claude.com/docs/en/mcp",
+    "title": "Connect Claude Code to tools via MCP - Claude Code Docs",
+    "site": "Claude Code Docs",
+    "description": "Learn how to connect Claude Code to your tools with the Model Context Protocol.",
+    "image": "https://claude-code.mintlify.site/docs/_mintlify/api/og/v2?division=MCP&title=Connect+Claude+Code+to+tools+via+MCP&description=Learn+how+to+connect+Claude+Code+to+your+tools+with+the+Model+Context+Protocol.&theme=e2d30309a4005a9870b526a1&signature=7bf5a5f21a16309bb3b61556cf3dfd76559a143e0e1f6e7af070052b9773e733",
+    "icon": "https://code.claude.com/docs/mintlify-assets/_mintlify/favicons/claude-code/pLsy-mRpNksna2sx/_generated/favicon/android-chrome-192x192.png"
+   },
+   "corner": "experiment",
+   "name": "MCPの鍵を環境変数へ移す",
+   "guide": "guides/2026-11-25.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。エムシーピーの鍵は、画面で伏せ字でも、ファイルにはそのまま残ることがあります。",
+   "show": "要点：MCPの鍵は平文で残ることがある"
+  },
+  {
+   "say": "そして、チェックが通っても、中身が正しいとは限りません。そのチェックが何を保証しているかを確かめましょう。",
+   "show": "要点：PASSが何を保証するかを確かめる"
+  },
+  {
+   "say": "今日やってみることは、グレップで鍵の直書きを探して、見つかったら変数の形に直すことです。五分から始められます。",
+   "show": "今日やること：grep で鍵を探して直す"
+  },
+  {
+   "say": "エーアイ ディスカバリー アンド ビルド ラジオ、また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio／また明日"
+  }
+ ],
+ "highlight": 5,
+ "guide": "guides/2026-11-25.html",
+ "seconds": 451.596,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 10.227,
+   "show": "AI Discovery & Build Radio／2026年11月25日",
+   "part": 0
+  },
+  {
+   "start": 10.477,
+   "end": 18.917,
+   "show": "今日の注目：MCPの鍵がファイルに平文で残る",
+   "part": 0
+  },
+  {
+   "start": 19.167,
+   "end": 26.331,
+   "show": "画面は伏せ字、ファイルは平文",
+   "part": 0
+  },
+  {
+   "start": 26.581,
+   "end": 39.147,
+   "show": "グラフ／惑星探し／チェックの限界／動画生成",
+   "part": 0
+  },
+  {
+   "start": 39.397,
+   "end": 46.295,
+   "show": "今日の実験：MCPの鍵を環境変数へ移す",
+   "part": 0
+  },
+  {
+   "start": 47.195,
+   "end": 55.505,
+   "show": "AIに頼むとグラフを作る datasette-charts",
+   "part": 1
+  },
+  {
+   "start": 55.755,
+   "end": 63.949,
+   "show": "Simon Willison／Datasette 用グラフ機能",
+   "part": 1
+  },
+  {
+   "start": 64.199,
+   "end": 69.926,
+   "show": "0.2a0：Datasette Agent と連携",
+   "part": 1
+  },
+  {
+   "start": 70.176,
+   "end": 76.159,
+   "show": "頼むとチャット内にグラフ",
+   "part": 1
+  },
+  {
+   "start": 76.409,
+   "end": 84.013,
+   "show": "用意されたグラフ道具をAIが使う",
+   "part": 1
+  },
+  {
+   "start": 84.263,
+   "end": 90.49,
+   "show": "画面で直した内容もAIが把握",
+   "part": 1
+  },
+  {
+   "start": 90.74,
+   "end": 100.346,
+   "show": "使い方：アクセス数のふり返り",
+   "part": 1
+  },
+  {
+   "start": 101.246,
+   "end": 107.715,
+   "show": "AIと公開データで系外惑星の候補を探索",
+   "part": 2
+  },
+  {
+   "start": 107.965,
+   "end": 113.405,
+   "show": "OpenAI がアマチュア天文家2人の事例を紹介",
+   "part": 2
+  },
+  {
+   "start": 113.655,
+   "end": 120.564,
+   "show": "NASA Kepler・TESS の公開データ",
+   "part": 2
+  },
+  {
+   "start": 120.814,
+   "end": 127.778,
+   "show": "星が定期的に暗くなる信号を探す",
+   "part": 2
+  },
+  {
+   "start": 128.028,
+   "end": 135.041,
+   "show": "Codex・Astra で探すプログラムを作成",
+   "part": 2
+  },
+  {
+   "start": 135.291,
+   "end": 144.689,
+   "show": "約10万個→2候補／約1,900万個→49候補",
+   "part": 2
+  },
+  {
+   "start": 144.939,
+   "end": 153.839,
+   "show": "確定には専門家の確認が必要",
+   "part": 2
+  },
+  {
+   "start": 154.089,
+   "end": 165.65,
+   "show": "使い方：既知の答えで確かめて研究開始",
+   "part": 2
+  },
+  {
+   "start": 166.55,
+   "end": 175.23,
+   "show": "MCPの鍵がファイルに平文で残る",
+   "part": 3
+  },
+  {
+   "start": 175.48,
+   "end": 184.586,
+   "show": "MCP＝AIに外の道具をつなぐ仕組み",
+   "part": 3
+  },
+  {
+   "start": 184.836,
+   "end": 191.628,
+   "show": "画面では [REDACTED] と伏せ字",
+   "part": 3
+  },
+  {
+   "start": 191.878,
+   "end": 196.982,
+   "show": "保存ファイルには平文",
+   "part": 3
+  },
+  {
+   "start": 197.232,
+   "end": 206.676,
+   "show": ".mcp.json と ~/.claude.json",
+   "part": 3
+  },
+  {
+   "start": 206.926,
+   "end": 213.881,
+   "show": "grep 1行で場所だけを洗い出す",
+   "part": 3
+  },
+  {
+   "start": 214.131,
+   "end": 225.807,
+   "show": "対策：${API_KEY} で環境変数を参照",
+   "part": 3
+  },
+  {
+   "start": 226.057,
+   "end": 234.361,
+   "show": "使い方：週1回の鍵チェック",
+   "part": 3
+  },
+  {
+   "start": 235.261,
+   "end": 243.245,
+   "show": "全チェック通過でも中身に誤り",
+   "part": 4
+  },
+  {
+   "start": 243.495,
+   "end": 248.969,
+   "show": "AIが台本を書くポッドキャストの記録",
+   "part": 4
+  },
+  {
+   "start": 249.219,
+   "end": 257.124,
+   "show": "日付・重複などを機械でチェック",
+   "part": 4
+  },
+  {
+   "start": 257.374,
+   "end": 265.427,
+   "show": "通った誤り：日付・言い切り・重複・見出し",
+   "part": 4
+  },
+  {
+   "start": 265.677,
+   "end": 273.919,
+   "show": "日付チェックは形と範囲だけ",
+   "part": 4
+  },
+  {
+   "start": 274.169,
+   "end": 280.754,
+   "show": "発見したのは元資料の読み直し",
+   "part": 4
+  },
+  {
+   "start": 281.004,
+   "end": 288.747,
+   "show": "「このPASSは何が正しいと言っている？」",
+   "part": 4
+  },
+  {
+   "start": 288.997,
+   "end": 298.637,
+   "show": "使い方：チェックの保証範囲を書き出す",
+   "part": 4
+  },
+  {
+   "start": 299.537,
+   "end": 307.836,
+   "show": "動画生成AIを手元のGPUで動かす",
+   "part": 5
+  },
+  {
+   "start": 308.086,
+   "end": 318.363,
+   "show": "NVIDIA Cosmos 3 Nano／12GBのGPUから",
+   "part": 5
+  },
+  {
+   "start": 318.613,
+   "end": 324.017,
+   "show": "文章・画像・動画から動画を作る",
+   "part": 5
+  },
+  {
+   "start": 324.267,
+   "end": 331.666,
+   "show": "使わない部分は本体メモリへ",
+   "part": 5
+  },
+  {
+   "start": 331.916,
+   "end": 340.85,
+   "show": "本体メモリは多め・時間もかかる",
+   "part": 5
+  },
+  {
+   "start": 341.1,
+   "end": 345.892,
+   "show": "OpenMDW 1.1／商用・非商用で利用可",
+   "part": 5
+  },
+  {
+   "start": 346.142,
+   "end": 353.73,
+   "show": "使い方：イラストを動かして作品紹介",
+   "part": 5
+  },
+  {
+   "start": 354.63,
+   "end": 361.493,
+   "show": "今日の実験：MCPの鍵を環境変数へ移す",
+   "part": 6
+  },
+  {
+   "start": 361.743,
+   "end": 371.729,
+   "show": "① grep で直書きの場所を探す",
+   "part": 6
+  },
+  {
+   "start": 371.979,
+   "end": 383.147,
+   "show": "② \"Bearer ${API_KEY}\" の形に書き換え",
+   "part": 6
+  },
+  {
+   "start": 383.397,
+   "end": 393.512,
+   "show": "③ ANTHROPIC_API_KEY などは避ける",
+   "part": 6
+  },
+  {
+   "start": 393.762,
+   "end": 400.88,
+   "show": "④ 値は環境変数に置いて再起動",
+   "part": 6
+  },
+  {
+   "start": 401.13,
+   "end": 408.085,
+   "show": "⑤ claude mcp list と grep で確認",
+   "part": 6
+  },
+  {
+   "start": 408.335,
+   "end": 417.143,
+   "show": "⑥ 公開済みの鍵は作り直す",
+   "part": 6
+  },
+  {
+   "start": 418.043,
+   "end": 426.422,
+   "show": "要点：MCPの鍵は平文で残ることがある",
+   "part": 7
+  },
+  {
+   "start": 426.672,
+   "end": 435.711,
+   "show": "要点：PASSが何を保証するかを確かめる",
+   "part": 7
+  },
+  {
+   "start": 435.961,
+   "end": 445.712,
+   "show": "今日やること：grep で鍵を探して直す",
+   "part": 7
+  },
+  {
+   "start": 445.962,
+   "end": 450.996,
+   "show": "AI Discovery & Build Radio／また明日",
+   "part": 7
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 47.195
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 47.195,
+   "end": 101.246
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 101.246,
+   "end": 166.55
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 166.55,
+   "end": 235.261
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 235.261,
+   "end": 299.537
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 299.537,
+   "end": 354.63
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 354.63,
+   "end": 418.043
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 418.043,
+   "end": 451.596
+  }
+ ],
+ "made_at": "2026-11-25T07:15:51",
+ "tts": {
+  "provider": "azure",
+  "chars": 5072,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}
