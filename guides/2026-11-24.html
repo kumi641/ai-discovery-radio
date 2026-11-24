@@ -1,0 +1,241 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIのテストの作り方と、させない設計｜実践ガイド 2026-11-24</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-24/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月24日（火）・放送 約6分</div>
+<h1>AIのテストの作り方と、させない設計</h1>
+<p class="lead">AIエージェントの出来を正しく測る方法や、AIに危ない操作をさせない作り方など、地に足のついた実践の話題が中心の一日でした。Claude Code の更新、AIチームによる量子アルゴリズムの改良、Remotion の手元での文字起こしも登場しました。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：AI作業に小さなテストを作る</a></li>
+<li><a href="#news-1">Claude Code v2.1.331：claude doctor に API 接続の確認、MCP ツールが止まる不具合の修正など</a></li>
+<li><a href="#news-2">Google DeepMind、AIエージェントのチームと形式検証で量子アルゴリズムを効率化</a></li>
+<li><a href="#news-3">Hugging Face「How to build and maintain an agentic evaluation」：エージェント評価の作り方と保ち方</a></li>
+<li><a href="#news-4">AIに「公開しないで」と頼むより、MCPサーバーから公開の操作そのものを外した設計（OAuth×Supabase）</a></li>
+<li><a href="#news-5">Remotion v4.0.546：npx remotion whisper で手元のPCで文字起こし、Studio で任意の要素にエフェクト</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>AI作業に小さなテストを作る</h2>
+<div class="meta">関連ニュース：<a href="#news-3">Hugging Face「How to build and maintain an agentic evaluation」：エージェント評価の作り方と保ち方</a></div>
+<div class="task"><h4>実験：AI作業に小さなテストを作る</h4><dl class="kv"><dt>目的</dt><dd>いつもAIに頼む作業に合否チェックを作り、採点が正しいかを確かめてから、AIを3回走らせて安定して成功するかを見る</dd><dt>使用ツール</dt><dd>Claude Code（または Claude などのAIチャット）、Python</dd><dt>必要な準備</dt><dd>Python が動く環境、AIに頼みたい小さな作業を1つ（例：CSVの列を並べ替えて保存する）、作業用の空のフォルダ</dd><dt>所要時間</dt><dd>約45分</dd><dt>費用</dt><dd>無料枠で可能（Claude Code を使う場合は利用中のプランの範囲）</dd><dt>無料の代替</dt><dd>Claude の無料プランのチャットで check.py を作らせ、手元の Python で動かす</dd></dl><b>手順</b><ol><li>作業を1つ決め、合格条件を「AIの返事」ではなく「できたファイルの中身」で書き出す</li><li>下のプロンプトで、合否を判定する check.py をAIに作らせる</li><li>お手本の答えを自分で用意し、check.py で合格になるか確かめる</li><li>何もしない状態（ファイルなし）と、近道の答え（見た目だけ合わせたもの）が不合格になるか確かめる。合格してしまったら check.py を直す</li><li>AIに同じ作業を3回、毎回新しい会話で頼み、それぞれ check.py で判定する</li><li>3回中何回合格したか、3回とも合格したかを記録する</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>これから、AIに頼む作業の合否を判定する Python スクリプト check.py を作りたいです。
+作業：「（ここに作業を書く。例：input.csv の列を日付の順に並べ替えて output.csv に保存する）」
+条件：
+- AIの返事ではなく、作業後のファイルの中身だけで判定する
+- 合格なら PASS、不合格なら FAIL と理由を1行で表示する
+- 次の3つで判定が正しいか確かめられるよう、お手本の答え・何もしない状態・近道の答え（見た目だけ合わせたもの）の作り方も説明する
+まだ作業そのものは行わず、check.py とその説明だけを書いてください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>check.py と、お手本・何もしない・近道・AI3回分の判定結果の表</dd><dt>確認方法</dt><dd>お手本だけが PASS、何もしない状態と近道が FAIL になり、AI3回分の結果が表に記録されている</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/agentic-evals" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/agentic-evals</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-24 AI作業に小さなテストを作る
+- 参考ニュース: Hugging Face「How to build and maintain an agentic evaluation」：エージェント評価の作り方と保ち方
+- ガイド: guides/2026-11-24.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">83</span>/100</span>
+<h2>1. Claude Code v2.1.331：claude doctor に API 接続の確認、MCP ツールが止まる不具合の修正など</h2>
+<div class="meta">Anthropic・公開 2026-11-23 21:34</div>
+<div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.331" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.331</a></div>
+<p class="concl"><b>結論：</b>Claude Code の v2.1.331 が公開されました。claude doctor に API への接続を確かめる項目が加わり、MCP ツールの呼び出しが長く止まる不具合などが直りました。VS Code 版にも多くの改善があります。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>作業を始める前の決まりごととして claude doctor を一回流し、つながらない日はすぐ気づけるようにしておくと安心です。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>診断にAPI接続の確認が追加</b>：claude doctor が、AIを呼び出す窓口につながるかを調べ、HTTPの状態やエラー、調べなかった理由を表示する。</li>
+<li><b>MCPが最大30分止まる不具合を修正</b>：手元やWebSocketのMCPサーバーから壊れた返事が来ると、ツール呼び出しが最大30分止まることがあった。</li>
+<li><b>プラグインの任意の依存に対応</b>：プラグインの設定に optionalDependencies を書くと、一緒に入り、あとで個別に外せるプラグインを指定できる。</li>
+<li><b>VS Code 版に修正ボタン</b>：エラーや失敗したテストに「Fix with Claude Code」の修正候補が出て、問題をチャット欄に入れられる。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>claude doctor が API に届くかどうかを、HTTP の状態やエラーとともに報告するようになりました。プラグインの optionalDependencies、VS Code の「Fix with Claude Code」なども追加されました。</dd>
+<dt>なぜ重要か</dt><dd>「動かない」ときに、原因が自分の設定なのか、通信なのかを一つのコマンドで切り分けやすくなります。</dd>
+<dt>従来との違い</dt><dd>これまでは通信の問題を自分で調べる必要がありました。今回から診断コマンドの中に通信の確認が入りました。</dd></dl><ul>
+<li>claude doctor に API connectivity の節が追加</li>
+<li>壊れた返事でMCPツール呼び出しが最大30分止まる不具合を修正</li>
+<li>プラグインのマニフェストに optionalDependencies を追加</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>Claude Code が急に答えなくなったときの原因の切り分け</li>
+<li>自作の MCP サーバーの動作確認の前に通信を確かめる</li>
+<li>プラグインを配るときに、任意で入れる部品を分ける</li>
+</ul>
+<div class="task"><h4>今日すぐできること：claude doctor で通信を確かめる</h4><dl class="kv"><dt>目的</dt><dd>最新版に更新し、新しい通信の確認項目を自分の環境で見る</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code が入っていること</dd><dt>所要時間</dt><dd>約5分</dd><dt>費用</dt><dd>無料（Claude Code の利用には別途プランが必要）</dd></dl><b>手順</b><ol><li>ターミナルで claude update を実行して最新版にする</li><li>claude doctor を実行する</li><li>表示の中から API につながるかを示す項目を探す</li><li>つながらない場合は、表示されたエラーや理由をメモしておく</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>claude doctor</pre></div><div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.331" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.331</a></div><dl class="kv"><dt>完成するもの</dt><dd>自分の環境の診断結果</dd><dt>確認方法</dt><dd>claude doctor の結果に、API に届いたかどうかの項目が出ている</dd></dl><div class="meta">参考：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.331" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.331</a>　<a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cli-reference</a></div></div>
+<h4>発展：朝の健康診断スクリプト（1時間）</h4><p>作業開始時に claude doctor の結果を日付つきで保存し、前日と違う点だけを知らせる小さな仕組みを作る。</p><ol>
+<li>claude doctor の出力をファイルに保存する</li>
+<li>前日のファイルと比べて違う行だけを出す</li>
+<li>違いがあればメモアプリや通知に送る</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code 自体の利用には Claude の有料プランか API の利用料が必要（料金は公式の料金ページで確認）。更新は無料。</p>
+<div class="meta">実践可能性：高：コマンド2つで更新と診断ができる。<br>信頼性：GitHub の公式リリースノートで確認。更新コマンド claude update は公式 CLI リファレンスで確認。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">66</span>/100</span>
+<h2>2. Google DeepMind、AIエージェントのチームと形式検証で量子アルゴリズムを効率化</h2>
+<div class="meta">Google DeepMind・公開 2026-11-23 16:59</div>
+<div class="meta">出典：<a href="https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/" target="_blank" rel="noopener noreferrer">https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/</a></div>
+<p class="concl"><b>結論：</b>Google DeepMind と Google Quantum AI が、AIエージェントのチームを使って量子アルゴリズムを改良しました。すべての改良は Lean で数学的に証明されています。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>AIチームが量子計算の手順を改良</b>：問題ごとに独立したAIエージェントのチームを作り、量子コンピューターの計算手順を少ない資源で済むように改良した。</li>
+<li><b>全ての案を証明ツールで確認</b>：案は Lean という数学の証明を確かめる道具で正しさを示してから、共有のノートに入れた。4時間ごとに各チームが集まって案を比べた。</li>
+<li><b>核融合の計算で約12分の1の手間</b>：核融合に関わる計算の回路で、手間の目安が11.8分の1に。薬づくりに関わる酵素の計算は2.5倍安くなった。</li>
+<li><b>証明の部品をオープンソース化</b>：Lean のライブラリと問題、確認済みの答えを GitHub の google-deepmind/formal-quantum-computation で公開。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>AIが出した案を、試しに動かすのではなく、証明ツールで正しいと示してから採用する進め方で、研究の成果を出したことです。</dd>
+<dt>なぜ重要か</dt><dd>大きな量子計算は今のコンピューターでは試せないため、正しさを証明で保証する方法が欠かせません。AIの案を機械的に確かめる流れは、他の分野にも広げられます。</dd>
+<dt>従来との違い</dt><dd>これまでは人の研究者が時間をかけて改良していました。今回はAIのチームが案を出し合い、証明ツールが正しさを確かめました。</dd></dl><ul>
+<li>問題ごとに独立したエージェントのチーム</li>
+<li>Lean で証明された案だけを共有ノートへ</li>
+<li>4時間ごとのチーム間の意見交換</li>
+<li>人は問題の設定と見守りを担当</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>AIの案を自動のチェックに通ってから採用する、という流れの参考</li>
+</ul>
+<div class="task"><h4>今日すぐできること：公開されたリポジトリをのぞく</h4><dl class="kv"><dt>目的</dt><dd>AIの案がどんな形で確かめられているかを知る</dd><dt>使用ツール</dt><dd>Webブラウザ</dd><dt>必要な準備</dt><dd>特になし</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>DeepMind のブログ記事を開く</li><li>記事の中の図で、チームと共有ノートの流れを見る</li><li>記事にある GitHub のリポジトリへのリンクを開き、README を読む</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次のブログ記事を、中学生にも分かる言葉で5行に要約してください。特に「AIの案をどうやって正しいと確かめたか」を説明してください。
+https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/</pre></div><dl class="kv"><dt>完成するもの</dt><dd>研究の流れを自分の言葉でまとめたメモ</dd><dt>確認方法</dt><dd>「案を出す」と「確かめる」が別の役割になっていることを説明できる</dd></dl><div class="meta">参考：<a href="https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/" target="_blank" rel="noopener noreferrer">https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/</a></div></div>
+<h4>発展：案を出す役と確かめる役を分けた小さな仕組み（2〜3時間）</h4><p>AIに案を出させ、テストに通った案だけを共有メモに残す流れを、自分の小さなプログラムで作ってみる。</p><ol>
+<li>改良したい小さな関数とテストを用意する</li>
+<li>AIに改良案を複数出させる</li>
+<li>テストに通った案だけをメモに残し、比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>論文（arXiv 2611.09822）とライブラリは公開。一般向けのサービスではない。</p>
+<div class="meta">実践可能性：低：量子計算と数学の証明の専門知識が必要。<br>信頼性：Google DeepMind の公式ブログで確認。</div></section>
+<section class="card" id="news-3"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">89</span>/100</span>
+<h2>3. Hugging Face「How to build and maintain an agentic evaluation」：エージェント評価の作り方と保ち方</h2>
+<div class="meta">Hugging Face・公開 2026-11-23 00:00</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/agentic-evals" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/agentic-evals</a></div>
+<p class="concl"><b>結論：</b>Hugging Face が、AIエージェントの評価（テスト）の作り方と保ち方をまとめました。課題、環境、採点役などの部品に分け、採点そのものが正しいかを確かめる手順を示しています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>毎回 AI に頼んでいる作業に、合否を自動で判定するチェックを一つ作り、3回続けて合格するかを見ると、任せてよい作業が分かって面白いです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>結果の状態で採点する</b>：エージェントの「できました」という言葉ではなく、作業後のファイルや環境の状態を採点役が確かめる。</li>
+<li><b>正解役・何もしない役で検査</b>：お手本の解き方は必ず合格し、何もしないエージェントは必ず不合格になるかを先に確かめる。</li>
+<li><b>ずるで通らないか確かめる</b>：記事の例では、近道の答えが比率だけを見る採点に全問合格したため、採点をもっと細かくした。</li>
+<li><b>毎回成功するかも測る</b>：3回中1回でも成功すればよい指標と、3回とも成功する指標を分ける。例では前者が8問中7問、後者は1問だった。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>お手本・何もしない・近道の3種類で採点役を先に検査する、という具体的な手順と、実際の物理実験の課題での失敗例が示されたことです。</dd>
+<dt>なぜ重要か</dt><dd>採点が甘いと、AIが本当はできていないのに「できた」と判定されます。放っておいて任せる作業ほど、毎回成功するかが大事になります。</dd>
+<dt>従来との違い</dt><dd>従来は、AIの最終的な返事の文章を見て採点しがちでした。この記事では、作業後の状態を確かめ、採点役自体も検査します。</dd></dl><ul>
+<li>課題・エージェント・環境・記録・採点役に分けて考える</li>
+<li>お手本は合格、何もしないは不合格、近道も不合格を確認</li>
+<li>失敗の記録を原因ごとに分ける</li>
+<li>pass@k と pass^k を分けて報告する</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>Claude Code に頼む定番作業の合否チェック</li>
+<li>自作エージェントの改善前後の比較</li>
+<li>プロンプトを変えたときの成功率の比較</li>
+</ul>
+<div class="task"><h4>今日すぐできること：採点役を3つの答えで試す</h4><dl class="kv"><dt>目的</dt><dd>自分の採点が甘くないかを確かめる</dd><dt>使用ツール</dt><dd>Claude などのAIチャット</dd><dt>必要な準備</dt><dd>AIに頼んでいる小さな作業を1つ思い浮かべる</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料枠で可能</dd><dt>無料の代替</dt><dd>紙に書いて手で確かめてもよい</dd></dl><b>手順</b><ol><li>作業の合格条件を、作業後の状態で書き出す</li><li>お手本の答え、何もしない答え、近道の答えを用意する</li><li>3つを合格条件に当てはめ、お手本だけが合格するか確かめる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>私がAIに頼んでいる作業は「（作業をここに書く）」です。
+この作業の合格条件を、AIの返事ではなく作業後のファイルや状態で確かめられる形で3つ書いてください。
+そのうえで、次の3つの答えを想定し、それぞれが合格条件で合格か不合格かを表にしてください。
+1. お手本の正しい答え
+2. 何もしない答え
+3. 楽をした近道の答え
+お手本以外が合格してしまう条件があれば、直し方も提案してください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>合格条件の表</dd><dt>確認方法</dt><dd>お手本だけが合格し、何もしない答えと近道の答えが不合格になる</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/agentic-evals" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/agentic-evals</a></div></div>
+<h4>発展：自分専用のエージェント成績表（2〜3時間）</h4><p>よく頼む作業を5つ選び、それぞれに自動の合否チェックを作り、AIを3回ずつ走らせて成功率を記録する。</p><ol>
+<li>よく頼む作業を5つ選び、合格条件をスクリプトにする</li>
+<li>お手本・何もしない・近道で採点を検査する</li>
+<li>AIに各作業を3回ずつさせ、3回とも合格した数を記録する</li>
+</ol>
+<h3>利用条件・料金</h3><p>記事は無料で読める。紹介されている Harbor はオープンソース。Hugging Face の実行環境の料金は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：高：考え方は手元の小さな課題ですぐ試せる。<br>信頼性：Hugging Face 公式ブログで確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">78</span>/100</span>
+<h2>4. AIに「公開しないで」と頼むより、MCPサーバーから公開の操作そのものを外した設計（OAuth×Supabase）</h2>
+<div class="meta">Zenn・公開 2026-11-23 15:54</div>
+<div class="meta">出典：<a href="https://zenn.dev/murzim/articles/f5066afd82976c" target="_blank" rel="noopener noreferrer">https://zenn.dev/murzim/articles/f5066afd82976c</a></div>
+<p class="concl"><b>結論：</b>Webツールのマーケットプレイスで、AIが出品の下書きを作れるリモートMCPサーバーを作った記録です。公開だけはさせないため、公開のツール自体を用意せず、データベースの側でも公開の項目に書けないようにしました。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分のAIに渡している道具を一覧にして、「消す」「送る」「公開する」の操作を外すか下書き止まりにすると、安心して任せられる範囲が広がります。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>頼むより、手段を持たせない</b>：プロンプトでのお願いは、AIが読む文章に紛れた指示で破られるおそれがあるため、仕組みの側で防いだ。</li>
+<li><b>公開用のツールを作らない</b>：6つのツールは読み取り3つと書き込み3つ。下書きは作れるが、公開は出品者が画面で行う。</li>
+<li><b>公開に関わる入力はエラーに</b>：status や publish などの項目が来たら拒否し、日本語のエラーでAIが自分で直せるようにした。</li>
+<li><b>別のAIにレビューを依頼</b>：実装は Claude Code、レビューは Codex。指摘は 12→5→1→7→4→0 件と減っていった。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>AIの行動を言葉で制限するのではなく、AIが使える道具の一覧から危ない操作を外し、何重にも防ぐ具体例です。</dd>
+<dt>なぜ重要か</dt><dd>AIに書き込みの権限を渡すと、お願いだけでは守られないことがあります。手段を持たせない設計なら、うっかりや悪意のある指示でも事故が起きにくくなります。</dd>
+<dt>従来との違い</dt><dd>プロンプトで「〇〇しないで」と書く方法に比べ、そもそもその操作ができない作りにしている点が違います。</dd></dl><ul>
+<li>MCP専用のトークンを発行し、データベースの鍵は渡さない</li>
+<li>保存用の関数は公開の状態を下書きのまま固定</li>
+<li>公開に関わる項目の入力をエラーにする</li>
+<li>OAuth 2.1 と PKCE でログインし、パスワードを貼らせない</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自作のMCPサーバーで、削除や送信のツールを外す</li>
+<li>AIに下書きまでを任せ、最後の確定は人がする仕組み</li>
+<li>AIに渡す道具の一覧の見直し</li>
+</ul>
+<div class="task"><h4>今日すぐできること：AIに渡す道具の棚卸し</h4><dl class="kv"><dt>目的</dt><dd>自分のAIが使える危ない操作を見つける</dd><dt>使用ツール</dt><dd>Claude などのAIチャット</dd><dt>必要な準備</dt><dd>自分が使っているMCPサーバーや自動化の一覧</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料枠で可能</dd><dt>無料の代替</dt><dd>紙に書き出して自分で分類してもよい</dd></dl><b>手順</b><ol><li>AIに使わせている道具や操作を書き出す</li><li>下のプロンプトで、取り返しのつかない操作を分類してもらう</li><li>外すか、下書き止まりにする操作を1つ決める</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>私のAIが使える道具と操作は次のとおりです。
+（ここに一覧を書く）
+それぞれを「読むだけ」「下書きまで」「取り返しがつかない（公開・送信・削除・支払いなど）」に分けてください。
+取り返しがつかない操作について、お願いの文章ではなく、道具から外す・下書きで止める・人の確認をはさむ、のどれで防ぐのがよいか提案してください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>道具の分類表と、外す操作の候補</dd><dt>確認方法</dt><dd>取り返しのつかない操作が1つ以上見つかり、その防ぎ方が決まっている</dd></dl><div class="meta">参考：<a href="https://zenn.dev/murzim/articles/f5066afd82976c" target="_blank" rel="noopener noreferrer">https://zenn.dev/murzim/articles/f5066afd82976c</a></div></div>
+<h4>発展：下書き専用のMCPサーバー（3〜4時間）</h4><p>メモやブログの下書きを作るだけのツールを持つMCPサーバーを作り、公開は自分で画面から行う形にする。</p><ol>
+<li>下書きの作成と一覧だけのツールを設計する</li>
+<li>公開に関わる項目を受け取ったらエラーを返す</li>
+<li>Claude Code からつないで、下書きは作れて公開はできないことを確かめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>記事は無料。Supabase の料金は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：中：設計の考え方はすぐ使えるが、同じ仕組みを作るにはサーバーと認証の知識が必要。<br>信頼性：個人の技術記事（Zenn）。著者の実装記録として確認。</div></section>
+<section class="card" id="news-5"><span class="badge">クリエイティブAI</span>
+<span class="meta">評価 <span class="score">81</span>/100</span>
+<h2>5. Remotion v4.0.546：npx remotion whisper で手元のPCで文字起こし、Studio で任意の要素にエフェクト</h2>
+<div class="meta">Remotion・公開 2026-11-23 10:33</div>
+<div class="meta">出典：<a href="https://github.com/remotion-dev/remotion/releases/tag/v4.0.546" target="_blank" rel="noopener noreferrer">https://github.com/remotion-dev/remotion/releases/tag/v4.0.546</a></div>
+<p class="concl"><b>結論：</b>プログラムで動画を作る Remotion の v4.0.546 で、音声を文字にするAI「Whisper」を手元のPCで動かすコマンドが加わりました。字幕用のデータをそのまま作れます。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分の声で録った短い解説を文字起こしして、その字幕データで Remotion の動画に字幕を自動で載せると、字幕付き動画が手早く作れて面白いです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>手元のPCで文字起こし</b>：npx remotion whisper transcribe で、手元の音声や動画から文字起こしができる。</li>
+<li><b>字幕用のデータを書き出し</b>：結果は Remotion の字幕で使える Caption[] の JSON ファイルとして保存される。</li>
+<li><b>音声認識モデルを管理</b>：install・ls・rm・rmall で、音声を文字にするAIのモデルを入れたり消したりできる。</li>
+<li><b>どの要素にもエフェクト</b>：Remotion Studio で、どの要素にもエフェクトを付けられるようになった。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>npx remotion whisper のコマンド群で、外部のサービスを使わずに文字起こしと、モデルの管理ができるようになりました。</dd>
+<dt>なぜ重要か</dt><dd>動画に字幕を付ける作業を、Remotion の中だけで完結できます。音声を外部に送らずに済みます。</dd>
+<dt>従来との違い</dt><dd>これまでは別の道具で文字起こしして、形式を合わせる手間がありました。今回は Remotion のコマンド一つで字幕用の形式が出ます。</dd></dl><ul>
+<li>@remotion/whisper-webgpu と @huggingface/transformers を同じ版で入れる</li>
+<li>英語は small.en、言語を指定すると small が既定のモデル</li>
+<li>--language で話している言語を指定</li>
+<li>--raw で Whisper の生の結果を出力</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>解説動画やポッドキャストに自動で字幕を付ける</li>
+<li>音楽動画に歌詞の字幕を合わせる下準備</li>
+<li>話した内容から動画の章立てを作る</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分の声を字幕データにする</h4><dl class="kv"><dt>目的</dt><dd>手元のPCで音声から字幕用のJSONを作る</dd><dt>使用ツール</dt><dd>Remotion、Node.js</dd><dt>必要な準備</dt><dd>Remotion 4.0.546 のプロジェクト、30秒ほどの自分の声の録音または動画</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（手元のPCで動く）</dd></dl><b>手順</b><ol><li>プロジェクトのフォルダで、下の1行目のコマンドで必要な部品を入れる</li><li>録音したファイルをプロジェクトに置く</li><li>2行目のコマンドで、日本語を指定して文字起こしする</li><li>できた captions.json を開いて中身を確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>npm i --save-exact @remotion/whisper-webgpu@4.0.546 @huggingface/transformers
+npx remotion whisper transcribe my-voice.mp4 --language ja</pre></div><div class="meta">出典：<a href="https://www.remotion.dev/docs/cli/whisper/transcribe" target="_blank" rel="noopener noreferrer">https://www.remotion.dev/docs/cli/whisper/transcribe</a></div><dl class="kv"><dt>完成するもの</dt><dd>my-voice-captions.json（字幕用データ）</dd><dt>確認方法</dt><dd>入力と同じ場所に captions.json ができ、話した言葉が入っている</dd></dl><div class="meta">参考：<a href="https://www.remotion.dev/docs/cli/whisper" target="_blank" rel="noopener noreferrer">https://www.remotion.dev/docs/cli/whisper</a>　<a href="https://www.remotion.dev/docs/cli/whisper/transcribe" target="_blank" rel="noopener noreferrer">https://www.remotion.dev/docs/cli/whisper/transcribe</a>　<a href="https://github.com/remotion-dev/remotion/releases/tag/v4.0.546" target="_blank" rel="noopener noreferrer">https://github.com/remotion-dev/remotion/releases/tag/v4.0.546</a></div></div>
+<h4>発展：声を入れるだけの字幕付きショート動画（2〜3時間）</h4><p>録音ファイルを置くと、文字起こしから字幕付き動画の書き出しまでを自動で行う Remotion のテンプレートを作る。</p><ol>
+<li>文字起こしで字幕データを作る</li>
+<li>字幕データを読み込んで画面に表示する Remotion の部品を作る</li>
+<li>音声と字幕を合わせて動画を書き出す</li>
+</ol>
+<h3>利用条件・料金</h3><p>Remotion は会社での利用などにライセンスの条件がある（詳細は公式のライセンスページで確認）。文字起こしは手元で動くため利用料は不要。</p>
+<div class="meta">実践可能性：高：Remotion のプロジェクトがあれば、コマンド2つで試せる。<br>信頼性：GitHub の公式リリースノートと Remotion 公式ドキュメントで確認。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>

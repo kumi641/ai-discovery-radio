@@ -1,0 +1,697 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-24",
+ "title": "AIのテストの作り方と、させない設計",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。今日は二〇二六年十一月二十四日です。",
+   "show": "AI Discovery & Build Radio／2026年11月24日"
+  },
+  {
+   "say": "今日いちばん大事なのは、エーアイの仕事ぶりを、正しく測る方法です。",
+   "show": "今日の注目：AIの仕事ぶりを正しく測る"
+  },
+  {
+   "say": "ハギングフェイスが、エージェントのテストの作り方を、手順つきでまとめました。",
+   "show": "Hugging Face、エージェント評価の作り方を公開"
+  },
+  {
+   "say": "ほかに、クロード コードの更新、エーアイのチームによる量子計算の研究、エーアイに危ない操作をさせない設計、動画づくりの文字起こしを紹介します。",
+   "show": "Claude Code 更新／量子研究／させない設計／文字起こし"
+  },
+  {
+   "say": "最後の実験では、自分のエーアイ作業に、小さなテストを作ってみます。",
+   "show": "今日の実験：AI作業に小さなテストを作る"
+  }
+ ],
+ "news": [
+  {
+   "label": "Claude Code 2.1.331",
+   "points": [
+    "診断にAPI接続の確認が追加",
+    "MCPが最大30分止まる不具合を修正",
+    "プラグインの任意の依存に対応",
+    "VS Code 版に修正ボタン"
+   ],
+   "details": [
+    "claude doctor が、AIを呼び出す窓口につながるかを調べ、HTTPの状態やエラー、調べなかった理由を表示する。",
+    "手元やWebSocketのMCPサーバーから壊れた返事が来ると、ツール呼び出しが最大30分止まることがあった。",
+    "プラグインの設定に optionalDependencies を書くと、一緒に入り、あとで個別に外せるプラグインを指定できる。",
+    "エラーや失敗したテストに「Fix with Claude Code」の修正候補が出て、問題をチャット欄に入れられる。"
+   ],
+   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+   "lines": [
+    {
+     "say": "まずは最新エーアイニュースです。クロード コードの新しい版、二点一点三三一が出ました。",
+     "show": "Claude Code v2.1.331 公開"
+    },
+    {
+     "say": "いちばん便利なのは、診断のコマンド、クロード ドクターに、通信の確認が加わったことです。",
+     "show": "claude doctor に API 接続の確認が追加"
+    },
+    {
+     "say": "プログラムからエーアイを呼び出す窓口に届くかどうかを、エラーの中身と一緒に教えてくれます。",
+     "show": "つながるか・エラーの中身を表示"
+    },
+    {
+     "say": "ほかに、エムシーピーという外部の道具をつなぐ仕組みで、呼び出しが最大三十分止まることがある不具合も直りました。",
+     "show": "MCP ツールが最大30分止まる不具合を修正"
+    },
+    {
+     "say": "たとえば、作業を始める前にクロード ドクターを一回流す習慣にすると、つながらない日にすぐ気づけて安心ですね。",
+     "show": "作業前に claude doctor を流す習慣に"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+    "title": "Release v2.1.331 · anthropics/claude-code",
+    "site": "GitHub",
+    "description": "What's changed\n\nAdded Code Mode support in terminal sessions on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS\nAdded oidc.groups_jsonpath to the Claude ...",
+    "image": "https://opengraph.githubassets.com/024b07707ad2eebad60c40b7aa2fa7d9bae5b770f3d2f6f73ce77b08ec266bd2/anthropics/claude-code/releases/tag/v2.1.331",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "news",
+   "idea": "作業を始める前の決まりごととして claude doctor を一回流し、つながらない日はすぐ気づけるようにしておくと安心です。",
+   "guide": "guides/2026-11-24.html#news-1"
+  },
+  {
+   "label": "AIチームが量子計算を改良",
+   "points": [
+    "AIチームが量子計算の手順を改良",
+    "全ての案を証明ツールで確認",
+    "核融合の計算で約12分の1の手間",
+    "証明の部品をオープンソース化"
+   ],
+   "details": [
+    "問題ごとに独立したAIエージェントのチームを作り、量子コンピューターの計算手順を少ない資源で済むように改良した。",
+    "案は Lean という数学の証明を確かめる道具で正しさを示してから、共有のノートに入れた。4時間ごとに各チームが集まって案を比べた。",
+    "核融合に関わる計算の回路で、手間の目安が11.8分の1に。薬づくりに関わる酵素の計算は2.5倍安くなった。",
+    "Lean のライブラリと問題、確認済みの答えを GitHub の google-deepmind/formal-quantum-computation で公開。"
+   ],
+   "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+   "lines": [
+    {
+     "say": "次は、グーグル ディープマインドの研究です。エーアイのチームが、量子コンピューターの計算手順を、ぐっと少ない手間に改良しました。",
+     "show": "DeepMind：AIチームが量子アルゴリズムを改良"
+    },
+    {
+     "say": "ポイントは、エーアイの案を、すべてリーンという数学の証明を確かめる道具で確認したことです。",
+     "show": "全ての案を証明ツール Lean で確認"
+    },
+    {
+     "say": "証明に通った案だけを共有のノートに入れ、四時間ごとにチームが集まって案を比べました。",
+     "show": "共有ノート＋4時間ごとの意見交換"
+    },
+    {
+     "say": "核融合に関わる計算では、手間の目安が約十二分の一になりました。",
+     "show": "核融合の計算で手間が11.8分の1に"
+    },
+    {
+     "say": "個人がすぐ使う話ではありませんが、案を出す役と確かめる役を分ける考え方は、覚えておきたいところです。",
+     "show": "「案を出す役」と「確かめる役」を分ける"
+    }
+   ],
+   "link": {
+    "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+    "title": "Finding faster quantum algorithms with agents and formal verification",
+    "site": "Google DeepMind",
+    "description": "How using agent teams and formal verification can improve quantum algorithms for modelling fusion energy, chemistry and enzymes.",
+    "image": "https://lh3.googleusercontent.com/jIoM2lo98EDqLMQjIaXBlXPmXgPbUPpM2GgtXcDsGekZBOPUY41IjBsnuZIhLac7MSOuRkklNBsp20a5M25oDz-xTIY0BIqoBxUqmmXvEHwlM3MJJw=w1200-h630-n-nu-rw",
+    "icon": "https://storage.googleapis.com/gdm-deepmind-com-prod-public/icons/google_deepmind_2x_96dp.png"
+   },
+   "corner": "news",
+   "idea": null,
+   "guide": "guides/2026-11-24.html#news-2"
+  },
+  {
+   "label": "エージェントの正しい測り方",
+   "points": [
+    "結果の状態で採点する",
+    "正解役・何もしない役で検査",
+    "ずるで通らないか確かめる",
+    "毎回成功するかも測る"
+   ],
+   "details": [
+    "エージェントの「できました」という言葉ではなく、作業後のファイルや環境の状態を採点役が確かめる。",
+    "お手本の解き方は必ず合格し、何もしないエージェントは必ず不合格になるかを先に確かめる。",
+    "記事の例では、近道の答えが比率だけを見る採点に全問合格したため、採点をもっと細かくした。",
+    "3回中1回でも成功すればよい指標と、3回とも成功する指標を分ける。例では前者が8問中7問、後者は1問だった。"
+   ],
+   "url": "https://huggingface.co/blog/agentic-evals",
+   "lines": [
+    {
+     "say": "ここからはエンジニアの実践ノウハウです。ハギングフェイスが、エージェントの正しい測り方をまとめました。",
+     "show": "Hugging Face：エージェント評価の作り方"
+    },
+    {
+     "say": "エージェントは、指示すると自分で手順を考えて作業を進めてくれるエーアイです。",
+     "show": "エージェント＝自分で手順を考えて動くAI"
+    },
+    {
+     "say": "大事なのは、エーアイの「できました」を信じず、作業のあとの状態で採点することです。",
+     "show": "「できました」ではなく結果の状態で採点"
+    },
+    {
+     "say": "さらに、採点役そのものも試します。お手本は合格、何もしない答えは不合格になるかを確かめます。",
+     "show": "お手本は合格・何もしないは不合格を確認"
+    },
+    {
+     "say": "記事の例では、近道の答えが全部合格してしまい、採点を細かく直しました。",
+     "show": "近道の答えが合格→採点を修正"
+    },
+    {
+     "say": "また、三回のうち一回成功するのと、三回とも成功するのは別物です。例では八問中七問と、一問でした。",
+     "show": "3回中1回成功：7/8、3回とも成功：1/8"
+    },
+    {
+     "say": "たとえば、いつも頼んでいる作業に合否チェックを一つ作り、三回続けて合格するか見ると、任せてよい作業が分かって面白いですね。",
+     "show": "3回続けて合格するかで任せどころを判断"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/agentic-evals",
+    "title": "How to build and maintain an agentic evaluation",
+    "site": "huggingface.co",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "https://huggingface.co/blog/assets/agentic-evals/thumbnail.png",
+    "icon": null
+   },
+   "corner": "practice",
+   "idea": "毎回 AI に頼んでいる作業に、合否を自動で判定するチェックを一つ作り、3回続けて合格するかを見ると、任せてよい作業が分かって面白いです。",
+   "guide": "guides/2026-11-24.html#news-3"
+  },
+  {
+   "label": "AIに公開ボタンを渡さない",
+   "points": [
+    "頼むより、手段を持たせない",
+    "公開用のツールを作らない",
+    "公開に関わる入力はエラーに",
+    "別のAIにレビューを依頼"
+   ],
+   "details": [
+    "プロンプトでのお願いは、AIが読む文章に紛れた指示で破られるおそれがあるため、仕組みの側で防いだ。",
+    "6つのツールは読み取り3つと書き込み3つ。下書きは作れるが、公開は出品者が画面で行う。",
+    "status や publish などの項目が来たら拒否し、日本語のエラーでAIが自分で直せるようにした。",
+    "実装は Claude Code、レビューは Codex。指摘は 12→5→1→7→4→0 件と減っていった。"
+   ],
+   "url": "https://zenn.dev/murzim/articles/f5066afd82976c",
+   "lines": [
+    {
+     "say": "次は、エーアイに危ない操作をさせない設計の話です。結論は、お願いするより、手段を持たせないことです。",
+     "show": "AIには「頼む」より「手段を持たせない」"
+    },
+    {
+     "say": "作者は、エーアイが出品の下書きを作れる仕組みを、エムシーピーサーバーで作りました。",
+     "show": "AIが出品の下書きを作れるMCPサーバー"
+    },
+    {
+     "say": "プロンプトで「公開しないで」と書いても、読んだ文章に紛れた指示で破られるおそれがあります。",
+     "show": "お願いは紛れた指示で破られうる"
+    },
+    {
+     "say": "そこで、公開用の道具をそもそも作らず、公開に関わる入力が来たらエラーにしました。",
+     "show": "公開ツールを作らず、公開の入力はエラーに"
+    },
+    {
+     "say": "公開は、出品者が自分の画面で行います。",
+     "show": "公開は人が画面で行う"
+    },
+    {
+     "say": "たとえば、自分のエーアイに渡している道具を見直して、消す・送る操作を下書き止まりにすると、安心して任せられそうですね。",
+     "show": "消す・送る操作は下書き止まりに"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/murzim/articles/f5066afd82976c",
+    "title": "AIに「公開しないでね」と頼むより、MCPサーバーから公開ボタンごと外した話（OAuth×Supabase）",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--Wvo6CvJG--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:AI%25E3%2581%25AB%25E3%2580%258C%25E5%2585%25AC%25E9%2596%258B%25E3%2581%2597%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25A7%25E3%2581%25AD%25E3%2580%258D%25E3%2581%25A8%25E9%25A0%25BC%25E3%2582%2580%25E3%2582%2588%25E3%2582%258A%25E3%2580%2581MCP%25E3%2582%25B5%25E3%2583%25BC%25E3%2583%2590%25E3%2583%25BC%25E3%2581%258B%25E3%2582%2589%25E5%2585%25AC%25E9%2596%258B%25E3%2583%259C%25E3%2582%25BF%25E3%2583%25B3%25E3%2581%2594%25E3%2581%25A8%25E5%25A4%2596%25E3%2581%2597%25E3%2581%259F%25E8%25A9%25B1%25EF%25BC%2588OAuth%25C3%2597Supabase%25EF%25BC%2589%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:FUJISAKI%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyL2Y5ZTU4YWE5MjcuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "自分のAIに渡している道具を一覧にして、「消す」「送る」「公開する」の操作を外すか下書き止まりにすると、安心して任せられる範囲が広がります。",
+   "guide": "guides/2026-11-24.html#news-4"
+  },
+  {
+   "label": "Remotionで手元の文字起こし",
+   "points": [
+    "手元のPCで文字起こし",
+    "字幕用のデータを書き出し",
+    "音声認識モデルを管理",
+    "どの要素にもエフェクト"
+   ],
+   "details": [
+    "npx remotion whisper transcribe で、手元の音声や動画から文字起こしができる。",
+    "結果は Remotion の字幕で使える Caption[] の JSON ファイルとして保存される。",
+    "install・ls・rm・rmall で、音声を文字にするAIのモデルを入れたり消したりできる。",
+    "Remotion Studio で、どの要素にもエフェクトを付けられるようになった。"
+   ],
+   "url": "https://github.com/remotion-dev/remotion/releases/tag/v4.0.546",
+   "lines": [
+    {
+     "say": "最後はクリエイティブエーアイです。プログラムで動画を作るリモーションで、手元のパソコンだけで文字起こしができるようになりました。",
+     "show": "Remotion v4.0.546：手元で文字起こし"
+    },
+    {
+     "say": "使うのは、音声を文字にするエーアイ、ウィスパーです。",
+     "show": "音声を文字にするAI「Whisper」を使用"
+    },
+    {
+     "say": "新しいコマンドで、音声や動画から、字幕にそのまま使えるデータを書き出します。",
+     "show": "字幕用データ（Caption[]）を書き出し"
+    },
+    {
+     "say": "音声を外のサービスに送らずに済むのも、うれしい点です。",
+     "show": "音声を外部に送らない"
+    },
+    {
+     "say": "たとえば、自分の声で録った短い解説を文字起こしして、字幕付きの動画を自動で作ると面白そうですね。",
+     "show": "声から字幕付き動画を自動で作る"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/remotion-dev/remotion/releases/tag/v4.0.546",
+    "title": "Release v4.0.546 · remotion-dev/remotion",
+    "site": "GitHub",
+    "description": "What's Changed\n\n@remotion/studio: Add effects to any element! by @JonnyBurger in #13443\n@remotion/cli: Add npx remotion whisper commands for local transcription and model management by @JonnyBurger...",
+    "image": "https://opengraph.githubassets.com/92a7355baff4af9b87a85e9100b8c6a9e0e637f7b6b4dc7eadc7fac5cd8bc71b/remotion-dev/remotion/releases/tag/v4.0.546",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "creative",
+   "idea": "自分の声で録った短い解説を文字起こしして、その字幕データで Remotion の動画に字幕を自動で載せると、字幕付き動画が手早く作れて面白いです。",
+   "guide": "guides/2026-11-24.html#news-5"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "結果のファイルで合否を決める",
+    "お手本は合格、何もしないは不合格",
+    "近道が通ったら採点を直す",
+    "3回とも合格するかを見る"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://huggingface.co/blog/agentic-evals",
+   "lines": [
+    {
+     "say": "今日の実験は、いつもエーアイに頼んでいる作業に、小さなテストを作ってみることです。",
+     "show": "今日の実験：AI作業に小さなテストを作る"
+    },
+    {
+     "say": "まず作業を一つ決めて、合格の条件を、できたファイルの中身で書き出します。",
+     "show": "合格条件は「できたファイルの中身」で"
+    },
+    {
+     "say": "次に、エーアイに合否を判定する小さなプログラムを作ってもらいます。頼み方の文章はガイドに載せています。",
+     "show": "判定プログラム check.py をAIに作らせる"
+    },
+    {
+     "say": "ここが大事です。お手本の答えは合格、何もしない状態と、見た目だけ合わせた近道は不合格になるか、先に確かめます。",
+     "show": "お手本は合格／何もしない・近道は不合格"
+    },
+    {
+     "say": "近道が合格してしまったら、採点が甘いということなので、判定を直します。",
+     "show": "近道が通ったら判定を直す"
+    },
+    {
+     "say": "最後に、エーアイに同じ作業を三回頼んで、三回とも合格するかを記録しましょう。",
+     "show": "AIに3回頼み、3回とも合格するか記録"
+    },
+    {
+     "say": "全部で四十五分ほどです。三回とも合格すれば、その作業は安心して任せられる候補になります。",
+     "show": "所要45分／3回合格なら任せる候補に"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/agentic-evals",
+    "title": "How to build and maintain an agentic evaluation",
+    "site": "huggingface.co",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "https://huggingface.co/blog/assets/agentic-evals/thumbnail.png",
+    "icon": null
+   },
+   "corner": "experiment",
+   "name": "AI作業に小さなテストを作る",
+   "guide": "guides/2026-11-24.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。エーアイの仕事は、返事ではなく、できた結果で確かめましょう。",
+   "show": "要点1：AIの仕事は結果で確かめる"
+  },
+  {
+   "say": "そして、させたくない操作は、お願いするより、道具から外すのが確実です。",
+   "show": "要点2：させたくない操作は道具から外す"
+  },
+  {
+   "say": "クロード コードを使っている方は、更新してクロード ドクターを一度流してみてください。",
+   "show": "Claude Code を更新して claude doctor を"
+  },
+  {
+   "say": "今日やってみることは、いつもの作業に小さなテストを作り、三回続けて合格するかを見ることです。",
+   "show": "今日やること：小さなテストで3回合格を確認"
+  },
+  {
+   "say": "エーアイ ディスカバリー アンド ビルド ラジオ、また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio／また明日"
+  }
+ ],
+ "highlight": 5,
+ "guide": "guides/2026-11-24.html",
+ "seconds": 363.13,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 10.169,
+   "show": "AI Discovery & Build Radio／2026年11月24日",
+   "part": 0
+  },
+  {
+   "start": 10.419,
+   "end": 16.229,
+   "show": "今日の注目：AIの仕事ぶりを正しく測る",
+   "part": 0
+  },
+  {
+   "start": 16.479,
+   "end": 22.335,
+   "show": "Hugging Face、エージェント評価の作り方を公開",
+   "part": 0
+  },
+  {
+   "start": 22.585,
+   "end": 34.426,
+   "show": "Claude Code 更新／量子研究／させない設計／文字起こし",
+   "part": 0
+  },
+  {
+   "start": 34.676,
+   "end": 40.578,
+   "show": "今日の実験：AI作業に小さなテストを作る",
+   "part": 0
+  },
+  {
+   "start": 41.478,
+   "end": 49.754,
+   "show": "Claude Code v2.1.331 公開",
+   "part": 1
+  },
+  {
+   "start": 50.004,
+   "end": 57.387,
+   "show": "claude doctor に API 接続の確認が追加",
+   "part": 1
+  },
+  {
+   "start": 57.637,
+   "end": 64.813,
+   "show": "つながるか・エラーの中身を表示",
+   "part": 1
+  },
+  {
+   "start": 65.063,
+   "end": 73.766,
+   "show": "MCP ツールが最大30分止まる不具合を修正",
+   "part": 1
+  },
+  {
+   "start": 74.016,
+   "end": 82.92,
+   "show": "作業前に claude doctor を流す習慣に",
+   "part": 1
+  },
+  {
+   "start": 83.82,
+   "end": 94.353,
+   "show": "DeepMind：AIチームが量子アルゴリズムを改良",
+   "part": 2
+  },
+  {
+   "start": 94.603,
+   "end": 102.113,
+   "show": "全ての案を証明ツール Lean で確認",
+   "part": 2
+  },
+  {
+   "start": 102.363,
+   "end": 109.634,
+   "show": "共有ノート＋4時間ごとの意見交換",
+   "part": 2
+  },
+  {
+   "start": 109.884,
+   "end": 116.122,
+   "show": "核融合の計算で手間が11.8分の1に",
+   "part": 2
+  },
+  {
+   "start": 116.372,
+   "end": 124.97,
+   "show": "「案を出す役」と「確かめる役」を分ける",
+   "part": 2
+  },
+  {
+   "start": 125.87,
+   "end": 134.226,
+   "show": "Hugging Face：エージェント評価の作り方",
+   "part": 3
+  },
+  {
+   "start": 134.476,
+   "end": 140.726,
+   "show": "エージェント＝自分で手順を考えて動くAI",
+   "part": 3
+  },
+  {
+   "start": 140.976,
+   "end": 148.117,
+   "show": "「できました」ではなく結果の状態で採点",
+   "part": 3
+  },
+  {
+   "start": 148.367,
+   "end": 157.649,
+   "show": "お手本は合格・何もしないは不合格を確認",
+   "part": 3
+  },
+  {
+   "start": 157.899,
+   "end": 164.635,
+   "show": "近道の答えが合格→採点を修正",
+   "part": 3
+  },
+  {
+   "start": 164.885,
+   "end": 175.289,
+   "show": "3回中1回成功：7/8、3回とも成功：1/8",
+   "part": 3
+  },
+  {
+   "start": 175.539,
+   "end": 185.866,
+   "show": "3回続けて合格するかで任せどころを判断",
+   "part": 3
+  },
+  {
+   "start": 186.766,
+   "end": 196.555,
+   "show": "AIには「頼む」より「手段を持たせない」",
+   "part": 4
+  },
+  {
+   "start": 196.805,
+   "end": 203.576,
+   "show": "AIが出品の下書きを作れるMCPサーバー",
+   "part": 4
+  },
+  {
+   "start": 203.826,
+   "end": 211.106,
+   "show": "お願いは紛れた指示で破られうる",
+   "part": 4
+  },
+  {
+   "start": 211.356,
+   "end": 218.4,
+   "show": "公開ツールを作らず、公開の入力はエラーに",
+   "part": 4
+  },
+  {
+   "start": 218.65,
+   "end": 222.863,
+   "show": "公開は人が画面で行う",
+   "part": 4
+  },
+  {
+   "start": 223.113,
+   "end": 232.705,
+   "show": "消す・送る操作は下書き止まりに",
+   "part": 4
+  },
+  {
+   "start": 233.605,
+   "end": 243.339,
+   "show": "Remotion v4.0.546：手元で文字起こし",
+   "part": 5
+  },
+  {
+   "start": 243.589,
+   "end": 248.172,
+   "show": "音声を文字にするAI「Whisper」を使用",
+   "part": 5
+  },
+  {
+   "start": 248.422,
+   "end": 254.947,
+   "show": "字幕用データ（Caption[]）を書き出し",
+   "part": 5
+  },
+  {
+   "start": 255.197,
+   "end": 260.22,
+   "show": "音声を外部に送らない",
+   "part": 5
+  },
+  {
+   "start": 260.47,
+   "end": 269.098,
+   "show": "声から字幕付き動画を自動で作る",
+   "part": 5
+  },
+  {
+   "start": 269.998,
+   "end": 276.803,
+   "show": "今日の実験：AI作業に小さなテストを作る",
+   "part": 6
+  },
+  {
+   "start": 277.053,
+   "end": 283.534,
+   "show": "合格条件は「できたファイルの中身」で",
+   "part": 6
+  },
+  {
+   "start": 283.784,
+   "end": 293.18,
+   "show": "判定プログラム check.py をAIに作らせる",
+   "part": 6
+  },
+  {
+   "start": 293.43,
+   "end": 304.203,
+   "show": "お手本は合格／何もしない・近道は不合格",
+   "part": 6
+  },
+  {
+   "start": 304.453,
+   "end": 310.851,
+   "show": "近道が通ったら判定を直す",
+   "part": 6
+  },
+  {
+   "start": 311.101,
+   "end": 318.379,
+   "show": "AIに3回頼み、3回とも合格するか記録",
+   "part": 6
+  },
+  {
+   "start": 318.629,
+   "end": 327.61,
+   "show": "所要45分／3回合格なら任せる候補に",
+   "part": 6
+  },
+  {
+   "start": 328.51,
+   "end": 335.883,
+   "show": "要点1：AIの仕事は結果で確かめる",
+   "part": 7
+  },
+  {
+   "start": 336.133,
+   "end": 342.729,
+   "show": "要点2：させたくない操作は道具から外す",
+   "part": 7
+  },
+  {
+   "start": 342.979,
+   "end": 349.287,
+   "show": "Claude Code を更新して claude doctor を",
+   "part": 7
+  },
+  {
+   "start": 349.537,
+   "end": 357.245,
+   "show": "今日やること：小さなテストで3回合格を確認",
+   "part": 7
+  },
+  {
+   "start": 357.495,
+   "end": 362.53,
+   "show": "AI Discovery & Build Radio／また明日",
+   "part": 7
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 41.478
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 41.478,
+   "end": 83.82
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 83.82,
+   "end": 125.87
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 125.87,
+   "end": 186.766
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 186.766,
+   "end": 233.605
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 233.605,
+   "end": 269.998
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 269.998,
+   "end": 328.51
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 328.51,
+   "end": 363.13
+  }
+ ],
+ "made_at": "2026-11-24T07:14:13",
+ "tts": {
+  "provider": "azure",
+  "chars": 3945,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}
