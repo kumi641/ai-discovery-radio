@@ -1,0 +1,466 @@
+{
+ "date": "2026-11-26",
+ "made_at": "2026-11-26T07:16:09",
+ "seconds": 491.996,
+ "tts": {
+  "provider": "azure",
+  "chars": 5492,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 43,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.5
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 6.9
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 19.1
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.6
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.9
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.4
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.7
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.6
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.6
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 2.1
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.4
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.4
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.6
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.4
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.4
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.2
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_15aa96a954",
+   "fetched": true,
+   "scores": {
+    "practice": 30,
+    "novelty": 15,
+    "reliability": 25,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "公式リリースノートで、MCPからのスキルと新しいフックを確認でき、リスナーの最優先領域に直結する。"
+  },
+  {
+   "candidate_id": "c_d0a3a7f662",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 15,
+    "reliability": 23,
+    "relevance": 17
+   },
+   "selected": true,
+   "reason": "声で質問して手元の資料から答える仕組みが具体的に書かれ、オープンソースで試せる。"
+  },
+  {
+   "candidate_id": "c_b45d58e25d",
+   "fetched": true,
+   "scores": {
+    "practice": 26,
+    "novelty": 12,
+    "reliability": 24,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "古いアプリの直し方を手順化し、エージェントのスキルにまとめる方法を公式ブログが具体例つきで解説している。"
+  },
+  {
+   "candidate_id": "c_5ffeaf6cef",
+   "fetched": true,
+   "scores": {
+    "practice": 33,
+    "novelty": 12,
+    "reliability": 17,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "AIがテストを書き換えて通す問題を5つに分け、gitで見つけるコマンドまであり、今日の実験に最適。"
+  },
+  {
+   "candidate_id": "c_e45b2f7e02",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 11,
+    "reliability": 18,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "AIが書いたコードの危ない箇所を手元で調べるオープンソースのツール。開発者本人の記事だが、できないことも明記している。"
+  },
+  {
+   "candidate_id": "c_786d6fadbb",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 10,
+    "reliability": 24,
+    "relevance": 14
+   },
+   "selected": true,
+   "reason": "AIエージェント向けのスキルが追加され、AIと一緒に動画を作る流れが広がった。"
+  },
+  {
+   "candidate_id": "c_09503fbd78",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 8,
+    "reliability": 15,
+    "relevance": 19
+   },
+   "selected": false,
+   "reason": "内容はClaude Code本体のニュースと重なるため、一次情報のリリースノートを優先した。"
+  },
+  {
+   "candidate_id": "c_e2df9691d4",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 3,
+    "reliability": 5,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "リリースページで変更内容を読めなかった。"
+  },
+  {
+   "candidate_id": "c_2615822fc6",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 3,
+    "reliability": 5,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "本文がほぼ無く、変更内容を確認していない。"
+  },
+  {
+   "candidate_id": "c_f14a6f6dfd",
+   "fetched": true,
+   "scores": {
+    "practice": 8,
+    "novelty": 16,
+    "reliability": 24,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "化学の専門家向けで、個人の制作に応用しにくい。"
+  },
+  {
+   "candidate_id": "c_e33da67de9",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 6,
+    "reliability": 17,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "役立つが、エラーの対処という狭い話題で、今日はほかを優先した。"
+  },
+  {
+   "candidate_id": "c_179382fa1c",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 6,
+    "reliability": 16,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "手順は具体的だが、新しさが少なく、Zennからの採用が上限に達した。"
+  },
+  {
+   "candidate_id": "c_6ff348e652",
+   "fetched": true,
+   "scores": {
+    "practice": 10,
+    "novelty": 8,
+    "reliability": 15,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "一年のふり返りの論考で、すぐ手を動かせる内容が少ない。"
+  },
+  {
+   "candidate_id": "c_f1ab2f96ee",
+   "fetched": false,
+   "scores": {
+    "practice": 18,
+    "novelty": 6,
+    "reliability": 10,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "前回の放送でMCPの鍵の話を扱ったため、今回は見送った。"
+  },
+  {
+   "candidate_id": "c_5d5548c6fe",
+   "fetched": false,
+   "scores": {
+    "practice": 12,
+    "novelty": 4,
+    "reliability": 8,
+    "relevance": 14
+   },
+   "selected": false,
+   "reason": "筆者が運営する有料サービスの紹介が中心のため見送った。"
+  },
+  {
+   "candidate_id": "c_f3349335f1",
+   "fetched": false,
+   "scores": {
+    "practice": 12,
+    "novelty": 6,
+    "reliability": 12,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "小さな改善で、前回扱った datasette-charts の続きに近い。"
+  },
+  {
+   "candidate_id": "c_99b93f3e10",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 4,
+    "reliability": 10,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "企業の導入事例で、個人の制作に応用しにくい。"
+  },
+  {
+   "candidate_id": "c_3c6728c1bf",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 15,
+    "reliability": 10,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "研究成果で、個人が試せる内容ではない。"
+  },
+  {
+   "candidate_id": "c_59b7335924",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 12,
+    "reliability": 10,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "高性能GPU向けの最適化で、リスナーの関心から遠い。"
+  },
+  {
+   "candidate_id": "c_5b10668f7a",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 2,
+    "reliability": 5,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "リリースノートの本文がなく、変更内容が分からない。"
+  },
+  {
+   "candidate_id": "c_e213ef04a8",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 6,
+    "reliability": 8,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "本文を確認しておらず、二次情報のため見送った。"
+  },
+  {
+   "candidate_id": "c_bc9058b8ab",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 2,
+    "reliability": 5,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "株価の話題で、制作や開発に関係しない。"
+  }
+ ],
+ "warnings": []
+}
