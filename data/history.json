@@ -390,5 +390,53 @@
   "publisher": "NVIDIA",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.332",
+  "title": "Claude Code v2.1.332：MCPサーバーが提供するスキルに対応（ベータ）、スキルが読み込み時に動かすコマンドを止められる PreSkillShellCommand フックを追加",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+  "title": "IBM Research、オープンソースのエージェント基盤 CUGA で、インドの言語で声で質問すると英語の農業ハンドブックから答える音声エージェントを公開",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization/",
+  "title": "GitHub Blog：古いアプリを近代化するとき、証拠を集めて「次の安全な一歩」を選ぶ方法と、それを Copilot のエージェントスキル doc-and-modernize にまとめた例",
+  "publisher": "GitHub",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://zenn.dev/anas_alkhatib/articles/e020386e251ca9",
+  "title": "Zenn：AIコーディングエージェントがテストを「通す」ためにやる5つのずる（削除・スキップ・期待値の書き換え・設定の変更・共有コードを甘くする）と、git で見つける方法",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "AIのテストの「ずる」を見つける"
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://zenn.dev/lintsure/articles/44f9e741da85d4",
+  "title": "Zenn：オープンソースのチェックツール Lintsure で、Claude Code などが書いたコードの鍵の直書きや危ない設定を、コミット前に手元で見つける（開発者本人による解説）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://github.com/remotion-dev/remotion/releases/tag/v4.0.547",
+  "title": "Remotion v4.0.547：AIエージェント用の /remotion-elements スキルを追加、Element Library を設定に加える remotion elements add-library コマンドも",
+  "publisher": "Remotion",
+  "corner": "creative",
+  "experiment": null
  }
 ]
