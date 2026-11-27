@@ -1,0 +1,828 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-28",
+ "title": "Claude Codeの予約実行と、AIと長編小説",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。十一月二十八日、土曜日の放送です。",
+   "show": "AI Discovery & Build Radio　2026年11月28日（土）"
+  },
+  {
+   "say": "今日いちばん大事なのは、クロード コードに、決まった時間に自分で仕事をしてもらう使い方です。",
+   "show": "今日の注目：Claude Codeの予約実行"
+  },
+  {
+   "say": "ほかに、エーアイと長い小説を書き上げた人の工夫や、エーアイを暴走させないための決まりごとも紹介します。",
+   "show": "AIと長編小説、エージェントの制御など"
+  },
+  {
+   "say": "最後に、明日の朝に届く、きのうの作業まとめを予約する実験をします。",
+   "show": "今日の実験：明日の朝の作業まとめを予約"
+  }
+ ],
+ "news": [
+  {
+   "label": "Copilotレビューの請求先",
+   "points": [
+    "12月30日から初期設定が変更",
+    "未設定なら組織に請求",
+    "Memberを選べば今のまま"
+   ],
+   "details": [
+    "Copilot のライセンスを持つメンバーのコードレビューについて、請求先の初期設定が変わります。",
+    "請求先を選んでいない場合、リポジトリを持つ組織に請求されます。組織の支出が増えることがあります。",
+    "期限までに設定で Member を選ぶと、メンバー自身の利用枠を使う今の形が続きます。"
+   ],
+   "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
+   "lines": [
+    {
+     "say": "まずは、ギットハブからのお知らせです。",
+     "show": "GitHubからのお知らせ"
+    },
+    {
+     "say": "コパイロットのコードレビューの料金を、誰が払うかの初期設定が変わります。",
+     "show": "Copilotコードレビューの請求先の初期設定が変更"
+    },
+    {
+     "say": "コードレビューは、書いたプログラムをエーアイが読んで、問題を指摘してくれる機能です。",
+     "show": "コードレビュー＝AIがコードを読んで指摘"
+    },
+    {
+     "say": "十二月三十日から、請求先を選んでいない組織では、組織への請求になります。",
+     "show": "12月30日から、未設定なら組織に請求"
+    },
+    {
+     "say": "これまでどおりメンバーの利用枠で払いたいなら、それまでに設定でメンバーを選んでおけば大丈夫です。",
+     "show": "今のままなら、期限前に「Member」を選ぶ"
+    },
+    {
+     "say": "チームでコパイロットを使っている人は、一度だけ設定画面を見ておきましょう。",
+     "show": "チームで使う人は設定画面を確認"
+    }
+   ],
+   "link": {
+    "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
+    "title": "Copilot code review billing will default to the organization - GitHub Changelog",
+    "site": "The GitHub Blog",
+    "description": "If you haven’t chosen how to bill Copilot code review for members with a Copilot license, those reviews will be billed to your organization starting December 30, 2026. To keep…",
+    "image": "https://github.blog/wp-content/themes/github-2021-child/dist/img/social-v3-improvements.jpg",
+    "icon": "https://github.githubassets.com/favicon.ico"
+   },
+   "corner": "news",
+   "idea": null,
+   "guide": "guides/2026-11-28.html#news-1"
+  },
+  {
+   "label": "手元AIの速さ比べページ",
+   "points": [
+    "AMDの機種ごとに速さを比較",
+    "読む速さと書く速さを測定",
+    "毎週自動で測り直し、データも公開"
+   ],
+   "details": [
+    "Radeon 8060S と Radeon AI Pro R9700S で、モデルや軽量化（量子化）の方式ごとの速さを比べられます。",
+    "PP512 は512語分の質問を読む速さ、TG128 は128語分の答えを書く速さです。どちらも1秒あたりの量で示します。",
+    "公開の GitHub Actions で毎週測り、結果のファイルも誰でも見られます。"
+   ],
+   "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+   "lines": [
+    {
+     "say": "次は、自分のパソコンでエーアイを動かしたい人に役立つ話です。",
+     "show": "手元でAIを動かしたい人へ"
+    },
+    {
+     "say": "エーエムディーのパソコン部品で、エーアイがどれくらい速く動くかを比べられるページが公開されました。",
+     "show": "llama.cppのAMD向け速度比較ページが公開"
+    },
+    {
+     "say": "測っているのは、ラマ シーピーピーという、手元でエーアイを動かすための無料の道具です。",
+     "show": "llama.cpp＝手元でAIを動かす無料の道具"
+    },
+    {
+     "say": "質問を読む速さと、答えを書く速さを、モデルや、軽くする方法ごとに比べられます。",
+     "show": "読む速さ・書く速さを、モデルや量子化ごとに比較"
+    },
+    {
+     "say": "対象は、ライゼンとラデオンの一部の機種です。毎週自動で測り直していて、元のデータも公開されています。",
+     "show": "Ryzen・Radeonの一部機種、毎週自動で測定"
+    },
+    {
+     "say": "たとえば、部品を買う前に、使いたいモデルがどれくらいの速さで答えるかを確かめておくと、失敗が減りそうですね。",
+     "show": "部品を買う前の確認に使える"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+    "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+    "site": "huggingface.co",
+    "description": "A Blog post by ggml-org on Hugging Face",
+    "image": "https://cdn-uploads.huggingface.co/production/uploads/67289c93ff90038d9a6e5675/tbIvyMSISXCm64WYP3atl.png",
+    "icon": null
+   },
+   "corner": "news",
+   "idea": "部品を買う前に、使いたいモデルがどの軽さでどれくらいの速さで答えを書くかを、このページで確かめておくと失敗が減りそうです。",
+   "guide": "guides/2026-11-28.html#news-2"
+  },
+  {
+   "label": "Claude Codeの予約実行",
+   "points": [
+    "決まった時間や出来事で自動実行",
+    "PCを閉じていても動く",
+    "旧名routinesが今も残る",
+    "1時間に1回より多くは不可"
+   ],
+   "details": [
+    "きっかけは、時間（定期・1回だけ）、API の呼び出し、GitHub の出来事の3種類。組み合わせもできます。",
+    "インターネットの向こうのコンピューターで動くので、手元のパソコンの電源は関係ありません。",
+    "/schedule は /routines でも動き、Web の住所も claude.ai/code/routines のままです。",
+    "cron（時間の指定の書き方）は UTC で書きます。毎時の実行回数にも上限があります。"
+   ],
+   "url": "https://qiita.com/akihidem/items/4843f7374f096e9c7e07",
+   "lines": [
+    {
+     "say": "ここからは、エンジニアの実践ノウハウのコーナーです。",
+     "show": "エンジニアの実践ノウハウ"
+    },
+    {
+     "say": "一つ目は、クロード コードの予約実行、スケジュールド タスクの仕組みをまとめたキータの記事です。",
+     "show": "Qiita：Scheduled tasks（旧名routines）の基本"
+    },
+    {
+     "say": "決まった時間や、ギットハブでの出来事をきっかけに、クロード コードが自動で仕事を始める機能です。",
+     "show": "時間やGitHubの出来事をきっかけに自動実行"
+    },
+    {
+     "say": "動くのはインターネットの向こうのコンピューターなので、ノートパソコンを閉じていても実行されます。",
+     "show": "クラウドで動くので、PCを閉じてもOK"
+    },
+    {
+     "say": "前はルーティンという名前だったので、今もその名前が残る画面があります。記事はその見つけ方も整理しています。",
+     "show": "旧名「routines」が残る場所も整理"
+    },
+    {
+     "say": "注意は二つです。一時間に一回より多い間隔は設定できません。そして、やることと成功の条件を、指示に全部書いておきます。",
+     "show": "1時間に1回まで／依頼文は自己完結に"
+    },
+    {
+     "say": "たとえば、毎週月曜の朝に、先週の作業のまとめを作らせると、週の始めが楽になって面白そうですね。",
+     "show": "例：毎週月曜に先週のまとめを自動作成"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/akihidem/items/4843f7374f096e9c7e07",
+    "title": "Scheduled tasks（旧名 routines）の入口と基本仕様 - Qiita",
+    "site": "Qiita",
+    "description": "この記事では、公式ドキュメント（2026-11-28 取得）のうち、逐語照合を通過した記述だけをもとにまとめます。旧名 routines を手がかりに Scheduled tasks の入口を見つけるための仕様を整理し、作成手順・トリガー・上限も扱います。ドキュメントのメタ...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRmF2YXRhcnMxLmdpdGh1YnVzZXJjb250ZW50LmNvbSUyRnUlMkY2MjQ0MjY2MSUzRnYlM0Q0P2l4bGliPXJiLTQuMS4xJmFyPTElM0ExJmZpdD1jcm9wJm1hc2s9ZWxsaXBzZSZiZz1GRkZGRkYmZm09cG5nMzImcz04NGYwZTllMmExOTIwZGQwZDBjY2E0MmE0M2JmMTg5ZA%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3Debe36698ac94177ede7ce7a9e2b09dcc?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9U2NoZWR1bGVkJTIwdGFza3MlRUYlQkMlODglRTYlOTclQTclRTUlOTAlOEQlMjByb3V0aW5lcyVFRiVCQyU4OSVFMyU4MSVBRSVFNSU4NSVBNSVFNSU4RiVBMyVFMyU4MSVBOCVFNSU5RiVCQSVFNiU5QyVBQyVFNCVCQiU5NSVFNiVBNyU5OCZ0eHQtYWxpZ249bGVmdCUyQ3RvcCZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTU2JnR4dC1wYWQ9MCZzPTJlM2UyZjE4ZTgyOGJmMDhkYjBkNzc5MmRjZGMyOGM5&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBha2loaWRlbSZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPTY0MzhmYWFjYjIxMGY0MzZiNzg5NTE0MzRmZmM5YjVl&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=8aa09697b2edca3ed734b466852d1788",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "毎週月曜の朝に、先週の作業をまとめた報告と今週やることの候補を作らせると、週の始めがぐっと楽になりそうです。",
+   "guide": "guides/2026-11-28.html#news-3"
+  },
+  {
+   "label": "AIと長編小説を完成",
+   "points": [
+    "設定はAIの記憶でなくファイルに",
+    "1章＝1つの会話",
+    "字数はAIの自己申告でなく実測",
+    "点検は別のAIに任せる"
+   ],
+   "details": [
+    "登場人物や世界の設定を bible/ などのファイルに置き、CLAUDE.md で毎回読むよう指示しました。",
+    "次の章は新しい会話で始める運用で、道具を替えても話がずれなかったそうです。",
+    "AI は目標より短く書きがちなので、コマンドで数え、8割未満なら書き足す手順にしました。",
+    "/continuity-check で、読むだけの別の AI に、本文と設定を引用させて矛盾を探させました。"
+   ],
+   "url": "https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde",
+   "lines": [
+    {
+     "say": "二つ目は、エーアイと長い小説を一本書き上げた人の記録です。",
+     "show": "Qiita：AIと長編小説を書き上げるまで"
+    },
+    {
+     "say": "全十二章、約九万字の小説を、およそ四か月かけて完成させました。",
+     "show": "全12章・約9万字、約4か月"
+    },
+    {
+     "say": "コツは、登場人物や設定をエーアイの記憶に頼らず、ファイルに書いておき、毎回読ませることです。",
+     "show": "設定はAIの記憶でなくファイルに"
+    },
+    {
+     "say": "一つの章は一つの会話で書き、次の章は新しい会話で始めました。道具を替えても、話がずれなかったそうです。",
+     "show": "1章＝1つの会話。道具を替えてもずれない"
+    },
+    {
+     "say": "字数も、エーアイの自己申告ではなく、コマンドで実際に数えさせました。エーアイは目標より短く書きがちだからです。",
+     "show": "字数はAIの申告でなく実測"
+    },
+    {
+     "say": "決まった作業はスキル、つまりエーアイ用の手順書にして、矛盾の点検は別のエーアイに任せました。",
+     "show": "手順はスキルに、点検は別のAIに"
+    },
+    {
+     "say": "たとえば、ブログの連載やゲームのシナリオに同じ仕組みを使うと、何話続けても話がぶれずに面白そうですね。",
+     "show": "連載やシナリオ作りにも使える"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde",
+    "title": "【特別編】AI と長編小説を 1 本書き上げるまで ─ Claude Code・Codex・claude.ai とスキルで品質を支えた話 - Qiita",
+    "site": "Qiita",
+    "description": "2026 年 11 月時点の内容です。 Claude Code・Codex・claude.ai の機能や画面は変わることがあります。 はじめに いつもは Microsoft 製品の話を書いていますが、今回は特別編です。 この 4 か月ほど、仕事の合間に、AI と一...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRnFpaXRhLWltYWdlLXN0b3JlLnMzLmFwLW5vcnRoZWFzdC0xLmFtYXpvbmF3cy5jb20lMkYwJTJGMTI0MjQ0JTJGcHJvZmlsZS1pbWFnZXMlMkYxNzEwNjgzODcyP2l4bGliPXJiLTQuMS4xJmFyPTElM0ExJmZpdD1jcm9wJm1hc2s9ZWxsaXBzZSZiZz1GRkZGRkYmZm09cG5nMzImcz0xMjE3MWJkY2Q5ZWM4Y2QxMjIxNWUxYTNlMWQyYzVkZQ%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3D2a382f2d20959a1bc0d53883c60e9871?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9JUUzJTgwJTkwJUU3JTg5JUI5JUU1JTg4JUE1JUU3JUI3JUE4JUUzJTgwJTkxQUklMjAlRTMlODElQTglRTklOTUlQjclRTclQjclQTglRTUlQjAlOEYlRTglQUElQUMlRTMlODIlOTIlMjAxJTIwJUU2JTlDJUFDJUU2JTlCJUI4JUUzJTgxJThEJUU0JUI4JThBJUUzJTgxJTkyJUUzJTgyJThCJUUzJTgxJUJFJUUzJTgxJUE3JTIwJUUyJTk0JTgwJTIwQ2xhdWRlJTIwQ29kZSVFMyU4MyVCQkNvZGV4JUUzJTgzJUJCY2xhdWRlLmFpJTIwJUUzJTgxJUE4JUUzJTgyJUI5JUUzJTgyJUFEJUUzJTgzJUFCJUUzJTgxJUE3JUU1JTkzJTgxJUU4JUIzJUFBJUUzJTgyJTkyJUUyJTgwJUE2JnR4dC1hbGlnbj1sZWZ0JTJDdG9wJnR4dC1jb2xvcj0lMjMxRTIxMjEmdHh0LWZvbnQ9SGlyYWdpbm8lMjBTYW5zJTIwVzYmdHh0LXNpemU9NTYmdHh0LXBhZD0wJnM9OTdhMzBkZDQ3YjE5YTM5ZDZiNjNlZDZmZjNlMmM3ODE&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDB0YWRhbm9rJnR4dC1jb2xvcj0lMjMxRTIxMjEmdHh0LWZvbnQ9SGlyYWdpbm8lMjBTYW5zJTIwVzYmdHh0LXNpemU9MzYmdHh0LXBhZD0wJnM9ODQzNmFiNGI3YjFhNDI5ZDYwOTYzMjQzOTRmNGM4YmE&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=e1c410fb3f65712d4c19925f8275ce2a",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "ブログの連載やゲームのシナリオで、設定をファイルにまとめて毎回読ませる仕組みにすると、何話続けても話がぶれずに面白そうです。",
+   "guide": "guides/2026-11-28.html#news-4"
+  },
+  {
+   "label": "エージェントは仕組みで止める",
+   "points": [
+    "お願いでなく仕組みで制限",
+    "調べる会話と書く会話を分ける",
+    "完了はテスト結果で判断",
+    "分からなければ止まらせる"
+   ],
+   "details": [
+    "書き込める場所やネットの行き先を、システムの設定で区切ります。文章の禁止だけでは確実に守られないためです。",
+    "同じ失敗が3回続いたら、指示を直すより /rewind で前の状態に戻します。",
+    "AI の「できました」ではなく、テストや型チェックが通ったかどうかで完了とします。",
+    "不明な点は推測で進めず、選択肢を出して止まるよう依頼文に書きます。"
+   ],
+   "url": "https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9",
+   "lines": [
+    {
+     "say": "三つ目は、クロード コードをたくさん同時に動かすときの、決まりごとについてのゼンの記事です。",
+     "show": "Zenn：並列エージェントを「構造」で制御する"
+    },
+    {
+     "say": "筆者の考えはこうです。エーアイの暴走は、お願いの文章ではなく、仕組みで止めるべきだ。",
+     "show": "暴走はお願いでなく仕組みで止める"
+    },
+    {
+     "say": "まず、触ってよい場所を、システムの設定で区切ります。",
+     "show": "①触れる場所を設定で区切る"
+    },
+    {
+     "say": "次に、調べる作業と書く作業を別の会話に分けます。同じ失敗が三回続いたら、リワインド コマンドで前の状態に戻します。",
+     "show": "②調べる・書くを分ける／3回失敗で/rewind"
+    },
+    {
+     "say": "そして、エーアイの「できました」を信じず、テストが通ったかどうかだけで完了を決めます。",
+     "show": "③完了はテスト結果で判断"
+    },
+    {
+     "say": "記事は考え方の提案で、測った数字は載っていません。",
+     "show": "※考え方の提案（測定データはなし）"
+    },
+    {
+     "say": "たとえば、いつもの依頼文の最後に、分からないときは推測せずに止まって、と一行足すだけでも、試す価値がありそうです。",
+     "show": "例：「分からなければ止まって」と一行足す"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9",
+    "title": "Claude Code並列稼働の裏で起きる設計破綻——「自律エージェントの暴走」を構造で封じる制御プロトコル",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--I2Gi9FMO--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Claude%2520Code%25E4%25B8%25A6%25E5%2588%2597%25E7%25A8%25BC%25E5%2583%258D%25E3%2581%25AE%25E8%25A3%258F%25E3%2581%25A7%25E8%25B5%25B7%25E3%2581%258D%25E3%2582%258B%25E8%25A8%25AD%25E8%25A8%2588%25E7%25A0%25B4%25E7%25B6%25BB%25E2%2580%2594%25E2%2580%2594%25E3%2580%258C%25E8%2587%25AA%25E5%25BE%258B%25E3%2582%25A8%25E3%2583%25BC%25E3%2582%25B8%25E3%2582%25A7%25E3%2583%25B3%25E3%2583%2588%25E3%2581%25AE%25E6%259A%25B4%25E8%25B5%25B0%25E3%2580%258D%25E3%2582%2592%25E6%25A7%258B%25E9%2580%25A0%25E3%2581%25A7%25E5%25B0%2581%25E3%2581%2598%25E3%2582%258B%25E5%2588%25B6%25E5%25BE%25A1%25E3%2583%2597%25E3%2583%25AD%25E3%2583%2588%25E3%2582%25B3%25E3%2583%25AB%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:kekkai3an%25EF%25BD%259CArchitect%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyLzVhMDJkZmMxMjcuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "いつもの依頼文の最後に「分からないときは推測せず、選択肢を出して止まって」と一行足すだけでも、手戻りが減るか試す価値がありそうです。",
+   "guide": "guides/2026-11-28.html#news-5"
+  },
+  {
+   "label": "LTX-2.5で音つき短編",
+   "points": [
+    "映像と音を一緒に生成",
+    "ショット表で場面をつなぐ",
+    "音つき10秒を約23秒で生成",
+    "細部は間違えるので何回か作る"
+   ],
+   "details": [
+    "LTX-2.5 は Lightricks の約190億パラメータの動画生成モデルで、映像と音を同時に作ります。",
+    "ショットごとの説明を JSON の一覧に書き、from で前のショットの最後の場面から、to で次のショットの最初の場面へつなげます。",
+    "2048×1024 の音つき10秒の動画を、モデルを読み込んだ後は約22〜23秒で作れました（Trainium3 の半分を使用）。",
+    "筆者たちは、1ショットにつき4回ほど作って選ぶ作り方を勧めています。1ショットは最大20秒です。"
+   ],
+   "url": "https://huggingface.co/blog/video-trainium3",
+   "lines": [
+    {
+     "say": "最後は、クリエイティブエーアイのコーナーです。",
+     "show": "クリエイティブAI"
+    },
+    {
+     "say": "ハギングフェイスが、映像と音を一緒に作るエーアイ、エルティーエックス ツー ポイント ファイブで、短い映画を作った記録を公開しました。",
+     "show": "Hugging Face：LTX-2.5で音つき短編を生成"
+    },
+    {
+     "say": "使ったのは、エーダブリューエスのトレイニアム スリーという、エーアイ専用の計算機です。",
+     "show": "AWS Trainium3（AI専用の計算機）で実行"
+    },
+    {
+     "say": "面白いのは作り方です。ショットごとの説明を一覧表にして、前のショットの最後の場面から、次のショットを始められます。",
+     "show": "ショット表で、前の場面の終わりからつなぐ"
+    },
+    {
+     "say": "工夫を重ねて、音つきで十秒の動画を、約二十三秒で作れるところまで速くしました。",
+     "show": "音つき10秒の動画を約23秒で生成"
+    },
+    {
+     "say": "ただ、細かい部分はよく間違えるので、一つのショットを何回か作って選ぶのがよいそうです。",
+     "show": "細部は間違えるので、何回か作って選ぶ"
+    },
+    {
+     "say": "たとえば、自分の短い動画の絵コンテを、この形のショット表で書いておくと、動画エーアイに渡しやすくて面白そうですね。",
+     "show": "例：絵コンテをショット表で書いておく"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/video-trainium3",
+    "title": "Taking Trainium3 to the Track: Generating Videos with LTX-2.5",
+    "site": "huggingface.co",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "https://huggingface.co/blog/assets/video-trainium3/thumbnail.jpg",
+    "icon": null
+   },
+   "corner": "creative",
+   "idea": "自分の短い動画の絵コンテを、このショット表の形で書いておくと、場面のつながりを考えながら動画 AI に渡せて面白そうです。",
+   "guide": "guides/2026-11-28.html#news-6"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "/schedule に時間とやることを書く",
+    "ちょうど0分を避けて9:07のように",
+    "/schedule list で予約を確認",
+    "翌朝 History で結果を読む"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://code.claude.com/docs/en/routines",
+   "lines": [
+    {
+     "say": "では、今日の実験です。明日の朝に届く、きのうの作業まとめを、クロード コードに予約します。",
+     "show": "今日の実験：明日の朝の作業まとめを予約"
+    },
+    {
+     "say": "必要なのは、クロードの有料プランと、ギットハブにある自分のリポジトリです。リポジトリは、プログラムを置いておく場所のことです。",
+     "show": "準備：有料プランとGitHubのリポジトリ"
+    },
+    {
+     "say": "まず、そのリポジトリでクロード コードを開き、スケジュール コマンドに続けて、時間とやることを書きます。",
+     "show": "/schedule の後に時間とやることを書く"
+    },
+    {
+     "say": "やることは、きのうの記録を読んで五行でまとめ、次の作業を一つ提案すること。ファイルは変えないように書いておきます。",
+     "show": "内容：きのうの記録を5行でまとめる"
+    },
+    {
+     "say": "クロードが、時間や対象を確認してくるので、答えて保存します。ちょうど九時は遅れることがあるので、九時七分のように少しずらします。",
+     "show": "確認に答えて保存。時刻は9:07のように"
+    },
+    {
+     "say": "保存できたら、一覧を出すコマンドで、予約が入っているか確かめます。",
+     "show": "/schedule list で予約を確認"
+    },
+    {
+     "say": "明日の朝、実行の記録を開いて、まとめが書かれていれば成功です。",
+     "show": "翌朝、Historyでまとめを確認できれば成功"
+    }
+   ],
+   "link": {
+    "url": "https://code.claude.com/docs/en/routines",
+    "title": "Automate work with scheduled tasks - Claude Code Docs",
+    "site": "Claude Code Docs",
+    "description": "Put Claude Code on autopilot. Create scheduled tasks, formerly routines, that run in the cloud on a schedule, on API calls, or on GitHub events.",
+    "image": "https://claude-code.mintlify.site/docs/_mintlify/api/og/v2?division=Claude+Code+in+the+cloud&title=Automate+work+with+scheduled+tasks&description=Put+Claude+Code+on+autopilot.+Create+scheduled+tasks%2C+formerly+routines%2C+that+run+in+the+cloud+on+a+schedule%2C+on+API+calls%2C+or+on+GitHub+events.&theme=e2d30309a4005a9870b526a1&signature=acf066f756ffe5fb6b54f51e4647810c63420cd3785001223605d712af11d9da",
+    "icon": "https://code.claude.com/docs/mintlify-assets/_mintlify/favicons/claude-code/pLsy-mRpNksna2sx/_generated/favicon/android-chrome-192x192.png"
+   },
+   "corner": "experiment",
+   "name": "明日の朝の「きのうの作業まとめ」を予約する",
+   "guide": "guides/2026-11-28.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。クロード コードは、予約しておけば、パソコンを閉じていても決まった時間に働いてくれます。",
+   "show": "要点：Claude Codeは予約で自動実行できる"
+  },
+  {
+   "say": "長い仕事では、設定はファイルに置き、字数や完了はテストやコマンドで確かめる。これが品質を守るコツでした。",
+   "show": "設定はファイルに、確認は機械で"
+  },
+  {
+   "say": "今日やってみることは、明日の朝の作業まとめを、一つ予約することです。",
+   "show": "今日やること：明日の朝のまとめを予約"
+  },
+  {
+   "say": "エーアイ ディスカバリー アンド ビルド ラジオ、また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio　また明日"
+  }
+ ],
+ "highlight": 6,
+ "guide": "guides/2026-11-28.html",
+ "seconds": 442.37,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 10.181,
+   "show": "AI Discovery & Build Radio　2026年11月28日（土）",
+   "part": 0
+  },
+  {
+   "start": 10.431,
+   "end": 17.664,
+   "show": "今日の注目：Claude Codeの予約実行",
+   "part": 0
+  },
+  {
+   "start": 17.914,
+   "end": 26.467,
+   "show": "AIと長編小説、エージェントの制御など",
+   "part": 0
+  },
+  {
+   "start": 26.717,
+   "end": 33.164,
+   "show": "今日の実験：明日の朝の作業まとめを予約",
+   "part": 0
+  },
+  {
+   "start": 34.064,
+   "end": 37.478,
+   "show": "GitHubからのお知らせ",
+   "part": 1
+  },
+  {
+   "start": 37.728,
+   "end": 43.642,
+   "show": "Copilotコードレビューの請求先の初期設定が変更",
+   "part": 1
+  },
+  {
+   "start": 43.892,
+   "end": 50.315,
+   "show": "コードレビュー＝AIがコードを読んで指摘",
+   "part": 1
+  },
+  {
+   "start": 50.565,
+   "end": 57.544,
+   "show": "12月30日から、未設定なら組織に請求",
+   "part": 1
+  },
+  {
+   "start": 57.794,
+   "end": 65.155,
+   "show": "今のままなら、期限前に「Member」を選ぶ",
+   "part": 1
+  },
+  {
+   "start": 65.405,
+   "end": 71.331,
+   "show": "チームで使う人は設定画面を確認",
+   "part": 1
+  },
+  {
+   "start": 72.231,
+   "end": 77.855,
+   "show": "手元でAIを動かしたい人へ",
+   "part": 2
+  },
+  {
+   "start": 78.105,
+   "end": 85.478,
+   "show": "llama.cppのAMD向け速度比較ページが公開",
+   "part": 2
+  },
+  {
+   "start": 85.728,
+   "end": 92.51,
+   "show": "llama.cpp＝手元でAIを動かす無料の道具",
+   "part": 2
+  },
+  {
+   "start": 92.76,
+   "end": 100.213,
+   "show": "読む速さ・書く速さを、モデルや量子化ごとに比較",
+   "part": 2
+  },
+  {
+   "start": 100.463,
+   "end": 109.78,
+   "show": "Ryzen・Radeonの一部機種、毎週自動で測定",
+   "part": 2
+  },
+  {
+   "start": 110.03,
+   "end": 118.826,
+   "show": "部品を買う前の確認に使える",
+   "part": 2
+  },
+  {
+   "start": 119.726,
+   "end": 124.089,
+   "show": "エンジニアの実践ノウハウ",
+   "part": 3
+  },
+  {
+   "start": 124.339,
+   "end": 131.549,
+   "show": "Qiita：Scheduled tasks（旧名routines）の基本",
+   "part": 3
+  },
+  {
+   "start": 131.799,
+   "end": 139.379,
+   "show": "時間やGitHubの出来事をきっかけに自動実行",
+   "part": 3
+  },
+  {
+   "start": 139.629,
+   "end": 146.7,
+   "show": "クラウドで動くので、PCを閉じてもOK",
+   "part": 3
+  },
+  {
+   "start": 146.95,
+   "end": 156.244,
+   "show": "旧名「routines」が残る場所も整理",
+   "part": 3
+  },
+  {
+   "start": 156.494,
+   "end": 168.495,
+   "show": "1時間に1回まで／依頼文は自己完結に",
+   "part": 3
+  },
+  {
+   "start": 168.745,
+   "end": 177.753,
+   "show": "例：毎週月曜に先週のまとめを自動作成",
+   "part": 3
+  },
+  {
+   "start": 178.653,
+   "end": 184.266,
+   "show": "Qiita：AIと長編小説を書き上げるまで",
+   "part": 4
+  },
+  {
+   "start": 184.516,
+   "end": 191.032,
+   "show": "全12章・約9万字、約4か月",
+   "part": 4
+  },
+  {
+   "start": 191.282,
+   "end": 199.509,
+   "show": "設定はAIの記憶でなくファイルに",
+   "part": 4
+  },
+  {
+   "start": 199.759,
+   "end": 209.932,
+   "show": "1章＝1つの会話。道具を替えてもずれない",
+   "part": 4
+  },
+  {
+   "start": 210.182,
+   "end": 220.367,
+   "show": "字数はAIの申告でなく実測",
+   "part": 4
+  },
+  {
+   "start": 220.617,
+   "end": 228.295,
+   "show": "手順はスキルに、点検は別のAIに",
+   "part": 4
+  },
+  {
+   "start": 228.545,
+   "end": 237.533,
+   "show": "連載やシナリオ作りにも使える",
+   "part": 4
+  },
+  {
+   "start": 238.433,
+   "end": 245.562,
+   "show": "Zenn：並列エージェントを「構造」で制御する",
+   "part": 5
+  },
+  {
+   "start": 245.812,
+   "end": 253.937,
+   "show": "暴走はお願いでなく仕組みで止める",
+   "part": 5
+  },
+  {
+   "start": 254.187,
+   "end": 258.967,
+   "show": "①触れる場所を設定で区切る",
+   "part": 5
+  },
+  {
+   "start": 259.217,
+   "end": 269.922,
+   "show": "②調べる・書くを分ける／3回失敗で/rewind",
+   "part": 5
+  },
+  {
+   "start": 270.172,
+   "end": 277.151,
+   "show": "③完了はテスト結果で判断",
+   "part": 5
+  },
+  {
+   "start": 277.401,
+   "end": 282.227,
+   "show": "※考え方の提案（測定データはなし）",
+   "part": 5
+  },
+  {
+   "start": 282.477,
+   "end": 292.002,
+   "show": "例：「分からなければ止まって」と一行足す",
+   "part": 5
+  },
+  {
+   "start": 292.902,
+   "end": 296.583,
+   "show": "クリエイティブAI",
+   "part": 6
+  },
+  {
+   "start": 296.833,
+   "end": 306.693,
+   "show": "Hugging Face：LTX-2.5で音つき短編を生成",
+   "part": 6
+  },
+  {
+   "start": 306.943,
+   "end": 313.586,
+   "show": "AWS Trainium3（AI専用の計算機）で実行",
+   "part": 6
+  },
+  {
+   "start": 313.836,
+   "end": 324.003,
+   "show": "ショット表で、前の場面の終わりからつなぐ",
+   "part": 6
+  },
+  {
+   "start": 324.253,
+   "end": 331.729,
+   "show": "音つき10秒の動画を約23秒で生成",
+   "part": 6
+  },
+  {
+   "start": 331.979,
+   "end": 339.097,
+   "show": "細部は間違えるので、何回か作って選ぶ",
+   "part": 6
+  },
+  {
+   "start": 339.347,
+   "end": 348.686,
+   "show": "例：絵コンテをショット表で書いておく",
+   "part": 6
+  },
+  {
+   "start": 349.586,
+   "end": 358.047,
+   "show": "今日の実験：明日の朝の作業まとめを予約",
+   "part": 7
+  },
+  {
+   "start": 358.297,
+   "end": 368.759,
+   "show": "準備：有料プランとGitHubのリポジトリ",
+   "part": 7
+  },
+  {
+   "start": 369.009,
+   "end": 376.796,
+   "show": "/schedule の後に時間とやることを書く",
+   "part": 7
+  },
+  {
+   "start": 377.046,
+   "end": 386.837,
+   "show": "内容：きのうの記録を5行でまとめる",
+   "part": 7
+  },
+  {
+   "start": 387.087,
+   "end": 398.372,
+   "show": "確認に答えて保存。時刻は9:07のように",
+   "part": 7
+  },
+  {
+   "start": 398.622,
+   "end": 404.397,
+   "show": "/schedule list で予約を確認",
+   "part": 7
+  },
+  {
+   "start": 404.647,
+   "end": 410.445,
+   "show": "翌朝、Historyでまとめを確認できれば成功",
+   "part": 7
+  },
+  {
+   "start": 411.345,
+   "end": 420.349,
+   "show": "要点：Claude Codeは予約で自動実行できる",
+   "part": 8
+  },
+  {
+   "start": 420.599,
+   "end": 430.206,
+   "show": "設定はファイルに、確認は機械で",
+   "part": 8
+  },
+  {
+   "start": 430.456,
+   "end": 436.485,
+   "show": "今日やること：明日の朝のまとめを予約",
+   "part": 8
+  },
+  {
+   "start": 436.735,
+   "end": 441.77,
+   "show": "AI Discovery & Build Radio　また明日",
+   "part": 8
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 34.064
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 34.064,
+   "end": 72.231
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 72.231,
+   "end": 119.726
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 119.726,
+   "end": 178.653
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 178.653,
+   "end": 238.433
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 238.433,
+   "end": 292.902
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 292.902,
+   "end": 349.586
+  },
+  {
+   "kind": "news",
+   "index": 6,
+   "start": 349.586,
+   "end": 411.345
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 411.345,
+   "end": 442.37
+  }
+ ],
+ "made_at": "2026-11-28T07:16:57",
+ "tts": {
+  "provider": "azure",
+  "chars": 4877,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}

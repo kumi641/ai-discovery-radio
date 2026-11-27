@@ -486,5 +486,53 @@
   "publisher": "Qiita",
   "corner": "practice",
   "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
+  "title": "GitHub、Copilot コードレビューの請求先を選んでいない組織は、2026年12月30日から組織への請求が初期設定に",
+  "publisher": "GitHub",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+  "title": "Hugging Face と ggml-org、AMD の Ryzen・Radeon で llama.cpp の速さを比べられるダッシュボードを公開",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://qiita.com/akihidem/items/4843f7374f096e9c7e07",
+  "title": "Qiita：Claude Code の Scheduled tasks（旧名 routines）の入口と基本仕様。作り方、きっかけの種類、上限を公式ドキュメントから整理",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": "明日の朝の「きのうの作業まとめ」を予約する"
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde",
+  "title": "Qiita：Claude Code・Codex・claude.ai とスキルで、全12章・約9万字の長編小説を書き上げた記録。設定はファイルを正典にし、字数は実測、点検は別のAIに",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9",
+  "title": "Zenn：Claude Code を並列で動かすときの破綻は設計の問題。権限の隔離・作業と文脈の分離・テストによる出力ゲートで「間違えられない構造」を作る提案",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://huggingface.co/blog/video-trainium3",
+  "title": "Hugging Face、映像と音を一緒に生成する LTX-2.5 を AWS Trainium3 で動かし、ショット表から短編を作る手順と高速化の工夫を公開",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
  }
 ]

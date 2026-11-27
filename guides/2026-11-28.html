@@ -1,0 +1,263 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Codeの予約実行と、AIと長編小説｜実践ガイド 2026-11-28</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-28/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月28日（土）・放送 約7分</div>
+<h1>Claude Codeの予約実行と、AIと長編小説</h1>
+<p class="lead">大きな新モデルの発表はない一日でした。そのぶん、Claude Code を決まった時間に自動で動かす方法や、AI と長い作品を作るときに品質を保つ工夫など、すぐ手を動かせる実践の話題が集まりました。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：明日の朝の「きのうの作業まとめ」を予約する</a></li>
+<li><a href="#news-1">GitHub、Copilot コードレビューの請求先を選んでいない組織は、2026年12月30日から組織への請求が初期設定に</a></li>
+<li><a href="#news-2">Hugging Face と ggml-org、AMD の Ryzen・Radeon で llama.cpp の速さを比べられるダッシュボードを公開</a></li>
+<li><a href="#news-3">Qiita：Claude Code の Scheduled tasks（旧名 routines）の入口と基本仕様。作り方、きっかけの種類、上限を公式ドキュメントから整理</a></li>
+<li><a href="#news-4">Qiita：Claude Code・Codex・claude.ai とスキルで、全12章・約9万字の長編小説を書き上げた記録。設定はファイルを正典にし、字数は実測、点検は別のAIに</a></li>
+<li><a href="#news-5">Zenn：Claude Code を並列で動かすときの破綻は設計の問題。権限の隔離・作業と文脈の分離・テストによる出力ゲートで「間違えられない構造」を作る提案</a></li>
+<li><a href="#news-6">Hugging Face、映像と音を一緒に生成する LTX-2.5 を AWS Trainium3 で動かし、ショット表から短編を作る手順と高速化の工夫を公開</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>明日の朝の「きのうの作業まとめ」を予約する</h2>
+<div class="meta">関連ニュース：<a href="#news-3">Qiita：Claude Code の Scheduled tasks（旧名 routines）の入口と基本仕様。作り方、きっかけの種類、上限を公式ドキュメントから整理</a></div>
+<div class="task"><h4>実験：明日の朝の「きのうの作業まとめ」を予約する</h4><dl class="kv"><dt>目的</dt><dd>Claude Code の Scheduled tasks で1回だけの予約を作り、パソコンを閉じていても決まった時間に仕事をしてくれることを確かめる</dd><dt>使用ツール</dt><dd>Claude Code（CLI）、GitHub、claude.ai（Web）</dd><dt>必要な準備</dt><dd>Claude の Pro・Max・Ultra・Team・Enterprise のどれかのプラン、claude.ai のサブスクリプションで Claude Code にログインしておく（API キーでのログインでは /schedule は使えない）、GitHub にある自分のリポジトリ（最近のコミットがあるもの）と、Claude からそのリポジトリへのアクセス</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>Pro 以上の有料プランが必要（利用量はふだんのセッションと同じように消費）</dd><dt>無料の代替</dt><dd>予約はできないが、同じ依頼文を次の朝にふだんの Claude Code で手動で実行する</dd></dl><b>手順</b><ol><li>自分のリポジトリのフォルダで Claude Code を開く</li><li>下のコマンドを入力する（時間は、ちょうど0分を避けて9:07のように少しずらす）</li><li>Claude が時間・リポジトリ・依頼文を確認してくるので、答えてから保存する。最後に表示される実行の日時が、思った時間か確かめる</li><li>/schedule list を入力して、予約が一覧に出ているか確かめる</li><li>次の朝、claude.ai/code/routines でそのタスクを開き、History から実行の記録を開いてまとめを読む</li><li>うまくいったら、/schedule update で毎週の予約に変えるか考える</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>/schedule tomorrow at 9:07am, read the commits made in this repository yesterday and write a 5-line summary in Japanese, then suggest one next task. Do not change any files.</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/routines</a></div><dl class="kv"><dt>完成するもの</dt><dd>明日の朝9時すぎに自動で作られる、きのうの作業の5行まとめ</dd><dt>確認方法</dt><dd>次の朝、タスクの History に実行の記録があり、開くと日本語の5行まとめと次の作業の提案が書かれている。実行後、1回だけの予約は Completed になっている</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/routines</a>　<a href="https://qiita.com/akihidem/items/4843f7374f096e9c7e07" target="_blank" rel="noopener noreferrer">https://qiita.com/akihidem/items/4843f7374f096e9c7e07</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-28 明日の朝の「きのうの作業まとめ」を予約する
+- 参考ニュース: Qiita：Claude Code の Scheduled tasks（旧名 routines）の入口と基本仕様。作り方、きっかけの種類、上限を公式ドキュメントから整理
+- ガイド: guides/2026-11-28.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">59</span>/100</span>
+<h2>1. GitHub、Copilot コードレビューの請求先を選んでいない組織は、2026年12月30日から組織への請求が初期設定に</h2>
+<div class="meta">GitHub・公開 2026-11-25 22:18</div>
+<div class="meta">出典：<a href="https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization" target="_blank" rel="noopener noreferrer">https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization</a></div>
+<p class="concl"><b>結論：</b>GitHub は、Copilot のコードレビュー（AI がコードを読んで問題を指摘する機能）の料金を誰が払うかについて、初期設定を変えると発表しました。請求先を選んでいない組織では、2026年12月30日から組織への請求になります。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>12月30日から初期設定が変更</b>：Copilot のライセンスを持つメンバーのコードレビューについて、請求先の初期設定が変わります。</li>
+<li><b>未設定なら組織に請求</b>：請求先を選んでいない場合、リポジトリを持つ組織に請求されます。組織の支出が増えることがあります。</li>
+<li><b>Memberを選べば今のまま</b>：期限までに設定で Member を選ぶと、メンバー自身の利用枠を使う今の形が続きます。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>これまでは、請求先が未設定ならメンバー自身の Copilot の利用枠が使われていました。12月30日からは、未設定の場合はリポジトリを持つ組織への請求になります。</dd>
+<dt>なぜ重要か</dt><dd>気づかないままだと、組織の支払いが増えることがあります。組織への請求には、AI クレジットの有料利用を有効にしておく必要があります。</dd>
+<dt>従来との違い</dt><dd>すでに Member か Organization を選んでいる場合は、その設定がそのまま残ります。ライセンスのないメンバー向けの設定は変わりません。</dd></dl><ul>
+<li>対象は Copilot Business と Copilot Enterprise で、請求先を選んでいない組織と企業</li>
+<li>AI クレジットの有料利用が無効などの場合は、Member に設定される</li>
+<li>企業が設定を管理している場合は、企業のオーナーが選ぶ</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>チームで Copilot を使う個人開発者や小さなチームの、月々の費用の見直し</li>
+</ul>
+<div class="task"><h4>今日すぐできること：コードレビューの請求先を確認する</h4><dl class="kv"><dt>目的</dt><dd>12月30日の前に、自分の組織の請求先が意図どおりか確かめる</dd><dt>使用ツール</dt><dd>GitHub</dd><dt>必要な準備</dt><dd>GitHub の組織の管理者の権限</dd><dt>所要時間</dt><dd>約5分</dd><dt>費用</dt><dd>設定の確認は無料</dd></dl><b>手順</b><ol><li>GitHub で自分の組織を開き、Settings &gt; Copilot &gt; Code review を開く</li><li>General にある「Choose how members with a Copilot license are billed」の設定を見る</li><li>今のままメンバーの利用枠で払いたいなら Member を選んで保存する</li><li>組織で払うなら Organization を選び、AI クレジットの有料利用が有効か確かめる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>チーム向けの連絡文を作ってください。内容：GitHub Copilot のコードレビューの請求先は、未設定のままだと2026年12月30日から組織への請求になります。今の設定は〔Member / Organization / 未設定〕です。これからどうするかを、3行で分かりやすく書いてください。</pre></div><div class="meta">出典：<a href="https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization" target="_blank" rel="noopener noreferrer">https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization</a></div><dl class="kv"><dt>完成するもの</dt><dd>請求先を決めた組織の設定</dd><dt>確認方法</dt><dd>設定画面で、請求先が Member か Organization のどちらかに保存されている</dd></dl><div class="meta">参考：<a href="https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization" target="_blank" rel="noopener noreferrer">https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization</a>　<a href="https://docs.github.com/copilot/how-tos/copilot-on-github/set-up-copilot/configure-code-review" target="_blank" rel="noopener noreferrer">https://docs.github.com/copilot/how-tos/copilot-on-github/set-up-copilot/configure-code-review</a></div></div>
+<h4>発展：AIツールの契約と期限のメモ帳（30分〜1時間）</h4><p>使っている AI ツールの請求先・期限・設定場所を1つのファイルにまとめ、変更のお知らせが出たら AI に追記させる。</p><ol>
+<li>使っている AI ツールと請求先を表に書き出す</li>
+<li>今回のような期限つきのお知らせを、日付つきで追記する</li>
+<li>月に1回、AI に表を読ませて期限が近いものを挙げさせる</li>
+</ol>
+<h3>利用条件・料金</h3><p>組織への請求には AI クレジットの有料利用が必要。具体的な金額は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：高：設定画面で選ぶだけ。ただし組織の管理者の権限が必要。<br>信頼性：GitHub Changelog の本文と、GitHub Docs の設定ページで確認。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">69</span>/100</span>
+<h2>2. Hugging Face と ggml-org、AMD の Ryzen・Radeon で llama.cpp の速さを比べられるダッシュボードを公開</h2>
+<div class="meta">Hugging Face・公開 2026-11-26 11:37</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/ggml-org/llamacpp-amd-bench" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/ggml-org/llamacpp-amd-bench</a></div>
+<p class="concl"><b>結論：</b>手元のパソコンでAIを動かす道具 llama.cpp が、AMD の部品でどれくらい速く動くかを比べられるページが公開されました。モデル、軽量化の方式、llama.cpp の版ごとに結果を見られます。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>部品を買う前に、使いたいモデルがどの軽さでどれくらいの速さで答えを書くかを、このページで確かめておくと失敗が減りそうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>AMDの機種ごとに速さを比較</b>：Radeon 8060S と Radeon AI Pro R9700S で、モデルや軽量化（量子化）の方式ごとの速さを比べられます。</li>
+<li><b>読む速さと書く速さを測定</b>：PP512 は512語分の質問を読む速さ、TG128 は128語分の答えを書く速さです。どちらも1秒あたりの量で示します。</li>
+<li><b>毎週自動で測り直し、データも公開</b>：公開の GitHub Actions で毎週測り、結果のファイルも誰でも見られます。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>決まった機種・決まった手順で毎週自動で測った結果を、版ごとの変化や、会話が長くなったときの速さまで含めて一か所で見られるようになりました。</dd>
+<dt>なぜ重要か</dt><dd>これまでは、ネットの体験談を集めて速さを推測するしかありませんでした。同じ条件で測った数字があると、どのモデルをどの軽さで動かすか決めやすくなります。</dd>
+<dt>従来との違い</dt><dd>個人の測定ではなく、公開された自動の仕組みで、Flash Attention のあり・なしを10回ずつ測っています。</dd></dl><ul>
+<li>llama-bench という測定用の道具で、llama-install.sh で配られている完成版のプログラムを測る</li>
+<li>Overview・Build history・Context scaling の3つのタブ</li>
+<li>データは Hugging Face のストレージに「版/機種/モデル/量子化.jsonl」の形で置かれている</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>パソコン部品を買う前に、使いたいモデルの速さを確かめる</li>
+<li>自分の環境で測った速さと比べて、設定が正しいか確かめる</li>
+<li>エージェントに使う小さなモデルの軽さを選ぶ</li>
+</ul>
+<div class="task"><h4>今日すぐできること：速さ比べページで軽さの違いを見る</h4><dl class="kv"><dt>目的</dt><dd>同じモデルでも、軽量化の方式で速さがどれだけ違うかをつかむ</dd><dt>使用ツール</dt><dd>ブラウザ</dd><dt>必要な準備</dt><dd>なし（ブラウザだけ）</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>ダッシュボードを開き、Hardware Model で機種を1つ選ぶ</li><li>Overview タブで、1つのモデルの軽量化の方式ごとの結果を見る</li><li>Sort by で TG（答えを書く速さ）の速い順に並べる</li><li>Q4_K_M と Q8_0 の答えを書く速さをメモして比べる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>llama.cpp のベンチマークの PP512 と TG128 は何を表していますか。チャットで使うときに、どちらの数字を重視すればよいかも、中学生にも分かるように説明してください。</pre></div><div class="meta">出典：<a href="https://huggingface.co/blog/ggml-org/llamacpp-amd-bench" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/ggml-org/llamacpp-amd-bench</a></div><dl class="kv"><dt>完成するもの</dt><dd>軽量化の方式ごとの速さのメモ</dd><dt>確認方法</dt><dd>同じモデルで、2つの軽量化の方式の答えを書く速さ（TG128）をメモできた</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/ggml-org/llamacpp-amd-bench" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/ggml-org/llamacpp-amd-bench</a>　<a href="https://ggml-org-llamacpp-amd-bench.static.hf.space/index.html" target="_blank" rel="noopener noreferrer">https://ggml-org-llamacpp-amd-bench.static.hf.space/index.html</a></div></div>
+<h4>発展：自分のパソコンの速さ記録をつけて公開データと比べる（1〜2時間）</h4><p>llama-bench で自分のパソコンの速さを測り、ダッシュボードの公開データと並べて表にする。</p><ol>
+<li>llama.cpp を入れ、README の例を見ながら llama-bench で手元のモデルを測る</li>
+<li>結果の PP と TG を表に記録する</li>
+<li>ダッシュボードの data source から同じモデルのデータを開き、近い機種の数字と比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>ページの閲覧は無料。llama.cpp はオープンソース。</p>
+<div class="meta">実践可能性：高：ブラウザで見るだけ。自分で測るには対応するパソコンと llama.cpp が必要。<br>信頼性：Hugging Face ブログの本文と、ダッシュボードのページ、llama-bench の README で確認。</div></section>
+<section class="card" id="news-3"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">82</span>/100</span>
+<h2>3. Qiita：Claude Code の Scheduled tasks（旧名 routines）の入口と基本仕様。作り方、きっかけの種類、上限を公式ドキュメントから整理</h2>
+<div class="meta">Qiita・公開 2026-11-27 17:56</div>
+<div class="meta">出典：<a href="https://qiita.com/akihidem/items/4843f7374f096e9c7e07" target="_blank" rel="noopener noreferrer">https://qiita.com/akihidem/items/4843f7374f096e9c7e07</a></div>
+<p class="concl"><b>結論：</b>Claude Code の Scheduled tasks は、依頼文・リポジトリ・つなぐサービスをまとめて保存し、決まったきっかけで自動で動かす機能です。記事は、旧名 routines を手がかりに入口を見つけ、作り方ときっかけ、上限を公式ドキュメントから整理しています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>毎週月曜の朝に、先週の作業をまとめた報告と今週やることの候補を作らせると、週の始めがぐっと楽になりそうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>決まった時間や出来事で自動実行</b>：きっかけは、時間（定期・1回だけ）、API の呼び出し、GitHub の出来事の3種類。組み合わせもできます。</li>
+<li><b>PCを閉じていても動く</b>：インターネットの向こうのコンピューターで動くので、手元のパソコンの電源は関係ありません。</li>
+<li><b>旧名routinesが今も残る</b>：/schedule は /routines でも動き、Web の住所も claude.ai/code/routines のままです。</li>
+<li><b>1時間に1回より多くは不可</b>：cron（時間の指定の書き方）は UTC で書きます。毎時の実行回数にも上限があります。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>名前が routines から Scheduled tasks に変わり、画面によって表記がまちまちです。記事は、どこに旧名が残っているかと、作るときの注意点をまとめています。</dd>
+<dt>なぜ重要か</dt><dd>自分のパソコンを付けっぱなしにしなくても、毎朝のまとめや週ごとの点検を Claude Code に任せられます。仕組みと上限を知っておくと、思ったとおりに動かないときに迷いません。</dd>
+<dt>従来との違い</dt><dd>/loop やデスクトップの予約タスクは手元のパソコンで動きます。Scheduled tasks はクラウドで動くので、パソコンを閉じていても実行されます。</dd></dl><ul>
+<li>実行はひとりで進むので、依頼文にやることと成功の条件を全部書く</li>
+<li>つないでいるサービス（コネクタ）は初期状態で全部含まれるので、いらないものは外す</li>
+<li>ちょうど0分の指定は数分遅れることがあるので、9:07 のように少しずらす</li>
+<li>GitHub との接続が切れたまま72時間たつと、タスクは止まる</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>毎朝、前日のコミットをまとめさせる</li>
+<li>毎週、ドキュメントと実装のずれを点検させる</li>
+<li>PR が開いたら、自分のチェックリストでレビューさせる</li>
+</ul>
+<div class="task"><h4>今日すぐできること：予約タスクの一覧と上限を確かめる</h4><dl class="kv"><dt>目的</dt><dd>自分のアカウントで予約タスクが使えるか、今どんな予約があるかを知る</dd><dt>使用ツール</dt><dd>Claude Code（CLI）</dd><dt>必要な準備</dt><dd>claude.ai のサブスクリプションで Claude Code にログインしておく</dd><dt>所要時間</dt><dd>約5分</dd><dt>費用</dt><dd>Pro 以上の有料プランが必要</dd><dt>無料の代替</dt><dd>予約はできないが、同じ依頼文をふだんの Claude Code で手動で実行する</dd></dl><b>手順</b><ol><li>Claude Code を開き、/schedule list を入力する</li><li>一覧が出れば利用できる状態。Unknown command と出たら、ログイン方法をドキュメントのトラブルシューティングで確かめる</li><li>公式ドキュメントの Usage and limits の表を読み、1時間あたりの上限を確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>/schedule list</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/routines</a></div><dl class="kv"><dt>完成するもの</dt><dd>自分の予約タスクの一覧</dd><dt>確認方法</dt><dd>/schedule list で一覧（または予約がないという返事）が表示される</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/routines" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/routines</a>　<a href="https://qiita.com/akihidem/items/4843f7374f096e9c7e07" target="_blank" rel="noopener noreferrer">https://qiita.com/akihidem/items/4843f7374f096e9c7e07</a></div></div>
+<h4>発展：GitHub の PR に反応する自分専用レビュー係（1〜2時間）</h4><p>PR が開かれたら、自分のチェックリストでコメントを付ける予約タスクを作る。</p><ol>
+<li>リポジトリにレビューのチェックリストを書いたファイルを置く</li>
+<li>Web の claude.ai/code/routines で新しいタスクを作り、依頼文でチェックリストを読むよう指示する</li>
+<li>GitHub event のきっかけで pull_request.opened を選び、下書きの PR は除くフィルターを付ける</li>
+<li>試しに PR を開き、History から実行の記録を確かめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>Pro・Max・Ultra・Team・Enterprise プランで利用可能（研究段階の機能で、仕様は変わることがある）。利用量はふだんのセッションと同じように消費。</p>
+<div class="meta">実践可能性：高：有料プランがあれば、CLI の /schedule か Web からすぐ作れる。<br>信頼性：Qiita の記事本文と、Claude Code 公式ドキュメント（Automate work with scheduled tasks）で確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">74</span>/100</span>
+<h2>4. Qiita：Claude Code・Codex・claude.ai とスキルで、全12章・約9万字の長編小説を書き上げた記録。設定はファイルを正典にし、字数は実測、点検は別のAIに</h2>
+<div class="meta">Qiita・公開 2026-11-27 21:00</div>
+<div class="meta">出典：<a href="https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde" target="_blank" rel="noopener noreferrer">https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde</a></div>
+<p class="concl"><b>結論：</b>筆者は約4か月かけて、AI と全12章・約9万字の長編小説を完成させました。記事は作品の中身ではなく、長い仕事を AI に任せながら品質を保つための仕組みと失敗談をまとめています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>ブログの連載やゲームのシナリオで、設定をファイルにまとめて毎回読ませる仕組みにすると、何話続けても話がぶれずに面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>設定はAIの記憶でなくファイルに</b>：登場人物や世界の設定を bible/ などのファイルに置き、CLAUDE.md で毎回読むよう指示しました。</li>
+<li><b>1章＝1つの会話</b>：次の章は新しい会話で始める運用で、道具を替えても話がずれなかったそうです。</li>
+<li><b>字数はAIの自己申告でなく実測</b>：AI は目標より短く書きがちなので、コマンドで数え、8割未満なら書き足す手順にしました。</li>
+<li><b>点検は別のAIに任せる</b>：/continuity-check で、読むだけの別の AI に、本文と設定を引用させて矛盾を探させました。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>Claude Code と Codex を途中で乗り換えても話がずれないよう、作品の事実をすべてファイルに置き、4つのスキル（AI に渡す作業の手順書）で書く・直す・点検する・本にするを分けた点です。</dd>
+<dt>なぜ重要か</dt><dd>長い制作では、AI の会話の記憶に頼ると設定を取り違えます。小説に限らず、連載やゲームのシナリオなど、長く続く制作にそのまま使える考え方です。</dd>
+<dt>従来との違い</dt><dd>AI に一気に書かせるのではなく、1章ずつ新しい会話で、決まった手順と機械の確認を通して書いています。</dd></dl><ul>
+<li>/write-chapter・/polish・/continuity-check・/build-book の4つのスキル</li>
+<li>推敲は指摘で止め、直すかどうかは作者が選ぶ</li>
+<li>wc -m は UTF-8 の環境でないとバイト数を返し、6,792字の章が20,336と出た失敗</li>
+<li>Claude 用と Codex 用のスキルが食い違ったので、スキルは1か所で管理すべきという教訓</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>ブログの連載やシナリオの設定をファイルで管理する</li>
+<li>字数や形式を、AI の自己申告ではなくスクリプトで確かめる</li>
+<li>書く AI と点検する AI を分ける</li>
+</ul>
+<div class="task"><h4>今日すぐできること：AIの字数の自己申告を実測と比べる</h4><dl class="kv"><dt>目的</dt><dd>AI が書いた文章の字数を、見積もりではなく実際に数える習慣を作る</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code が使える状態、AI に書かせた文章のファイルを1つ用意する</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>Claude Code のプランの範囲内</dd><dt>無料の代替</dt><dd>テキストエディタの文字数表示で数えて比べる</dd></dl><b>手順</b><ol><li>Claude Code に、文章のファイルを読ませて字数を「見積もり」で答えさせる</li><li>続けて下の依頼文で、スクリプトを使って実際に数えさせる</li><li>見積もりと実測の差を比べる</li><li>差が大きければ、字数の確認をいつもの手順に入れる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このファイルの字数を、あなたの見積もりではなく、文字数を数えるスクリプトを書いて実際に数えてください。日本語なので、バイト数ではなく文字数になっていることも確かめてください。目標は〔　〕字です。8割に届かなければ、書き足す場所の候補を3つ挙げてください。まだ本文は直さないでください。</pre></div><div class="meta">出典：<a href="https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde" target="_blank" rel="noopener noreferrer">https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde</a></div><dl class="kv"><dt>完成するもの</dt><dd>見積もりと実測の字数の比較</dd><dt>確認方法</dt><dd>実測の字数が出て、見積もりとの差が分かった</dd></dl><div class="meta">参考：<a href="https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde" target="_blank" rel="noopener noreferrer">https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde</a>　<a href="https://github.com/tadanok/novel-template" target="_blank" rel="noopener noreferrer">https://github.com/tadanok/novel-template</a></div></div>
+<h4>発展：短編1本を、設定ファイルとスキルで書いてみる（2〜3時間）</h4><p>公開テンプレートを使い、3章くらいの短編で、設定ファイル・1章1会話・点検役の流れを試す。</p><ol>
+<li>tadanok/novel-template を元に自分のリポジトリを作る</li>
+<li>/start-novel で設定を作り、bible/ の中身を確かめる</li>
+<li>/write-chapter で1章ずつ、毎回新しい会話で書く</li>
+<li>/continuity-check で矛盾を探させ、直すかどうかを自分で決める</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code・Codex の利用にはそれぞれのプランが必要。筆者の仕組みはテンプレート（tadanok/novel-template）として GitHub で公開。</p>
+<div class="meta">実践可能性：高：テンプレートと考え方は、短い作品からすぐ試せる。<br>信頼性：Qiita の記事本文と、公開されたテンプレートのリポジトリで確認（筆者本人の体験記）。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">67</span>/100</span>
+<h2>5. Zenn：Claude Code を並列で動かすときの破綻は設計の問題。権限の隔離・作業と文脈の分離・テストによる出力ゲートで「間違えられない構造」を作る提案</h2>
+<div class="meta">Zenn・公開 2026-11-27 14:57</div>
+<div class="meta">出典：<a href="https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9" target="_blank" rel="noopener noreferrer">https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9</a></div>
+<p class="concl"><b>結論：</b>筆者は、Claude Code を何体も同時に動かすと確認作業が増えるのは、プロンプトの腕ではなく設計の問題だと主張します。そこで、権限の隔離、作業と文脈の分離、テストによる出力のゲートという3本柱と、依頼文のテンプレートを提案しています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>いつもの依頼文の最後に「分からないときは推測せず、選択肢を出して止まって」と一行足すだけでも、手戻りが減るか試す価値がありそうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>お願いでなく仕組みで制限</b>：書き込める場所やネットの行き先を、システムの設定で区切ります。文章の禁止だけでは確実に守られないためです。</li>
+<li><b>調べる会話と書く会話を分ける</b>：同じ失敗が3回続いたら、指示を直すより /rewind で前の状態に戻します。</li>
+<li><b>完了はテスト結果で判断</b>：AI の「できました」ではなく、テストや型チェックが通ったかどうかで完了とします。</li>
+<li><b>分からなければ止まらせる</b>：不明な点は推測で進めず、選択肢を出して止まるよう依頼文に書きます。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>エージェント（指示すると自分で手順を考えて作業する AI）を「空気を読む相手」ではなく「与えた範囲で出力する計算機」と考え、制限を文章でなく仕組みに置くという整理です。</dd>
+<dt>なぜ重要か</dt><dd>AI を同時にたくさん動かすほど、人が確認する量が増えて追いつかなくなります。完了の判断を機械に任せられる形にすると、人の負担が減ります。</dd>
+<dt>従来との違い</dt><dd>よくある「プロンプトをもっと工夫する」対策ではなく、権限・会話の範囲・完了の条件を先に固定する考え方です。</dd></dl><ul>
+<li>プロジェクトの外への書き込みを止め、ネットの行き先は許可リストにする</li>
+<li>テストや型の定義を人が先に決め、AI にはその枠の中だけを埋めさせる</li>
+<li>記事は考え方の提案で、測った数字は載っていない</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>いつもの依頼文に、触ってよいファイルと完了条件を書く</li>
+<li>並列で動かすときに、テストが通るまで完了にしない</li>
+<li>失敗が続いたら会話を巻き戻す</li>
+</ul>
+<div class="task"><h4>今日すぐできること：依頼文に「止まる条件」を足して比べる</h4><dl class="kv"><dt>目的</dt><dd>触ってよい範囲と完了の条件を書いたときに、AI の動きがどう変わるかを見る</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code が使える状態、テストのある小さなリポジトリ（失敗してもよいもの）</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>Claude Code のプランの範囲内</dd></dl><b>手順</b><ol><li>小さな修正を、いつもの書き方で頼んでみる</li><li>/rewind で頼む前の状態に戻す（コードと会話の両方を戻す）</li><li>下の依頼文を前につけて、同じ修正をもう一度頼む</li><li>変えたファイルの数と、止まって質問してきたかを比べる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次のルールを守って作業してください。
+・変更してよいファイル：〔パスを書く〕だけ
+・禁止：指定外のファイルの編集、新しいパッケージのインストール、外部の URL へのアクセス
+・完了の条件：今あるテストがすべて通り、型のエラーが0件
+・分からない点があれば、推測で進めずに選択肢を出して止まってください
+作業：〔頼みたい修正〕</pre></div><div class="meta">出典：<a href="https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9" target="_blank" rel="noopener noreferrer">https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9</a></div><dl class="kv"><dt>完成するもの</dt><dd>ルールあり・なしの2回分の作業結果の比較</dd><dt>確認方法</dt><dd>ルールありのときに、指定外のファイルが変わっていないことを git diff で確かめられた</dd></dl><div class="meta">参考：<a href="https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9" target="_blank" rel="noopener noreferrer">https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9</a>　<a href="https://code.claude.com/docs/en/checkpointing" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/checkpointing</a></div></div>
+<h4>発展：完了をテストで判断する並列作業の型（2〜3時間）</h4><p>テストを先に人が書き、2つの Claude Code に別々の作業をさせて、テストが通ったものだけを取り込む流れを作る。</p><ol>
+<li>作業を2つに分け、それぞれのテストを先に書く</li>
+<li>それぞれ別の会話で、上の依頼文の型を使って頼む</li>
+<li>テストの結果（終了コード）だけを見て、通ったものから取り込む</li>
+<li>止まって質問してきた回数と内容を記録する</li>
+</ol>
+<h3>利用条件・料金</h3><p>考え方と依頼文の型なので追加費用なし。</p>
+<div class="meta">実践可能性：高：依頼文に数行足すだけで始められる。仕組みでの隔離は環境づくりが必要。<br>信頼性：Zenn の記事本文で確認（筆者の意見と提案）。/rewind の動きは Claude Code 公式ドキュメントで確認。</div></section>
+<section class="card" id="news-6"><span class="badge">クリエイティブAI</span>
+<span class="meta">評価 <span class="score">67</span>/100</span>
+<h2>6. Hugging Face、映像と音を一緒に生成する LTX-2.5 を AWS Trainium3 で動かし、ショット表から短編を作る手順と高速化の工夫を公開</h2>
+<div class="meta">Hugging Face・公開 2026-11-27 00:00</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/video-trainium3" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/video-trainium3</a></div>
+<p class="concl"><b>結論：</b>Hugging Face のチームが、AWS の AI 専用の計算機 Trainium3 で、映像と音を一緒に作る AI「LTX-2.5」を動かし、短い映画を作りました。記事は、ショット表で場面をつなぐ作り方と、速くするための工夫を詳しく説明しています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分の短い動画の絵コンテを、このショット表の形で書いておくと、場面のつながりを考えながら動画 AI に渡せて面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>映像と音を一緒に生成</b>：LTX-2.5 は Lightricks の約190億パラメータの動画生成モデルで、映像と音を同時に作ります。</li>
+<li><b>ショット表で場面をつなぐ</b>：ショットごとの説明を JSON の一覧に書き、from で前のショットの最後の場面から、to で次のショットの最初の場面へつなげます。</li>
+<li><b>音つき10秒を約23秒で生成</b>：2048×1024 の音つき10秒の動画を、モデルを読み込んだ後は約22〜23秒で作れました（Trainium3 の半分を使用）。</li>
+<li><b>細部は間違えるので何回か作る</b>：筆者たちは、1ショットにつき4回ほど作って選ぶ作り方を勧めています。1ショットは最大20秒です。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>diffusers の上に約160行の Python を足して、JSON のショット表から、場面のつながりを保った音つきの短編を組み立てる流れを作った点です。最初の試作から、画素数4倍でも計算時間を45秒から15秒に減らしました。</dd>
+<dt>なぜ重要か</dt><dd>動画 AI は、1本ずつ作ると場面ごとに雰囲気がばらばらになりがちです。前の場面の終わりから次を始める作り方は、話のつながった映像を作るときの基本の型になります。</dd>
+<dt>従来との違い</dt><dd>1つのプロンプトで1本作るのではなく、決めの場面を先に作り、その前後を作っていく「ポーズ・トゥ・ポーズ」の順番も使っています。</dd></dl><ul>
+<li>モデルを4つのコアに分けて載せ、さらに映像を8つに分けて計32コアで計算</li>
+<li>文字の読み込みを約205秒から1.4秒に短縮するなど、計算機側だけでなく準備側も速くした</li>
+<li>モデルの読み込みに約3分、最初の1本に約80秒かかるので、サービスにするならプロセスを動かしたままにする</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自分の短い動画の絵コンテを、ショット表として書いておく</li>
+<li>前の場面の最後から次を作る流れを、ほかの動画 AI でも試す</li>
+<li>1ショットを何回か作って選ぶ前提で、制作の時間を見積もる</li>
+</ul>
+<div class="task"><h4>今日すぐできること：3ショットのショット表を作る</h4><dl class="kv"><dt>目的</dt><dd>動画 AI に渡す前に、場面のつながりをショット表として設計してみる</dd><dt>使用ツール</dt><dd>好きなチャット AI</dd><dt>必要な準備</dt><dd>なし（チャット AI が使えればよい）</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料（無料で使えるチャット AI で可能）</dd></dl><b>手順</b><ol><li>作りたい短い動画の話を1行で決める</li><li>下の依頼文で、3ショットのショット表を作ってもらう</li><li>from でどのショットの終わりから始めるかを見直す</li><li>決めの場面がどれかを決め、そこから作る順番を考える</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>30秒くらいの短い動画の話：〔話を1行で〕。これを3つのショットに分けて、次の形の JSON で書いてください。各ショットの prompt には、見た目の雰囲気・写るもの・動き・カメラ・光・音を入れてください。
+[{&quot;name&quot;: &quot;ショット名&quot;, &quot;prompt&quot;: &quot;...&quot;}, {&quot;name&quot;: &quot;ショット名&quot;, &quot;prompt&quot;: &quot;...&quot;, &quot;from&quot;: {&quot;shot&quot;: &quot;前のショット名&quot;, &quot;frames&quot;: 25}}]</pre></div><div class="meta">出典：<a href="https://github.com/dacorvo/video-generation" target="_blank" rel="noopener noreferrer">https://github.com/dacorvo/video-generation</a></div><dl class="kv"><dt>完成するもの</dt><dd>3ショットのショット表（JSON）</dd><dt>確認方法</dt><dd>2つ目以降のショットに from があり、前のショットの名前を正しく指している</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/video-trainium3" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/video-trainium3</a>　<a href="https://github.com/dacorvo/video-generation" target="_blank" rel="noopener noreferrer">https://github.com/dacorvo/video-generation</a></div></div>
+<h4>発展：ショット表から音つき短編を作る（3〜4時間）</h4><p>作ったショット表を元に、LTX-2.5 を diffusers で動かして、場面のつながった短い動画を作る。</p><ol>
+<li>モデルカードの利用条件に同意し、ライセンスを確かめる</li>
+<li>大きな GPU のあるクラウドを用意し、モデルカードの手順で diffusers を入れる</li>
+<li>dacorvo/video-generation の README を読み、ショット表の形で1ショットずつ作る</li>
+<li>各ショットを何回か作り、いちばん良いものを選んでつなぐ</li>
+</ol>
+<h3>利用条件・料金</h3><p>モデルは LTX-2.x Community License（年間売上1,000万ドル未満は商用利用も無料、それ以上は有料契約）。モデルの取得には Hugging Face での同意が必要。trn3.48xlarge の料金は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：低〜中：同じ速さで動かすには大きな計算機が必要。ショット表の考え方は誰でもすぐ使える。<br>信頼性：Hugging Face ブログの本文、GitHub の dacorvo/video-generation、モデルカードで確認。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>
