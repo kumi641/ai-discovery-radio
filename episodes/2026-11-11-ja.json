@@ -1,0 +1,734 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-11",
+ "title": "Gemini 4 Carbonと「コードは君のもの」実験",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。今日は二〇二六年十一月十一日、水曜日です。",
+   "show": "AI Discovery & Build Radio｜2026年11月11日（水）"
+  },
+  {
+   "say": "今日は、グーグルの最上位モデル、ジェミニ フォー カーボンの一般公開と、エージェントを大量に動かすための実行基盤の話題から始めます。",
+   "show": "Gemini 4 Carbon一般公開／エージェント実行基盤"
+  },
+  {
+   "say": "後半は、クロード フェイブル ファイブ ポイント ツーの公式ガイドにある、コードの持ち主を伝える一文に注目します。今日の実験もこれです。",
+   "show": "注目：Fable 5.2に「コードの所有」を伝える一文"
+  }
+ ],
+ "news": [
+  {
+   "label": "Gemini 4 Carbon 一般公開",
+   "points": [
+    "Google最強の最上位モデル",
+    "API有料枠とCopilotで利用可",
+    "導入価格は11/30まで"
+   ],
+   "details": [
+    "サイバーセキュリティと長時間のエージェント作業で最先端の性能とGoogleは説明。多くの作業はGemini 4 Argonが適するとも書いている。",
+    "Google AI Studio（Gemini API有料枠）、Android Studio、Gemini Enterpriseなどで提供。GitHub CopilotではPro+・Max・Business・Enterpriseで選択可能。",
+    "導入期間は100万トークンあたり入力$2・出力$10。11月30日の終了後は入力$4・出力$20。"
+   ],
+   "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+   "lines": [
+    {
+     "say": "まずはグーグルから。最上位モデルのジェミニ フォー カーボンが、一般の開発者向けに公開されました。",
+     "show": "Google、Gemini 4 Carbonを一般公開"
+    },
+    {
+     "say": "グーグルは、サイバーセキュリティと、長時間かかるエージェント型の作業で最先端の性能を持つ、同社で最も強いモデルだと説明しています。",
+     "show": "サイバー防御と長時間エージェント作業に強い"
+    },
+    {
+     "say": "探索と検証に多めのトークンを使う設計で、普段の開発作業の多くには、下位のジェミニ フォー アルゴンが適しているとも書いています。",
+     "show": "多くの作業はGemini 4 Argonで十分と公式も説明"
+    },
+    {
+     "say": "使える場所は、グーグル エーアイ スタジオのジェミニ エーピーアイ有料枠などです。ギットハブ コパイロットでも、プロプラスなどの有料プランで選べるようになりました。",
+     "show": "Gemini API有料枠・GitHub Copilot（Pro+等）で利用可"
+    },
+    {
+     "say": "料金は導入期間中、百万トークンあたり入力二ドル、出力十ドル。十一月三十日に導入期間が終わると、入力四ドル、出力二十ドルになります。",
+     "show": "$2/$10（100万トークン）→期間終了後 $4/$20"
+    },
+    {
+     "say": "高いモデルなので、全部を任せるより、普段のモデルで詰まった難しい修正だけに使って比べるのが現実的です。",
+     "show": "難しいタスクに絞って比べるのが現実的"
+    }
+   ],
+   "link": {
+    "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+    "title": "Gemini 4 Carbon is now available",
+    "site": "Google",
+    "description": "Today, we’re making Gemini 4 Carbon available to developers, enterprises, scientists, and consumers.",
+    "image": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini_4_carbon_key_art_16-9_lockup.width-1300.jpg",
+    "icon": "https://deepmind.google/static/blogv2/images/favicon.ico?version=pr20261029-2131"
+   },
+   "corner": "news",
+   "guide": "guides/2026-11-11.html#news-1"
+  },
+  {
+   "label": "NVIDIA Agent Substrate",
+   "points": [
+    "エージェントは大半が待ち時間",
+    "待機中は保存し、器を解放",
+    "OSS・CNCF Sandbox"
+   ],
+   "details": [
+    "エージェントは人の入力、ツールの結果、モデルの応答を待って多くの時間を過ごす。1セッション1Podの方式はこれに向かない。",
+    "待機中のセッション（actor）をメモリとファイルシステムごとスナップショットし、呼ばれたら空いているworkerに復元する。",
+    "Apache-2.0のオープンソースで、CNCF Sandboxに寄贈。ブログはAPIがまだ変化中と注意している。"
+   ],
+   "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/",
+   "lines": [
+    {
+     "say": "次はエヌビディアの技術ブログから。エージェント向けの実行基盤、エージェント サブストレートの紹介です。",
+     "show": "NVIDIA：Agent Substrateを紹介"
+    },
+    {
+     "say": "エージェントは、人の入力やツールの結果、モデルの返事を待って、多くの時間を何もせずに過ごします。",
+     "show": "エージェントは大半の時間が「待ち」"
+    },
+    {
+     "say": "そこで、待っているセッションをメモリとファイルごと保存して、作業用の器を解放します。呼ばれたら、空いている器に元の状態で戻します。",
+     "show": "待機中はメモリとファイルごと保存し、必要時に復元"
+    },
+    {
+     "say": "器になるのは、コンテナをまとめて管理する仕組み、クバネティスの普通のポッドです。ブログは、標準のコンテナより十倍高い密度をうたっています。",
+     "show": "通常のPodを利用、密度は標準コンテナの10倍と主張"
+    },
+    {
+     "say": "ライセンスはアパッチ ツー ポイント ゼロのオープンソースで、シーエヌシーエフのサンドボックスプロジェクトになりました。ただし、エーピーアイはまだ変わり続けているとの注意つきです。",
+     "show": "Apache-2.0／CNCF Sandbox。APIは変化中と注意"
+    },
+    {
+     "say": "個人には大きな仕組みですが、待ち時間を前提に状態を保存して戻す、という設計は、自作エージェントにもそのまま使える考え方です。",
+     "show": "「待ちを前提に保存・復元」は自作にも応用可"
+    }
+   ],
+   "link": {
+    "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/",
+    "title": "Agent Substrate: Advancing Kubernetes for Agents at Scale | NVIDIA Technical Blog",
+    "site": "NVIDIA Technical Blog",
+    "description": "AI agents spend most of their time idle, waiting on a human prompt, a tool result or a model response. Kubernetes wasn’t built for that. Running one Pod per session holds memory for sessions that aren’…",
+    "image": "https://developer-blogs.nvidia.com/wp-content/uploads/2026/11/image2-5.webp",
+    "icon": "https://developer-blogs.nvidia.com/wp-content/themes/nvidia/dist/images/favicon_300a1064.ico"
+   },
+   "corner": "news",
+   "guide": "guides/2026-11-11.html#news-2"
+  },
+  {
+   "label": "Fable 5.2に所有を伝える一文",
+   "points": [
+    "持ち主の書き方で振る舞いが変化",
+    "所有の一文で重複統合が約5割に",
+    "代償：出力1.5倍と頼まない変更"
+   ],
+   "details": [
+    "所有に触れない、または他人のコードとして渡すと、重複があっても既存構造に足していき、近くの問題は直さず報告しがち。",
+    "Anthropicの小さなコーディング課題の試験で、重複コードをまとめた割合が一文なしの1割未満から、一文ありで約半分に。",
+    "出力トークンは約1.5倍、頼んでいないテストやドキュメント追加も増える。要約は小さな変更を書き漏らすので差分を確認。"
+   ],
+   "url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
+   "lines": [
+    {
+     "say": "ここからはエンジニアの実践ノウハウ。サイモン ウィリソンさんが、アンスロピックの公式ガイド、フェイブル ファイブ ポイント ツーのプロンプトの書き方から一節を引用しました。",
+     "show": "Simon Willison：Fable 5.2公式ガイドを引用"
+    },
+    {
+     "say": "フェイブル ファイブ ポイント ツーは、プロンプトがコードの持ち主をどう書いているかに、強く反応するそうです。",
+     "show": "コードの「持ち主」の書き方に強く反応"
+    },
+    {
+     "say": "持ち主に触れない、または他人のコードとして渡すと、重複があっても既存の構造に足していく傾向があります。",
+     "show": "他人のコード扱い→既存構造に足すだけになりがち"
+    },
+    {
+     "say": "このコードはあなたのもの、という一文を入れると、アンスロピックの小さな課題の試験で、重複をまとめた割合が一割未満から約半分に増えました。",
+     "show": "所有の一文で重複統合が1割未満→約5割"
+    },
+    {
+     "say": "その代わり出力トークンは約一・五倍になり、頼んでいない変更も増えます。最後の要約は小さな変更を書き漏らすので、差分を必ず見てください、とガイドは書いています。",
+     "show": "代償：出力1.5倍・頼まない変更増→差分を確認"
+    },
+    {
+     "say": "最小限の変更にしたい他人のコードには、この一文を入れない。使い分けがポイントです。",
+     "show": "最小変更が欲しい場面では入れない"
+    }
+   ],
+   "link": {
+    "url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
+    "title": "A quote from Prompting Claude Fable 5.2",
+    "site": "Simon Willison’s Weblog",
+    "description": "Claude Fable 5.2 responds closely to what the prompt says about who owns the code it works on. In Anthropic’s testing on small coding tasks, when a prompt said nothing …",
+    "image": null,
+    "icon": null
+   },
+   "corner": "practice",
+   "guide": "guides/2026-11-11.html#news-3"
+  },
+  {
+   "label": "modern-web-guidance",
+   "points": [
+    "エージェント向けWeb標準スキル集",
+    "250機能・203の実用例",
+    "検索はローカル・APIキー不要"
+   ],
+   "details": [
+    "古いパターンではなく、ブラウザ標準の新しいAPIを使うよう導く。Chrome・Edge・Firefox・MDNの各チームが関わる。",
+    "CSSとレイアウト140、HTMLとDOM 36、JavaScriptとAPI 74の機能と、203の実用例を収録。",
+    "ガイド検索は手元で動き、ネットワーク通信やAPIキーは不要。Apache-2.0ライセンス。"
+   ],
+   "url": "https://github.com/GoogleChrome/modern-web-guidance",
+   "lines": [
+    {
+     "say": "続いて、ギットハブで公開された、モダン ウェブ ガイダンス。グーグル クロームのプロジェクトです。",
+     "show": "GoogleChrome：modern-web-guidance"
+    },
+    {
+     "say": "コーディングエージェントが古い書き方のジャバスクリプトに頼らず、ブラウザの新しい標準機能を使えるようにする、スキルとガイドの詰め合わせです。",
+     "show": "エージェントを最新のWeb標準へ導くスキル集"
+    },
+    {
+     "say": "クローム、エッジ、ファイアフォックス、エムディーエヌの各チームが関わり、二百五十のウェブ機能と、二百三の実用例をまとめています。",
+     "show": "Chrome/Edge/Firefox/MDN・250機能・203事例"
+    },
+    {
+     "say": "ガイドの検索は手元で動き、ネットワーク通信やエーピーアイキーは不要。ライセンスはアパッチ ツー ポイント ゼロです。",
+     "show": "検索はローカル・APIキー不要／Apache-2.0"
+    },
+    {
+     "say": "クロード コードにはプラグインとして入れられるほか、自分のコードに残る古いパターンを探すスキャン機能もあります。",
+     "show": "Claude Codeプラグイン対応・旧パターン検出も"
+    },
+    {
+     "say": "エーアイが書くウェブのコードが少し古いと感じていた人は、まずスキャンだけでも試す価値があります。",
+     "show": "まずはlegacy-scanで現状把握"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/GoogleChrome/modern-web-guidance",
+    "title": "GitHub - GoogleChrome/modern-web-guidance: Keep your coding agent up to date with the latest web best practices",
+    "site": "GitHub",
+    "description": "Keep your coding agent up to date with the latest web best practices - GoogleChrome/modern-web-guidance",
+    "image": "https://opengraph.githubassets.com/2e56b0e4f227a3517771e0a196d2c7525039a982d89c6ec35e9b5ca9125c164e/GoogleChrome/modern-web-guidance",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "practice",
+   "guide": "guides/2026-11-11.html#news-4"
+  },
+  {
+   "label": "サブエージェントで越境レビュー",
+   "points": [
+    "テストを通る「層またぎのずれ」",
+    "抽出と検証を別の役に分離",
+    "97回中49回でblock級の指摘"
+   ],
+   "details": [
+    "状態に値を足したのにfilterや集計が古いまま、など型検査・lint・テストでは見つからない不整合を対象にする。",
+    "書いた本人のセッションには判定させず、4つのレンズで並列に抽出し、別の1体が検証。block級は3体が別観点で反証する。",
+    "約2か月半で97回実行し、49回でblock相当の指摘。同じモデルなので独立性に限界、トークン消費も大きいと著者は明記。"
+   ],
+   "url": "https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review",
+   "lines": [
+    {
+     "say": "次はゼンの記事。クロード コードのスキルとサブエージェントだけで、境界をまたぐ不整合を探すレビューを組んだ記録です。",
+     "show": "Zenn：サブエージェントで越境整合レビュー"
+    },
+    {
+     "say": "例えば、状態に新しい値を足したのに、一覧の絞り込みや集計が古い値のまま、といった、テストが通っても残るずれです。",
+     "show": "テストが通っても残る「層をまたぐずれ」"
+    },
+    {
+     "say": "書いた本人のセッションには判定させず、不整合を探す役と、検証する役を別のサブエージェントに分けています。",
+     "show": "書いた本人に判定させず、抽出と検証を分離"
+    },
+    {
+     "say": "修正必須の指摘は三体に別々の観点で反証させ、一体でも反証したら要確認に下げます。",
+     "show": "block級は3体で反証、1体でも反証で降格"
+    },
+    {
+     "say": "約二か月半で九十七回動かし、四十九回で修正必須相当の指摘が出ました。ただし同じモデルなので独立性には限界があり、トークン消費も大きいと著者は正直に書いています。",
+     "show": "97回中49回でblock級。限界とコストも明記"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review",
+    "title": "Codexが無くても: Claude Codeのサブエージェントだけで越境整合レビューを組む",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--rL5NEFzY--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Codex%25E3%2581%258C%25E7%2584%25A1%25E3%2581%258F%25E3%2581%25A6%25E3%2582%2582%253A%2520Claude%2520Code%25E3%2581%25AE%25E3%2582%25B5%25E3%2583%2596%25E3%2582%25A8%25E3%2583%25BC%25E3%2582%25B8%25E3%2582%25A7%25E3%2583%25B3%25E3%2583%2588%25E3%2581%25A0%25E3%2581%2591%25E3%2581%25A7%25E8%25B6%258A%25E5%25A2%2583%25E6%2595%25B4%25E5%2590%2588%25E3%2583%25AC%25E3%2583%2593%25E3%2583%25A5%25E3%2583%25BC%25E3%2582%2592%25E7%25B5%2584%25E3%2582%2580%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:shoma46%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenZsQTNXR0JFY09pb3YxaU1wWWxGZ2FrZzNQbVBTOXBqVFFRam09czk2LWM=%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "guide": "guides/2026-11-11.html#news-5"
+  },
+  {
+   "label": "Blender 5.3 リリース",
+   "points": [
+    "3D Gaussian Splatsに標準対応",
+    "Geometry Nodesで編集・3エンジン描画",
+    "Vulkan既定・OTIO初期対応"
+   ],
+   "details": [
+    "PLY・SPZ・glTFのスプラットを点群として読み込める。リリースの目玉と位置づけられている。",
+    "読み込んだスプラットはGeometry Nodesで加工でき、Workbench・EEVEE・Cyclesでレンダリングできる。",
+    "Windows（ARM除く）とLinuxでVulkanが既定に。動画編集（VSE）にはOpenTimelineIOの初期対応とリップル編集。"
+   ],
+   "url": "https://www.blender.org/press/blender-5-3-release/",
+   "lines": [
+    {
+     "say": "最後はクリエイティブ。ブレンダー ファイブ ポイント スリーが公開されました。",
+     "show": "Blender 5.3 リリース"
+    },
+    {
+     "say": "目玉は、三次元ガウシアン スプラットへの標準対応です。点の集まりで立体を表す形式で、ピーエルワイやエスピーゼットのファイルを読み込めます。",
+     "show": "目玉：3D Gaussian Splatsにネイティブ対応"
+    },
+    {
+     "say": "読み込んだスプラットはジオメトリノードで加工でき、ワークベンチ、イーヴィー、サイクルズのどれでもレンダリングできます。",
+     "show": "Geometry Nodesで編集、3エンジンで描画"
+    },
+    {
+     "say": "ほかに、ウィンドウズとリナックスで、描画の仕組みにヴァルカンが既定で使われるようになり、動画編集ではオープンタイムラインアイオーの初期対応も入りました。",
+     "show": "Vulkanが既定に／VSEにOpenTimelineIO初期対応"
+    },
+    {
+     "say": "手元のスプラットデータを、そのまま無料のブレンダーで映像制作に組み込めるようになったのが大きなポイントです。",
+     "show": "スプラット→映像制作が無料ツールで完結"
+    }
+   ],
+   "link": {
+    "url": "https://www.blender.org/press/blender-5-3-release/",
+    "title": "Blender 5.3 Release — Blender",
+    "site": "Blender",
+    "description": "Blender 5.2 LTS brings node-powered physics, remote access to asset libraries, major rendering advancements and more with 2 years of LTS updates.",
+    "image": "https://www.blender.org/wp-content/uploads/2026/07/splash-overgrown-480x270.webp",
+    "icon": "https://www.blender.org/wp-content/themes/bthree/assets/icons/apple-touch-icon.png"
+   },
+   "corner": "creative",
+   "guide": "guides/2026-11-11.html#news-6"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "一文なし／ありで同じ依頼",
+    "モデルとeffortはそろえる",
+    "差分で統合・頼まない変更を確認",
+    "2〜3回試して採否を決める"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2",
+   "lines": [
+    {
+     "say": "ここで今日の実験です。コードはあなたのもの、という一文で、クロードの直し方が本当に変わるかを、自分の目で確かめます。",
+     "show": "今日の実験：「所有の一文」でA/B比較"
+    },
+    {
+     "say": "まず、少し重複のある小さな練習用のリポジトリを用意して、ギットで今の状態をコミットします。大事なコードは使わないでください。",
+     "show": "重複のある練習用リポジトリを用意しコミット"
+    },
+    {
+     "say": "それをフォルダごと二つにコピーします。片方は依頼文だけ、もう片方は依頼文の先頭に所有の一文を付けます。",
+     "show": "2つにコピー：一文なし／一文あり"
+    },
+    {
+     "say": "両方とも、同じモデル、同じ努力レベルで、同じ機能追加を頼みます。一文は、番組ページのプロンプトをそのままコピーしてください。",
+     "show": "同じモデル・同じeffort・同じ依頼文で実行"
+    },
+    {
+     "say": "終わったら、ギット ディフで差分を比べます。見るのは三つ。重複がまとめられたか、頼んでいない変更がいくつあるか、依頼した機能が両方で動くかです。",
+     "show": "確認：重複統合／頼まない変更／機能が動くか"
+    },
+    {
+     "say": "ガイドによると結果は課題によってばらつくので、できれば二、三回繰り返して、自分のプロジェクトでこの一文を使うか決めましょう。",
+     "show": "結果はばらつく→2〜3回試して採否を決める"
+    }
+   ],
+   "link": {
+    "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2",
+    "title": "Prompting Claude Fable 5.2",
+    "site": "Claude Platform Docs",
+    "description": "Prompting patterns specific to Claude Fable 5.2 and Claude Mythos 5.2: effort, early stopping, approvals, code ownership, progress updates, subagents, caution that builds up, instructions written for earlier models, final reports, and refusals.",
+    "image": "https://platform.claude.com/web-api/og/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2?design-rev=4",
+    "icon": "https://platform.claude.com/favicon.ico"
+   },
+   "corner": "experiment",
+   "name": "「コードはあなたのもの」の一文でA/B比較",
+   "guide": "guides/2026-11-11.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日のまとめです。ジェミニ フォー カーボンが一般公開され、難しい作業向けの選択肢が増えました。",
+   "show": "まとめ①：Gemini 4 Carbon一般公開"
+  },
+  {
+   "say": "エージェント サブストレートは、待ち時間の多いエージェントを、保存と復元で効率よく動かす基盤です。",
+   "show": "②：Agent Substrate、保存と復元で高密度"
+  },
+  {
+   "say": "実践では、所有の一文、モダン ウェブ ガイダンス、反証役のサブエージェント。クリエイティブでは、ブレンダーのスプラット対応でした。",
+   "show": "③：所有の一文／modern-web／反証役／Blender 5.3"
+  },
+  {
+   "say": "今日試すことは一つ。所有の一文ありとなしで、同じ依頼の差分を比べてみてください。エーアイ ディスカバリー アンド ビルド ラジオでした。また明日。",
+   "show": "今日試す：所有の一文でA/B比較"
+  }
+ ],
+ "highlight": 6,
+ "guide": "guides/2026-11-11.html",
+ "seconds": 494.33,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 11.141,
+   "show": "AI Discovery & Build Radio｜2026年11月11日（水）",
+   "part": 0
+  },
+  {
+   "start": 11.391,
+   "end": 21.599,
+   "show": "Gemini 4 Carbon一般公開／エージェント実行基盤",
+   "part": 0
+  },
+  {
+   "start": 21.849,
+   "end": 32.634,
+   "show": "注目：Fable 5.2に「コードの所有」を伝える一文",
+   "part": 0
+  },
+  {
+   "start": 33.534,
+   "end": 41.728,
+   "show": "Google、Gemini 4 Carbonを一般公開",
+   "part": 1
+  },
+  {
+   "start": 41.978,
+   "end": 52.78,
+   "show": "サイバー防御と長時間エージェント作業に強い",
+   "part": 1
+  },
+  {
+   "start": 53.03,
+   "end": 63.085,
+   "show": "多くの作業はGemini 4 Argonで十分と公式も説明",
+   "part": 1
+  },
+  {
+   "start": 63.335,
+   "end": 75.314,
+   "show": "Gemini API有料枠・GitHub Copilot（Pro+等）で利用可",
+   "part": 1
+  },
+  {
+   "start": 75.564,
+   "end": 88.956,
+   "show": "$2/$10（100万トークン）→期間終了後 $4/$20",
+   "part": 1
+  },
+  {
+   "start": 89.206,
+   "end": 98.036,
+   "show": "難しいタスクに絞って比べるのが現実的",
+   "part": 1
+  },
+  {
+   "start": 98.936,
+   "end": 107.327,
+   "show": "NVIDIA：Agent Substrateを紹介",
+   "part": 2
+  },
+  {
+   "start": 107.577,
+   "end": 115.694,
+   "show": "エージェントは大半の時間が「待ち」",
+   "part": 2
+  },
+  {
+   "start": 115.944,
+   "end": 127.354,
+   "show": "待機中はメモリとファイルごと保存し、必要時に復元",
+   "part": 2
+  },
+  {
+   "start": 127.604,
+   "end": 139.316,
+   "show": "通常のPodを利用、密度は標準コンテナの10倍と主張",
+   "part": 2
+  },
+  {
+   "start": 139.566,
+   "end": 152.555,
+   "show": "Apache-2.0／CNCF Sandbox。APIは変化中と注意",
+   "part": 2
+  },
+  {
+   "start": 152.805,
+   "end": 163.557,
+   "show": "「待ちを前提に保存・復元」は自作にも応用可",
+   "part": 2
+  },
+  {
+   "start": 164.457,
+   "end": 176.815,
+   "show": "Simon Willison：Fable 5.2公式ガイドを引用",
+   "part": 3
+  },
+  {
+   "start": 177.065,
+   "end": 184.591,
+   "show": "コードの「持ち主」の書き方に強く反応",
+   "part": 3
+  },
+  {
+   "start": 184.841,
+   "end": 193.347,
+   "show": "他人のコード扱い→既存構造に足すだけになりがち",
+   "part": 3
+  },
+  {
+   "start": 193.597,
+   "end": 205.019,
+   "show": "所有の一文で重複統合が1割未満→約5割",
+   "part": 3
+  },
+  {
+   "start": 205.269,
+   "end": 219.577,
+   "show": "代償：出力1.5倍・頼まない変更増→差分を確認",
+   "part": 3
+  },
+  {
+   "start": 219.827,
+   "end": 227.605,
+   "show": "最小変更が欲しい場面では入れない",
+   "part": 3
+  },
+  {
+   "start": 228.505,
+   "end": 236.247,
+   "show": "GoogleChrome：modern-web-guidance",
+   "part": 4
+  },
+  {
+   "start": 236.497,
+   "end": 247.018,
+   "show": "エージェントを最新のWeb標準へ導くスキル集",
+   "part": 4
+  },
+  {
+   "start": 247.268,
+   "end": 257.487,
+   "show": "Chrome/Edge/Firefox/MDN・250機能・203事例",
+   "part": 4
+  },
+  {
+   "start": 257.737,
+   "end": 267.355,
+   "show": "検索はローカル・APIキー不要／Apache-2.0",
+   "part": 4
+  },
+  {
+   "start": 267.605,
+   "end": 275.648,
+   "show": "Claude Codeプラグイン対応・旧パターン検出も",
+   "part": 4
+  },
+  {
+   "start": 275.898,
+   "end": 283.191,
+   "show": "まずはlegacy-scanで現状把握",
+   "part": 4
+  },
+  {
+   "start": 284.091,
+   "end": 293.452,
+   "show": "Zenn：サブエージェントで越境整合レビュー",
+   "part": 5
+  },
+  {
+   "start": 293.702,
+   "end": 304.05,
+   "show": "テストが通っても残る「層をまたぐずれ」",
+   "part": 5
+  },
+  {
+   "start": 304.3,
+   "end": 312.816,
+   "show": "書いた本人に判定させず、抽出と検証を分離",
+   "part": 5
+  },
+  {
+   "start": 313.066,
+   "end": 321.291,
+   "show": "block級は3体で反証、1体でも反証で降格",
+   "part": 5
+  },
+  {
+   "start": 321.541,
+   "end": 336.857,
+   "show": "97回中49回でblock級。限界とコストも明記",
+   "part": 5
+  },
+  {
+   "start": 337.757,
+   "end": 343.81,
+   "show": "Blender 5.3 リリース",
+   "part": 6
+  },
+  {
+   "start": 344.06,
+   "end": 355.691,
+   "show": "目玉：3D Gaussian Splatsにネイティブ対応",
+   "part": 6
+  },
+  {
+   "start": 355.941,
+   "end": 364.555,
+   "show": "Geometry Nodesで編集、3エンジンで描画",
+   "part": 6
+  },
+  {
+   "start": 364.805,
+   "end": 375.939,
+   "show": "Vulkanが既定に／VSEにOpenTimelineIO初期対応",
+   "part": 6
+  },
+  {
+   "start": 376.189,
+   "end": 384.375,
+   "show": "スプラット→映像制作が無料ツールで完結",
+   "part": 6
+  },
+  {
+   "start": 385.275,
+   "end": 395.692,
+   "show": "今日の実験：「所有の一文」でA/B比較",
+   "part": 7
+  },
+  {
+   "start": 395.942,
+   "end": 406.936,
+   "show": "重複のある練習用リポジトリを用意しコミット",
+   "part": 7
+  },
+  {
+   "start": 407.186,
+   "end": 417.105,
+   "show": "2つにコピー：一文なし／一文あり",
+   "part": 7
+  },
+  {
+   "start": 417.355,
+   "end": 428.893,
+   "show": "同じモデル・同じeffort・同じ依頼文で実行",
+   "part": 7
+  },
+  {
+   "start": 429.143,
+   "end": 441.958,
+   "show": "確認：重複統合／頼まない変更／機能が動くか",
+   "part": 7
+  },
+  {
+   "start": 442.208,
+   "end": 451.919,
+   "show": "結果はばらつく→2〜3回試して採否を決める",
+   "part": 7
+  },
+  {
+   "start": 452.819,
+   "end": 461.277,
+   "show": "まとめ①：Gemini 4 Carbon一般公開",
+   "part": 8
+  },
+  {
+   "start": 461.527,
+   "end": 469.539,
+   "show": "②：Agent Substrate、保存と復元で高密度",
+   "part": 8
+  },
+  {
+   "start": 469.789,
+   "end": 480.379,
+   "show": "③：所有の一文／modern-web／反証役／Blender 5.3",
+   "part": 8
+  },
+  {
+   "start": 480.629,
+   "end": 493.73,
+   "show": "今日試す：所有の一文でA/B比較",
+   "part": 8
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 33.534
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 33.534,
+   "end": 98.936
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 98.936,
+   "end": 164.457
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 164.457,
+   "end": 228.505
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 228.505,
+   "end": 284.091
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 284.091,
+   "end": 337.757
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 337.757,
+   "end": 385.275
+  },
+  {
+   "kind": "news",
+   "index": 6,
+   "start": 385.275,
+   "end": 452.819
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 452.819,
+   "end": 494.33
+  }
+ ],
+ "made_at": "2026-11-11T07:27:13",
+ "tts": {
+  "provider": "azure",
+  "chars": 5675,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}

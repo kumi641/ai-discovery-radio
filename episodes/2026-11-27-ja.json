@@ -1,0 +1,842 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-27",
+ "title": "AIエージェントの通り道とスキルの健康診断",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。十一月二十七日、金曜日の放送です。",
+   "show": "AI Discovery & Build Radio　11月27日（金）"
+  },
+  {
+   "say": "今日いちばん大事なのは、グーグルが、エーアイ エージェントにグーグルのデータを触らせるときの決まりを変えたことです。",
+   "show": "今日の注目：GoogleがAIエージェントの決まりを変更"
+  },
+  {
+   "say": "エージェントとは、指示すると自分で手順を考えて、作業を進めてくれるエーアイのことです。",
+   "show": "エージェント＝自分で手順を考えて作業するAI"
+  },
+  {
+   "say": "ほかにも、エーアイ同士に協力を練習させる研究や、ブラウザ操作を速くする道具、スキルの書き方の注意点を紹介します。",
+   "show": "AIのチーム練習／ブラウザ操作の高速化／スキルの注意点"
+  },
+  {
+   "say": "最後の実験コーナーでは、自分のスキルを健康診断してみます。",
+   "show": "今日の実験：スキルの健康診断"
+  }
+ ],
+ "news": [
+  {
+   "label": "Google、AIは専用窓口へ",
+   "points": [
+    "AIはMCPサーバー経由に",
+    "2027年2月1日から",
+    "無料枠は1日5,000回",
+    "保存は30日まで・学習禁止"
+   ],
+   "details": [
+    "Gmail・Driveなどを使うAIエージェントは、Googleが用意したMCPサーバーを通す必要がある。",
+    "Googleのヘルプでは、この決まりは2027年2月1日に始まるとしている。",
+    "直接つなぐエージェントは標準の枠に制限される。標準枠は1プロジェクト・1製品で1日5,000回まで。",
+    "受け取った技術情報を30日より長く保存することや、AIの学習・評価用データにすることは禁止。"
+   ],
+   "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+   "lines": [
+    {
+     "say": "まずは最新ニュースです。グーグルは、エーアイ エージェントがジーメールやドライブを使うとき、専用の窓口を通すよう決めました。",
+     "show": "Google：AIエージェントは専用の窓口を通すことに"
+    },
+    {
+     "say": "この窓口は、エムシーピーという仕組みです。エーアイと道具をつなぐ、共通のコンセントのようなものです。",
+     "show": "MCP＝AIと道具をつなぐ共通のコンセント"
+    },
+    {
+     "say": "グーグルのヘルプによると、この決まりは来年の二月一日に始まります。",
+     "show": "2027年2月1日から、MCPサーバー経由が必要に"
+    },
+    {
+     "say": "窓口を通さずに直接つなぐエージェントは、いちばん下の利用枠に制限されます。無料の枠は、一つのプロジェクトで一日五千回までです。",
+     "show": "直接つなぐと標準枠に制限。無料枠は1日5,000回"
+    },
+    {
+     "say": "受け取った情報を三十日より長く保存したり、エーアイの学習に使ったりすることも、規約で禁止されています。",
+     "show": "30日を超える保存やAIの学習への利用は禁止"
+    },
+    {
+     "say": "紹介記事によると、ジーメールの窓口は今のところ、検索や下書き作りが中心で、送信は一般には使えないそうです。",
+     "show": "記事によるとGmailの窓口は検索・下書きが中心"
+    },
+    {
+     "say": "たとえば、メールの返事の下書きだけをエーアイに作らせて、送るボタンは自分で押す。そんな使い方なら、この決まりとも相性が良さそうですね。",
+     "show": "使い方：返事の下書きはAI、送信は自分で"
+    }
+   ],
+   "link": {
+    "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+    "title": "Google Will Make AI Agents Use Its Workspace MCP Servers. The Gmail One Can't Send Email | Tech Stackups",
+    "site": "techstackups.com",
+    "description": "From February 2027, Google's terms require AI agents to reach Gmail, Drive and the rest of Workspace through Google's own MCP servers. What the rule says, what the servers can and can't do, and what to change before the deadline.",
+    "image": "https://techstackups.com/img/articles/google-workspace-agent-api/cover.jpg",
+    "icon": "https://techstackups.com/img/favicon.png"
+   },
+   "corner": "news",
+   "idea": "メールの返事の下書きだけをAIに作らせ、送るボタンは自分で押す。Googleの新しい決まりとも相性がよく、送り間違いも防げます。",
+   "guide": "guides/2026-11-27.html#news-1"
+  },
+  {
+   "label": "AIチームに協力を練習",
+   "points": [
+    "4体のAIで数字を共有",
+    "成功率 約7%→約82%",
+    "文章量は約37%減",
+    "比べるときは計算量をそろえる"
+   ],
+   "details": [
+    "4体がそれぞれ1〜99の数字を1つ持ち、メッセージで送り合って全部を小さい順に並べられたら成功。",
+    "練習の最初の5回と最後の5回の平均で、成功率が約6.6%から約82.3%に上がった。",
+    "1チームが使う文章の量は約1万2,800から約8,000トークンに減り、送るメッセージの数は増えた。",
+    "記事は、AIを増やす効果は同じ量の計算で比べるべきだと強調している。"
+   ],
+   "url": "https://huggingface.co/blog/training-swarms",
+   "lines": [
+    {
+     "say": "次は、ハギング フェイスのブログです。小さなエーアイを四体のチームにして、協力することを練習させた実験が公開されました。",
+     "show": "Hugging Face：4体のAIに協力を練習させる実験"
+    },
+    {
+     "say": "四体はそれぞれ数字を一つだけ持っています。メッセージを送り合って、全部の数字を小さい順に並べられたら成功です。",
+     "show": "数字を送り合い、全部を並べたら成功"
+    },
+    {
+     "say": "練習の最初は、成功率が一割にも届きませんでした。練習のあとは、八割を超えました。",
+     "show": "成功率は約7%→約82%に"
+    },
+    {
+     "say": "しかも、使った文章の量は三割以上減り、メッセージのやり取りは逆に増えました。",
+     "show": "使う文章量は約37%減、やり取りは増加"
+    },
+    {
+     "say": "記事は、エーアイを増やすときは、同じ量の計算で一体の場合と比べるべきだ、と強調しています。",
+     "show": "比べるときは同じ計算量でそろえる"
+    },
+    {
+     "say": "手順は公開されていて、強力な計算用のチップを二枚使い、約五時間、約五十ドルが目安だそうです。",
+     "show": "再現手順は公開。H200×2で約5時間・約50ドル"
+    },
+    {
+     "say": "たとえば、自分のエージェントを一体で動かす場合と、三体に分けた場合で、同じ予算ならどちらが良いか比べてみると面白いですね。",
+     "show": "使い方：1体と3体を同じ予算で比べる"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/training-swarms",
+    "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+    "site": "huggingface.co",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "https://huggingface.co/blog/assets/training-swarms/thumbnail.png",
+    "icon": null
+   },
+   "corner": "news",
+   "idea": "自分のエージェントを「1体で全部やる」場合と「3体に分ける」場合で、同じ予算のときにどちらが良い結果を出すか比べてみると面白いです。",
+   "guide": "guides/2026-11-27.html#news-2"
+  },
+  {
+   "label": "書類を読むAIが進化",
+   "points": [
+    "書類の画像を整理データに",
+    "学習データを3種類公開",
+    "自分の書類向けに追加学習",
+    "約0.6Bの小型モデル"
+   ],
+   "details": [
+    "ページの画像から、見出し・段落・表・グラフを読む順番どおりに取り出し、位置も返す。",
+    "グラフ・表・多言語の文字読み取り用の、合成データ3種類を公開した。",
+    "教えて覚えさせる段階と、答えを確かめて報酬を与える段階の2段階で、自分の書類に合わせられる。",
+    "モデルカードでは約6.3億パラメーター。商用・非商用どちらにも使えるとしている。"
+   ],
+   "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+   "lines": [
+    {
+     "say": "三つ目は、エヌビディアの、書類を読み取るエーアイ、ネモトロン スリー ポイント ファイブ パースです。",
+     "show": "NVIDIA Nemotron 3.5 Parse：書類を読み取るAI"
+    },
+    {
+     "say": "書類の画像を読んで、見出しや表、グラフを、読む順番どおりに整理したデータに変えてくれます。",
+     "show": "見出し・表・グラフを順番どおりに整理"
+    },
+    {
+     "say": "今回は、学習に使ったデータの公開と、自分の書類に合わせて追加で練習させる方法、速く動かす工夫がまとめられました。",
+     "show": "学習データ公開／追加学習の手順／高速化"
+    },
+    {
+     "say": "モデルは比較的小さめで、商用でも使えるライセンスと説明されています。ただし、動かすにはエヌビディアの画像処理用チップが必要です。",
+     "show": "約0.6Bの小型モデル。商用可。NVIDIA GPUが必要"
+    },
+    {
+     "say": "歯医者の書類を読ませる例では、最初はほぼ失敗だったのが、追加の練習のあとは九割五分以上で成功したそうです。",
+     "show": "歯科の書類例：約0%→約96%に改善"
+    },
+    {
+     "say": "たとえば、紙の説明書やプリントを写真に撮って読み取らせ、自分専用の、検索できるメモ帳を作ると便利そうですね。",
+     "show": "使い方：紙の資料を検索できるメモに"
+    }
+   ],
+   "link": {
+    "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+    "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+    "site": "huggingface.co",
+    "description": "A Blog post by NVIDIA on Hugging Face",
+    "image": "https://cdn-uploads.huggingface.co/production/uploads/6365c3f398da81987e2753f2/zArpuP9uLsLz9luMW0K2g.png",
+    "icon": null
+   },
+   "corner": "news",
+   "idea": "紙の説明書や学校のプリントを写真に撮って読み取らせ、表もそのまま残した「自分専用の検索できるメモ帳」を作ると便利です。",
+   "guide": "guides/2026-11-27.html#news-3"
+  },
+  {
+   "label": "ブラウザ操作を記録で高速化",
+   "points": [
+    "手順を保存して再生",
+    "2回目から約1.5秒",
+    "迷う時だけ判断AI",
+    "危ない操作は止まる"
+   ],
+   "details": [
+    "フォーム入力などの手順を JSON の手順書にし、入力する値だけ変えて何度も流せる。",
+    "作者の計測では、Claude Codeに毎回頼むと約20秒だったのが、保存した手順書なら約1.5秒・AI呼び出し0回。",
+    "ボタン名が一致しないときだけ、小さな判断用モデルに候補から選ばせる。APIキーが無ければ使わない。",
+    "自信が低いときや、削除・公開などのボタンは押さずに止まり、人に任せる。"
+   ],
+   "url": "https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans",
+   "lines": [
+    {
+     "say": "ここからは、エンジニアの実践ノウハウです。クロード コードの決まったブラウザ操作を、二回目からは約一・五秒で終わらせる道具が、ゼンで紹介されました。",
+     "show": "Claude Codeの定型ブラウザ操作を2回目から約1.5秒に"
+    },
+    {
+     "say": "フォーム入力をエーアイに頼むと、毎回画面を読み直すので、一回に約二十秒かかっていたそうです。",
+     "show": "毎回AIに頼むと約20秒かかっていた"
+    },
+    {
+     "say": "この道具は、一度やった手順を記録帳のようなファイルに保存し、次からはボタンの名前を照らし合わせるだけで動かします。",
+     "show": "手順をJSONに保存し、名前の照合で再生"
+    },
+    {
+     "say": "名前が変わって見つからないときだけ、小さな判断用のエーアイに、画面にある候補から選ばせます。",
+     "show": "見つからない時だけ判断用AIに選ばせる"
+    },
+    {
+     "say": "自信が低いときや、削除や公開のような危ないボタンは、押さずに止まって人に任せます。",
+     "show": "迷ったら止まる。削除・公開などは押さない"
+    },
+    {
+     "say": "数字は作者の手元での計測で、動作を確かめたのはマックだけ、と記事に書かれています。",
+     "show": "数値は作者の計測。動作確認はmacOSのみ"
+    },
+    {
+     "say": "たとえば、毎週同じ管理画面に入力している作業を一度記録して、値だけ変えて流すと、ぐっと楽になりそうですね。",
+     "show": "使い方：毎週の入力作業を記録して再生"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans",
+    "title": "Claude Codeの定型ブラウザ操作を2回目からLLMなし1.5秒に。迷う手だけDecisionモデルに聞くCLI&SKILL",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--pHJMxvN7--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Claude%2520Code%25E3%2581%25AE%25E5%25AE%259A%25E5%259E%258B%25E3%2583%2596%25E3%2583%25A9%25E3%2582%25A6%25E3%2582%25B6%25E6%2593%258D%25E4%25BD%259C%25E3%2582%25922%25E5%259B%259E%25E7%259B%25AE%25E3%2581%258B%25E3%2582%2589LLM%25E3%2581%25AA%25E3%2581%25971.5%25E7%25A7%2592%25E3%2581%25AB%25E3%2580%2582%25E8%25BF%25B7%25E3%2581%2586%25E6%2589%258B%25E3%2581%25A0%25E3%2581%2591Decision%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AB%25E8%2581%259E%25E3%2581%258FC...%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:airtanker%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2doVlZzQ2pCbENSb2pzU2lJb3NkSE1nemFXaGowTTVlYlNmZHNoYkE9czk2LWM=%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "毎週同じ管理画面に入力している作業を一度記録し、入力する値だけ変えて流すようにすると、待ち時間もAIの利用料もぐっと減らせます。",
+   "guide": "guides/2026-11-27.html#news-4"
+  },
+  {
+   "label": "スキルのよくある失敗13選",
+   "points": [
+    "失敗は書いた後に起きる",
+    "長すぎ・矛盾・重複",
+    "説明には「いつ使うか」",
+    "あり・なしで比べる"
+   ],
+   "details": [
+    "失敗のたびに規則を足し、別の人も書き足すうちに、誰も全体を分からない長い文書になる。",
+    "長すぎる、場合分けを並べすぎる、規則が矛盾・重複する、などを13個にまとめている。",
+    "description は要約ではなく、使う場面・頼み方の例・使わない場面を書く。",
+    "まずスキルなしで試して本当の失敗を見つけ、あり・なしで比べてから規則を足す。"
+   ],
+   "url": "https://zenn.dev/singularity/articles/skill-antipatterns",
+   "lines": [
+    {
+     "say": "次もゼンの記事です。スキル、つまりエーアイに渡す作業マニュアルの、よくある失敗を十三個まとめています。",
+     "show": "SKILL.mdのよくある失敗13選と直し方"
+    },
+    {
+     "say": "スキルは、書いた日はうまく動きます。でも失敗のたびに規則を足すうちに、長くて矛盾した文書になりがちだそうです。",
+     "show": "規則を足し続けると長く矛盾した文書に"
+    },
+    {
+     "say": "たとえば、長すぎる。場合分けを並べすぎる。説明文に、いつ使うかが書かれていない、などです。",
+     "show": "長すぎ・網羅しすぎ・説明に使う場面がない など"
+    },
+    {
+     "say": "アンスロピックの公式ガイドでも、本文は五百行より短くし、説明には、何をするかと、いつ使うかの両方を書くよう、すすめています。",
+     "show": "公式：本文は500行未満、説明は「何を・いつ」"
+    },
+    {
+     "say": "記事は、まずスキルなしで試して本当の失敗を見つけ、あり・なしで比べてから規則を足そう、とすすめています。",
+     "show": "スキルあり・なしで比べてから規則を足す"
+    },
+    {
+     "say": "たとえば、自分のスキルの説明文を、こんなときに使う、という形に書き直すだけで、ちょうどいい場面で呼び出してくれるかもしれません。",
+     "show": "使い方：説明文を「こんなときに使う」に"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/singularity/articles/skill-antipatterns",
+    "title": "スキル（SKILL.md）のアンチパターン 13 選と直し方 ── 長すぎる、網羅しすぎる、複数人で書き足して矛盾する",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--Sj3kXWHw--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:%25E3%2582%25B9%25E3%2582%25AD%25E3%2583%25AB%25EF%25BC%2588SKILL.md%25EF%25BC%2589%25E3%2581%25AE%25E3%2582%25A2%25E3%2583%25B3%25E3%2583%2581%25E3%2583%2591%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%25B3%252013%2520%25E9%2581%25B8%25E3%2581%25A8%25E7%259B%25B4%25E3%2581%2597%25E6%2596%25B9%2520%25E2%2594%2580%25E2%2594%2580%2520%25E9%2595%25B7%25E3%2581%2599%25E3%2581%258E%25E3%2582%258B%25E3%2580%2581%25E7%25B6%25B2%25E7%25BE%2585%25E3%2581%2597%25E3%2581%2599%25E3%2581%258E%25E3%2582%258B%25E3%2580%2581%25E8%25A4%2587%25E6%2595%25B0%25E4%25BA%25BA%25E3%2581%25A7%25E6%259B%25B8%25E3%2581%258D%25E8%25B6%25B3%25E3%2581%2597%25E3%2581%25A6%25E7%259F%259B%25E7%259B%25BE%25E3%2581%2599%25E3%2582%258B%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_34:Isamu%2Cx_220%2Cy_108/bo_3px_solid_rgb:d6e3ed%2Cg_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyLzZiNjM5MTg4YzEuanBlZw==%2Cr_20%2Cw_90%2Cx_92%2Cy_102/co_rgb:6e7b85%2Cg_south_west%2Cl_text:notosansjp-medium.otf_30:%25E3%2582%25B7%25E3%2583%25B3%25E3%2582%25AE%25E3%2583%25A5%25E3%2583%25A9%25E3%2583%25AA%25E3%2583%2586%25E3%2582%25A3%25E3%2583%25BB%25E3%2582%25BD%25E3%2582%25B5%25E3%2582%25A8%25E3%2583%2586%25E3%2582%25A3%2Cx_220%2Cy_160/bo_4px_solid_white%2Cg_south_west%2Ch_50%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2g3ODg4Mk5lcU4xYUxYZWxhbjZ5TDYzUVBVdGs3MjQ0aGs0QjdBdWc9czI1MC1j%2Cr_max%2Cw_50%2Cx_139%2Cy_84/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "自分のスキルの description を「こんなときに使う」「こう頼まれたら使う」という形に書き直すだけで、AIがちょうどいい場面で呼び出してくれるようになるかもしれません。",
+   "guide": "guides/2026-11-27.html#news-5"
+  },
+  {
+   "label": "Actionsで起動前に落ちる時",
+   "points": [
+    "起動用ファイルが無い問題",
+    "動いた版のSHAに固定",
+    "先に入れて場所を渡す",
+    "本当のエラーを表示"
+   ],
+   "details": [
+    "インストールは成功と出るのに、起動用のファイルが作られないことがある（公式issue #1817、未解決）。",
+    "最後に成功した実行ログからSHAを調べて固定すると、その場は直ることが多い。",
+    "別の手順で Claude Code を入れて --version で確かめ、path_to_claude_code_executable で場所を渡す。",
+    "exited with code 1 は原因がいくつもある。残高不足、終了したモデルの指定、出力形式の上書きなど。"
+   ],
+   "url": "https://qiita.com/homhom44/items/f61e4877d7400be7f4c8",
+   "lines": [
+    {
+     "say": "実践ノウハウの最後は、キータの記事です。ギットハブの自動作業の仕組みで、クロード コード アクションが、動き出す前に止まるときの直し方です。",
+     "show": "claude-code-actionが起動前に落ちるときの直し方"
+    },
+    {
+     "say": "原因の一つは、インストールが成功と表示されるのに、起動用のファイルが作られないことです。公式の不具合報告にも、まだ解決していない問題として載っています。",
+     "show": "成功表示なのに起動用ファイルが無い（#1817）"
+    },
+    {
+     "say": "応急処置は、ちゃんと動いていたころの版に固定することです。直ったら、元の指定に戻します。",
+     "show": "応急処置：動いていた版のSHAに固定"
+    },
+    {
+     "say": "または、先に自分でクロード コードを入れて、版を表示して確かめてから、その場所を渡す方法もあります。",
+     "show": "先に入れて確認し、場所を渡す方法も"
+    },
+    {
+     "say": "もう一つのエラーは、残高不足や、提供が終わったモデルの指定など、原因がいくつもあります。本当のエラー文を表示させてから直すのが近道です。",
+     "show": "code 1 は原因が複数。本当のエラー文を見る"
+    },
+    {
+     "say": "たとえば、自動作業の最初に、クロード コードが入っているか確かめる一行を足しておくと、止まったときに原因がすぐ分かって便利ですね。",
+     "show": "使い方：最初にインストール確認を足す"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/homhom44/items/f61e4877d7400be7f4c8",
+    "title": "claude-code-action で \"SDK execution error\" と \"Claude Code native binary not found at /home/runner/.local/bin/claude\" が出たときの直し方(SHA 固定と本当の原因の見つけ方) - Qiita",
+    "site": "Qiita",
+    "description": "GitHub Actions の anthropics/claude-code-action が、Claude が動き出す前に次のどちらかで落ちるときの手順です。動いていた時点のコミット SHA にアクションを固定すれば、その場は復旧することが多いです。ただし SDK ex...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRnMzLWFwLW5vcnRoZWFzdC0xLmFtYXpvbmF3cy5jb20lMkZxaWl0YS1pbWFnZS1zdG9yZSUyRjAlMkYxMzEzMTYlMkZmZGI0YmViYmNmZmM2N2VmODljNDMzZTc0ZjQzNjEwNGQ1YWUwMDM0JTJGbGFyZ2UucG5nJTNGMTc5MDUyODE5Mz9peGxpYj1yYi00LjEuMSZhcj0xJTNBMSZmaXQ9Y3JvcCZtYXNrPWVsbGlwc2UmYmc9RkZGRkZGJmZtPXBuZzMyJnM9NTRkNzZlODRiYzk4ODBhZjhlM2ViNjMwY2NlYzYyYjk%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3Db558c99d63a593a2c06c5d25864c250c?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9Y2xhdWRlLWNvZGUtYWN0aW9uJTIwJUUzJTgxJUE3JTIwJTIyU0RLJTIwZXhlY3V0aW9uJTIwZXJyb3IlMjIlMjAlRTMlODElQTglMjAlMjJDbGF1ZGUlMjBDb2RlJTIwbmF0aXZlJTIwYmluYXJ5JTIwbm90JTIwZm91bmQlMjBhdCUyMCUyRmhvJUUyJTgwJUE2JnR4dC1hbGlnbj1sZWZ0JTJDdG9wJnR4dC1jb2xvcj0lMjMxRTIxMjEmdHh0LWZvbnQ9SGlyYWdpbm8lMjBTYW5zJTIwVzYmdHh0LXNpemU9NTYmdHh0LXBhZD0wJnM9MzJiNmRlZWM1MTFhNjMwODRjY2RhNGFhNmFiYjJkM2E&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBob21ob200NCZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPWZjZWJhNzlmZTU5ZWRkMjY3Y2IzNzYzYzgxZGQxM2M4&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=2449ccde6e256ddeed0d826623cbef63",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "自動作業の最初に「Claude Code が入っているか確かめる」一行を足しておくと、止まったときにどこで失敗したかがすぐ分かって便利です。",
+   "guide": "guides/2026-11-27.html#news-6"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "診断だけ先にする",
+    "直すのは1か所だけ",
+    "前後で2回ずつ比べる",
+    "だめなら元に戻す"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://zenn.dev/singularity/articles/skill-antipatterns",
+   "lines": [
+    {
+     "say": "では、今日の実験です。テーマは、自分のスキルの健康診断です。",
+     "show": "今日の実験：スキルの健康診断"
+    },
+    {
+     "say": "まず、自分用のスキル置き場と、プロジェクトのスキル置き場に、どんなスキルがあるか確かめます。",
+     "show": "~/.claude/skills/ と .claude/skills/ を確認"
+    },
+    {
+     "say": "直す前に、スキルが合いそうな頼みごとを一つ決めて、二回試し、結果をメモしておきます。",
+     "show": "直す前に、同じ頼みごとを2回試してメモ"
+    },
+    {
+     "say": "次に、クロード コードに、書き換えはせず診断だけするよう頼むプロンプトを貼ります。番組ページに、そのまま使える文を載せています。",
+     "show": "診断だけを頼むプロンプトを貼る"
+    },
+    {
+     "say": "五百行を超えていないか、説明に使う場面があるか、矛盾や重複がないかなどを、表にしてもらいます。",
+     "show": "行数・説明・矛盾・重複などを表に"
+    },
+    {
+     "say": "出てきた中から、最初に直すべき一つだけを直してください。全部を一度に直さないのがコツです。",
+     "show": "直すのは「最初の1つ」だけ"
+    },
+    {
+     "say": "最後に、同じ頼みごとをもう二回試して、直す前と比べます。良くならなければ、元に戻して大丈夫です。",
+     "show": "前後を2回ずつ比べ、だめなら元に戻す"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/singularity/articles/skill-antipatterns",
+    "title": "スキル（SKILL.md）のアンチパターン 13 選と直し方 ── 長すぎる、網羅しすぎる、複数人で書き足して矛盾する",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--Sj3kXWHw--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:%25E3%2582%25B9%25E3%2582%25AD%25E3%2583%25AB%25EF%25BC%2588SKILL.md%25EF%25BC%2589%25E3%2581%25AE%25E3%2582%25A2%25E3%2583%25B3%25E3%2583%2581%25E3%2583%2591%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%25B3%252013%2520%25E9%2581%25B8%25E3%2581%25A8%25E7%259B%25B4%25E3%2581%2597%25E6%2596%25B9%2520%25E2%2594%2580%25E2%2594%2580%2520%25E9%2595%25B7%25E3%2581%2599%25E3%2581%258E%25E3%2582%258B%25E3%2580%2581%25E7%25B6%25B2%25E7%25BE%2585%25E3%2581%2597%25E3%2581%2599%25E3%2581%258E%25E3%2582%258B%25E3%2580%2581%25E8%25A4%2587%25E6%2595%25B0%25E4%25BA%25BA%25E3%2581%25A7%25E6%259B%25B8%25E3%2581%258D%25E8%25B6%25B3%25E3%2581%2597%25E3%2581%25A6%25E7%259F%259B%25E7%259B%25BE%25E3%2581%2599%25E3%2582%258B%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_34:Isamu%2Cx_220%2Cy_108/bo_3px_solid_rgb:d6e3ed%2Cg_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyLzZiNjM5MTg4YzEuanBlZw==%2Cr_20%2Cw_90%2Cx_92%2Cy_102/co_rgb:6e7b85%2Cg_south_west%2Cl_text:notosansjp-medium.otf_30:%25E3%2582%25B7%25E3%2583%25B3%25E3%2582%25AE%25E3%2583%25A5%25E3%2583%25A9%25E3%2583%25AA%25E3%2583%2586%25E3%2582%25A3%25E3%2583%25BB%25E3%2582%25BD%25E3%2582%25B5%25E3%2582%25A8%25E3%2583%2586%25E3%2582%25A3%2Cx_220%2Cy_160/bo_4px_solid_white%2Cg_south_west%2Ch_50%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2g3ODg4Mk5lcU4xYUxYZWxhbjZ5TDYzUVBVdGs3MjQ0aGs0QjdBdWc9czI1MC1j%2Cr_max%2Cw_50%2Cx_139%2Cy_84/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "experiment",
+   "name": "自分のスキルの健康診断",
+   "guide": "guides/2026-11-27.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。グーグルは、エーアイ エージェントに、専用の窓口を通すよう決めました。始まりは来年の二月一日です。",
+   "show": "要点1：GoogleはAIエージェントをMCP経由に（2027/2/1〜）"
+  },
+  {
+   "say": "エーアイのチームは、練習すると、少ない言葉でうまく協力できるようになります。比べるときは、同じ予算でそろえましょう。",
+   "show": "要点2：AIのチームは練習で協力上手に"
+  },
+  {
+   "say": "そして、ブラウザ操作もスキルも、決まったことは記録して、短く保つのがコツです。",
+   "show": "要点3：決まった作業は記録し、スキルは短く"
+  },
+  {
+   "say": "今日やってみることは、スキルの健康診断です。直すのは一つだけで大丈夫です。",
+   "show": "今日やること：スキルの健康診断（直すのは1つ）"
+  },
+  {
+   "say": "エーアイ ディスカバリー アンド ビルド ラジオ、また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio　また明日"
+  }
+ ],
+ "highlight": 6,
+ "guide": "guides/2026-11-27.html",
+ "seconds": 523.897,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 10.192,
+   "show": "AI Discovery & Build Radio　11月27日（金）",
+   "part": 0
+  },
+  {
+   "start": 10.442,
+   "end": 18.462,
+   "show": "今日の注目：GoogleがAIエージェントの決まりを変更",
+   "part": 0
+  },
+  {
+   "start": 18.712,
+   "end": 25.795,
+   "show": "エージェント＝自分で手順を考えて作業するAI",
+   "part": 0
+  },
+  {
+   "start": 26.045,
+   "end": 36.024,
+   "show": "AIのチーム練習／ブラウザ操作の高速化／スキルの注意点",
+   "part": 0
+  },
+  {
+   "start": 36.274,
+   "end": 41.702,
+   "show": "今日の実験：スキルの健康診断",
+   "part": 0
+  },
+  {
+   "start": 42.602,
+   "end": 52.76,
+   "show": "Google：AIエージェントは専用の窓口を通すことに",
+   "part": 1
+  },
+  {
+   "start": 53.01,
+   "end": 61.748,
+   "show": "MCP＝AIと道具をつなぐ共通のコンセント",
+   "part": 1
+  },
+  {
+   "start": 61.998,
+   "end": 67.669,
+   "show": "2027年2月1日から、MCPサーバー経由が必要に",
+   "part": 1
+  },
+  {
+   "start": 67.919,
+   "end": 79.504,
+   "show": "直接つなぐと標準枠に制限。無料枠は1日5,000回",
+   "part": 1
+  },
+  {
+   "start": 79.754,
+   "end": 88.326,
+   "show": "30日を超える保存やAIの学習への利用は禁止",
+   "part": 1
+  },
+  {
+   "start": 88.576,
+   "end": 98.315,
+   "show": "記事によるとGmailの窓口は検索・下書きが中心",
+   "part": 1
+  },
+  {
+   "start": 98.565,
+   "end": 110.092,
+   "show": "使い方：返事の下書きはAI、送信は自分で",
+   "part": 1
+  },
+  {
+   "start": 110.992,
+   "end": 121.131,
+   "show": "Hugging Face：4体のAIに協力を練習させる実験",
+   "part": 2
+  },
+  {
+   "start": 121.381,
+   "end": 131.357,
+   "show": "数字を送り合い、全部を並べたら成功",
+   "part": 2
+  },
+  {
+   "start": 131.607,
+   "end": 140.343,
+   "show": "成功率は約7%→約82%に",
+   "part": 2
+  },
+  {
+   "start": 140.593,
+   "end": 147.744,
+   "show": "使う文章量は約37%減、やり取りは増加",
+   "part": 2
+  },
+  {
+   "start": 147.994,
+   "end": 155.971,
+   "show": "比べるときは同じ計算量でそろえる",
+   "part": 2
+  },
+  {
+   "start": 156.221,
+   "end": 164.831,
+   "show": "再現手順は公開。H200×2で約5時間・約50ドル",
+   "part": 2
+  },
+  {
+   "start": 165.081,
+   "end": 174.987,
+   "show": "使い方：1体と3体を同じ予算で比べる",
+   "part": 2
+  },
+  {
+   "start": 175.887,
+   "end": 182.773,
+   "show": "NVIDIA Nemotron 3.5 Parse：書類を読み取るAI",
+   "part": 3
+  },
+  {
+   "start": 183.023,
+   "end": 190.558,
+   "show": "見出し・表・グラフを順番どおりに整理",
+   "part": 3
+  },
+  {
+   "start": 190.808,
+   "end": 200.888,
+   "show": "学習データ公開／追加学習の手順／高速化",
+   "part": 3
+  },
+  {
+   "start": 201.138,
+   "end": 212.307,
+   "show": "約0.6Bの小型モデル。商用可。NVIDIA GPUが必要",
+   "part": 3
+  },
+  {
+   "start": 212.557,
+   "end": 222.016,
+   "show": "歯科の書類例：約0%→約96%に改善",
+   "part": 3
+  },
+  {
+   "start": 222.266,
+   "end": 231.756,
+   "show": "使い方：紙の資料を検索できるメモに",
+   "part": 3
+  },
+  {
+   "start": 232.656,
+   "end": 245.038,
+   "show": "Claude Codeの定型ブラウザ操作を2回目から約1.5秒に",
+   "part": 4
+  },
+  {
+   "start": 245.288,
+   "end": 253.156,
+   "show": "毎回AIに頼むと約20秒かかっていた",
+   "part": 4
+  },
+  {
+   "start": 253.406,
+   "end": 262.468,
+   "show": "手順をJSONに保存し、名前の照合で再生",
+   "part": 4
+  },
+  {
+   "start": 262.718,
+   "end": 270.332,
+   "show": "見つからない時だけ判断用AIに選ばせる",
+   "part": 4
+  },
+  {
+   "start": 270.582,
+   "end": 277.873,
+   "show": "迷ったら止まる。削除・公開などは押さない",
+   "part": 4
+  },
+  {
+   "start": 278.123,
+   "end": 285.31,
+   "show": "数値は作者の計測。動作確認はmacOSのみ",
+   "part": 4
+  },
+  {
+   "start": 285.56,
+   "end": 294.888,
+   "show": "使い方：毎週の入力作業を記録して再生",
+   "part": 4
+  },
+  {
+   "start": 295.788,
+   "end": 304.989,
+   "show": "SKILL.mdのよくある失敗13選と直し方",
+   "part": 5
+  },
+  {
+   "start": 305.239,
+   "end": 315.077,
+   "show": "規則を足し続けると長く矛盾した文書に",
+   "part": 5
+  },
+  {
+   "start": 315.327,
+   "end": 324.586,
+   "show": "長すぎ・網羅しすぎ・説明に使う場面がない など",
+   "part": 5
+  },
+  {
+   "start": 324.836,
+   "end": 335.574,
+   "show": "公式：本文は500行未満、説明は「何を・いつ」",
+   "part": 5
+  },
+  {
+   "start": 335.824,
+   "end": 344.642,
+   "show": "スキルあり・なしで比べてから規則を足す",
+   "part": 5
+  },
+  {
+   "start": 344.892,
+   "end": 355.053,
+   "show": "使い方：説明文を「こんなときに使う」に",
+   "part": 5
+  },
+  {
+   "start": 355.953,
+   "end": 367.174,
+   "show": "claude-code-actionが起動前に落ちるときの直し方",
+   "part": 6
+  },
+  {
+   "start": 367.424,
+   "end": 380.381,
+   "show": "成功表示なのに起動用ファイルが無い（#1817）",
+   "part": 6
+  },
+  {
+   "start": 380.631,
+   "end": 388.927,
+   "show": "応急処置：動いていた版のSHAに固定",
+   "part": 6
+  },
+  {
+   "start": 389.177,
+   "end": 397.529,
+   "show": "先に入れて確認し、場所を渡す方法も",
+   "part": 6
+  },
+  {
+   "start": 397.779,
+   "end": 409.769,
+   "show": "code 1 は原因が複数。本当のエラー文を見る",
+   "part": 6
+  },
+  {
+   "start": 410.019,
+   "end": 420.152,
+   "show": "使い方：最初にインストール確認を足す",
+   "part": 6
+  },
+  {
+   "start": 421.052,
+   "end": 427.544,
+   "show": "今日の実験：スキルの健康診断",
+   "part": 7
+  },
+  {
+   "start": 427.794,
+   "end": 435.155,
+   "show": "~/.claude/skills/ と .claude/skills/ を確認",
+   "part": 7
+  },
+  {
+   "start": 435.405,
+   "end": 442.87,
+   "show": "直す前に、同じ頼みごとを2回試してメモ",
+   "part": 7
+  },
+  {
+   "start": 443.12,
+   "end": 453.988,
+   "show": "診断だけを頼むプロンプトを貼る",
+   "part": 7
+  },
+  {
+   "start": 454.238,
+   "end": 462.372,
+   "show": "行数・説明・矛盾・重複などを表に",
+   "part": 7
+  },
+  {
+   "start": 462.622,
+   "end": 470.897,
+   "show": "直すのは「最初の1つ」だけ",
+   "part": 7
+  },
+  {
+   "start": 471.147,
+   "end": 480.707,
+   "show": "前後を2回ずつ比べ、だめなら元に戻す",
+   "part": 7
+  },
+  {
+   "start": 481.607,
+   "end": 492.692,
+   "show": "要点1：GoogleはAIエージェントをMCP経由に（2027/2/1〜）",
+   "part": 8
+  },
+  {
+   "start": 492.942,
+   "end": 503.208,
+   "show": "要点2：AIのチームは練習で協力上手に",
+   "part": 8
+  },
+  {
+   "start": 503.458,
+   "end": 510.321,
+   "show": "要点3：決まった作業は記録し、スキルは短く",
+   "part": 8
+  },
+  {
+   "start": 510.571,
+   "end": 518.013,
+   "show": "今日やること：スキルの健康診断（直すのは1つ）",
+   "part": 8
+  },
+  {
+   "start": 518.263,
+   "end": 523.297,
+   "show": "AI Discovery & Build Radio　また明日",
+   "part": 8
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 42.602
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 42.602,
+   "end": 110.992
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 110.992,
+   "end": 175.887
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 175.887,
+   "end": 232.656
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 232.656,
+   "end": 295.788
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 295.788,
+   "end": 355.953
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 355.953,
+   "end": 421.052
+  },
+  {
+   "kind": "news",
+   "index": 6,
+   "start": 421.052,
+   "end": 481.607
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 481.607,
+   "end": 523.897
+  }
+ ],
+ "made_at": "2026-11-27T07:17:01",
+ "tts": {
+  "provider": "azure",
+  "chars": 5774,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}

@@ -1,0 +1,718 @@
+{
+ "date": "2026-11-21",
+ "made_at": "2026-11-21T18:14:51",
+ "seconds": 455.549,
+ "tts": {
+  "provider": "azure",
+  "chars": 5082,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 43,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.6
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 6.8
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 11.5
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 1,
+   "sec": 0.3
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.4
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.4
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 5.0
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 3.0
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.5
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.6
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 1.1
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.9
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.1
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.8
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.7
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 1.1
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.2
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.4
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_7ce40af713",
+   "fetched": true,
+   "scores": {
+    "practice": 30,
+    "novelty": 13,
+    "reliability": 25,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "公式リリースノートで、グラフ描画・/loop 30日・rm の確認強化を確認でき、すぐ試せる。"
+  },
+  {
+   "candidate_id": "c_9166064c2f",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 9,
+    "reliability": 25,
+    "relevance": 20
+   },
+   "selected": false,
+   "reason": "前日の版で、翌日の v2.1.330 を優先し同じ発表元の重複を避けた。"
+  },
+  {
+   "candidate_id": "c_211fbe8009",
+   "fetched": true,
+   "scores": {
+    "practice": 16,
+    "novelty": 18,
+    "reliability": 23,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "エージェントを動かすソフトに合わせて追加学習する新しい考え方で、成果物も公開されている。"
+  },
+  {
+   "candidate_id": "c_e486efe85b",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 6,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "動画の紹介で一次情報を確認しておらず、制作への応用も小さい。"
+  },
+  {
+   "candidate_id": "c_5aa08f312f",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "要約にバージョン番号しかなく、変更内容を確認していない。"
+  },
+  {
+   "candidate_id": "c_b03dc7866d",
+   "fetched": false,
+   "scores": {
+    "practice": 12,
+    "novelty": 8,
+    "reliability": 8,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "OpenAI 公式記事の二次解説で、本文を確認していない。"
+  },
+  {
+   "candidate_id": "c_37e9a925d7",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "要約にバージョン番号しかなく、変更内容を確認していない。"
+  },
+  {
+   "candidate_id": "c_b00f82b6db",
+   "fetched": true,
+   "scores": {
+    "practice": 26,
+    "novelty": 16,
+    "reliability": 25,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "公式ブログとドキュメントで仕組み・対応モデル・料金の考え方を確認でき、エージェント開発に直結。"
+  },
+  {
+   "candidate_id": "c_c89ec8c212",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "アルファ版で変更内容の記載がない。"
+  },
+  {
+   "candidate_id": "c_0f08e9a78a",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 8,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "アルファ版で変更内容の記載がない。"
+  },
+  {
+   "candidate_id": "c_3ea993db7e",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 8,
+    "reliability": 10,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "企業の安全対策の話で、個人の制作への応用が小さい。"
+  },
+  {
+   "candidate_id": "c_2204c015d7",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 14,
+    "reliability": 24,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "内容は良いが、モデル出力のパーサー実装は上級者向けで今日は他を優先。"
+  },
+  {
+   "candidate_id": "c_31618e0c88",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 10,
+    "reliability": 10,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "大規模な強化学習基盤の話で、個人向けではない。"
+  },
+  {
+   "candidate_id": "c_7429ad9963",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 5,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "リリースページの本文が読み込めず、変更内容を確認できなかった。"
+  },
+  {
+   "candidate_id": "c_c6e0db296c",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 10,
+    "reliability": 15,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "約100リポジトリを管理する人向けの重い運用で、今日は個人がすぐ試せる記事を優先。"
+  },
+  {
+   "candidate_id": "c_a4b3305dfd",
+   "fetched": true,
+   "scores": {
+    "practice": 32,
+    "novelty": 11,
+    "reliability": 16,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "別のAIに疑わせるレビューやフックで止める工夫が具体的で、個人でもすぐ真似できる。"
+  },
+  {
+   "candidate_id": "c_81e9b92a0b",
+   "fetched": true,
+   "scores": {
+    "practice": 29,
+    "novelty": 9,
+    "reliability": 16,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "VS Code 拡張で CLAUDE.md が読まれない原因と確認方法が具体的で、多くの人に役立つ。"
+  },
+  {
+   "candidate_id": "c_7f6addd32b",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 12,
+    "reliability": 15,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "面白いプラグインだが、コミュニティ記事の枠は他の2本を優先。"
+  },
+  {
+   "candidate_id": "c_b3da54ed88",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 6,
+    "reliability": 8,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "本文を確認していない。"
+  },
+  {
+   "candidate_id": "c_9af79c7cd1",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 6,
+    "reliability": 8,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "計画段階の記録で、本文を確認していない。"
+  },
+  {
+   "candidate_id": "c_6ec5d08c88",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 12,
+    "reliability": 15,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "良い分析記事だが、同じ Claude Code 実践の話題が多いため今日は見送り。"
+  },
+  {
+   "candidate_id": "c_d15c456432",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 6,
+    "reliability": 10,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "企業の導入事例で個人の制作への応用が小さい。"
+  },
+  {
+   "candidate_id": "c_f4784c3040",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 8,
+    "reliability": 10,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "創薬向けの評価指標で、関心領域から遠い。"
+  },
+  {
+   "candidate_id": "c_9afed0143c",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 2,
+    "reliability": 12,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "株式公開の話で、制作・開発への応用がない。"
+  },
+  {
+   "candidate_id": "c_80d31a6dee",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 15,
+    "reliability": 20,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "ライセンスと必要なメモリ量が本文で確認できず、今日は見送り。"
+  },
+  {
+   "candidate_id": "c_2adef6bfec",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 2,
+    "reliability": 10,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "対談動画で、実践への応用が小さい。"
+  },
+  {
+   "candidate_id": "c_1112027d59",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 14,
+    "reliability": 23,
+    "relevance": 14
+   },
+   "selected": true,
+   "reason": "AIエージェントで3Dシミュレーションを作る事例で、デモの一部は個人のPCでも動かせる。"
+  },
+  {
+   "candidate_id": "c_4ba1303d2e",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 6,
+    "reliability": 10,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "データベースの更新で、AI の話題ではない。"
+  },
+  {
+   "candidate_id": "c_1177dfbd92",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 3,
+    "reliability": 6,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "株式公開のまとめで二次情報。"
+  },
+  {
+   "candidate_id": "c_2b32d4b379",
+   "fetched": false,
+   "scores": {
+    "practice": 1,
+    "novelty": 10,
+    "reliability": 5,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "数学の話題で要約もなく、制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_c989db0d32",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 10,
+    "reliability": 6,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "二次情報で本文を確認していない。"
+  },
+  {
+   "candidate_id": "c_81ce5b24dd",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 5,
+    "reliability": 5,
+    "relevance": 1
+   },
+   "selected": false,
+   "reason": "AI を使っていない数学の話題。"
+  },
+  {
+   "candidate_id": "c_b8e1839046",
+   "fetched": false,
+   "scores": {
+    "practice": 1,
+    "novelty": 12,
+    "reliability": 5,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "引用のみで検証できず、制作への応用もない。"
+  },
+  {
+   "candidate_id": "c_366b2a15d1",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 5,
+    "reliability": 6,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "本文を確認していない。"
+  },
+  {
+   "candidate_id": "c_502677f08c",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 10,
+    "reliability": 15,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "良い記事だが、今日の実験（フック）と内容が重なるため見送り。"
+  },
+  {
+   "candidate_id": "c_65edf14fd7",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 2,
+    "reliability": 5,
+    "relevance": 1
+   },
+   "selected": false,
+   "reason": "社会の話題で、制作への応用がない。"
+  },
+  {
+   "candidate_id": "c_fd28116146",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 1,
+    "reliability": 5,
+    "relevance": 1
+   },
+   "selected": false,
+   "reason": "株式市場の話題。"
+  },
+  {
+   "candidate_id": "c_0000282282",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 12,
+    "reliability": 5,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "本文を確認しておらず、個人の制作への応用も小さい。"
+  },
+  {
+   "candidate_id": "c_c4ca83ba57",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 6,
+    "reliability": 6,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "本文を確認していない。"
+  },
+  {
+   "candidate_id": "c_ed33061e28",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 4,
+    "reliability": 4,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "非公式のランキングで検証できない。"
+  },
+  {
+   "candidate_id": "c_122be7cf5d",
+   "fetched": false,
+   "scores": {
+    "practice": 1,
+    "novelty": 12,
+    "reliability": 8,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "研究成果で、個人の制作への応用がない。本文も未確認。"
+  },
+  {
+   "candidate_id": "c_f0d0f469e0",
+   "fetched": false,
+   "scores": {
+    "practice": 0,
+    "novelty": 1,
+    "reliability": 5,
+    "relevance": 1
+   },
+   "selected": false,
+   "reason": "株式公開の報道。"
+  },
+  {
+   "candidate_id": "c_32cca7ee57",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 3,
+    "reliability": 4,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "意見記事で本文を確認していない。"
+  }
+ ],
+ "warnings": []
+}

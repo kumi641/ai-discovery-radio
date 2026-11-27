@@ -1,0 +1,295 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIの止め方と確かめ方：フックと別AIレビュー｜実践ガイド 2026-11-21</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-21/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月21日（土）・放送 約8分</div>
+<h1>AIの止め方と確かめ方：フックと別AIレビュー</h1>
+<p class="lead">Claude Code がグラフ描画と最長30日の定期作業に対応し、Gemini API はツールを必要な分だけ読み込む Tool Retrieval をプレビュー公開しました。実践面では「別のAIに疑わせる」レビューや、CLAUDE.md が読まれない原因の切り分けが話題です。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：git push を止めて、理由と代わりの手順を返すフック</a></li>
+<li><a href="#news-1">Claude Code v2.1.330：頼むとグラフを描く内蔵mod「easel」、定期タスクと/loopが最長30日に、危険なrmは承認が必要に</a></li>
+<li><a href="#news-2">Google、Gemini API（Interactions API）に Tool Retrieval をプレビュー公開。ツールの定義を必要なときだけ読み込む</a></li>
+<li><a href="#news-3">Hugging Face、エージェントの実行環境ごとにモデルを強化学習で合わせる「harness adapters」を公開（Qwen3.8-27B 向け）</a></li>
+<li><a href="#news-4">Zenn：Claude Code の開発手順（2026年11月）。書くのはAI、疑うのは経緯を知らない別のAI、commit と push は自分で</a></li>
+<li><a href="#news-5">Qiita：Claude Code の VS Code 拡張で CLAUDE.md が読まれなくなった原因は「フォルダの信頼」（v2.1.323 以降、筆者の解析）</a></li>
+<li><a href="#news-6">NVIDIA：開発者が最先端のAIエージェントに指示して、Omniverse の3Dシミュレーションを作る事例を紹介</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>git push を止めて、理由と代わりの手順を返すフック</h2>
+<div class="meta">関連ニュース：<a href="#news-4">Zenn：Claude Code の開発手順（2026年11月）。書くのはAI、疑うのは経緯を知らない別のAI、commit と push は自分で</a></div>
+<div class="task"><h4>実験：git push を止めて、理由と代わりの手順を返すフック</h4><dl class="kv"><dt>目的</dt><dd>Claude Code が勝手に git push しないよう、PreToolUse フックで止め、止めた理由と代わりにしてほしいことを Claude に伝える</dd><dt>使用ツール</dt><dd>Claude Code、bash、jq</dd><dt>必要な準備</dt><dd>Claude Code が使える環境（macOS / Linux）、jq をインストールしておく（公式の例が jq を使うため）、試しに使える git リポジトリ（push しても困らないもの）</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（Claude Code の利用料金のみ）</dd></dl><b>手順</b><ol><li>リポジトリに .claude/hooks フォルダを作り、下の前半を block-push.sh として保存し、chmod +x で実行できるようにする</li><li>下の後半を .claude/settings.json に書く（すでにあるときは hooks の部分だけ足す）</li><li>手で試す：echo &#x27;{&quot;tool_name&quot;:&quot;Bash&quot;,&quot;tool_input&quot;:{&quot;command&quot;:&quot;git push&quot;}}&#x27; | .claude/hooks/block-push.sh; echo $? を実行し、2 が表示されることを確認する</li><li>Claude Code をそのフォルダで起動し、「今の変更を git push して」と頼む</li><li>止まって理由の文が出ること、Claude が代わりに差分の要約とコミットメッセージ案を出すことを確認する</li><li>「git status を見せて」と頼み、ほかのコマンドはいつも通り動くことを確認する</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>#!/bin/bash
+# .claude/hooks/block-push.sh
+# 公式ドキュメントの「exit 2 で止める」例を、git push 用に書き換えたもの
+input=$(cat)
+command=$(jq -r &#x27;.tool_input.command&#x27; &lt;&lt;&lt;&quot;$input&quot;)
+
+if [[ &quot;$command&quot; == *&quot;git push&quot;* ]]; then
+  echo &quot;Blocked: git push は人が自分で打つルールです。代わりに、変更の要約とコミットメッセージ案を見せてください。&quot; &gt;&amp;2
+  exit 2
+fi
+
+exit 0
+
+# ===== ここから下は .claude/settings.json に書く内容 =====
+# {
+#   &quot;hooks&quot;: {
+#     &quot;PreToolUse&quot;: [
+#       {
+#         &quot;matcher&quot;: &quot;Bash&quot;,
+#         &quot;hooks&quot;: [
+#           {
+#             &quot;type&quot;: &quot;command&quot;,
+#             &quot;command&quot;: &quot;${CLAUDE_PROJECT_DIR}/.claude/hooks/block-push.sh&quot;
+#           }
+#         ]
+#       }
+#     ]
+#   }
+# }</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/hooks</a></div><dl class="kv"><dt>完成するもの</dt><dd>git push だけを止め、理由と代わりの手順を Claude に返すフック</dd><dt>確認方法</dt><dd>手で試したときに終了コード 2 が出て、Claude Code に push を頼むと止められ、理由の文が表示される。git status など他のコマンドは普通に動く</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/hooks</a>　<a href="https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611" target="_blank" rel="noopener noreferrer">https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-21 git push を止めて、理由と代わりの手順を返すフック
+- 参考ニュース: Zenn：Claude Code の開発手順（2026年11月）。書くのはAI、疑うのは経緯を知らない別のAI、commit と push は自分で
+- ガイド: guides/2026-11-21.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">88</span>/100</span>
+<h2>1. Claude Code v2.1.330：頼むとグラフを描く内蔵mod「easel」、定期タスクと/loopが最長30日に、危険なrmは承認が必要に</h2>
+<div class="meta">Anthropic・公開 2026-11-20 22:32</div>
+<div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.330" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.330</a></div>
+<p class="concl"><b>結論：</b>Claude Code の v2.1.330 が公開されました。頼むとグラフを描く内蔵の追加機能「easel」が入り、定期タスクと /loop の期限が最長30日に延びました。長い会話を要約した直後に固まる不具合や、WebFetch が数分止まる不具合なども直っています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>毎日のコミット数やテストの成功数を数えさせて「グラフにして」と頼むと、自分の進み具合がひと目で分かって面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>頼むとグラフを描くeasel</b>：内蔵の追加機能easelが、頼んだときやMCPの数値結果の下にグラフを描く。Pro・Maxなど、macOSとLinuxで利用でき、自動表示は/configでオフにできる</li>
+<li><b>定期作業が最長30日に</b>：くり返しの定期タスクと/loopが、セッションを開いている間は7日ではなく最長30日動くようになった（以前に作ったものは7日のまま）</li>
+<li><b>危ないrmは確認が必要に</b>：ルートやホーム、作業フォルダなどを狙うrmは、実行前に承認を求める。答える人がいない場面では断られる</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>easel によるグラフ描画（Pro・Max、条件によって Team・Enterprise、macOS と Linux）、定期タスクと /loop の最長30日化、危険な場所を狙う rm の承認必須化、VS Code 拡張への /fork 追加など。</dd>
+<dt>なぜ重要か</dt><dd>数を数えて表にするだけだった作業が、その場で目に見えるグラフになります。また定期作業を1か月近く回せるようになり、消してはいけないフォルダを消す事故も起きにくくなりました。</dd>
+<dt>従来との違い</dt><dd>これまではグラフを作るには別のツールに数値を移す必要があり、定期タスクは最長7日で終わっていました。</dd></dl><ul>
+<li>easel は組み込みの mod（追加機能）として提供され、自動グラフは /config で切れる</li>
+<li>MCP ツールの数値結果の下にも自動でグラフが付く</li>
+<li>定期タスクの30日はセッションが動き続けている間だけ。この版より前に作ったタスクは7日で終わる</li>
+<li>rm の確認は、答える人がいない実行（自動実行など）では拒否として扱われる</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人開発：コミット数やテスト結果の推移をグラフにして振り返る</li>
+<li>自動化：/loop で毎朝の集計を回し、変化をグラフで見る</li>
+<li>安全：自動実行でも危険な削除が止まるので、任せる範囲を広げやすい</li>
+</ul>
+<div class="task"><h4>今日すぐできること：リポジトリの活動をグラフにしてもらう</h4><dl class="kv"><dt>目的</dt><dd>easel のグラフ描画を体験する</dd><dt>使用ツール</dt><dd>Claude Code v2.1.330 以降</dd><dt>必要な準備</dt><dd>Claude Code を v2.1.330 以降に更新しておく、Pro または Max プラン（macOS か Linux）、git で管理しているフォルダを1つ用意する</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>課金が必要（Claude の Pro / Max プラン）</dd><dt>無料の代替</dt><dd>グラフ機能がない環境では、数えた結果を CSV で出させ、表計算ソフトでグラフにする</dd></dl><b>手順</b><ol><li>git で管理しているフォルダで Claude Code を起動する</li><li>下のプロンプトを貼って送る</li><li>グラフが表示されるか確認する。出ない場合は /config で自動グラフの設定を確認する</li><li>「週ごとにまとめ直して」など条件を変えて、もう一度描かせる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このリポジトリの直近30日のコミット数を日ごとに数えて、グラフにしてください。数えるのに使ったコマンドも最後に教えてください。</pre></div><div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.330" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.330</a></div><dl class="kv"><dt>完成するもの</dt><dd>直近30日のコミット数のグラフ</dd><dt>確認方法</dt><dd>会話の中にグラフが表示され、数え方のコマンドが示されている</dd></dl><div class="meta">参考：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.330" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.330</a></div></div>
+<h4>発展：毎朝の進み具合グラフ（1〜2時間）</h4><p>/loop で毎朝、作業フォルダの変更数や TODO の残り数を数えさせ、グラフで変化を見る小さな仕組み。</p><ol>
+<li>数えたい指標（コミット数、TODO の数、テストの成功数など）を決める</li>
+<li>数え方を Claude Code に作らせ、結果を1つのファイルに追記させる</li>
+<li>/loop で定期的に実行し、たまったデータを「グラフにして」と頼む</li>
+<li>セッションを開いている間は最長30日続くことを確認する</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code 自体の利用には Claude の有料プランなどが必要。easel は Pro・Max と、提供地域によって Team・Enterprise が対象（macOS・Linux）。</p>
+<div class="meta">実践可能性：高：更新して頼むだけで試せる。ただし easel は Windows では対象外と書かれている。<br>信頼性：GitHub の公式リリースノートで確認。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">86</span>/100</span>
+<h2>2. Google、Gemini API（Interactions API）に Tool Retrieval をプレビュー公開。ツールの定義を必要なときだけ読み込む</h2>
+<div class="meta">Google・公開 2026-11-19 18:00</div>
+<div class="meta">出典：<a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/" target="_blank" rel="noopener noreferrer">https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/</a></div>
+<p class="concl"><b>結論：</b>Google は Gemini API の Interactions API に、Tool Retrieval をプレビューで追加しました。たくさんの道具（AIが呼び出せる機能）を持つエージェントでも、道具の詳しい定義を毎回すべて送らずにすみます。入力の量を減らし、道具選びの正確さを保つのが目的です。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>メールや予定表、メモ帳など道具が何十個もある自分専用アシスタントでも、必要な道具だけ呼び出して軽く動かせそうで面白いですね。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>道具の説明書を必要な分だけ</b>：使わない道具は名前と短い説明だけを渡し、必要になった道具の詳しい定義だけを読み込む</li>
+<li><b>探すのはGoogle側</b>：tool_search を足し、道具に defer_loading を付けるだけ。検索の仕組みを自分で作らなくてよい（自前の検索も可能）</li>
+<li><b>追加料金なし</b>：別料金はなく、通常のトークン料金。ただし道具が少ないと普通に渡す方が安いこともある</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>tool_search という道具を追加し、関数に defer_loading を付けると、モデルには名前と説明だけが見え、必要になったときに定義が読み込まれて同じリクエスト内で呼び出されます。リモートの MCP サーバーにも使えます。</dd>
+<dt>なぜ重要か</dt><dd>道具が増えるほど、毎回送る定義が長くなり、費用も迷いも増えていました。必要な分だけ読む形にすると、道具を増やしてもエージェントが重くなりにくくなります。</dd>
+<dt>従来との違い</dt><dd>従来は全ての道具の定義をリクエストの最初に並べる必要がありました。今回は定義を後から読み込み、プロンプトの先頭が変わらないためキャッシュも効きやすいとされています。</dd></dl><ul>
+<li>実行の記録には tool_search_call、tool_search_result、function_call の3段階が残り、道具の名前や説明の調整に使える</li>
+<li>検索はサーバー側で動く。自前の索引や権限フィルターを使いたい場合は、クライアント側で検索する方式も選べる（往復が1回増える）</li>
+<li>よく使う道具は defer_loading を付けずに常に読み込んでおける</li>
+<li>ドキュメントでは v1beta の API が必要で、プレビュー中は仕様が変わる可能性があるとしている</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>エージェント：メール・予定表・メモなど多数の道具を持つ個人アシスタントを軽く動かす</li>
+<li>MCP：たくさんの道具を持つ MCP サーバーを必要なときだけ読み込む</li>
+<li>個人開発：道具の名前と説明の書き方を、検索の記録を見ながら改善する</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分の道具を「いつも使う／たまに使う」に分ける</h4><dl class="kv"><dt>目的</dt><dd>Tool Retrieval を使う前に、どの道具を後から読み込む対象にするか決める</dd><dt>使用ツール</dt><dd>お好みのチャットAI、Gemini API の Tool Retrieval ガイド</dd><dt>必要な準備</dt><dd>自分のエージェントや MCP サーバーで使っている道具の名前と説明の一覧</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（分類だけなら無料のチャットAIで可能）</dd></dl><b>手順</b><ol><li>使っている道具の名前と説明を書き出す</li><li>下のプロンプトに一覧を貼り、AI に分類させる</li><li>公式ガイドで tool_search と defer_loading の書き方を確認する</li><li>「たまに使う」側の説明文が、名前だけで用途が分かるかを見直す</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>以下は私のAIエージェントが使う道具（関数）の名前と説明の一覧です。毎回使いそうな「常に読み込む道具」と、たまにしか使わない「必要なときだけ読み込む道具」に分けて、理由を1行ずつ付けてください。また、名前と説明だけでは用途が分かりにくいものがあれば、説明文の改善案を出してください。
+
+（ここに一覧を貼る）</pre></div><div class="meta">出典：<a href="https://aistudio.google.com/docs/tool-retrieval" target="_blank" rel="noopener noreferrer">https://aistudio.google.com/docs/tool-retrieval</a></div><dl class="kv"><dt>完成するもの</dt><dd>道具の分類表と、説明文の改善案</dd><dt>確認方法</dt><dd>すべての道具がどちらかに分かれ、後から読み込む側の説明文が短く分かりやすくなっている</dd></dl><div class="meta">参考：<a href="https://aistudio.google.com/docs/tool-retrieval" target="_blank" rel="noopener noreferrer">https://aistudio.google.com/docs/tool-retrieval</a>　<a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/" target="_blank" rel="noopener noreferrer">https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/</a></div></div>
+<h4>発展：道具50個の個人アシスタント（2〜3時間）</h4><p>多数の関数を defer_loading で持たせた Gemini のエージェントを作り、実行の記録から道具選びの正確さと入力量を比べる。</p><ol>
+<li>公式ガイドの最初の例を動かす</li>
+<li>自分の関数を10〜50個に増やし、よく使うもの以外に defer_loading を付ける</li>
+<li>interaction.steps の記録を見て、正しい道具が選ばれたか確認する</li>
+<li>全部を最初から渡した場合と入力トークン量を比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>Tool Retrieval 自体の追加料金はなく、モデルの通常のトークン料金。読み込んだ定義はその後の会話でも入力として数えられる。Gemini API の無料枠の有無は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：中：Gemini API キーと少しのプログラムが必要。道具を多く持つエージェントほど効果が大きい。<br>信頼性：Google 公式ブログと AI Studio の公式ドキュメントで確認。</div></section>
+<section class="card" id="news-3"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">77</span>/100</span>
+<h2>3. Hugging Face、エージェントの実行環境ごとにモデルを強化学習で合わせる「harness adapters」を公開（Qwen3.8-27B 向け）</h2>
+<div class="meta">Hugging Face・公開 2026-11-20 00:00</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/harness-adapters-at-scale" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/harness-adapters-at-scale</a></div>
+<p class="concl"><b>結論：</b>Hugging Face は、エージェントを動かすソフト（ハーネス）ごとに、モデルへ小さな追加部品を強化学習で学ばせる「harness adapters」を公開しました。それぞれのソフトの上で、プログラム修正の問題の正解率が上がり、道具の呼び出し回数も減ったと報告しています。学習用の課題や作業記録も公開されています。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>動かすソフトに合わせて鍛える</b>：Pi、Hermes Agent、OpenCode という3つのエージェント用ソフトの中で、実際に作業させながら強化学習した</li>
+<li><b>元のモデルはそのまま</b>：Qwen3.8-27B は変えず、小さな追加部品（LoRA）だけを学習。3つをまとめた統合版も公開</li>
+<li><b>道具の呼び出しが大幅減</b>：よく解ける問題では、道具の呼び出し回数が約53〜73%減った</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>実際に配布されているままのハーネスの中で作業させて学習した点と、3つのアダプターを1つにまとめた統合版が、3つのソフトすべてで元のモデルを上回った点（思考モードなしの平均で39.5%→49.0%）。</dd>
+<dt>なぜ重要か</dt><dd>同じモデルでも、動かすソフトとの相性で力を出し切れていないことを示しました。モデルを丸ごと作り直さずに、小さな追加部品で相性を良くできます。</dd>
+<dt>従来との違い</dt><dd>従来の汎用モデルは、特定のハーネスや作業向けには最適化されていませんでした。今回はハーネスと課題を決めて、その中で直接学習しています。</dd></dl><ul>
+<li>LoRA を全ての線形層に付け、TRL の AsyncGRPOTrainer による GRPO で学習</li>
+<li>報酬はテストの合否に、道具を効率よく使った分の小さなボーナスを加えたもの</li>
+<li>いつも解ける・絶対に解けない課題は学習から外し、結果がばらつく課題だけを使う</li>
+<li>学習中は safeagents という見張りで怪しい道具の呼び出しを止めた</li>
+<li>学習していない種類の課題（AutomationBench）では、差はほぼ誤差の範囲だった</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>エージェント：自分の使うハーネスとモデルの相性を意識して選ぶ</li>
+<li>評価：道具の呼び出し回数を、作業の効率の目安として測る</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分のエージェントの道具呼び出しを数える</h4><dl class="kv"><dt>目的</dt><dd>記事で効率の目安にされた「道具の呼び出し回数」を、自分の作業でも見てみる</dd><dt>使用ツール</dt><dd>Claude Code など、普段使っているAIエージェント</dd><dt>必要な準備</dt><dd>普段使っているAIエージェント、小さな作業（バグ修正やファイル整理など）を1つ</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>普段使っているエージェントの料金のみ</dd></dl><b>手順</b><ol><li>いつもどおりエージェントに小さな作業を頼む</li><li>作業が終わったら、下のプロンプトを送る</li><li>同じ作業を、最初に必要なファイル名を伝えてやり直し、回数を比べる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>今の作業で、あなたが使った道具（ファイルの読み込み、検索、コマンドの実行など）の回数を種類ごとに表にしてください。そのうえで、最初に私が何を伝えていれば減らせたかを3つ挙げてください。</pre></div><div class="meta">出典：<a href="https://huggingface.co/blog/harness-adapters-at-scale" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/harness-adapters-at-scale</a></div><dl class="kv"><dt>完成するもの</dt><dd>道具の呼び出し回数の表と、減らすための伝え方メモ</dd><dt>確認方法</dt><dd>2回目の作業で、呼び出し回数が1回目より減っている</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/harness-adapters-at-scale" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/harness-adapters-at-scale</a></div></div>
+<h4>発展：公開アダプターを読み解く（1〜2時間）</h4><p>公開されたコレクションとデータセットを見て、どんな課題で学習したのかを調べ、自分のプロジェクトで評価用の課題を作る参考にする。</p><ol>
+<li>コレクションのモデルとデータセットの一覧を見る</li>
+<li>agentic-coding-envs などの課題の形を確認する</li>
+<li>自分のリポジトリから、テストで合否が分かる小さな課題を3つ作る</li>
+<li>エージェントに解かせ、合否と道具の呼び出し回数を記録する</li>
+</ol>
+<h3>利用条件・料金</h3><p>アダプターやデータセットは Hugging Face で公開。ライセンスは各モデルカードで確認（本文では未確認）。学習には高性能 GPU（各アダプターで B200 を2枚）を使用。</p>
+<div class="meta">実践可能性：低：自分で学習するには高性能 GPU が必要。公開済みの GGUF 版を動かすにも 27B モデルが動くパソコンが必要。<br>信頼性：Hugging Face 公式ブログと公開コレクションで確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">78</span>/100</span>
+<h2>4. Zenn：Claude Code の開発手順（2026年11月）。書くのはAI、疑うのは経緯を知らない別のAI、commit と push は自分で</h2>
+<div class="meta">Zenn・公開 2026-11-21 07:38</div>
+<div class="meta">出典：<a href="https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611" target="_blank" rel="noopener noreferrer">https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611</a></div>
+<p class="concl"><b>結論：</b>フロントエンド開発者が、Claude Code での自分の開発手順をまとめた記事です。AIに書かせたコードを、作った経緯を知らない別のAIに疑わせ、最後は自分で決めます。commit と push は自分で打ち、くり返す失敗は hook で機械的に止めています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分で作ったアプリの変更を、何も説明せずに新しい会話のAIに見せて「おかしな所を探して」と頼むと、思わぬ見落としが見つかって面白いですよ。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>経緯を知らないAIに見せる</b>：履歴を持たない読み取り専用のClaudeと、Codex の codex review の2つに同じ差分を同時に見せる</li>
+<li><b>思い込みを書かない</b>：依頼文はリポジトリの場所と対象だけ。「ここは大丈夫なはず」と書くとレビュー側も引っぱられる</li>
+<li><b>2回目の失敗はhookで止める</b>：同じ失敗が2回起きたら、ルールの文を増やさず PreToolUse hook で止め、理由と代わりの手順を返す</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>2つの独立したレビュー役に短い依頼文で同時に見せ、指摘は動かして再現するかで確かめるという具体的な手順と、その実績（6件の指摘のうち誤りは0件）を公開した点。</dd>
+<dt>なぜ重要か</dt><dd>同じ会話のAIに見直させると、作ったときの思い込みをそのまま引き継ぎます。経緯を知らない目で見せると、見落としに気づきやすくなります。</dd>
+<dt>従来との違い</dt><dd>一般的な「AIにレビューさせる」との違いは、あえて背景を渡さないこと、指摘をすぐ直さず検証すること、くり返す失敗を文章ではなく仕組みで止めることです。</dd></dl><ul>
+<li>メインは監督役、調査と実装はモデルを固定したサブエージェントに任せる</li>
+<li>原因調査役にはメインの見立てを渡さない</li>
+<li>hook は ~/.claude/settings.json に登録し、git push・コミット作成・変更を捨てる操作などを止める</li>
+<li>止めるときは理由と代わりの手順を返す。止めるだけだと別の書き方で同じことをしようとするため</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人開発：大きな変更の前に、経緯を知らないAIに差分を見せる</li>
+<li>自動化：くり返す事故を hook で止める</li>
+<li>記録：作業ごとにMarkdownのチケットを作らせ、次の会話で続きから始める</li>
+</ul>
+<div class="task"><h4>今日すぐできること：経緯を知らないAIにレビューさせる</h4><dl class="kv"><dt>目的</dt><dd>思い込みを渡さないレビューで、見落としを見つける</dd><dt>使用ツール</dt><dd>Claude Code（新しい会話）</dd><dt>必要な準備</dt><dd>まだコミットしていない変更があるリポジトリ</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>Claude Code の料金のみ</dd></dl><b>手順</b><ol><li>今の会話とは別に、新しい会話で Claude Code を起動する</li><li>下のプロンプトを、リポジトリの場所だけ書き換えて送る（背景や「大丈夫なはず」は書かない）</li><li>出てきた指摘を、実際に動かすかコードを読んで確かめる</li><li>本当だった指摘だけを直す</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>（リポジトリの場所）にある、まだコミットしていない変更をレビューしてください。ファイルは編集しないでください。バグ、動かなくなる場面、見落としている条件があれば、根拠になるファイルと行と一緒に挙げてください。</pre></div><div class="meta">出典：<a href="https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611" target="_blank" rel="noopener noreferrer">https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611</a></div><dl class="kv"><dt>完成するもの</dt><dd>根拠付きの指摘リストと、確かめた結果</dd><dt>確認方法</dt><dd>各指摘について「再現した／しなかった」を自分で判断できている</dd></dl><div class="meta">参考：<a href="https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611" target="_blank" rel="noopener noreferrer">https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611</a></div></div>
+<h4>発展：自分用レビュー役エージェント（1〜2時間）</h4><p>読み取り専用のレビュー用エージェント定義を作り、毎回同じ短い依頼文で呼べるようにする。</p><ol>
+<li>レビュー役に許す操作を読み取りだけに絞る方針を決める</li>
+<li>短い依頼文のひな形を Markdown に保存する</li>
+<li>大きな変更のたびに呼び、指摘と確認結果を記録する</li>
+<li>10回分たまったら、役に立った指摘の割合を見直す</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code の利用料金。Codex CLI を使う場合はその料金も必要（料金は未確認、公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：高：新しい会話を1つ開いて短い依頼をするだけで始められる。<br>信頼性：筆者の実体験の記事（コミュニティ）。数値は筆者の個人サイトでの記録。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">73</span>/100</span>
+<h2>5. Qiita：Claude Code の VS Code 拡張で CLAUDE.md が読まれなくなった原因は「フォルダの信頼」（v2.1.323 以降、筆者の解析）</h2>
+<div class="meta">Qiita・公開 2026-11-21 08:36</div>
+<div class="meta">出典：<a href="https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a" target="_blank" rel="noopener noreferrer">https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a</a></div>
+<p class="concl"><b>結論：</b>VS Code 拡張の Claude Code が、急に CLAUDE.md のルールを守らなくなった原因を調べた記事です。筆者は、v2.1.323 で入ったフォルダの信頼確認により、未信頼のフォルダではプロジェクトの CLAUDE.md が読み込まれないと突き止めました。確認方法と直し方、信頼しても直らないときの回避策も書かれています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>新しいプロジェクトを開いたら、最初に Claude へ「CLAUDE.md の内容を受け取っている？」と聞く習慣をつけると、ルールが効かない空回りを防げて便利です。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>未信頼だとCLAUDE.mdが無効</b>：筆者の解析では、VS Code 拡張 v2.1.323 以降、未信頼のフォルダは user の設定だけで起動し、プロジェクトの CLAUDE.md・settings・MCP が読まれない</li>
+<li><b>まず読まれているか確認</b>：Claude に CLAUDE.md の内容を受け取っているか聞く、拡張のログで警告を探す、などで確かめられる</li>
+<li><b>フォルダを信頼し直す</b>：Developer: Reload Window → 新しいチャットで「Trust folder」を選ぶ</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>公式の更新履歴や確認画面には「settings と MCP サーバーが使われない」とだけあり、CLAUDE.md にも影響することは書かれていない、という点を記録から示したこと。</dd>
+<dt>なぜ重要か</dt><dd>「指示を守らない」と感じると、CLAUDE.md の書き方を何度も直したくなります。しかし、そもそも読まれていなければ、どれだけ直しても効きません。</dd>
+<dt>従来との違い</dt><dd>書き方の改善ではなく、読み込まれているかどうかを先に確かめる、という順番の考え方です。</dd></dl><ul>
+<li>信頼の判定はウィンドウを開いたときに行われるため、新しいチャットを始めるだけでは直らない</li>
+<li>ユーザー単位のスキルや auto memory は影響を受けない</li>
+<li>回避策として、ユーザー設定の SessionStart hook で CLAUDE.md を渡す方法も紹介（筆者の検証に基づき、公式の保証はない）</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人開発：新しいプロジェクトを開いたら、ルールが読まれているかを最初に確かめる</li>
+<li>自動化：ルールが効いていないと気づいたとき、書き換える前に原因を切り分ける</li>
+</ul>
+<div class="task"><h4>今日すぐできること：CLAUDE.md が読まれているか確かめる</h4><dl class="kv"><dt>目的</dt><dd>ルールが本当に Claude に届いているかを確認する</dd><dt>使用ツール</dt><dd>VS Code、Claude Code の VS Code 拡張</dd><dt>必要な準備</dt><dd>CLAUDE.md を置いたプロジェクト</dd><dt>所要時間</dt><dd>約5分</dd><dt>費用</dt><dd>Claude Code の料金のみ</dd></dl><b>手順</b><ol><li>VS Code でプロジェクトを開き、Claude のチャットで下のプロンプトを送る</li><li>答えに CLAUDE.md の内容が含まれているか確認する</li><li>含まれていなければ、コマンドパレットで Developer: Reload Window を実行する</li><li>新しいチャットを始め、表示された確認で「Trust folder」を選び、もう一度プロンプトを送る</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このプロジェクトの CLAUDE.md の内容を、あなたは今受け取っていますか？受け取っていれば、書かれているルールを3つ、短くそのまま挙げてください。受け取っていなければ、そう答えてください。</pre></div><div class="meta">出典：<a href="https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a" target="_blank" rel="noopener noreferrer">https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a</a></div><dl class="kv"><dt>完成するもの</dt><dd>CLAUDE.md が読まれているかどうかの確認結果</dd><dt>確認方法</dt><dd>Claude が CLAUDE.md に書いたルールを正しく挙げられる</dd></dl><div class="meta">参考：<a href="https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a" target="_blank" rel="noopener noreferrer">https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a</a></div></div>
+<h4>発展：ルールの届き方チェック表（30分〜1時間）</h4><p>CLAUDE.md・settings・MCP がそれぞれ読み込まれているかを、新しいプロジェクトを開くたびに確かめる自分用チェック表を作る。</p><ol>
+<li>CLAUDE.md に、確認用の短い合言葉ルールを1行入れる</li>
+<li>開いたら合言葉を聞くプロンプトをメモしておく</li>
+<li>MCP サーバーや設定が効いているかの確認方法も表に足す</li>
+<li>VS Code とターミナルの両方で結果を比べる</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code の VS Code 拡張（Claude Code の利用料金のみ）。</p>
+<div class="meta">実践可能性：高：数分で確認と対処ができる。<br>信頼性：筆者の調査記事（コミュニティ）。内部の仕組みの説明は筆者の解析で、公式の保証はないと明記されている。</div></section>
+<section class="card" id="news-6"><span class="badge">クリエイティブAI</span>
+<span class="meta">評価 <span class="score">71</span>/100</span>
+<h2>6. NVIDIA：開発者が最先端のAIエージェントに指示して、Omniverse の3Dシミュレーションを作る事例を紹介</h2>
+<div class="meta">NVIDIA・公開 2026-11-19 17:00</div>
+<div class="meta">出典：<a href="https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/" target="_blank" rel="noopener noreferrer">https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/</a></div>
+<p class="concl"><b>結論：</b>NVIDIA は、開発者が GPT-6 Astra や Claude Code などのAIエージェントに指示して、Omniverse や Isaac のライブラリで3Dのシミュレーションを作る事例を紹介しました。工場のデジタルツイン、ロボット、VR、素材づくりなど多くの例があり、デモの多くは公開されています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>病院の部屋をロボットが歩くデモは1部屋ならふつうのパソコンで動くので、まず動画に書き出して、Claude Code に「ロボットの数を変えて」と頼んでみると面白そうです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>言葉で指示して3Dを作る</b>：開発者が自然な言葉で指示し、エージェントが素材集め・物理・描画をつなぎ、人が結果を見て直させる</li>
+<li><b>ロボットや倉庫の事例</b>：ICUを歩く小型ロボット、800個の箱が流れる倉庫、声で操作するVRアプリなど</li>
+<li><b>画像と記録で自己チェック</b>：エージェントには描画結果・ログ・数値を見せて、自分の作業を確かめさせることが大事</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>AIエージェントに3D素材の配置、物理、描画をまとめて組み立てさせる事例が数多く公開され、デモのコードや素材ライブラリ（SimReady）も試せる形で紹介された点。</dd>
+<dt>なぜ重要か</dt><dd>3Dのシーンづくりは、素材集めや物理の設定に手間がかかります。言葉で指示して組み立ててもらえると、アイデアを形にするまでが短くなります。</dd>
+<dt>従来との違い</dt><dd>人が1つずつ組み立てる代わりに、エージェントが組み立て、描画やログを見て自分で確かめる流れになっています。ただし、VRの手触りのように自動テストで分からない部分は人が確かめたと書かれています。</dd></dl><ul>
+<li>Omniverse の各ライブラリ（シーン、描画、VR、物理など）を組み合わせて使う</li>
+<li>SimReady Central Library には2,000以上の USD 素材がある</li>
+<li>Houdini の MCP ツールや USD Content Agents など、エージェント向けの道具も紹介されている</li>
+<li>ICU のデモは1部屋ならCPUで動き、数百部屋に増やすには NVIDIA の GPU が必要</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>画像・動画：シミュレーションを動画に書き出して作品やSNS用の素材にする</li>
+<li>エージェント：Claude Code に3Dシーンの組み立てを指示し、描画画像で確認させる</li>
+<li>個人開発：ロボットや物理の動きを試す小さなアプリを作る</li>
+</ul>
+<div class="task"><h4>今日すぐできること：ICUを歩くロボットのデモを動かす</h4><dl class="kv"><dt>目的</dt><dd>AIエージェントで作られた3Dシミュレーションを手元で動かし、動画にする</dd><dt>使用ツール</dt><dd>Python 3.10〜3.13、git</dd><dt>必要な準備</dt><dd>demo のリポジトリ（maziyarpanahi/ai-demos）を取得しておく、約1.5GBの空き容量、動画にするには OpenGL が使える環境</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（1部屋ならCPUで可能）</dd></dl><b>手順</b><ol><li>リポジトリを取得し、下のコマンドで準備する</li><li>python rounds.py で1部屋・3体のロボットを14秒シミュレーションする</li><li>python rounds.py --render out/rounds.npz で動画にする</li><li>できた動画を見て、ロボットが歩いているか確認する</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>cd omniverse/simulate-robots-in-an-icu
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python fetch_assets.py
+python rounds.py
+python rounds.py --render out/rounds.npz</pre></div><div class="meta">出典：<a href="https://github.com/maziyarpanahi/ai-demos/tree/main/omniverse/simulate-robots-in-an-icu" target="_blank" rel="noopener noreferrer">https://github.com/maziyarpanahi/ai-demos/tree/main/omniverse/simulate-robots-in-an-icu</a></div><dl class="kv"><dt>完成するもの</dt><dd>ICUを3体のロボットが歩く動画</dd><dt>確認方法</dt><dd>out/rounds.npz ができ、そこから作った動画でロボットが動いている</dd></dl><div class="meta">参考：<a href="https://github.com/maziyarpanahi/ai-demos/tree/main/omniverse/simulate-robots-in-an-icu" target="_blank" rel="noopener noreferrer">https://github.com/maziyarpanahi/ai-demos/tree/main/omniverse/simulate-robots-in-an-icu</a>　<a href="https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/" target="_blank" rel="noopener noreferrer">https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/</a></div></div>
+<h4>発展：エージェントと作る小さな3Dシーン（2〜4時間）</h4><p>SimReady の素材を使い、Claude Code などのエージェントに簡単なシーンを組み立てさせ、描画画像を見て直させる。</p><ol>
+<li>SimReady Central Library で使いたい素材を選ぶ</li>
+<li>ICU デモのコードをエージェントに読ませ、仕組みを説明させる</li>
+<li>部屋の配置やロボットの数を変える改造を頼む</li>
+<li>描画した画像や動画をエージェントに確認させ、おかしな所を直させる</li>
+</ol>
+<h3>利用条件・料金</h3><p>ライブラリやデモの多くは公開されている。記事で使われた最先端モデルの利用条件や料金は未確認（各社の公式ページで確認）。一部の事例は高性能 GPU や VR 機器を使用。</p>
+<div class="meta">実践可能性：中：小さなデモは個人のパソコンで動くが、大きな事例は高性能 GPU が必要。<br>信頼性：NVIDIA 公式ブログと、紹介されたデモの GitHub リポジトリで確認。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>

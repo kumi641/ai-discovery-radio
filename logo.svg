@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 48" role="img" aria-label="AI Discovery &amp; Build Radio">
+  <rect x="2" y="12" width="48" height="34" rx="9" fill="#3fe0dc"/>
+  <path d="M14 12 26 2l12 10" fill="none" stroke="#3fe0dc" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="17" cy="29" r="8" fill="#0c0e14"/>
+  <circle cx="17" cy="29" r="3.2" fill="#ffd028"/>
+  <path d="M31 22h12M31 29h12M31 36h7" stroke="#0c0e14" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="m44 35 3 3-3 3" fill="none" stroke="#ff4468" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

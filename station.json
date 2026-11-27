@@ -1,0 +1,34 @@
+{
+ "format": "myradio/station-1",
+ "name": "AI Discovery & Build Radio",
+ "description": "AIの進化を、自分の制作・開発に変えるための朝の番組。毎朝のニュースと「今日の実験」を、実践ガイドつきで。",
+ "tagline": "AIの進化を、自分の制作に変える",
+ "logo": "logo.svg",
+ "url": "https://kumi641.github.io/ai-discovery-radio/",
+ "repo": "https://github.com/kumi641/ai-discovery-radio",
+ "language": "ja",
+ "languages": [
+  "ja"
+ ],
+ "schedule": {
+  "every": "day",
+  "time": "07:00",
+  "timezone": "Asia/Tokyo"
+ },
+ "episodes": "episodes.json",
+ "character": {
+  "pack": "character/character.json",
+  "thumbnail": "character/base.png",
+  "note": "AI（Codex）で生成したキャラクターです"
+ },
+ "credits": [
+  "声：Microsoft Azure AI Speech（ja-JP-NanamiNeural・合成音声）",
+  "台本：Claude（公開情報をもとにAIが作成）"
+ ],
+ "caster": "声：Azure AI Speech（合成音声）",
+ "audio": {
+  "dir": "audio",
+  "keep_days": 30
+ },
+ "weather": false
+}

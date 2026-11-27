@@ -1,0 +1,872 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-13",
+ "title": "速いGeminiと「選ぶだけAI」、記憶の大そうじ",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。十一月十三日、金曜日の放送です。",
+   "show": "AI Discovery & Build Radio｜2026年11月13日（金）"
+  },
+  {
+   "say": "今日いちばん大事なのは、エーアイに作業を任せる道具が、また一段と使いやすくなったことです。",
+   "show": "今日の注目：AIに任せる道具が使いやすく"
+  },
+  {
+   "say": "グーグルは、ふだんの作業向けの速いモデルと、選ぶことだけに特化した安いエーアイを出しました。",
+   "show": "Google：速い新モデルと「選ぶだけAI」"
+  },
+  {
+   "say": "後半は、エーアイ用の手順書や記憶を、自分で整える実践の話です。",
+   "show": "後半：AIの手順書と記憶を整える"
+  },
+  {
+   "say": "最後に、クロード コードの記憶の大そうじを、一緒にやってみましょう。",
+   "show": "今日の実験：Claude Codeの記憶の大そうじ"
+  }
+ ],
+ "news": [
+  {
+   "label": "Gemini 4 Hydrogen登場",
+   "points": [
+    "毎日の作業向けの速いモデル",
+    "上位モデルと手分けできる",
+    "長い資料もまとめて読める",
+    "AI Studioやアプリで利用可"
+   ],
+   "details": [
+    "Googleは「エージェント作業の毎日の相棒」と説明。小さなコード修正や調べものを速くこなす。",
+    "上位モデルのCarbonが全体をまとめ、Hydrogenが作業や確認を担当する使い方も紹介された。",
+    "とても長い入力を受け付け、PDF・表・音声・動画をまとめて出典つきの報告にできるとしている。",
+    "Gemini APIとGoogle AI Studio、Geminiアプリなどで提供。無料ユーザーはアプリの自動選択で使われる場合がある。"
+   ],
+   "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
+   "lines": [
+    {
+     "say": "まずはグーグルから。新しいモデル、ジェミニ フォー ハイドロジェンが発表されました。",
+     "show": "Google、Gemini 4 Hydrogenを発表"
+    },
+    {
+     "say": "ひとことで言うと、毎日のこまごました作業を、速く安くこなすためのモデルです。",
+     "show": "毎日の作業を速く安くこなすモデル"
+    },
+    {
+     "say": "コードの小さな直しや、たくさんのファイルを調べる作業が得意だそうです。",
+     "show": "小さなコード修正や調べものが得意"
+    },
+    {
+     "say": "上位のモデルが全体の指示を出し、ハイドロジェンが実際の作業を受け持つ、という手分けもできます。",
+     "show": "上位モデルと手分けして働ける"
+    },
+    {
+     "say": "本を何冊も合わせたほどの長い資料を一度に読めて、ピーディーエフや表、音声や動画もまとめられます。",
+     "show": "長い資料・PDF・表・音声・動画をまとめられる"
+    },
+    {
+     "say": "開発者はグーグル エーアイ スタジオから、ふつうの人はジェミニのアプリから使えます。",
+     "show": "Google AI Studio／Geminiアプリで利用可"
+    },
+    {
+     "say": "たとえば、長い説明書のピーディーエフを渡して、出典つきの要点メモを作らせると、調べものがぐっと楽になりそうですね。",
+     "show": "使い方：説明書PDFから出典つき要点メモ"
+    }
+   ],
+   "link": {
+    "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
+    "title": "Introducing Gemini 4 Hydrogen",
+    "site": "Google",
+    "description": "Today, we’re introducing Gemini 4 Hydrogen, our daily driver for agentic workflows",
+    "image": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-4-hydrogen__key-art__lockup__16-9.width-1300.jpg",
+    "icon": "https://deepmind.google/static/blogv2/images/favicon.ico?version=pr20261029-2131"
+   },
+   "corner": "news",
+   "idea": "長い説明書のPDFや表を渡して、出典つきの要点メモを作らせると、調べものがぐっと楽になります。",
+   "guide": "guides/2026-11-13.html#news-1"
+  },
+  {
+   "label": "選ぶだけAI「Decisions」",
+   "points": [
+    "文章を書かず「判断」だけ返す",
+    "質問は3種類",
+    "自信の度合いも数字で返る",
+    "画像・音声・動画も判断"
+   ],
+   "details": [
+    "答えの文章を少しずつ作るのではなく、選択肢ごとの確からしさを一度に計算して返す。",
+    "はい／いいえ（noul）、選択肢から選ぶ（choice）、決めた基準で点をつける（score）の3種類。",
+    "どの答えにも0〜1の自信の値がつくので、迷ったときだけ人に回すといった仕組みが作れる。",
+    "文章・画像・音声・動画・PDFをまとめて1回で判断できる。1回で最大1,000問まで聞ける。"
+   ],
+   "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+   "lines": [
+    {
+     "say": "続いてもグーグルです。ジェミニ ディシジョンズ エーピーアイが登場しました。",
+     "show": "Gemini Decisions API が登場"
+    },
+    {
+     "say": "ひとことで言うと、文章は書かずに、判断だけをしてくれるエーアイです。",
+     "show": "文章を書かず「判断だけ」するAI"
+    },
+    {
+     "say": "エーピーアイとは、プログラムからエーアイを呼び出すための窓口のことです。",
+     "show": "API＝プログラムからAIを呼ぶ窓口"
+    },
+    {
+     "say": "答えられるのは、はいかいいえ、どれを選ぶか、何点か、の三種類の質問です。",
+     "show": "質問は3種類：はい/いいえ・選択・採点"
+    },
+    {
+     "say": "そのかわり、答えと一緒に、どれくらい自信があるかを数字で返してくれます。",
+     "show": "答えに「自信の度合い」が数字でつく"
+    },
+    {
+     "say": "文章だけでなく、画像や音声、動画もまとめて判断でき、試作用の無料枠もあると案内されています。",
+     "show": "画像・音声・動画もOK／無料枠あり"
+    },
+    {
+     "say": "たとえば、届いた問い合わせメールを、急ぎかどうか、どの種類かに自動で振り分けると、受信箱の整理が楽になりそうです。",
+     "show": "使い方：問い合わせメールの自動振り分け"
+    }
+   ],
+   "link": {
+    "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+    "title": "Gemini Decisions API: Fast, calibrated multimodal decisions",
+    "site": "Google",
+    "description": "Meet the Gemini Decisions API, powered by our state-of-the-art model Gemini Decision for fast, calibrated multimodal decisions.",
+    "image": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini__decisions__blog-header_2784x1566.width-1300.png",
+    "icon": "https://blog.google/static/blogv2/images/favicon.ico?version=pr20261029-2131"
+   },
+   "corner": "news",
+   "idea": "届いた問い合わせメールを「急ぎかどうか」「どの種類か」に自動で振り分け、自信が低いものだけ自分で見るようにすると、受信箱の整理が楽になります。",
+   "guide": "guides/2026-11-13.html#news-2"
+  },
+  {
+   "label": "Claude Code 安全面の更新",
+   "points": [
+    "権限チェックの穴を多数修正",
+    "試験的なCode Modeが登場",
+    "未知のモデルは1M扱いに",
+    "古いMCPクライアントを削除"
+   ],
+   "details": [
+    "許可ルールをすり抜けて確認なしでコマンドが動くケースや、サンドボックスが途中で切れるケースなどが直った。",
+    "Claudeが道具を呼ぶためにJavaScriptを書く、オプトイン（自分で有効にする）の試験機能。",
+    "名前を知らないモデルの「一度に覚えておける量」を200Kから1Mとみなすように変更。小さいモデルでは設定で戻せる。",
+    "MCP v1クライアントが削除され、MCP_SDK_GENERATION=v1 はv2の互換モードで動くようになった。"
+   ],
+   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.323",
+   "lines": [
+    {
+     "say": "三つ目は、クロード コードの新しい版、バージョン 二 ポイント 一 ポイント 三百二十三です。",
+     "show": "Claude Code v2.1.323 公開"
+    },
+    {
+     "say": "ひとことで言うと、安全面の穴をたくさんふさいだ、大きめの更新です。",
+     "show": "安全面の穴を多数ふさいだ更新"
+    },
+    {
+     "say": "クロード コードは、指示すると自分で手順を考えて、プログラムを書いてくれるエーアイの道具です。",
+     "show": "Claude Code＝自分で手順を考えて書くAI"
+    },
+    {
+     "say": "今回、許可していないコマンドが、確認なしで動いてしまう場合などが直されました。",
+     "show": "許可ルールのすり抜けを修正"
+    },
+    {
+     "say": "知らない名前のモデルを使うと、一度に覚えておける量を、これまでより大きく見積もるようにも変わりました。",
+     "show": "未知のモデルは1M扱いに変更"
+    },
+    {
+     "say": "ほかに、エーアイが小さなプログラムを書いて道具を呼び出す、試験的なコード モードも加わっています。",
+     "show": "試験機能 Code Mode を追加"
+    },
+    {
+     "say": "自分で許可ルールを書いている人は、更新したあと、起動時の警告を一度見ておくと安心です。",
+     "show": "更新後は起動時の警告をチェック"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.323",
+    "title": "Release v2.1.323 · anthropics/claude-code",
+    "site": "GitHub",
+    "description": "What's changed\n\nAdded Code Mode, an experimental opt-in in which Claude writes JavaScript to call its tools; see https://code.claude.com/docs/en/code-mode to turn it on, or to turn it off for an or...",
+    "image": "https://opengraph.githubassets.com/a7057a66b0fb85c1be2633a3200c824cb71fe02f96225ae71f9c803e7c7f8934/anthropics/claude-code/releases/tag/v2.1.323",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "news",
+   "idea": null,
+   "guide": "guides/2026-11-13.html#news-3"
+  },
+  {
+   "label": "スキルは一度書けば使い回せる",
+   "points": [
+    "手順を1つのファイルに書く",
+    "いろいろなAIで使い回せる",
+    "スキルは権限を与えない",
+    "自分の仕事は別のAIが確認"
+   ],
+   "details": [
+    "スキルはSKILL.mdを中心にしたフォルダ。いつ・どう作業するかを書いておく。",
+    "同じスキルから、Claude Code・Cursor・Copilot向けのファイルを作り分ける例が紹介された。",
+    "スキルは「やり方」を教えるだけ。データベースなどへのアクセスは実行する環境が用意する。",
+    "AIに自分の仕事を採点させず、別の確認役が元の依頼と変更点だけを見て判定する例（Proof Agent）。"
+   ],
+   "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/",
+   "lines": [
+    {
+     "say": "ここからは、エンジニアの実践ノウハウです。ギットハブのブログが、エージェント スキルの実践ガイドを出しました。",
+     "show": "GitHub Blog：エージェントスキル実践ガイド"
+    },
+    {
+     "say": "ひとことで言うと、仕事の手順を一つのファイルに書けば、いろいろなエーアイで使い回せる、という話です。",
+     "show": "手順を1ファイルに→どのAIでも使える"
+    },
+    {
+     "say": "スキルとは、スキル ドット エムディーという説明書のファイルを入れた、フォルダのことです。",
+     "show": "スキル＝SKILL.mdを入れたフォルダ"
+    },
+    {
+     "say": "どんなときに、どう作業するかを書いておくと、エーアイがそれを読んで、同じ手順で動きます。",
+     "show": "いつ・どう作業するかを書いておく"
+    },
+    {
+     "say": "大事な注意点もあります。スキルは手順を教えるだけで、データなどを使う権限は与えません。",
+     "show": "注意：スキルは権限を与えない"
+    },
+    {
+     "say": "また、エーアイに自分の仕事を採点させず、別のエーアイに確かめさせる例も紹介されていました。",
+     "show": "確認は別のAIに任せる例も"
+    },
+    {
+     "say": "たとえば、公開前のチェック手順をスキルにしておけば、クロード コードでもコパイロットでも、同じ確認を呼び出せて便利そうです。",
+     "show": "使い方：公開前チェックをスキル化"
+    }
+   ],
+   "link": {
+    "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/",
+    "title": "Build once, run on any agent: A practical guide to agent skills",
+    "site": "The GitHub Blog",
+    "description": "Agent skills capture repeatable engineering work in files teams can review and reuse, while tools and permissions remain specific to the host.",
+    "image": "https://github.blog/wp-content/uploads/2026/11/5b5fed0ce69f241f469053d4f178383688adb2fb7ef44dff82c1a2dd6a626fa1-1920x1080-1.png",
+    "icon": "https://github.githubassets.com/favicon.ico"
+   },
+   "corner": "practice",
+   "idea": "公開前のチェック手順をスキルにして .claude/skills に置けば、Claude CodeでもCopilotでも同じ確認を呼び出せます。",
+   "guide": "guides/2026-11-13.html#news-4"
+  },
+  {
+   "label": "AIの記憶もときどき見直す",
+   "points": [
+    "記憶は書きっぱなしになりがち",
+    "古い予定が答えに混ざった",
+    "整理で146行→122行に",
+    "消さずに別ファイルへ移す"
+   ],
+   "details": [
+    "Claude Codeは覚えたことをMEMORY.mdという目次に書き足すが、人が見直さないと古い行が残る。",
+    "公開日を過ぎた予約が目次に残っていて、質問すると2回とも答えに含めた。",
+    "見直し用のコマンドで1回整理させると行数とサイズが減り、入力の量も約2割減った。",
+    "終わった予約は削除せず、目次から1行でリンクした別の索引ファイルに移された。"
+   ],
+   "url": "https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review",
+   "lines": [
+    {
+     "say": "次は、ゼンの記事です。クロード コードの自動の記憶を、ときどき見直そう、という話です。",
+     "show": "Zenn：Claude Codeの記憶を見直す"
+    },
+    {
+     "say": "結論は、記憶を一度整理させると、終わった予定を答えに混ぜなくなった、ということです。",
+     "show": "整理すると古い予定が答えに出なくなった"
+    },
+    {
+     "say": "クロード コードは、作業中に気づいたことを、メモリー ドット エムディーという目次のファイルに書きためます。",
+     "show": "気づいたことをMEMORY.mdに書きためる"
+    },
+    {
+     "say": "この目次は、毎回の会話の最初に読み込まれます。ただし読まれるのは、先頭の二百行までです。",
+     "show": "毎回読まれるのは先頭200行（25KB）まで"
+    },
+    {
+     "say": "筆者の目次は百四十六行。公開日を過ぎた予約も残っていて、質問すると二回とも答えに出てきました。",
+     "show": "146行の記憶→過ぎた予約を2回とも回答"
+    },
+    {
+     "say": "見直しのコマンドで整理させると百二十二行に減り、終わった予約には触れなくなりました。",
+     "show": "整理後は122行、過ぎた予約に触れず"
+    },
+    {
+     "say": "ただし、試した回数は少なく、筆者自身も小さな試しだと書いています。",
+     "show": "注意：小規模な検証"
+    },
+    {
+     "say": "たとえば、週に一度この見直しを走らせて、終わった予定を記憶から片付ける習慣にすると良さそうですね。",
+     "show": "使い方：週1回の記憶の見直し"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review",
+    "title": "auto memory、書いたら終わりになってない？：Claude Code の記憶を見返させて答えを比べる",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--C5Tebi7n--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:auto%2520memory%25E3%2580%2581%25E6%259B%25B8%25E3%2581%2584%25E3%2581%259F%25E3%2582%2589%25E7%25B5%2582%25E3%2582%258F%25E3%2582%258A%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2581%2584%25EF%25BC%259F%25EF%25BC%259AClaude%2520Code%2520%25E3%2581%25AE%25E8%25A8%2598%25E6%2586%25B6%25E3%2582%2592%25E8%25A6%258B%25E8%25BF%2594%25E3%2581%2595%25E3%2581%259B%25E3%2581%25A6%25E7%25AD%2594%25E3%2581%2588%25E3%2582%2592%25E6%25AF%2594%25E3%2581%25B9%25E3%2582%258B%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:%25E3%2581%259A%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2582%25E3%2582%2593%25E3%2581%25AE%25E5%25AE%259F%25E9%25A8%2593%25E9%2581%2593%25E5%2585%25B7%25E7%25AE%25B1%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyLzJiNGRhMmQyODEuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "週に一度、記憶の見直しコマンドを走らせて、終わった予定や片付いた作業を記憶から片付ける習慣にすると、答えがすっきりします。",
+   "guide": "guides/2026-11-13.html#news-5"
+  },
+  {
+   "label": "Diffusersに生成AI5種",
+   "points": [
+    "画像の生成と編集",
+    "音つき動画の生成",
+    "写真と声から話す動画",
+    "動きを予想する世界シミュレーション"
+   ],
+   "details": [
+    "MiniMax-H3-ImageとP-H3-Imageは、文章から画像を作り、参考画像を使った編集もできる。",
+    "Pika H3 Flexは、ステレオ音声と合った動画を6ステップで作る。最初や最後のコマを指定できる。",
+    "Kandinsky S2Vは、人の写真と話し声から、声に合わせて全身が動く動画を5秒ずつ作る。",
+    "PAN 2は、動きやカメラの指示から場面の変化を作る。安全チェックが初期状態で有効。"
+   ],
+   "url": "https://github.com/huggingface/diffusers/releases/tag/v0.43.0",
+   "lines": [
+    {
+     "say": "最後はクリエイティブ エーアイ。ハギングフェイスの画像生成ライブラリ、ディフューザーズの新しい版が出ました。",
+     "show": "Diffusers 0.43.0 公開"
+    },
+    {
+     "say": "ひとことで言うと、絵や動画を作るエーアイが、新たに五種類使えるようになりました。",
+     "show": "画像・動画の生成AIが5種類追加"
+    },
+    {
+     "say": "ライブラリとは、プログラムから呼び出して使える、部品のセットのことです。",
+     "show": "ライブラリ＝呼び出して使う部品集"
+    },
+    {
+     "say": "文章から画像を作って直すもの、音のついた動画を作るもの、写真と声から話す人の動画を作るものなどです。",
+     "show": "画像生成・音つき動画・話す人の動画など"
+    },
+    {
+     "say": "写真と声のモデルは、声に合わせて全身を動かした動画を作り、声はそのまま音として使います。",
+     "show": "Kandinsky S2V：声に合わせて全身が動く"
+    },
+    {
+     "say": "必要なパソコンの性能や使ってよい条件は、それぞれのモデルの説明ページで確かめてください。",
+     "show": "性能・ライセンスは各モデルのページで確認"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/huggingface/diffusers/releases/tag/v0.43.0",
+    "title": "Release Diffusers 0.43.0: MiniMax-H3-Image, Pika H3 Flex, P-H3-Image, Kandinsky S2V, and PAN 2 · huggingface/diffusers",
+    "site": "GitHub",
+    "description": "TipThis release adds five modular model integrations for image generation, editing, video with audio, speech-driven animation, and world simulation. It also improves attention backends, tensor para...",
+    "image": "https://opengraph.githubassets.com/0b2a9bde91efe7d4fe131d864affc118ef559665e905f24588b4206903b5bb1b/huggingface/diffusers/releases/tag/v0.43.0",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "creative",
+   "idea": null,
+   "guide": "guides/2026-11-13.html#news-6"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "/memoryで目次を開いて確認",
+    "見直しスキルを1つ置く",
+    "消さずに別ファイルへ移す",
+    "整理の前後で答えを比べる"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://code.claude.com/docs/en/skills",
+   "lines": [
+    {
+     "say": "では、今日の実験です。クロード コードの記憶の大そうじを、自分でやってみましょう。",
+     "show": "今日の実験：Claude Codeの記憶の大そうじ"
+    },
+    {
+     "say": "まず、念のため記憶のフォルダをコピーしておきます。そのうえで、スラッシュ メモリーと打ち、記憶のフォルダを開きます。",
+     "show": "①フォルダをコピー→/memoryで開く"
+    },
+    {
+     "say": "目次のファイルを読んで、終わった予定や片付いた作業の行が残っていないか探します。",
+     "show": "②終わった用事の行を探す"
+    },
+    {
+     "say": "整理する前に、まだ終わっていない予定は何か、と一度聞いて、答えをメモしておきましょう。",
+     "show": "③整理前の答えをメモ"
+    },
+    {
+     "say": "次に、見直し用のスキルのファイルを一つ置きます。中身は、番組のページからコピーできます。",
+     "show": "④見直しスキルを置く（本文はページに）"
+    },
+    {
+     "say": "スラッシュ メモリー レビューと打って実行し、編集の確認が出たら、中身を読んでから許可します。",
+     "show": "⑤/memory-review を実行"
+    },
+    {
+     "say": "大事な記憶を失わないよう、終わった用事は消さずに、別のファイルへ移す書き方にしてあります。",
+     "show": "消さずに archive_index.md へ移す"
+    },
+    {
+     "say": "最後に、新しい会話で同じ質問をして、終わった予定が答えに出なくなったら成功です。",
+     "show": "⑥同じ質問で比べて成功を確認"
+    }
+   ],
+   "link": {
+    "url": "https://code.claude.com/docs/en/skills",
+    "title": "Extend Claude with skills - Claude Code Docs",
+    "site": "Claude Code Docs",
+    "description": "Create, manage, and share skills to extend Claude's capabilities in Claude Code. Includes custom commands and bundled skills.",
+    "image": "https://claude-code.mintlify.site/docs/_mintlify/api/og/v2?division=Skills&title=Extend+Claude+with+skills&description=Create%2C+manage%2C+and+share+skills+to+extend+Claude%27s+capabilities+in+Claude+Code.+Includes+custom+commands+and+bundled+skills.&theme=e2d30309a4005a9870b526a1&signature=216f9b17dc1c04cde9ad3423bcee51ae575f2918077fb2003e87cfa94eef1b7d",
+    "icon": "https://code.claude.com/docs/mintlify-assets/_mintlify/favicons/claude-code/pLsy-mRpNksna2sx/_generated/favicon/android-chrome-192x192.png"
+   },
+   "corner": "experiment",
+   "name": "Claude Codeの記憶の大そうじ",
+   "guide": "guides/2026-11-13.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。グーグルからは、速い作業向けのモデルと、選ぶことに特化した安いエーアイが出ました。",
+   "show": "要点：Hydrogen と Decisions API"
+  },
+  {
+   "say": "クロード コードは安全面の更新。スキルは、一度書けば、いろいろなエーアイで使い回せます。",
+   "show": "要点：Claude Code更新／スキルは使い回せる"
+  },
+  {
+   "say": "今日やってみることは、クロード コードの記憶の大そうじです。二十分ほどでできます。",
+   "show": "今日やること：記憶の大そうじ（約20分）"
+  },
+  {
+   "say": "以上、エーアイ ディスカバリー アンド ビルド ラジオでした。よい週末を。",
+   "show": "AI Discovery & Build Radio　よい週末を"
+  }
+ ],
+ "highlight": 6,
+ "guide": "guides/2026-11-13.html",
+ "seconds": 461.424,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 10.134,
+   "show": "AI Discovery & Build Radio｜2026年11月13日（金）",
+   "part": 0
+  },
+  {
+   "start": 10.384,
+   "end": 17.698,
+   "show": "今日の注目：AIに任せる道具が使いやすく",
+   "part": 0
+  },
+  {
+   "start": 17.948,
+   "end": 25.285,
+   "show": "Google：速い新モデルと「選ぶだけAI」",
+   "part": 0
+  },
+  {
+   "start": 25.535,
+   "end": 31.956,
+   "show": "後半：AIの手順書と記憶を整える",
+   "part": 0
+  },
+  {
+   "start": 32.206,
+   "end": 37.785,
+   "show": "今日の実験：Claude Codeの記憶の大そうじ",
+   "part": 0
+  },
+  {
+   "start": 38.685,
+   "end": 45.372,
+   "show": "Google、Gemini 4 Hydrogenを発表",
+   "part": 1
+  },
+  {
+   "start": 45.622,
+   "end": 52.057,
+   "show": "毎日の作業を速く安くこなすモデル",
+   "part": 1
+  },
+  {
+   "start": 52.307,
+   "end": 57.955,
+   "show": "小さなコード修正や調べものが得意",
+   "part": 1
+  },
+  {
+   "start": 58.205,
+   "end": 65.739,
+   "show": "上位モデルと手分けして働ける",
+   "part": 1
+  },
+  {
+   "start": 65.989,
+   "end": 74.191,
+   "show": "長い資料・PDF・表・音声・動画をまとめられる",
+   "part": 1
+  },
+  {
+   "start": 74.441,
+   "end": 80.69,
+   "show": "Google AI Studio／Geminiアプリで利用可",
+   "part": 1
+  },
+  {
+   "start": 80.94,
+   "end": 90.465,
+   "show": "使い方：説明書PDFから出典つき要点メモ",
+   "part": 1
+  },
+  {
+   "start": 91.365,
+   "end": 97.347,
+   "show": "Gemini Decisions API が登場",
+   "part": 2
+  },
+  {
+   "start": 97.597,
+   "end": 103.43,
+   "show": "文章を書かず「判断だけ」するAI",
+   "part": 2
+  },
+  {
+   "start": 103.68,
+   "end": 109.305,
+   "show": "API＝プログラムからAIを呼ぶ窓口",
+   "part": 2
+  },
+  {
+   "start": 109.555,
+   "end": 116.522,
+   "show": "質問は3種類：はい/いいえ・選択・採点",
+   "part": 2
+  },
+  {
+   "start": 116.772,
+   "end": 122.964,
+   "show": "答えに「自信の度合い」が数字でつく",
+   "part": 2
+  },
+  {
+   "start": 123.214,
+   "end": 131.862,
+   "show": "画像・音声・動画もOK／無料枠あり",
+   "part": 2
+  },
+  {
+   "start": 132.112,
+   "end": 141.626,
+   "show": "使い方：問い合わせメールの自動振り分け",
+   "part": 2
+  },
+  {
+   "start": 142.526,
+   "end": 149.748,
+   "show": "Claude Code v2.1.323 公開",
+   "part": 3
+  },
+  {
+   "start": 149.998,
+   "end": 155.958,
+   "show": "安全面の穴を多数ふさいだ更新",
+   "part": 3
+  },
+  {
+   "start": 156.208,
+   "end": 163.488,
+   "show": "Claude Code＝自分で手順を考えて書くAI",
+   "part": 3
+  },
+  {
+   "start": 163.738,
+   "end": 170.265,
+   "show": "許可ルールのすり抜けを修正",
+   "part": 3
+  },
+  {
+   "start": 170.515,
+   "end": 178.661,
+   "show": "未知のモデルは1M扱いに変更",
+   "part": 3
+  },
+  {
+   "start": 178.911,
+   "end": 186.515,
+   "show": "試験機能 Code Mode を追加",
+   "part": 3
+  },
+  {
+   "start": 186.765,
+   "end": 194.425,
+   "show": "更新後は起動時の警告をチェック",
+   "part": 3
+  },
+  {
+   "start": 195.325,
+   "end": 203.992,
+   "show": "GitHub Blog：エージェントスキル実践ガイド",
+   "part": 4
+  },
+  {
+   "start": 204.242,
+   "end": 212.27,
+   "show": "手順を1ファイルに→どのAIでも使える",
+   "part": 4
+  },
+  {
+   "start": 212.52,
+   "end": 218.746,
+   "show": "スキル＝SKILL.mdを入れたフォルダ",
+   "part": 4
+  },
+  {
+   "start": 218.996,
+   "end": 226.311,
+   "show": "いつ・どう作業するかを書いておく",
+   "part": 4
+  },
+  {
+   "start": 226.561,
+   "end": 234.477,
+   "show": "注意：スキルは権限を与えない",
+   "part": 4
+  },
+  {
+   "start": 234.727,
+   "end": 242.554,
+   "show": "確認は別のAIに任せる例も",
+   "part": 4
+  },
+  {
+   "start": 242.804,
+   "end": 252.283,
+   "show": "使い方：公開前チェックをスキル化",
+   "part": 4
+  },
+  {
+   "start": 253.183,
+   "end": 261.261,
+   "show": "Zenn：Claude Codeの記憶を見直す",
+   "part": 5
+  },
+  {
+   "start": 261.511,
+   "end": 268.779,
+   "show": "整理すると古い予定が答えに出なくなった",
+   "part": 5
+  },
+  {
+   "start": 269.029,
+   "end": 276.474,
+   "show": "気づいたことをMEMORY.mdに書きためる",
+   "part": 5
+  },
+  {
+   "start": 276.724,
+   "end": 285.37,
+   "show": "毎回読まれるのは先頭200行（25KB）まで",
+   "part": 5
+  },
+  {
+   "start": 285.62,
+   "end": 295.214,
+   "show": "146行の記憶→過ぎた予約を2回とも回答",
+   "part": 5
+  },
+  {
+   "start": 295.464,
+   "end": 302.362,
+   "show": "整理後は122行、過ぎた予約に触れず",
+   "part": 5
+  },
+  {
+   "start": 302.612,
+   "end": 308.918,
+   "show": "注意：小規模な検証",
+   "part": 5
+  },
+  {
+   "start": 309.168,
+   "end": 317.512,
+   "show": "使い方：週1回の記憶の見直し",
+   "part": 5
+  },
+  {
+   "start": 318.412,
+   "end": 327.22,
+   "show": "Diffusers 0.43.0 公開",
+   "part": 6
+  },
+  {
+   "start": 327.47,
+   "end": 333.997,
+   "show": "画像・動画の生成AIが5種類追加",
+   "part": 6
+  },
+  {
+   "start": 334.247,
+   "end": 339.986,
+   "show": "ライブラリ＝呼び出して使う部品集",
+   "part": 6
+  },
+  {
+   "start": 340.236,
+   "end": 349.1,
+   "show": "画像生成・音つき動画・話す人の動画など",
+   "part": 6
+  },
+  {
+   "start": 349.35,
+   "end": 357.401,
+   "show": "Kandinsky S2V：声に合わせて全身が動く",
+   "part": 6
+  },
+  {
+   "start": 357.651,
+   "end": 365.08,
+   "show": "性能・ライセンスは各モデルのページで確認",
+   "part": 6
+  },
+  {
+   "start": 365.98,
+   "end": 373.306,
+   "show": "今日の実験：Claude Codeの記憶の大そうじ",
+   "part": 7
+  },
+  {
+   "start": 373.556,
+   "end": 383.208,
+   "show": "①フォルダをコピー→/memoryで開く",
+   "part": 7
+  },
+  {
+   "start": 383.458,
+   "end": 390.043,
+   "show": "②終わった用事の行を探す",
+   "part": 7
+  },
+  {
+   "start": 390.293,
+   "end": 397.677,
+   "show": "③整理前の答えをメモ",
+   "part": 7
+  },
+  {
+   "start": 397.927,
+   "end": 406.036,
+   "show": "④見直しスキルを置く（本文はページに）",
+   "part": 7
+  },
+  {
+   "start": 406.286,
+   "end": 413.543,
+   "show": "⑤/memory-review を実行",
+   "part": 7
+  },
+  {
+   "start": 413.793,
+   "end": 421.168,
+   "show": "消さずに archive_index.md へ移す",
+   "part": 7
+  },
+  {
+   "start": 421.418,
+   "end": 428.597,
+   "show": "⑥同じ質問で比べて成功を確認",
+   "part": 7
+  },
+  {
+   "start": 429.497,
+   "end": 438.571,
+   "show": "要点：Hydrogen と Decisions API",
+   "part": 8
+  },
+  {
+   "start": 438.821,
+   "end": 446.98,
+   "show": "要点：Claude Code更新／スキルは使い回せる",
+   "part": 8
+  },
+  {
+   "start": 447.23,
+   "end": 454.521,
+   "show": "今日やること：記憶の大そうじ（約20分）",
+   "part": 8
+  },
+  {
+   "start": 454.771,
+   "end": 460.824,
+   "show": "AI Discovery & Build Radio　よい週末を",
+   "part": 8
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 38.685
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 38.685,
+   "end": 91.365
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 91.365,
+   "end": 142.526
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 142.526,
+   "end": 195.325
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 195.325,
+   "end": 253.183
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 253.183,
+   "end": 318.412
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 318.412,
+   "end": 365.98
+  },
+  {
+   "kind": "news",
+   "index": 6,
+   "start": 365.98,
+   "end": 429.497
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 429.497,
+   "end": 461.424
+  }
+ ],
+ "made_at": "2026-11-13T09:17:29",
+ "tts": {
+  "provider": "azure",
+  "chars": 5172,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}

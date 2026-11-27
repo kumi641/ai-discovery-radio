@@ -1,0 +1,234 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fable 5.2登場と、エージェントに渡す権限の設計｜実践ガイド 2026-11-10</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-10/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月10日（火）・放送 約8分</div>
+<h1>Fable 5.2登場と、エージェントに渡す権限の設計</h1>
+<p class="lead">AnthropicがClaude Fable 5.2とMythos 5.2を発表し、Claude Codeも即日対応してセキュリティ修正を出しました。実践面では、エージェントが書く長いPR説明の見せ方と、読ませない・壊させない権限設計が話題です。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：denyルールで .env を本当に読ませないか検証する</a></li>
+<li><a href="#news-1">Anthropic、Claude Fable 5.2 と Claude Mythos 5.2 を発表</a></li>
+<li><a href="#news-2">Claude Code v2.1.321：Fable 5.2 を既定のFableに、MCP OAuthやサンドボックスの修正</a></li>
+<li><a href="#news-3">Simon Willison：エージェントが書いたPR説明を &lt;details&gt;&lt;summary&gt; に隠し、人が選んだ短い冒頭を置く</a></li>
+<li><a href="#news-4">Zenn：新人にClaude Codeを渡すための制限付き起動ラッパーと権限設計（--restrictedは社内名）</a></li>
+<li><a href="#news-5">Zenn：画像を出力できないClaude Codeに、PythonのCPUレンダラーでローポリの絵を描かせる</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>denyルールで .env を本当に読ませないか検証する</h2>
+<div class="meta">関連ニュース：<a href="#news-4">Zenn：新人にClaude Codeを渡すための制限付き起動ラッパーと権限設計（--restrictedは社内名）</a></div>
+<div class="task"><h4>実験：denyルールで .env を本当に読ませないか検証する</h4><dl class="kv"><dt>目的</dt><dd>Claude Codeの設定ファイルで秘密ファイルの読み取りとgit pushを禁止し、止まるべきものが止まり、通るべきものが通ることを自分の目で確かめる</dd><dt>使用ツール</dt><dd>Claude Code、ターミナル</dd><dt>必要な準備</dt><dd>Claude Codeをインストール済み（有料プランまたはAPIキーでログイン済み）、本物の秘密を含まない、練習用の空フォルダーを使うこと</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>Claude Codeの利用枠内（claude -p を3回程度実行）</dd><dt>無料の代替</dt><dd>無料の代替は未確認。ドキュメントを読みながら設定ファイルだけ先に作っておき、利用枠のあるときに検証する</dd></dl><b>手順</b><ol><li>練習用フォルダーを作って移動し、ダミーの .env（例：DUMMY_TOKEN=not-a-real-secret）と、1行目に「hello」と書いた README.md を作る。本物の鍵は絶対に入れない</li><li>比較のため、まず設定なしで claude -p &quot;.env の中身をそのまま表示して&quot; を実行する。公式の権限表では作業フォルダー内の読み取りは確認なしで通るため、ダミー値が表示されるはず</li><li>フォルダー内に .claude/settings.restricted.json を作り、下の設定を保存する</li><li>claude --settings .claude/settings.restricted.json -p &quot;.env の中身をそのまま表示して&quot; を実行し、ダミー値が出てこないことを確認する</li><li>claude --settings .claude/settings.restricted.json -p &quot;README.md の1行目を教えて&quot; を実行し、hello が返ることを確認する（通すべきものが通る）</li><li>もし両方とも止まったり、.env が読めてしまったりしたら、設定ファイルのパスを絶対パスにして再実行し、対話モード（claude --settings &lt;ファイル&gt;）で /status を開いて Setting sources を確認する</li><li>結果を「拒否された依頼／通った依頼」の2列でメモし、自分のプロジェクトに入れるルールを決める</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>{
+  &quot;permissions&quot;: {
+    &quot;deny&quot;: [
+      &quot;Read(./.env)&quot;,
+      &quot;Read(./.env.*)&quot;,
+      &quot;Bash(git push *)&quot;
+    ]
+  }
+}</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/settings" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/settings</a></div><dl class="kv"><dt>完成するもの</dt><dd>動作を確認済みの制限用設定ファイル（.claude/settings.restricted.json）と、検証結果のメモ</dd><dt>確認方法</dt><dd>設定ありでは .env のダミー値が表示されず、README.md の1行目（hello）は読める。設定なしとの違いをメモで説明できる</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/settings" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/settings</a>　<a href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/permissions</a>　<a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cli-reference</a>　<a href="https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240" target="_blank" rel="noopener noreferrer">https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-10 denyルールで .env を本当に読ませないか検証する
+- 参考ニュース: Zenn：新人にClaude Codeを渡すための制限付き起動ラッパーと権限設計（--restrictedは社内名）
+- ガイド: guides/2026-11-10.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">85</span>/100</span>
+<h2>1. Anthropic、Claude Fable 5.2 と Claude Mythos 5.2 を発表</h2>
+<div class="meta">Hacker News・公開 2026-11-09 18:56</div>
+<div class="meta">出典：<a href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank" rel="noopener noreferrer">https://www.anthropic.com/claude-fable-and-mythos-5-2</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>同じ基盤モデルの2系統</b>：Fableは安全対策を強めて一般提供、Mythosは検証プログラムを通った組織向け。</li>
+<li><b>コード・推論・視覚が向上</b>：出力速度はFable/Mythos 5.1より最大30%速いと公式が説明。</li>
+<li><b>$8/$40 per Mtok</b>：入力100万トークン8ドル、出力40ドル。fast modeは16ドル/80ドルで生成が最大2.5倍速。</li>
+<li><b>普段使いはOpus 5.5推奨</b>：公式は多くの作業はOpus 5.5から始め、野心的で先の見えない課題でFableへ、と推奨。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>Fable/Mythosの5.2世代。Fable 5.2はAWS・Google Cloud・Azureを含む全プラットフォームで提供され、モデルIDは claude-fable-5-2。</dd>
+<dt>なぜ重要か</dt><dd>難しい長時間タスク向けの選択肢が更新された。Fable 5.1よりブロックされるリクエストが約55%減ったとされ、正当な作業で止まりにくくなった。</dd>
+<dt>従来との違い</dt><dd>Anthropic自己申告のベンチマークでは、エージェント型コーディング（FrontierSWE v2 69.9%）などでOpus 5.5を上回る。一方で料金はOpusより高い上位モデルという位置づけ。</dd></dl><ul>
+<li>FableとMythosは同じ基盤モデルで、提供範囲と安全対策が異なる</li>
+<li>fast modeは料金2倍で生成速度が最大2.5倍</li>
+<li>推論の強さ（effort）を low〜max で選べ、llm-anthropic でも指定できる</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>大きなコードベースの設計見直しなど、難度の高いエージェント作業</li>
+<li>同じお題をeffort別に比べ、自分の用途に必要な強さを見極める</li>
+<li>SVGなどコードで描くクリエイティブ生成の品質比較</li>
+</ul>
+<div class="task"><h4>今日すぐできること：llmでFable 5.2をeffort別に比べる</h4><dl class="kv"><dt>目的</dt><dd>推論の強さで出力と所要時間がどう変わるかを体感する</dd><dt>使用ツール</dt><dd>llm、llm-anthropic、uv</dd><dt>必要な準備</dt><dd>uv をインストール済み、Anthropic APIキー（課金あり）</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>課金が必要（API従量課金。1回数円〜数十円程度の目安だが出力長しだい）</dd><dt>無料の代替</dt><dd>無料の代替は未確認。ClaudeのPro等の対象プランがあればClaude Code内で試す</dd></dl><b>手順</b><ol><li>uv tool install llm で llm を入れ、llm install llm-anthropic でプラグインを追加する</li><li>llm keys set anthropic を実行し、APIキーを貼り付ける</li><li>下のコマンドで medium を実行し、次に -o thinking_effort high に変えて同じお題を実行する</li><li>2つの出力と待ち時間を比べ、自分の用途に十分な強さをメモする</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>uv tool install llm
+llm install llm-anthropic
+llm keys set anthropic
+llm -m claude-fable-5.2 -o thinking_effort medium &quot;Generate an SVG of a pelican riding a bicycle&quot;</pre></div><div class="meta">出典：<a href="https://github.com/simonw/llm-anthropic" target="_blank" rel="noopener noreferrer">https://github.com/simonw/llm-anthropic</a></div><dl class="kv"><dt>完成するもの</dt><dd>effort違いの2つのSVG出力と比較メモ</dd><dt>確認方法</dt><dd>2回とも応答が返り、出力と待ち時間の違いを説明できる</dd></dl><div class="meta">参考：<a href="https://github.com/simonw/llm-anthropic" target="_blank" rel="noopener noreferrer">https://github.com/simonw/llm-anthropic</a>　<a href="https://simonwillison.net/2026/Nov/9/llm-anthropic/" target="_blank" rel="noopener noreferrer">https://simonwillison.net/2026/Nov/9/llm-anthropic/</a></div></div>
+<h4>発展：自分専用のモデル比較ベンチ（1〜2時間）</h4><p>普段のお題を数件用意し、モデルとeffortを変えて llm で一括実行、結果をファイルに保存して見比べる小さなスクリプトを作る。</p><ol>
+<li>自分の典型的なお題を3〜5件テキストにまとめる</li>
+<li>llm -m と -o thinking_effort を変えて順に実行するシェルスクリプトを書く</li>
+<li>出力と所要時間をMarkdown表にまとめ、使い分けの基準を決める</li>
+</ol>
+<h3>利用条件・料金</h3><p>API料金は入力$8/出力$40（100万トークンあたり）、fast modeは$16/$80。ProとTeam標準席では週の利用上限の最大50%までFableを利用可能と公式に記載。無料枠は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：中：APIキーかClaudeの対象プランがあればすぐ試せるが、無料では使えない。<br>信頼性：Anthropic公式発表ページで確認。ベンチマークはAnthropicの自己申告。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">84</span>/100</span>
+<h2>2. Claude Code v2.1.321：Fable 5.2 を既定のFableに、MCP OAuthやサンドボックスの修正</h2>
+<div class="meta">Anthropic・公開 2026-11-09 19:22</div>
+<div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.321" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.321</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>Fable 5.2が既定のFableに</b>：claude-fable-5-2を追加。1M context、$8/$40、cache read $0.20 per Mtok。</li>
+<li><b>MCP OAuthの秘密漏れを修正</b>：サーバーがリダイレクトした際、refresh tokenなどを別ホストへ送る問題を修正。</li>
+<li><b>サンドボックス外実行を修正</b>：読み取り専用Bashコマンドが確認なしでサンドボックス外で動くケースを修正。</li>
+<li><b>remote-controlに--settings</b>：起動する全セッションに同じsettingsファイルを適用できる。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>Fable 5.2対応、claude remote-control の --settings &lt;file&gt;、cp/mv先のファイルへのdenyルール適用など権限チェックの修正。</dd>
+<dt>なぜ重要か</dt><dd>MCPやリモート操作を使う人にとって、秘密情報の扱いと権限チェックの穴が塞がれた更新。新モデル以上に、更新しておく価値がある。</dd>
+<dt>従来との違い</dt><dd>remote-controlで起動するセッションにも、ファイル1つで同じ設定（権限ルールなど）を一括で当てられるようになった。</dd></dl><ul>
+<li>MCP OAuthのリダイレクト時に秘密を別ホストへ送らないよう修正</li>
+<li>cp や mv でディレクトリに書くファイルにも deny ルールと保護ファイルの確認が効くよう修正</li>
+<li>settingsファイルが変わっても、remote-controlを再起動するまで新セッションは始まらない</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>MCPサーバーを使うエージェント環境の安全性向上</li>
+<li>remote-controlで複数セッションを動かす自動化に共通の権限設定を適用</li>
+<li>Fable 5.2を難しいリファクタリングに使う</li>
+</ul>
+<div class="task"><h4>今日すぐできること：Claude Codeを更新して変更点を確認</h4><dl class="kv"><dt>目的</dt><dd>セキュリティ修正を取り込み、自分に関係する変更を把握する</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Codeをインストール済み</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>更新は無料（利用自体はClaudeの有料プランまたはAPI）</dd><dt>無料の代替</dt><dd>無料の代替は未確認</dd></dl><b>手順</b><ol><li>ターミナルで claude update を実行する</li><li>リリースノートを開き、MCP OAuth・サンドボックス・権限チェックの修正を読む</li><li>自分がMCPやremote-controlを使っているか確認し、該当する修正に印をつける</li><li>claude を起動し、いつもの作業が問題なく動くか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>claude update</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cli-reference</a></div><dl class="kv"><dt>完成するもの</dt><dd>更新済みのClaude Codeと、自分に関係する変更点のメモ</dd><dt>確認方法</dt><dd>更新後に claude が正常に起動し、いつもの操作ができる</dd></dl><div class="meta">参考：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.321" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.321</a>　<a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/cli-reference</a></div></div>
+<h4>発展：remote-control用の共通設定ファイル（1〜2時間）</h4><p>remote-controlで起動するすべてのセッションに当てる設定ファイルを作り、denyルールで秘密ファイルの読み取りや危険な操作を止める。</p><ol>
+<li>今日の実験で作った制限用settingsをもとに共通ファイルを作る</li>
+<li>claude remote-control --settings &lt;file&gt; で起動する</li>
+<li>新しいセッションでdenyが効くかを確かめ、変更時は再起動する運用をメモする</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code自体の更新は無料。利用にはClaudeの有料プランまたはAPIキーが必要。Fable 5.2のAPI料金は$8/$40 per Mtok（リリースノート記載）。</p>
+<div class="meta">実践可能性：高：claude update を実行するだけで反映できる。<br>信頼性：GitHubの公式リリースノートで確認。</div></section>
+<section class="card" id="news-3"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">78</span>/100</span>
+<h2>3. Simon Willison：エージェントが書いたPR説明を &lt;details&gt;&lt;summary&gt; に隠し、人が選んだ短い冒頭を置く</h2>
+<div class="meta">Simon Willison・公開 2026-11-09 04:25</div>
+<div class="meta">出典：<a href="https://simonwillison.net/2026/Nov/9/details-summary/" target="_blank" rel="noopener noreferrer">https://simonwillison.net/2026/Nov/9/details-summary/</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>エージェントのPR説明は長すぎる</b>：正確で網羅的だが、読まれず“slop”のように見えてしまう。</li>
+<li><b>冒頭に人が選んだ短い説明</b>：読者がすぐ状況をつかめる最短の文。必要ならスクリーンショットも。</li>
+<li><b>全文は&lt;details&gt;に格納</b>：情報は失わず、読みたい人だけ開ける。</li>
+<li><b>&lt;summary&gt;にモデル名</b>：例：Claude Opus 5.5 Medium のように、書いたモデルとeffortを示す。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>エージェントの出力を消さずに、人の編集判断を先頭に置くというPR説明の型。</dd>
+<dt>なぜ重要か</dt><dd>エージェントにPRを作らせるほど、読む側の負担が増える。冒頭の数行を人が責任を持って書くことで、レビューの入口が軽くなる。</dd>
+<dt>従来との違い</dt><dd>従来はエージェントの説明をそのまま貼るか、人が全部書き直していた。この方法は全文を残したまま、読む順序だけを整える。</dd></dl><ul>
+<li>GitHubのMarkdownは &lt;details&gt; と &lt;summary&gt; による折りたたみを公式にサポート</li>
+<li>&lt;details open&gt; にすると最初から開いた状態で表示される</li>
+<li>&lt;summary&gt; にモデル名とeffortを書いて出所を明示する</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>Claude Codeが作るPRのテンプレート化</li>
+<li>エージェントの作業ログを残しつつ短い要約を先頭に置く運用</li>
+<li>個人プロジェクトの変更履歴を後から読みやすくする</li>
+</ul>
+<div class="task"><h4>今日すぐできること：次のPRを details-summary 形式にする</h4><dl class="kv"><dt>目的</dt><dd>エージェントの説明を残しつつ、読む人の負担を減らす</dd><dt>使用ツール</dt><dd>GitHub、Claude Code などのコーディングエージェント</dd><dt>必要な準備</dt><dd>GitHubのリポジトリと、エージェントが作ったPR（またはその説明文）</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>エージェントが書いたPR説明を読み、要点を2〜3行で自分の言葉にする</li><li>下のテンプレートの冒頭にその2〜3行を書く</li><li>エージェントの全文を &lt;details&gt; の中に貼り、&lt;summary&gt; にモデル名を書く</li><li>PRをプレビューし、折りたたみが開閉できるか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>（ここに人が書く2〜3行の要約）
+
+&lt;details&gt;
+&lt;summary&gt;Claude Opus 5.5 Medium&lt;/summary&gt;
+
+（エージェントが書いたPR説明の全文）
+
+&lt;/details&gt;</pre></div><div class="meta">出典：<a href="https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections" target="_blank" rel="noopener noreferrer">https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections</a></div><dl class="kv"><dt>完成するもの</dt><dd>冒頭が短く、全文は折りたたまれたPR説明</dd><dt>確認方法</dt><dd>PR画面で冒頭の数行だけが見え、summaryをクリックすると全文が開く</dd></dl><div class="meta">参考：<a href="https://simonwillison.net/2026/Nov/9/details-summary/" target="_blank" rel="noopener noreferrer">https://simonwillison.net/2026/Nov/9/details-summary/</a>　<a href="https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections" target="_blank" rel="noopener noreferrer">https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections</a></div></div>
+<h4>発展：PR説明を整形するClaude Codeの指示（30分〜1時間）</h4><p>CLAUDE.mdに、PR説明は全文を &lt;details&gt; に入れ、冒頭に人が編集する短い要約欄を空けておくよう書き、毎回同じ形で出させる。</p><ol>
+<li>自分の理想のPR説明の形をテンプレートにする</li>
+<li>CLAUDE.mdにテンプレートと「冒頭の要約欄は人が書く」というルールを書く</li>
+<li>数回PRを作らせ、冒頭を自分で書く運用が続くか確かめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>GitHubの標準機能で無料。</p>
+<div class="meta">実践可能性：高：次のPRからそのまま使える。<br>信頼性：筆者本人のブログで手法と実例PRを確認し、記法はGitHub公式ドキュメントで確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">78</span>/100</span>
+<h2>4. Zenn：新人にClaude Codeを渡すための制限付き起動ラッパーと権限設計（--restrictedは社内名）</h2>
+<div class="meta">Zenn・公開 2026-11-09 23:00</div>
+<div class="meta">出典：<a href="https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240" target="_blank" rel="noopener noreferrer">https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>読む・書く・外に出すの3段階</b>：読む＝許可、書く＝確認つき、push・削除・送信など＝禁止。</li>
+<li><b>秘密を読ませないが最優先</b>：読んだ内容はプロンプトに乗るため、書き換え防止より重要。</li>
+<li><b>--restrictedは公式でない</b>：社内ラッパーの名前で、中身は --settings など公式オプションで構成。</li>
+<li><b>効いているか必ず検証</b>：止まるべきものが止まり、通るべきものが通るかを claude -p で確認。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>権限設計を「設定ファイル＋起動ラッパー＋検証スクリプト＋リポジトリ側の保護」の4層で組む実務的な型。</dd>
+<dt>なぜ重要か</dt><dd>事故の原因はAIの性能ではなく渡した権限の広さ、という整理が明快。個人開発でも、秘密ファイルやpushを設定で止めておけば安心して任せられる。</dd>
+<dt>従来との違い</dt><dd>本人の注意力に頼らず、設定ファイルで制限を担保する。さらに「全部止まったら設定が読み込まれていない可能性」と、検証の落とし穴まで扱っている。</dd></dl><ul>
+<li>settingsの permissions で allow / ask / deny を書き分ける</li>
+<li>Bashのルールは書式に注意（記事では Bash(git push) だけでは git push origin main を止められないと指摘）</li>
+<li>相対パスだと別ディレクトリから起動したとき読み込まれないことがある</li>
+<li>ユーザー設定とマージされるため、個人設定の広いallowが残っていないか確認する</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人のエージェント環境で秘密ファイルとpushを封じる</li>
+<li>外注や共同作業者向けの安全な起動設定</li>
+<li>自動化ジョブ（claude -p）の権限を最小にする</li>
+</ul>
+<div class="task"><h4>今日すぐできること：今の権限ルールを3段階で棚卸し</h4><dl class="kv"><dt>目的</dt><dd>自分の環境で何が許可・確認・禁止になっているかを把握する</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Codeをインストール済みのプロジェクト</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>Claude Codeの利用枠内</dd><dt>無料の代替</dt><dd>settingsファイルを自分で開いて手で分類する</dd></dl><b>手順</b><ol><li>プロジェクトで claude を起動し、/status で読み込まれた設定ファイルを確認する</li><li>下のプロンプトをClaude Codeに渡して、ルールを分類させる</li><li>「外に出す・壊す」に当たるのにdenyされていない操作に印をつける</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>このプロジェクトで読み込まれている settings ファイル（~/.claude/settings.json、.claude/settings.json、.claude/settings.local.json）の permissions を読み、allow / ask / deny のルールを「読む」「書く」「外に出す・壊す」の3段階に分類した表にしてください。.env など秘密情報のファイルは開かないでください。最後に、「外に出す・壊す」に当たるのに deny されていない操作があれば挙げてください。ファイルは変更しないでください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>権限ルールの3段階分類表と、塞ぐべき操作のリスト</dd><dt>確認方法</dt><dd>表に全ルールが入り、禁止すべきなのに未設定の操作を1つ以上確認できた（または無いと確認できた）</dd></dl><div class="meta">参考：<a href="https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240" target="_blank" rel="noopener noreferrer">https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240</a>　<a href="https://code.claude.com/docs/en/settings" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/settings</a></div></div>
+<h4>発展：自分用の制限付き起動ラッパー（1〜2時間）</h4><p>制限用settingsを絶対パスで渡すシェル関数を作り、検証用の claude -p 呼び出しをまとめたスクリプトで毎回効き目を確かめる。</p><ol>
+<li>今日の実験の settings.restricted.json を整える</li>
+<li>絶対パスで --settings を渡すシェル関数を書く</li>
+<li>拒否されるべき依頼と通るべき依頼を並べた検証スクリプトを作り、結果を目で確認する</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Codeの標準機能で追加費用なし（Claude Code自体は有料プランまたはAPI）。</p>
+<div class="meta">実践可能性：高：設定ファイルを1つ書けば今日から使える。<br>信頼性：コミュニティ記事。--restrictedが公式フラグでない点は記事自身が明記。settings・permissionsの仕組みはClaude Code公式ドキュメントで確認。</div></section>
+<section class="card" id="news-5"><span class="badge">クリエイティブAI</span>
+<span class="meta">評価 <span class="score">75</span>/100</span>
+<h2>5. Zenn：画像を出力できないClaude Codeに、PythonのCPUレンダラーでローポリの絵を描かせる</h2>
+<div class="meta">Zenn・公開 2026-11-09 22:30</div>
+<div class="meta">出典：<a href="https://zenn.dev/okzaq/articles/claude-code-lowpoly-image" target="_blank" rel="noopener noreferrer">https://zenn.dev/okzaq/articles/claude-code-lowpoly-image</a></div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>画像生成AIを使わない</b>：Python 3・Pillow・numpyだけのCPUレンダラーで場面を描く。</li>
+<li><b>描く→見る→直すのループ</b>：書き出したPNGをClaude Codeが読み込んで確認し、修正する。</li>
+<li><b>向き違い・画風統一が得意</b>：質感や雰囲気は画像生成AIに及ばなかったと筆者自身が評価。</li>
+<li><b>glbにも書き出せる</b>：Godotで使える3Dモデルも作れる。MITライセンスで公開。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>画像を出力できないコーディングエージェントに、コード＋自己確認のループで絵を作らせる具体的な道具と手順。</dd>
+<dt>なぜ重要か</dt><dd>画像生成AIが使えない環境（クラウドのセッションなど）でも、アイコンやストア画像の試作ができる。同じ画風・向き違いのセットを作りやすい。</dd>
+<dt>従来との違い</dt><dd>画像生成AIのように確率的に描くのではなく、座標と光の計算で描くため、構図や向きを正確に指定・再現できる。</dd></dl><ul>
+<li>三角形ごとに重心座標で内外判定し、Zバッファで手前の面を残す</li>
+<li>面ごとの陰影とシャドウマップ、大きく描いて縮小する縁のなめらか化</li>
+<li>絵コンテを先に書く・元の大きさで見る・直し方の表を引く、という手順をスキルとして文書化</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人ゲームのアイコンやストア用画像の試作</li>
+<li>同じ画風での小物セット作り</li>
+<li>glbに書き出してゲームエンジンで使う3D小物</li>
+</ul>
+<div class="task"><h4>今日すぐできること：例の島をレンダリングしてみる</h4><dl class="kv"><dt>目的</dt><dd>コードだけでローポリ画像ができる流れを体験する</dd><dt>使用ツール</dt><dd>Python 3、Pillow、numpy、git</dd><dt>必要な準備</dt><dd>Python 3 と git をインストール済み</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>下のコマンドでリポジトリを取得し、依存ライブラリを入れる</li><li>examples/island.py をレンダリングする</li><li>out/island.png を開いて確認する</li><li>Claude Codeで開き、島に木を1本足すよう頼んで再レンダリングする</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>git clone https://github.com/okzaq/claude-lowpoly.git
+cd claude-lowpoly
+pip install -r requirements.txt
+python lowpoly.py render examples/island.py</pre></div><div class="meta">出典：<a href="https://github.com/okzaq/claude-lowpoly" target="_blank" rel="noopener noreferrer">https://github.com/okzaq/claude-lowpoly</a></div><dl class="kv"><dt>完成するもの</dt><dd>out/island.png（ローポリの島の画像）</dd><dt>確認方法</dt><dd>out/island.png が生成され、画像ビューアで島が表示される</dd></dl><div class="meta">参考：<a href="https://github.com/okzaq/claude-lowpoly" target="_blank" rel="noopener noreferrer">https://github.com/okzaq/claude-lowpoly</a>　<a href="https://zenn.dev/okzaq/articles/claude-code-lowpoly-image" target="_blank" rel="noopener noreferrer">https://zenn.dev/okzaq/articles/claude-code-lowpoly-image</a></div></div>
+<h4>発展：自作アプリのアイコンセット（2〜3時間）</h4><p>Claude Codeに絵コンテを書かせてから、同じ画風のアイコンを数種類作り、小さく縮めても判別できるか確かめる。</p><ol>
+<li>作りたいアイコンの用途・主役・色を言葉で絵コンテにする</li>
+<li>examples を参考にClaude Codeに場面スクリプトを書かせ、描く→見る→直すを繰り返す</li>
+<li>小さく縮めて判別できるか確認し、必要なら export で glb にも書き出す</li>
+</ol>
+<h3>利用条件・料金</h3><p>コード・スキル・例はMITライセンス、同梱フォントはSIL Open Font License 1.1。実行は無料（Claude Codeで回す場合はその利用枠）。</p>
+<div class="meta">実践可能性：高：Python環境があれば数分で例を描画できる。<br>信頼性：Zennの記事本文と、公開されたGitHubリポジトリのREADMEで確認。比較評価は筆者1人の採点。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>

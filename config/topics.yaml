@@ -1,0 +1,54 @@
+# 関心領域と評価基準。番組のテーマを変えたいときはここを編集します。
+# priority: 1 がいちばん優先。keywords は収集時の関連度の目安（Claude の判断を置き換えるものではない）。
+
+interests:
+  - id: agent-dev
+    priority: 1
+    name: AIエージェント・AIアプリの個人開発
+    keywords: [agent, agentic, "multi-agent", harness, MCP, "model context protocol", tool use, "function calling", RAG, memory, "context engineering", eval, observability, sandbox, SDK, API]
+  - id: coding-automation
+    priority: 2
+    name: Claude Code などによる制作・作業の自動化
+    keywords: ["claude code", codex, copilot, cursor, skills, plugin, hooks, "github actions", workflow, automation, CLI]
+  - id: music
+    priority: 3
+    name: 音楽制作と生成AI
+    keywords: [music, audio, song, voice, speech, TTS, stem, MIDI, DAW, suno, udio, elevenlabs]
+  - id: visual
+    priority: 4
+    name: 画像・動画・3DCG の制作
+    keywords: [image, video, "3d", blender, remotion, "after effects", controlnet, lora, diffusion, flux, gaussian, animation, render]
+  - id: tools
+    priority: 5
+    name: 新しいAIツールの検証
+    keywords: [release, launch, "open source", "open-weight", model, beta, preview]
+  - id: product
+    priority: 6
+    name: AIを活用した小規模サービス・プロダクト開発
+    keywords: [startup, product, pricing, deploy, "cost", latency, inference]
+
+# ニュースの重要度評価（100 点満点）
+scoring:
+  practice: {max: 35, label: 実践・制作への応用可能性}
+  novelty: {max: 20, label: 技術的な新規性・革新性}
+  reliability: {max: 25, label: 情報の信頼性・検証可能性}
+  relevance: {max: 20, label: 関心領域との関連性}
+
+# 番組のコーナー（この順に並べる）
+corners:
+  - id: news
+    name: 最新AIニュース
+  - id: practice
+    name: エンジニアの実践ノウハウ
+  - id: creative
+    name: クリエイティブAI
+
+# 実践提案の方針
+practice_policy:
+  quick_try_minutes: [5, 15]
+  build_idea_minutes: [30, 240]
+  prefer_free: true
+  notes:
+    - 個人でも小さく始められるものを優先する
+    - 有料APIが必要なら無料の代替手段も書く
+    - 公式資料で確認できないコマンドは書かない

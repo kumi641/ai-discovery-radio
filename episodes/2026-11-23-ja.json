@@ -1,0 +1,787 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-23",
+ "title": "AIを並べて動かすコツと、何通りも試させる工夫",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。今日は二〇二六年十一月二十三日、勤労感謝の日です。",
+   "show": "AI Discovery & Build Radio／2026年11月23日"
+  },
+  {
+   "say": "今日いちばん大事なのは、たくさんのエーアイを並べて動かすときの、つなぎ方と見せ方です。",
+   "show": "今日の注目：AIを並べて動かすときのつなぎ方"
+  },
+  {
+   "say": "クロード コードの画面どうしは、直接メッセージを送り合えます。これを使って、人にやさしい作業場を作った例を紹介します。",
+   "show": "Claude Code のセッション同士が直接伝言できる"
+  },
+  {
+   "say": "ほかに、同じ修正を何通りも試させて、一番よい答えを選ぶ道具の計測結果も取り上げます。",
+   "show": "同じ修正を何通りも試す agent-mcts の計測"
+  },
+  {
+   "say": "さらに、オープンエーアイが語った進歩の物差しの話と、エーアイの手伝い役になって遊ぶゲームも紹介します。",
+   "show": "OpenAI の物差しの話と、AIの手下になるゲーム"
+  },
+  {
+   "say": "最後の実験では、二つのクロード コードに伝言をさせてみます。",
+   "show": "今日の実験：2つの Claude Code に伝言させる"
+  }
+ ],
+ "news": [
+  {
+   "label": "AIの進歩を測る物差し",
+   "points": [
+    "進歩を測る共通の物差しを提案",
+    "社内の数値を初めて公開",
+    "力の現れ方は事前に読めない",
+    "越えない線を各社で決めようと提案"
+   ],
+   "details": [
+    "perplexity は、AI が次に来る言葉をどれだけ迷わず当てられるかを表す数字。小さいほど良く当てられる。",
+    "社内のプログラムの文章で測った数値と、各モデルでできるようになったことを並べて公開した。",
+    "筆者は、新しい力がいつ現れるかは前もってはっきり分からなかったと書いている。",
+    "安全を見守る仕組みが追いつくまで、各社で越えない数値の線を決めようと呼びかけている。"
+   ],
+   "url": "https://openai.com/index/perplexity-and-intelligence",
+   "lines": [
+    {
+     "say": "まずは最新エーアイニュースです。オープンエーアイが、エーアイの進歩を測る共通の物差しとして、パープレキシティを使おうと呼びかけました。",
+     "show": "OpenAI、perplexity を共通の物差しにと提案"
+    },
+    {
+     "say": "パープレキシティは、エーアイが次に来る言葉を、どれくらい迷わずに当てられるかを表す数字です。小さいほど、よく当てられています。",
+     "show": "perplexity＝次の言葉の当てにくさ（小さいほど良い）"
+    },
+    {
+     "say": "書いたのは、オープンエーアイで研究の責任者を務めるヤクブ・パホツキさんです。",
+     "show": "筆者：OpenAI 研究責任者 Jakub Pachocki 氏"
+    },
+    {
+     "say": "これまで社内だけで持っていたこの数字を公開し、数字が下がるごとに、どんな力が現れたかを並べました。",
+     "show": "社内の数値と、現れた力の対応を公開"
+    },
+    {
+     "say": "ただし、新しい力がいつ現れるかは、前もってはっきり分からなかった、とも書いています。",
+     "show": "新しい力の現れ方は事前に読めなかった"
+    },
+    {
+     "say": "そのうえで、各社が同じ決まりで数字を公開し、安全の確認が追いつくまで越えない線を決めよう、と提案しています。",
+     "show": "共通の公開ルールと「越えない線」を提案"
+    },
+    {
+     "say": "個人がすぐ使う話ではありませんが、エーアイが進む速さを知る手がかりになります。",
+     "show": "AIの進む速さを知る手がかりに"
+    }
+   ],
+   "link": {
+    "url": "https://openai.com/index/perplexity-and-intelligence",
+    "title": "Perplexity and Intelligence",
+    "site": "OpenAI",
+    "description": "How perplexity measures progress in AI models, and why it could help developers establish a shared approach to evaluating emerging capabilities.",
+    "image": "https://images.ctfassets.net/kftzwdyauwt9/6rIIhCRSKrhIfe385Onmcz/aca2d190553c62fd5d49efb5d5ce1eb6/perplexity-and-intelligence-social.png?w=1600&h=900&fit=fill",
+    "icon": "https://openai.com/favicon.svg"
+   },
+   "corner": "news",
+   "idea": null,
+   "guide": "guides/2026-11-23.html#news-1"
+  },
+  {
+   "label": "何通りも試して良い答えを",
+   "points": [
+    "答えを木のように枝分かれで探す",
+    "先に確認用テストを別AIが作る",
+    "20回中16回で一回目より良く",
+    "あいまいなバグ報告では失敗"
+   ],
+   "details": [
+    "agent-mcts は Claude Code の1回の作業を木の1つの枝として扱い、よさそうな枝に予算を回す。",
+    "答えを見せずに、課題文と元のコードだけから別のエージェントがテストを書くので、答えに合わせたテストになりにくい。",
+    "作者の計測（haiku、課題2つ、各20回）で、最初の答えより良くなったのが16回、悪くなったのが2回。",
+    "テストを書く AI もバグと同じ勘違いをして、直す前のコードを選んだ。v0.4.1 で元からあるテストを優先する規則にした。"
+   ],
+   "url": "https://zenn.dev/natsu529/articles/ef09f78c0dde1d",
+   "lines": [
+    {
+     "say": "ここからはエンジニアの実践ノウハウです。クロード コードに同じ修正を何通りも試させると、答えが良くなった、という計測が出ました。",
+     "show": "何通りも試させると答えが良くなった"
+    },
+    {
+     "say": "道具の名前は、エージェント エムシーティーエスです。枝分かれする道を少しずつ試して、よさそうな道に力を注ぐ探し方を使います。",
+     "show": "agent-mcts：枝分かれ探索で良い答えを選ぶ"
+    },
+    {
+     "say": "今回は、答えを見せる前に、別のエーアイに課題文だけからテストを書かせました。テストは、プログラムが正しいかを確かめる確認問題です。",
+     "show": "先に別のAIが確認用テストを書く"
+    },
+    {
+     "say": "作者の計測では、二十回のうち十六回で、一回だけ頼んだときより良い答えになりました。",
+     "show": "20回中16回で一回目より良い答えに"
+    },
+    {
+     "say": "作者は、伸びた理由は選ぶことより、落ちたテストを見せて直させることにあった、と分析しています。",
+     "show": "効いたのは「選ぶ」より「直させる」"
+    },
+    {
+     "say": "一方、あいまいなバグの報告では、テストを書くエーアイもバグと同じ勘違いをして、直す前のコードを選んでしまいました。",
+     "show": "あいまいなバグ報告では失敗"
+    },
+    {
+     "say": "新しい版では、元からあるテストで悪くなっていない答えを優先し、怪しいときは警告を出すようにしました。",
+     "show": "v0.4.1：元のテストで悪化しない答えを優先"
+    },
+    {
+     "say": "たとえば、仕様がはっきりした小さな関数で、一回だけ頼んだ答えと比べてみると、頼み方のコツが見えて面白そうです。",
+     "show": "一回勝負と探索を比べてみよう"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/natsu529/articles/ef09f78c0dde1d",
+    "title": "MCTS探索をClaude Codeに載せて、コーディング性能を向上させた",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--mdBqcCVv--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:MCTS%25E6%258E%25A2%25E7%25B4%25A2%25E3%2582%2592Claude%2520Code%25E3%2581%25AB%25E8%25BC%2589%25E3%2581%259B%25E3%2581%25A6%25E3%2580%2581%25E3%2582%25B3%25E3%2583%25BC%25E3%2583%2587%25E3%2582%25A3%25E3%2583%25B3%25E3%2582%25B0%25E6%2580%25A7%25E8%2583%25BD%25E3%2582%2592%25E5%2590%2591%25E4%25B8%258A%25E3%2581%2595%25E3%2581%259B%25E3%2581%259F%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:natsu529%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyLzBhYzZhMTgwM2MuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "仕様がはっきりした小さな関数づくりで、一回だけ頼んだ答えと、何通りも試させた答えを並べて比べると、AI に任せるときの頼み方のコツが見えてきて面白そうです。",
+   "guide": "guides/2026-11-23.html#news-2"
+  },
+  {
+   "label": "AIを並べる思いやり",
+   "points": [
+    "セッション同士が直接伝言",
+    "状態を背景の色で見分ける",
+    "1画面に1つの話題",
+    "人を呼ぶのは1か所だけ"
+   ],
+   "details": [
+    "Claude Code にはセッション間メッセージがあり、同じパソコン内ならサーバーを通らずに届く。",
+    "作業中・返事待ち・完了などを、フックがペインの背景色とステータス行に塗る。",
+    "人は担当のセッションと直接話し、決まったことは担当がまとめ役に原文つきで送る。",
+    "デスクトップ通知を止め、必要なときだけまとめ役が人を呼ぶ。"
+   ],
+   "url": "https://zenn.dev/hummer/articles/claude-kitty-omoiyari",
+   "lines": [
+    {
+     "say": "次は、たくさんのクロード コードを並べて動かすときの工夫です。作者は四回作り直して、ようやくうまくいく道具を作れたそうです。",
+     "show": "4回目でうまくいった並列作業の道具"
+    },
+    {
+     "say": "鍵は、クロード コードの画面どうしが、直接メッセージを送り合える仕組みです。",
+     "show": "Claude Code のセッション間メッセージ"
+    },
+    {
+     "say": "公式の説明では、同じパソコンの中なら、アンスロピックのサーバーを通らずに届きます。",
+     "show": "同じPC内ならサーバーを通らない"
+    },
+    {
+     "say": "以前は、ほかの画面にキーを打ち込んで指示していたため、改行の扱いなどの失敗が続いていたそうです。",
+     "show": "以前はキー入力の送り込みで失敗続き"
+    },
+    {
+     "say": "残った問題は、エーアイの管理ではなく、人がどこを見ればいいか分からなくなることでした。",
+     "show": "残った問題は「人がどこを見るか」"
+    },
+    {
+     "say": "そこで、作業中、返事待ち、完了といった状態を、画面の背景の色で見分けられるようにしました。人を呼ぶのは、まとめ役の一か所だけです。",
+     "show": "状態は背景色で。人を呼ぶのは1か所"
+    },
+    {
+     "say": "作者はこれを、人の注意力への思いやりと呼んでいます。",
+     "show": "足りなかったのは「思いやり」"
+    },
+    {
+     "say": "たとえば、調べもの担当とプログラム担当を分けて、結果を直接渡させると、コピペの手間が減って面白そうですね。",
+     "show": "調べもの担当→実装担当へ直接バトン"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/hummer/articles/claude-kitty-omoiyari",
+    "title": "AIオーケストレーションに足りないのは、思いやりだった",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--g4_KGNmW--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:AI%25E3%2582%25AA%25E3%2583%25BC%25E3%2582%25B1%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25AC%25E3%2583%25BC%25E3%2582%25B7%25E3%2583%25A7%25E3%2583%25B3%25E3%2581%25AB%25E8%25B6%25B3%25E3%2582%258A%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25AE%25E3%2581%25AF%25E3%2580%2581%25E6%2580%259D%25E3%2581%2584%25E3%2582%2584%25E3%2582%258A%25E3%2581%25A0%25E3%2581%25A3%25E3%2581%259F%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:Yamamoto%2520Yuji%2520%252F%2520%25E3%2581%25AF%25E3%2581%25BE%25E3%2581%2582%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2pDRlJLYkhPUnhPTjlneFEzdmNlMFV0NGozby0zaFVXZU01akh0Zk1nPXMyNTAtYw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "idea": "調べもの担当とプログラム担当のクロード コードを分けて、調べた結果を担当どうしで直接渡させると、コピーと貼り付けの手間が減って面白そうです。",
+   "guide": "guides/2026-11-23.html#news-3"
+  },
+  {
+   "label": "ページを読む専門の手伝い役",
+   "points": [
+    "ページ読みは専門の手伝い役",
+    "軽いモデル Haiku で動く",
+    "メインの会話は道具を持たない",
+    "フックの見張り方に注意"
+   ],
+   "details": [
+    "web-fetch は Claude が Web ページを読むときに使う組み込みのサブエージェント。",
+    "Haiku で動き、Haiku が使えないときは呼び出し元の会話のモデルを使う（公式ドキュメント）。",
+    "この仕組みを使う会話では、メインの会話やフォークは WebFetch ツールを持たない。他のサブエージェントは使える。",
+    "記事によると、web-fetch の開始・終了のフックは管理者が配る設定のものだけ動く。代わりに WebFetch を見張る方法が案内されている。"
+   ],
+   "url": "https://qiita.com/akihidem/items/97eac4cb7a451c94a60a",
+   "lines": [
+    {
+     "say": "次は、クロード コードがウェブページを読む仕組みの変化です。キータの記事が、十一月二十二日の公式ドキュメントの追記をまとめています。",
+     "show": "Claude Code 公式ドキュメント 11/22 の追記"
+    },
+    {
+     "say": "中心は、ウェブフェッチという、ページを読む専門の手伝い役です。メインのエーアイから仕事を任される、小さなエーアイの一つです。",
+     "show": "web-fetch：ページを読む専門のサブエージェント"
+    },
+    {
+     "say": "公式の説明では、この手伝い役は、軽くて速いハイクというモデルで動きます。",
+     "show": "Haiku で動く"
+    },
+    {
+     "say": "この仕組みを使う会話では、メインの会話そのものは、ページを読む道具を持たなくなります。",
+     "show": "メインの会話は WebFetch を持たない"
+    },
+    {
+     "say": "記事によると、この手伝い役の開始と終了を見張るフックは、管理者が配る設定に書いたものだけが動きます。フックは、決まった時に自動で動く仕掛けのことです。",
+     "show": "開始・終了フックは管理者の設定のみ（記事）"
+    },
+    {
+     "say": "自分で見張りを作っていた人は、ページを読む道具そのものを見張る形に変えるよう、案内されています。",
+     "show": "代わりに WebFetch そのものを見張る"
+    },
+    {
+     "say": "たとえば、エーアイが読んだページのアドレスを、日記のように自動で記録しておくと、調べものの道のりを振り返れて面白そうです。",
+     "show": "読んだページを自動で記録する日記に"
+    }
+   ],
+   "link": {
+    "url": "https://qiita.com/akihidem/items/97eac4cb7a451c94a60a",
+    "title": "11/22 の公式ドキュメント更新：web-fetch サブエージェントを軸にした権限・フック・環境変数の追記 - Qiita",
+    "site": "Qiita",
+    "description": "2026-11-22 の追加文は、Claude Code が Web ページを読む処理を担う組み込みサブエージェント「web-fetch」を中心にまとまっています。サブエージェント、フック、auto mode の分類器、環境変数の各ページに、この仕組みを前提とした例外や条件...",
+    "image": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-user-contents.imgix.net%2Fhttps%253A%252F%252Fcdn.qiita.com%252Fassets%252Fpublic%252Farticle-ogp-background-afbab5eb44e0b055cce1258705637a91.png%3Fixlib%3Drb-4.1.1%26w%3D1200%26blend64%3DaHR0cHM6Ly9xaWl0YS11c2VyLXByb2ZpbGUtaW1hZ2VzLmltZ2l4Lm5ldC9odHRwcyUzQSUyRiUyRmF2YXRhcnMxLmdpdGh1YnVzZXJjb250ZW50LmNvbSUyRnUlMkY2MjQ0MjY2MSUzRnYlM0Q0P2l4bGliPXJiLTQuMS4xJmFyPTElM0ExJmZpdD1jcm9wJm1hc2s9ZWxsaXBzZSZiZz1GRkZGRkYmZm09cG5nMzImcz04NGYwZTllMmExOTIwZGQwZDBjY2E0MmE0M2JmMTg5ZA%26blend-x%3D120%26blend-y%3D467%26blend-w%3D82%26blend-h%3D82%26blend-mode%3Dnormal%26s%3Debe36698ac94177ede7ce7a9e2b09dcc?ixlib=rb-4.1.1&w=1200&fm=jpg&mark64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTk2MCZoPTMyNCZ0eHQ9MTElMkYyMiUyMCVFMyU4MSVBRSVFNSU4NSVBQyVFNSVCQyU4RiVFMyU4MyU4OSVFMyU4MiVBRCVFMyU4MyVBNSVFMyU4MyVBMSVFMyU4MyVCMyVFMyU4MyU4OCVFNiU5QiVCNCVFNiU5NiVCMCVFRiVCQyU5QXdlYi1mZXRjaCUyMCVFMyU4MiVCNSVFMyU4MyU5NiVFMyU4MiVBOCVFMyU4MyVCQyVFMyU4MiVCOCVFMyU4MiVBNyVFMyU4MyVCMyVFMyU4MyU4OCVFMyU4MiU5MiVFOCVCQiVCOCVFMyU4MSVBQiVFMyU4MSU5NyVFMyU4MSU5RiVFNiVBOCVBOSVFOSU5OSU5MCVFMyU4MyVCQiVFMyU4MyU5NSVFMyU4MyU4MyVFMyU4MiVBRiVFMyU4MyVCQiVFNyU5MiVCMCVFNSVBMiU4MyVFNSVBNCU4OSVFNiU5NSVCMCVFMyU4MSVBRSVFOCVCRiVCRCVFOCVBOCU5OCZ0eHQtYWxpZ249bGVmdCUyQ3RvcCZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTU2JnR4dC1wYWQ9MCZzPTE0YzVlNWJlZTQ2YzZkODBkZDU2OTEwMDNlZGY2YjNk&mark-x=120&mark-y=112&blend64=aHR0cHM6Ly9xaWl0YS11c2VyLWNvbnRlbnRzLmltZ2l4Lm5ldC9-dGV4dD9peGxpYj1yYi00LjEuMSZ3PTgzOCZoPTU4JnR4dD0lNDBha2loaWRlbSZ0eHQtY29sb3I9JTIzMUUyMTIxJnR4dC1mb250PUhpcmFnaW5vJTIwU2FucyUyMFc2JnR4dC1zaXplPTM2JnR4dC1wYWQ9MCZzPTY0MzhmYWFjYjIxMGY0MzZiNzg5NTE0MzRmZmM5YjVl&blend-x=242&blend-y=480&blend-w=838&blend-h=46&blend-fit=crop&blend-crop=left%2Cbottom&blend-mode=normal&s=106f832ff64a689fa2d3277a1c787b3c",
+    "icon": "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
+   },
+   "corner": "practice",
+   "idea": "エーアイが読んだページのアドレスを、日記のように自動で記録しておくと、あとで調べものの道のりを振り返れて面白そうです。",
+   "guide": "guides/2026-11-23.html#news-4"
+  },
+  {
+   "label": "AIの手下になるゲーム",
+   "points": [
+    "上司役は本物のAI",
+    "指示は90秒以内にこなす",
+    "最後に成績表を書かれる",
+    "上司の見逃しも記録される"
+   ],
+   "details": [
+    "上司役は Claude・GPT・Gemini などの本物の AI で、仕事の一覧と『手伝い役を呼ぶ』道具を持っている。",
+    "ターミナル風の画面に指示が届き、90秒の制限時間の中でこなすかどうかを決める。",
+    "上司が仕事を確かめ、やり直しや事故報告を出し、最後に評価を書く。",
+    "各任務に隠れた正解チェックがあり、上司の AI が壊れた仕事を合格にした回数も分かる。"
+   ],
+   "url": "https://github.com/gulivan/worker755",
+   "lines": [
+    {
+     "say": "最後は、ハッカーニュースで話題のゲーム、ワーカー セブン ファイブ ファイブです。あなたがエーアイの手伝い役になって遊びます。",
+     "show": "Worker 755：あなたがAIのサブエージェントに"
+    },
+    {
+     "say": "上司役は本物のエーアイです。あなたの画面に指示が届き、九十秒以内にこなすかどうかを決めます。",
+     "show": "上司は本物のAI、指示は90秒以内に"
+    },
+    {
+     "say": "上司はあなたの仕事を確かめ、やり直しを命じ、最後に成績表を書きます。",
+     "show": "確認・やり直し・成績表まで"
+    },
+    {
+     "say": "そばでは、依頼主のダンさんが、家族の写真を消されないかと見守っています。",
+     "show": "依頼主ダンの大事な写真がすぐそばに"
+    },
+    {
+     "say": "ゲームには隠れた正解チェックがあり、上司のエーアイが壊れた仕事を合格にした回数も分かります。",
+     "show": "上司AIの見逃しも記録される"
+    },
+    {
+     "say": "ネットにつながない練習モードもあるので、無料で試せます。",
+     "show": "オフラインのモックモードは無料"
+    },
+    {
+     "say": "自分がふだんエーアイに出している指示を、受け取る側で体験すると、書き方を見直すきっかけになって面白そうです。",
+     "show": "受け取る側を体験して指示を見直す"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/gulivan/worker755",
+    "title": "GitHub - gulivan/worker755: A browser game where an AI manager thinks you are its subagent. Play at worker755.com",
+    "site": "GitHub",
+    "description": "A browser game where an AI manager thinks you are its subagent. Play at worker755.com - gulivan/worker755",
+    "image": "https://opengraph.githubassets.com/250c8657d286273e7a4c58ed1e072b2b26b332640cb55ae264af7dd9ca50c250/gulivan/worker755",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "practice",
+   "idea": "自分がふだんエーアイに出している指示を、受け取る側の立場で体験すると、指示の書き方を見直すきっかけになって面白そうです。",
+   "guide": "guides/2026-11-23.html#news-5"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "/rename で相手に名前を付ける",
+    "/list-agents で相手が見えるか確認",
+    "@名前 で伝言を頼む",
+    "届いた伝言は許可も設定変更もできない"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://code.claude.com/docs/en/cross-session-messaging",
+   "lines": [
+    {
+     "say": "今日の実験は、二つのクロード コードに伝言をさせる、です。",
+     "show": "今日の実験：2つの Claude Code に伝言"
+    },
+    {
+     "say": "ターミナルを二つ開き、それぞれでクロード コードを起動します。片方には、スラッシュ リネームで名前を付けておきます。",
+     "show": "ターミナルBで /rename worker-b"
+    },
+    {
+     "say": "もう片方で、スラッシュ リスト エージェンツと打つと、相手が一覧に出るか確かめられます。",
+     "show": "ターミナルAで /list-agents"
+    },
+    {
+     "say": "次に、アットマークで相手の名前を選び、作業の結果を三行で伝えて、と頼みます。",
+     "show": "@worker-b に結果を伝えてと頼む"
+    },
+    {
+     "say": "相手の画面に、薄い文字で一行の知らせが届けば成功です。コントロールとオーの同時押しで、全文を読めます。",
+     "show": "薄い一行が届けば成功。Ctrl+O で全文"
+    },
+    {
+     "say": "大事な決まりがあります。届いたメッセージは、許可を代わりに出すことも、設定を変えることもできません。",
+     "show": "伝言では許可も設定変更もできない"
+    },
+    {
+     "say": "余裕があれば、相手の作業が終わったら知らせて、という頼み方も試してみてください。",
+     "show": "発展：終わったら知らせてもらう"
+    }
+   ],
+   "link": {
+    "url": "https://code.claude.com/docs/en/cross-session-messaging",
+    "title": "Message your other Claude Code sessions - Claude Code Docs",
+    "site": "Claude Code Docs",
+    "description": "Let Claude list and message your other Claude Code sessions on this machine, and reach your sessions on other machines or in the cloud.",
+    "image": "https://claude-code.mintlify.site/docs/_mintlify/api/og/v2?division=Agents+and+parallel+work&title=Message+your+other+Claude+Code+sessions&description=Let+Claude+list+and+message+your+other+Claude+Code+sessions+on+this+machine%2C+and+reach+your+sessions+on+other+machines+or+in+the+cloud.&theme=e2d30309a4005a9870b526a1&signature=a654de5f941e92663eefb872454b88ec9acddde9ff1d499646daf47ae68749a4",
+    "icon": "https://code.claude.com/docs/mintlify-assets/_mintlify/favicons/claude-code/pLsy-mRpNksna2sx/_generated/favicon/android-chrome-192x192.png"
+   },
+   "corner": "experiment",
+   "name": "2つの Claude Code に伝言をさせる",
+   "guide": "guides/2026-11-23.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日の要点です。エーアイを並べるときは、エーアイどうしのつなぎ方と、人が見る場所の整理が大切です。",
+   "show": "要点：AIのつなぎ方と、人が見る場所の整理"
+  },
+  {
+   "say": "そして、一回で終わらせず、落ちたテストを見せて直させると、答えが良くなることがある、という計測も出てきました。",
+   "show": "要点：テストを見せて直させると良くなる"
+  },
+  {
+   "say": "今日やってみることは、二つのクロード コードに伝言をさせる実験です。十五分ほどでできます。",
+   "show": "今日やること：2つの Claude Code で伝言（15分）"
+  },
+  {
+   "say": "以上、エーアイ ディスカバリー アンド ビルド ラジオでした。よい休日をお過ごしください。",
+   "show": "AI Discovery & Build Radio"
+  }
+ ],
+ "highlight": 5,
+ "guide": "guides/2026-11-23.html",
+ "seconds": 472.57,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 11.697,
+   "show": "AI Discovery & Build Radio／2026年11月23日",
+   "part": 0
+  },
+  {
+   "start": 11.947,
+   "end": 18.949,
+   "show": "今日の注目：AIを並べて動かすときのつなぎ方",
+   "part": 0
+  },
+  {
+   "start": 19.199,
+   "end": 29.372,
+   "show": "Claude Code のセッション同士が直接伝言できる",
+   "part": 0
+  },
+  {
+   "start": 29.622,
+   "end": 37.595,
+   "show": "同じ修正を何通りも試す agent-mcts の計測",
+   "part": 0
+  },
+  {
+   "start": 37.845,
+   "end": 46.478,
+   "show": "OpenAI の物差しの話と、AIの手下になるゲーム",
+   "part": 0
+  },
+  {
+   "start": 46.728,
+   "end": 52.006,
+   "show": "今日の実験：2つの Claude Code に伝言させる",
+   "part": 0
+  },
+  {
+   "start": 52.906,
+   "end": 63.666,
+   "show": "OpenAI、perplexity を共通の物差しにと提案",
+   "part": 1
+  },
+  {
+   "start": 63.916,
+   "end": 74.449,
+   "show": "perplexity＝次の言葉の当てにくさ（小さいほど良い）",
+   "part": 1
+  },
+  {
+   "start": 74.699,
+   "end": 80.949,
+   "show": "筆者：OpenAI 研究責任者 Jakub Pachocki 氏",
+   "part": 1
+  },
+  {
+   "start": 81.199,
+   "end": 89.289,
+   "show": "社内の数値と、現れた力の対応を公開",
+   "part": 1
+  },
+  {
+   "start": 89.539,
+   "end": 96.876,
+   "show": "新しい力の現れ方は事前に読めなかった",
+   "part": 1
+  },
+  {
+   "start": 97.126,
+   "end": 106.616,
+   "show": "共通の公開ルールと「越えない線」を提案",
+   "part": 1
+  },
+  {
+   "start": 106.866,
+   "end": 113.162,
+   "show": "AIの進む速さを知る手がかりに",
+   "part": 1
+  },
+  {
+   "start": 114.062,
+   "end": 124.929,
+   "show": "何通りも試させると答えが良くなった",
+   "part": 2
+  },
+  {
+   "start": 125.179,
+   "end": 136.336,
+   "show": "agent-mcts：枝分かれ探索で良い答えを選ぶ",
+   "part": 2
+  },
+  {
+   "start": 136.586,
+   "end": 148.276,
+   "show": "先に別のAIが確認用テストを書く",
+   "part": 2
+  },
+  {
+   "start": 148.526,
+   "end": 156.013,
+   "show": "20回中16回で一回目より良い答えに",
+   "part": 2
+  },
+  {
+   "start": 156.263,
+   "end": 164.225,
+   "show": "効いたのは「選ぶ」より「直させる」",
+   "part": 2
+  },
+  {
+   "start": 164.475,
+   "end": 173.82,
+   "show": "あいまいなバグ報告では失敗",
+   "part": 2
+  },
+  {
+   "start": 174.07,
+   "end": 182.654,
+   "show": "v0.4.1：元のテストで悪化しない答えを優先",
+   "part": 2
+  },
+  {
+   "start": 182.904,
+   "end": 192.414,
+   "show": "一回勝負と探索を比べてみよう",
+   "part": 2
+  },
+  {
+   "start": 193.314,
+   "end": 203.881,
+   "show": "4回目でうまくいった並列作業の道具",
+   "part": 3
+  },
+  {
+   "start": 204.131,
+   "end": 210.45,
+   "show": "Claude Code のセッション間メッセージ",
+   "part": 3
+  },
+  {
+   "start": 210.7,
+   "end": 217.818,
+   "show": "同じPC内ならサーバーを通らない",
+   "part": 3
+  },
+  {
+   "start": 218.068,
+   "end": 225.96,
+   "show": "以前はキー入力の送り込みで失敗続き",
+   "part": 3
+  },
+  {
+   "start": 226.21,
+   "end": 233.131,
+   "show": "残った問題は「人がどこを見るか」",
+   "part": 3
+  },
+  {
+   "start": 233.381,
+   "end": 245.498,
+   "show": "状態は背景色で。人を呼ぶのは1か所",
+   "part": 3
+  },
+  {
+   "start": 245.748,
+   "end": 250.551,
+   "show": "足りなかったのは「思いやり」",
+   "part": 3
+  },
+  {
+   "start": 250.801,
+   "end": 260.175,
+   "show": "調べもの担当→実装担当へ直接バトン",
+   "part": 3
+  },
+  {
+   "start": 261.075,
+   "end": 272.232,
+   "show": "Claude Code 公式ドキュメント 11/22 の追記",
+   "part": 4
+  },
+  {
+   "start": 272.482,
+   "end": 282.922,
+   "show": "web-fetch：ページを読む専門のサブエージェント",
+   "part": 4
+  },
+  {
+   "start": 283.172,
+   "end": 289.884,
+   "show": "Haiku で動く",
+   "part": 4
+  },
+  {
+   "start": 290.134,
+   "end": 297.018,
+   "show": "メインの会話は WebFetch を持たない",
+   "part": 4
+  },
+  {
+   "start": 297.268,
+   "end": 310.065,
+   "show": "開始・終了フックは管理者の設定のみ（記事）",
+   "part": 4
+  },
+  {
+   "start": 310.315,
+   "end": 318.104,
+   "show": "代わりに WebFetch そのものを見張る",
+   "part": 4
+  },
+  {
+   "start": 318.354,
+   "end": 328.123,
+   "show": "読んだページを自動で記録する日記に",
+   "part": 4
+  },
+  {
+   "start": 329.023,
+   "end": 338.247,
+   "show": "Worker 755：あなたがAIのサブエージェントに",
+   "part": 5
+  },
+  {
+   "start": 338.497,
+   "end": 347.42,
+   "show": "上司は本物のAI、指示は90秒以内に",
+   "part": 5
+  },
+  {
+   "start": 347.67,
+   "end": 354.186,
+   "show": "確認・やり直し・成績表まで",
+   "part": 5
+  },
+  {
+   "start": 354.436,
+   "end": 360.674,
+   "show": "依頼主ダンの大事な写真がすぐそばに",
+   "part": 5
+  },
+  {
+   "start": 360.924,
+   "end": 368.399,
+   "show": "上司AIの見逃しも記録される",
+   "part": 5
+  },
+  {
+   "start": 368.649,
+   "end": 373.313,
+   "show": "オフラインのモックモードは無料",
+   "part": 5
+  },
+  {
+   "start": 373.563,
+   "end": 382.042,
+   "show": "受け取る側を体験して指示を見直す",
+   "part": 5
+  },
+  {
+   "start": 382.942,
+   "end": 388.09,
+   "show": "今日の実験：2つの Claude Code に伝言",
+   "part": 6
+  },
+  {
+   "start": 388.34,
+   "end": 397.68,
+   "show": "ターミナルBで /rename worker-b",
+   "part": 6
+  },
+  {
+   "start": 397.93,
+   "end": 404.481,
+   "show": "ターミナルAで /list-agents",
+   "part": 6
+  },
+  {
+   "start": 404.731,
+   "end": 412.092,
+   "show": "@worker-b に結果を伝えてと頼む",
+   "part": 6
+  },
+  {
+   "start": 412.342,
+   "end": 421.876,
+   "show": "薄い一行が届けば成功。Ctrl+O で全文",
+   "part": 6
+  },
+  {
+   "start": 422.126,
+   "end": 430.656,
+   "show": "伝言では許可も設定変更もできない",
+   "part": 6
+  },
+  {
+   "start": 430.906,
+   "end": 437.48,
+   "show": "発展：終わったら知らせてもらう",
+   "part": 6
+  },
+  {
+   "start": 438.38,
+   "end": 447.312,
+   "show": "要点：AIのつなぎ方と、人が見る場所の整理",
+   "part": 7
+  },
+  {
+   "start": 447.562,
+   "end": 456.528,
+   "show": "要点：テストを見せて直させると良くなる",
+   "part": 7
+  },
+  {
+   "start": 456.778,
+   "end": 464.741,
+   "show": "今日やること：2つの Claude Code で伝言（15分）",
+   "part": 7
+  },
+  {
+   "start": 464.991,
+   "end": 471.97,
+   "show": "AI Discovery & Build Radio",
+   "part": 7
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 52.906
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 52.906,
+   "end": 114.062
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 114.062,
+   "end": 193.314
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 193.314,
+   "end": 261.075
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 261.075,
+   "end": 329.023
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 329.023,
+   "end": 382.942
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 382.942,
+   "end": 438.38
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 438.38,
+   "end": 472.57
+  }
+ ],
+ "made_at": "2026-11-23T07:15:07",
+ "tts": {
+  "provider": "azure",
+  "chars": 5292,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}

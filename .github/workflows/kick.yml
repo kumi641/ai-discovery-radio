@@ -1,0 +1,20 @@
+name: kick
+
+# The 07:00 JST cloud routine pushes an empty commit to claude/broadcast-trigger. The Claude Code action
+# does not accept push events, so this only starts broadcast.yml as a manual run on main.
+# (A workflow_dispatch made with GITHUB_TOKEN does start a new run; other GITHUB_TOKEN events do not.)
+on:
+  push:
+    branches: ["claude/broadcast-trigger"]
+
+permissions:
+  actions: write
+
+jobs:
+  kick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run broadcast.yml -R "${{ github.repository }}" --ref main

@@ -1,0 +1,712 @@
+{
+ "format": "monoradio/news-1",
+ "lang": "ja",
+ "date": "2026-11-10",
+ "title": "Fable 5.2登場と、エージェントに渡す権限の設計",
+ "opening": [
+  {
+   "say": "おはようございます。エーアイ ディスカバリー アンド ビルド ラジオです。今日は二〇二六年十一月十日、火曜日です。",
+   "show": "AI Discovery & Build Radio｜2026年11月10日（火）"
+  },
+  {
+   "say": "昨日はアンスロピックが新しい上位モデル、クロード フェイブル ファイブ ポイント ツーを発表し、クロードコードもすぐに対応しました。",
+   "show": "Anthropic が Claude Fable 5.2 を発表、Claude Code も即対応"
+  },
+  {
+   "say": "そのほか、エージェントが書く長い説明の見せ方、権限の絞り方、そしてコードで絵を描く方法を取り上げます。",
+   "show": "PR説明の整理、権限設計、コードで描くローポリ絵"
+  },
+  {
+   "say": "今日の実験では、クロードコードに読ませたくないファイルを、設定で本当に止められるかを確かめます。",
+   "show": "今日の実験：設定で“読ませない”を検証"
+  }
+ ],
+ "news": [
+  {
+   "label": "Claude Fable 5.2 登場",
+   "points": [
+    "同じ基盤モデルの2系統",
+    "コード・推論・視覚が向上",
+    "$8/$40 per Mtok",
+    "普段使いはOpus 5.5推奨"
+   ],
+   "details": [
+    "Fableは安全対策を強めて一般提供、Mythosは検証プログラムを通った組織向け。",
+    "出力速度はFable/Mythos 5.1より最大30%速いと公式が説明。",
+    "入力100万トークン8ドル、出力40ドル。fast modeは16ドル/80ドルで生成が最大2.5倍速。",
+    "公式は多くの作業はOpus 5.5から始め、野心的で先の見えない課題でFableへ、と推奨。"
+   ],
+   "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+   "lines": [
+    {
+     "say": "まずは最新ニュースです。アンスロピックが、クロード フェイブル ファイブ ポイント ツーと、ミトス ファイブ ポイント ツーを発表しました。",
+     "show": "Anthropic、Claude Fable 5.2 と Mythos 5.2 を発表"
+    },
+    {
+     "say": "二つは同じ基盤モデルで、フェイブルは安全対策を強めて一般向けに、ミトスは審査を通った組織向けに提供されます。",
+     "show": "同じ基盤モデル。Fableは一般、Mythosは審査済み組織向け"
+    },
+    {
+     "say": "コーディング、推論、画像の理解が改善し、出力の速さは前のバージョンより最大三割速いとしています。",
+     "show": "コーディング・推論・視覚が向上、出力は最大30%高速"
+    },
+    {
+     "say": "料金は百万トークンあたり、入力八ドル、出力四十ドル。倍の料金で生成が最大二・五倍速くなる高速モードもあります。",
+     "show": "$8/$40 per Mtok。fast mode は $16/$80"
+    },
+    {
+     "say": "ただし公式は、普段の作業はオーパス ファイブ ポイント ファイブから始め、難しく先の見えない課題でフェイブルを使うよう勧めています。",
+     "show": "公式推奨：普段は Opus 5.5、難題で Fable"
+    },
+    {
+     "say": "試すなら、サイモン・ウィリソンさんのエルエルエムというコマンドラインツールで、推論の強さを変えて同じお題を比べるのがおすすめです。",
+     "show": "試す：llm で effort を変えて比較"
+    },
+    {
+     "say": "ウィリソンさんの検証では、最大の設定は考えすぎて答えを返せなかったそうなので、中くらいから始めましょう。",
+     "show": "max は出力切れの例あり。medium から"
+    }
+   ],
+   "link": {
+    "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+    "title": "Introducing Claude Fable 5.2 and Claude Mythos 5.2",
+    "site": "www.anthropic.com",
+    "description": "Claude Fable 5.2 and Claude Mythos 5.2, our new models for the hardest technical challenges. Fable 5.2 sets a new bar in coding, finance, and the sciences.",
+    "image": "https://www-cdn.anthropic.com/images/4zrzovbb/website/b2dab182c77b4ccfd36423470106915b20f676ae-1200x630.jpg",
+    "icon": "https://www.anthropic.com/favicon.ico"
+   },
+   "corner": "news",
+   "guide": "guides/2026-11-10.html#news-1"
+  },
+  {
+   "label": "Claude Code 2.1.321",
+   "points": [
+    "Fable 5.2が既定のFableに",
+    "MCP OAuthの秘密漏れを修正",
+    "サンドボックス外実行を修正",
+    "remote-controlに--settings"
+   ],
+   "details": [
+    "claude-fable-5-2を追加。1M context、$8/$40、cache read $0.20 per Mtok。",
+    "サーバーがリダイレクトした際、refresh tokenなどを別ホストへ送る問題を修正。",
+    "読み取り専用Bashコマンドが確認なしでサンドボックス外で動くケースを修正。",
+    "起動する全セッションに同じsettingsファイルを適用できる。"
+   ],
+   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.321",
+   "lines": [
+    {
+     "say": "続いてクロードコードの最新版、ツー ポイント ワン ポイント スリーツーワンです。フェイブル ファイブ ポイント ツーが追加され、既定のフェイブルになりました。",
+     "show": "Claude Code v2.1.321：Fable 5.2 が既定の Fable に"
+    },
+    {
+     "say": "リリースノートには、コンテキストは百万トークン、キャッシュ読み出しは百万トークンあたり二十セントと書かれています。",
+     "show": "1M context、cache read $0.20/Mtok"
+    },
+    {
+     "say": "地味ですが大事なのがセキュリティ修正です。エムシーピーの認証で、リダイレクト先の別のホストに、トークンなどの秘密を送ってしまう問題が直りました。",
+     "show": "MCP OAuth の秘密がリダイレクト先へ送られる問題を修正"
+    },
+    {
+     "say": "読み取り専用のバッシュコマンドが、確認なしでサンドボックスの外で動くケースも修正されています。",
+     "show": "読み取り専用 Bash がサンドボックス外で動く問題を修正"
+    },
+    {
+     "say": "新機能では、リモートコントロールにセッティングスというオプションが付き、起動する全セッションに同じ設定ファイルを当てられます。",
+     "show": "remote-control に --settings、全セッションへ設定を適用"
+    },
+    {
+     "say": "エムシーピーやリモート操作を使っている方は、今日のうちにアップデートしておきましょう。",
+     "show": "MCP・リモート操作を使うなら早めに更新"
+    }
+   ],
+   "link": {
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.321",
+    "title": "Release v2.1.321 · anthropics/claude-code",
+    "site": "GitHub",
+    "description": "What's changed\n\nAdded Claude Fable 5.2 (claude-fable-5-2), now the default Fable model — 1M context, $8/$40 per Mtok with $0.20/Mtok cache reads\nAdded --settings <file> to claude remote-control, wh...",
+    "image": "https://opengraph.githubassets.com/85f2b1107bb6950f8a3ead18ca0274fe284bf439f13a70dfcab92d2ca3572eac/anthropics/claude-code/releases/tag/v2.1.321",
+    "icon": "https://github.com/fluidicon.png"
+   },
+   "corner": "news",
+   "guide": "guides/2026-11-10.html#news-2"
+  },
+  {
+   "label": "長いPR説明は折りたたむ",
+   "points": [
+    "エージェントのPR説明は長すぎる",
+    "冒頭に人が選んだ短い説明",
+    "全文は<details>に格納",
+    "<summary>にモデル名"
+   ],
+   "details": [
+    "正確で網羅的だが、読まれず“slop”のように見えてしまう。",
+    "読者がすぐ状況をつかめる最短の文。必要ならスクリーンショットも。",
+    "情報は失わず、読みたい人だけ開ける。",
+    "例：Claude Opus 5.5 Medium のように、書いたモデルとeffortを示す。"
+   ],
+   "url": "https://simonwillison.net/2026/Nov/9/details-summary/",
+   "lines": [
+    {
+     "say": "ここからはエンジニアの実践ノウハウです。サイモン・ウィリソンさんが、エージェントの書くプルリクエストの説明の扱い方を紹介しました。",
+     "show": "Simon Willison：エージェントの PR 説明をどう見せるか"
+    },
+    {
+     "say": "最近のエージェントは、問題、解決策、検証手順まで正確に書いてくれます。ところが詳しすぎて人が読まない、というのが彼の指摘です。",
+     "show": "正確で網羅的。でも長すぎて読まれない"
+    },
+    {
+     "say": "そこで冒頭に人が選んだ短い説明を置き、エージェントの全文は、ディテールズという折りたたみのタグにしまいます。",
+     "show": "冒頭に人の短い説明、全文は <details> に格納"
+    },
+    {
+     "say": "折りたたみの見出しにはモデル名と推論の強さを書いて、誰が書いた文章かを示します。",
+     "show": "<summary> にモデル名と effort を記載"
+    },
+    {
+     "say": "情報は失わず、読む人は冒頭だけ見て、必要なら開けばいい。冒頭の数行が、人の判断を示す約束になるという考え方です。",
+     "show": "情報は残したまま、読む負担を減らす"
+    },
+    {
+     "say": "ギットハブはこの折りたたみ表記を公式にサポートしているので、次のプルリクエストからすぐ使えます。",
+     "show": "GitHub の Markdown で公式サポート"
+    }
+   ],
+   "link": {
+    "url": "https://simonwillison.net/2026/Nov/9/details-summary/",
+    "title": "Hide your slop PR descriptions behind <details><summary>",
+    "site": "Simon Willison’s Weblog",
+    "description": "Most of the changes I make to my projects these days come in the form of PRs opened for me by Claude Code or Codex. The PR is my unit …",
+    "image": "https://static.simonwillison.net/static/2026/details-summary-card.webp",
+    "icon": null
+   },
+   "corner": "practice",
+   "guide": "guides/2026-11-10.html#news-3"
+  },
+  {
+   "label": "AIに渡す権限の三段階",
+   "points": [
+    "読む・書く・外に出すの3段階",
+    "秘密を読ませないが最優先",
+    "--restrictedは公式でない",
+    "効いているか必ず検証"
+   ],
+   "details": [
+    "読む＝許可、書く＝確認つき、push・削除・送信など＝禁止。",
+    "読んだ内容はプロンプトに乗るため、書き換え防止より重要。",
+    "社内ラッパーの名前で、中身は --settings など公式オプションで構成。",
+    "止まるべきものが止まり、通るべきものが通るかを claude -p で確認。"
+   ],
+   "url": "https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240",
+   "lines": [
+    {
+     "say": "次はゼンの記事、新人にクロードコードを渡すときの権限設計です。",
+     "show": "Zenn：新人に Claude Code を渡す権限設計"
+    },
+    {
+     "say": "筆者の会社では、エーアイに強制プッシュを実行されてブランチが消えた経験から、作業を、読む、書く、外に出す・壊す、の三段階に分けました。",
+     "show": "読む＝許可／書く＝確認／外に出す・壊す＝禁止"
+    },
+    {
+     "say": "記事のリストリクテッドモードは公式の機能ではなく社内ラッパーの名前で、中身は公式のオプションで組んでいると明記されています。",
+     "show": "--restricted は社内ラッパー名。中身は公式オプション"
+    },
+    {
+     "say": "大事な指摘は二つ。一つは、秘密情報を読ませないことが、書き換え防止より重要だということ。読んだ内容はプロンプトに乗るからです。",
+     "show": "最重要：秘密情報を読ませない"
+    },
+    {
+     "say": "もう一つは、設定したつもりで効いていないのが一番危ない、ということ。止まるべきものが止まり、通るべきものが通るかを検証します。",
+     "show": "“効いていない設定”が最も危険。必ず検証"
+    },
+    {
+     "say": "この考え方を、あとで今日の実験として手を動かして確かめます。",
+     "show": "→ 今日の実験へ"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240",
+    "title": "--restrictedモードで新人にAIを触らせる — 権限設計の実務",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--qQLOpxEX--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:--restricted%25E3%2583%25A2%25E3%2583%25BC%25E3%2583%2589%25E3%2581%25A7%25E6%2596%25B0%25E4%25BA%25BA%25E3%2581%25ABAI%25E3%2582%2592%25E8%25A7%25A6%25E3%2582%2589%25E3%2581%259B%25E3%2582%258B%2520%25E2%2580%2594%2520%25E6%25A8%25A9%25E9%2599%2590%25E8%25A8%25AD%25E8%25A8%2588%25E3%2581%25AE%25E5%25AE%259F%25E5%258B%2599%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:JOINCLASS%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdGF0aWMuemVubi5zdHVkaW8vdXNlci11cGxvYWQvYXZhdGFyL2NhOWUwY2FiYmYuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "practice",
+   "guide": "guides/2026-11-10.html#news-4"
+  },
+  {
+   "label": "コードで描くローポリ絵",
+   "points": [
+    "画像生成AIを使わない",
+    "描く→見る→直すのループ",
+    "向き違い・画風統一が得意",
+    "glbにも書き出せる"
+   ],
+   "details": [
+    "Python 3・Pillow・numpyだけのCPUレンダラーで場面を描く。",
+    "書き出したPNGをClaude Codeが読み込んで確認し、修正する。",
+    "質感や雰囲気は画像生成AIに及ばなかったと筆者自身が評価。",
+    "Godotで使える3Dモデルも作れる。MITライセンスで公開。"
+   ],
+   "url": "https://zenn.dev/okzaq/articles/claude-code-lowpoly-image",
+   "lines": [
+    {
+     "say": "最後はクリエイティブエーアイ。画像を出力できないクロードコードに、ローポリの絵を描かせるという、ゼンの記事です。",
+     "show": "Zenn：Claude Code にローポリの絵を描かせる"
+    },
+    {
+     "say": "画像生成エーアイは使いません。パイソンのコードで立体の場面を組み、シーピーユーだけで画像にする小さなレンダラーを使います。",
+     "show": "画像生成AIなし。Python で組んで CPU で描画"
+    },
+    {
+     "say": "クロードコードは書き出した画像を自分で読み込んで確認できるので、描いて、見て、直す、を繰り返せます。",
+     "show": "描く→見る→直す のループ"
+    },
+    {
+     "say": "ローポリは少ない三角形と面ごとの陰影でできているので、座標と光の計算で描くのに向いている、というのが筆者の見立てです。",
+     "show": "少ない三角形・面ごとの陰影がコード向き"
+    },
+    {
+     "say": "向きを変えた描き分けや、同じ画風でのセット作りは得意で、質感や雰囲気は画像生成エーアイに及ばなかったそうです。",
+     "show": "得意：向き違い・画風統一／苦手：質感"
+    },
+    {
+     "say": "道具はエムアイティーライセンスで公開されていて、ゲームで使える立体モデルのファイルにも書き出せます。",
+     "show": "MIT で公開、glb 書き出しにも対応"
+    }
+   ],
+   "link": {
+    "url": "https://zenn.dev/okzaq/articles/claude-code-lowpoly-image",
+    "title": "画像を出力できない Claude Code に、ローポリの絵を描かせる",
+    "site": "Zenn",
+    "description": null,
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--Fmn-0ROL--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:%25E7%2594%25BB%25E5%2583%258F%25E3%2582%2592%25E5%2587%25BA%25E5%258A%259B%25E3%2581%25A7%25E3%2581%258D%25E3%2581%25AA%25E3%2581%2584%2520Claude%2520Code%2520%25E3%2581%25AB%25E3%2580%2581%25E3%2583%25AD%25E3%2583%25BC%25E3%2583%259D%25E3%2583%25AA%25E3%2581%25AE%25E7%25B5%25B5%25E3%2582%2592%25E6%258F%258F%25E3%2581%258B%25E3%2581%259B%25E3%2582%258B%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:OKZAQ%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jS2hkbTI3eUczS0JjR1YzNXpMVUhmLVVhWkloVnkyZjBUN0J1UGpxTkNoTXVEVW5uRUc9czI1MC1j%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACMTiAE",
+    "icon": "https://static.zenn.studio/images/logo-transparent.png"
+   },
+   "corner": "creative",
+   "guide": "guides/2026-11-10.html#news-5"
+  },
+  {
+   "label": "今日の実験",
+   "points": [
+    "ダミーの .env で安全に試す",
+    "deny に .env と git push",
+    "--settings で指定して -p 実行",
+    "全部止まる＝読み込み失敗を疑う"
+   ],
+   "details": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "url": "https://code.claude.com/docs/en/settings",
+   "lines": [
+    {
+     "say": "では今日の実験です。クロードコードに読ませたくないファイルを、設定で本当に止められるかを確かめます。",
+     "show": "今日の実験：設定で“読ませない”を検証"
+    },
+    {
+     "say": "まず練習用の空のフォルダーを作り、偽物の値だけを入れた環境変数ファイルと、リードミーを置きます。本物の鍵は絶対に使わないでください。",
+     "show": "練習用フォルダーにダミーの .env と README.md"
+    },
+    {
+     "say": "比較のため、最初は設定なしで中身を表示させてみます。作業フォルダー内の読み取りは、普段は確認なしで通ることが分かります。",
+     "show": "まず設定なしで実行 → 読めてしまうことを確認"
+    },
+    {
+     "say": "次に、ドット クロード フォルダーに制限用の設定ファイルを作り、禁止のリストに、環境変数ファイルの読み取りと、ギットのプッシュを書きます。",
+     "show": ".claude/settings.restricted.json に deny を記述"
+    },
+    {
+     "say": "その設定ファイルを、セッティングスというオプションで指定して、プリントモードで同じ依頼をします。",
+     "show": "claude --settings <file> -p で実行"
+    },
+    {
+     "say": "ダミーの値が出てこなければ合格。リードミーの一行目を聞いて答えが返れば、通すべきものも通っています。",
+     "show": ".env は拒否、README は読める → 合格"
+    },
+    {
+     "say": "もし全部止まったら、安全なのではなく、設定が読み込まれていないのかもしれません。ステータス画面で読み込まれた設定を確かめましょう。",
+     "show": "全部止まる＝読み込み失敗の疑い。/status で確認"
+    },
+    {
+     "say": "所要時間は十五分ほど。自分のプロジェクトに入れる前の、良い予行演習になります。",
+     "show": "所要15分。本番導入前の予行演習に"
+    }
+   ],
+   "link": {
+    "url": "https://code.claude.com/docs/en/settings",
+    "title": "Settings files and precedence - Claude Code Docs",
+    "site": "Claude Code Docs",
+    "description": "Change Claude Code settings, pick the scope a key belongs in, verify the change, and learn which value Claude Code uses when a key is set in several places.",
+    "image": "https://claude-code.mintlify.site/docs/_mintlify/api/og/v2?division=Settings&title=Settings+files+and+precedence&description=Change+Claude+Code+settings%2C+pick+the+scope+a+key+belongs+in%2C+verify+the+change%2C+and+learn+which+value+Claude+Code+uses+when+a+key+is+set+in+several+places.&theme=e2d30309a4005a9870b526a1&signature=6e9614e852eb19a85c841c782d7a909471df395d0e4df81d37d9b741c40db9bd",
+    "icon": "https://code.claude.com/docs/mintlify-assets/_mintlify/favicons/claude-code/pLsy-mRpNksna2sx/_generated/favicon/android-chrome-192x192.png"
+   },
+   "corner": "experiment",
+   "name": "denyルールで .env を本当に読ませないか検証する",
+   "guide": "guides/2026-11-10.html#experiment"
+  }
+ ],
+ "closing": [
+  {
+   "say": "今日のまとめです。フェイブル ファイブ ポイント ツーが登場し、クロードコードには安全面の修正も入りました。",
+   "show": "まとめ：Fable 5.2 登場、Claude Code は安全面も修正"
+  },
+  {
+   "say": "エージェントの長い説明は折りたたんで、人の短い一言を先頭に。権限は、読ませないことから設計して、必ず検証する。",
+   "show": "PR説明は折りたたむ／権限は“読ませない”から"
+  },
+  {
+   "say": "今日試すことは、ダミーの環境変数ファイルを使って、禁止のルールが本当に効くかの確認です。",
+   "show": "今日試す：deny ルールの効き目を確認"
+  },
+  {
+   "say": "以上、エーアイ ディスカバリー アンド ビルド ラジオでした。また明日お会いしましょう。",
+   "show": "AI Discovery & Build Radio　また明日"
+  }
+ ],
+ "highlight": 5,
+ "guide": "guides/2026-11-10.html",
+ "seconds": 453.76,
+ "lines_timed": [
+  {
+   "start": 0.6,
+   "end": 10.549,
+   "show": "AI Discovery & Build Radio｜2026年11月10日（火）",
+   "part": 0
+  },
+  {
+   "start": 10.799,
+   "end": 20.197,
+   "show": "Anthropic が Claude Fable 5.2 を発表、Claude Code も即対応",
+   "part": 0
+  },
+  {
+   "start": 20.447,
+   "end": 29.495,
+   "show": "PR説明の整理、権限設計、コードで描くローポリ絵",
+   "part": 0
+  },
+  {
+   "start": 29.745,
+   "end": 37.267,
+   "show": "今日の実験：設定で“読ませない”を検証",
+   "part": 0
+  },
+  {
+   "start": 38.167,
+   "end": 47.841,
+   "show": "Anthropic、Claude Fable 5.2 と Mythos 5.2 を発表",
+   "part": 1
+  },
+  {
+   "start": 48.091,
+   "end": 58.163,
+   "show": "同じ基盤モデル。Fableは一般、Mythosは審査済み組織向け",
+   "part": 1
+  },
+  {
+   "start": 58.413,
+   "end": 67.078,
+   "show": "コーディング・推論・視覚が向上、出力は最大30%高速",
+   "part": 1
+  },
+  {
+   "start": 67.328,
+   "end": 78.809,
+   "show": "$8/$40 per Mtok。fast mode は $16/$80",
+   "part": 1
+  },
+  {
+   "start": 79.059,
+   "end": 89.057,
+   "show": "公式推奨：普段は Opus 5.5、難題で Fable",
+   "part": 1
+  },
+  {
+   "start": 89.307,
+   "end": 99.173,
+   "show": "試す：llm で effort を変えて比較",
+   "part": 1
+  },
+  {
+   "start": 99.423,
+   "end": 107.942,
+   "show": "max は出力切れの例あり。medium から",
+   "part": 1
+  },
+  {
+   "start": 108.842,
+   "end": 119.791,
+   "show": "Claude Code v2.1.321：Fable 5.2 が既定の Fable に",
+   "part": 2
+  },
+  {
+   "start": 120.041,
+   "end": 128.71,
+   "show": "1M context、cache read $0.20/Mtok",
+   "part": 2
+  },
+  {
+   "start": 128.96,
+   "end": 140.761,
+   "show": "MCP OAuth の秘密がリダイレクト先へ送られる問題を修正",
+   "part": 2
+  },
+  {
+   "start": 141.011,
+   "end": 148.375,
+   "show": "読み取り専用 Bash がサンドボックス外で動く問題を修正",
+   "part": 2
+  },
+  {
+   "start": 148.625,
+   "end": 157.669,
+   "show": "remote-control に --settings、全セッションへ設定を適用",
+   "part": 2
+  },
+  {
+   "start": 157.919,
+   "end": 164.365,
+   "show": "MCP・リモート操作を使うなら早めに更新",
+   "part": 2
+  },
+  {
+   "start": 165.265,
+   "end": 175.754,
+   "show": "Simon Willison：エージェントの PR 説明をどう見せるか",
+   "part": 3
+  },
+  {
+   "start": 176.004,
+   "end": 187.925,
+   "show": "正確で網羅的。でも長すぎて読まれない",
+   "part": 3
+  },
+  {
+   "start": 188.175,
+   "end": 196.696,
+   "show": "冒頭に人の短い説明、全文は <details> に格納",
+   "part": 3
+  },
+  {
+   "start": 196.946,
+   "end": 204.087,
+   "show": "<summary> にモデル名と effort を記載",
+   "part": 3
+  },
+  {
+   "start": 204.337,
+   "end": 216.084,
+   "show": "情報は残したまま、読む負担を減らす",
+   "part": 3
+  },
+  {
+   "start": 216.334,
+   "end": 224.065,
+   "show": "GitHub の Markdown で公式サポート",
+   "part": 3
+  },
+  {
+   "start": 224.965,
+   "end": 230.856,
+   "show": "Zenn：新人に Claude Code を渡す権限設計",
+   "part": 4
+  },
+  {
+   "start": 231.106,
+   "end": 243.023,
+   "show": "読む＝許可／書く＝確認／外に出す・壊す＝禁止",
+   "part": 4
+  },
+  {
+   "start": 243.273,
+   "end": 252.759,
+   "show": "--restricted は社内ラッパー名。中身は公式オプション",
+   "part": 4
+  },
+  {
+   "start": 253.009,
+   "end": 265.115,
+   "show": "最重要：秘密情報を読ませない",
+   "part": 4
+  },
+  {
+   "start": 265.365,
+   "end": 276.256,
+   "show": "“効いていない設定”が最も危険。必ず検証",
+   "part": 4
+  },
+  {
+   "start": 276.506,
+   "end": 282.003,
+   "show": "→ 今日の実験へ",
+   "part": 4
+  },
+  {
+   "start": 282.903,
+   "end": 292.023,
+   "show": "Zenn：Claude Code にローポリの絵を描かせる",
+   "part": 5
+  },
+  {
+   "start": 292.273,
+   "end": 302.515,
+   "show": "画像生成AIなし。Python で組んで CPU で描画",
+   "part": 5
+  },
+  {
+   "start": 302.765,
+   "end": 311.217,
+   "show": "描く→見る→直す のループ",
+   "part": 5
+  },
+  {
+   "start": 311.467,
+   "end": 321.34,
+   "show": "少ない三角形・面ごとの陰影がコード向き",
+   "part": 5
+  },
+  {
+   "start": 321.59,
+   "end": 330.953,
+   "show": "得意：向き違い・画風統一／苦手：質感",
+   "part": 5
+  },
+  {
+   "start": 331.203,
+   "end": 338.436,
+   "show": "MIT で公開、glb 書き出しにも対応",
+   "part": 5
+  },
+  {
+   "start": 339.336,
+   "end": 347.947,
+   "show": "今日の実験：設定で“読ませない”を検証",
+   "part": 6
+  },
+  {
+   "start": 348.197,
+   "end": 359.929,
+   "show": "練習用フォルダーにダミーの .env と README.md",
+   "part": 6
+  },
+  {
+   "start": 360.179,
+   "end": 370.93,
+   "show": "まず設定なしで実行 → 読めてしまうことを確認",
+   "part": 6
+  },
+  {
+   "start": 371.18,
+   "end": 381.778,
+   "show": ".claude/settings.restricted.json に deny を記述",
+   "part": 6
+  },
+  {
+   "start": 382.028,
+   "end": 388.995,
+   "show": "claude --settings <file> -p で実行",
+   "part": 6
+  },
+  {
+   "start": 389.245,
+   "end": 398.273,
+   "show": ".env は拒否、README は読める → 合格",
+   "part": 6
+  },
+  {
+   "start": 398.523,
+   "end": 409.263,
+   "show": "全部止まる＝読み込み失敗の疑い。/status で確認",
+   "part": 6
+  },
+  {
+   "start": 409.513,
+   "end": 417.105,
+   "show": "所要15分。本番導入前の予行演習に",
+   "part": 6
+  },
+  {
+   "start": 418.005,
+   "end": 426.836,
+   "show": "まとめ：Fable 5.2 登場、Claude Code は安全面も修正",
+   "part": 7
+  },
+  {
+   "start": 427.086,
+   "end": 438.206,
+   "show": "PR説明は折りたたむ／権限は“読ませない”から",
+   "part": 7
+  },
+  {
+   "start": 438.456,
+   "end": 446.266,
+   "show": "今日試す：deny ルールの効き目を確認",
+   "part": 7
+  },
+  {
+   "start": 446.516,
+   "end": 453.16,
+   "show": "AI Discovery & Build Radio　また明日",
+   "part": 7
+  }
+ ],
+ "segments": [
+  {
+   "kind": "opening",
+   "index": null,
+   "start": 0.6,
+   "end": 38.167
+  },
+  {
+   "kind": "news",
+   "index": 0,
+   "start": 38.167,
+   "end": 108.842
+  },
+  {
+   "kind": "news",
+   "index": 1,
+   "start": 108.842,
+   "end": 165.265
+  },
+  {
+   "kind": "news",
+   "index": 2,
+   "start": 165.265,
+   "end": 224.965
+  },
+  {
+   "kind": "news",
+   "index": 3,
+   "start": 224.965,
+   "end": 282.903
+  },
+  {
+   "kind": "news",
+   "index": 4,
+   "start": 282.903,
+   "end": 339.336
+  },
+  {
+   "kind": "news",
+   "index": 5,
+   "start": 339.336,
+   "end": 418.005
+  },
+  {
+   "kind": "closing",
+   "index": null,
+   "start": 418.005,
+   "end": 453.76
+  }
+ ],
+ "made_at": "2026-11-10T10:32:21",
+ "tts": {
+  "provider": "azure",
+  "chars": 5188,
+  "voice": "ja-JP-NanamiNeural"
+ }
+}

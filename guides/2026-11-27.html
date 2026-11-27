@@ -1,0 +1,290 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIエージェントの通り道とスキルの健康診断｜実践ガイド 2026-11-27</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-27/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月27日（金）・放送 約9分</div>
+<h1>AIエージェントの通り道とスキルの健康診断</h1>
+<p class="lead">GoogleがAIエージェントにWorkspaceのデータを触らせるときは専用のMCPサーバーを通すよう規約を改め、Hugging FaceはAIのチームに協力を練習させる手順を公開しました。現場では、決まった作業を記録して速くする工夫や、スキルを短く保つコツが共有されています。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：自分のスキルの健康診断</a></li>
+<li><a href="#news-1">Google、Workspace（Gmail・Driveなど）を使うAIエージェントに、2027年2月1日から自社のMCPサーバー経由を求める規約を公開（紹介記事：Gmailの窓口は送信が一般に使えない）</a></li>
+<li><a href="#news-2">Hugging Face「Swarms, Flocks, Gangs」：4体の小型AI（Qwen3-0.6B）に、メッセージで協力することを強化学習で練習させ、成功率と使う文章量の変化を公開（TRLで再現手順つき）</a></li>
+<li><a href="#news-3">NVIDIA、文書の画像を構造化データに変える小型モデル Nemotron 3.5 Parse の学習データ公開、追加学習（SFT＋強化学習）の手順、高速化の工夫を解説</a></li>
+<li><a href="#news-4">Zenn：Claude Codeの決まったブラウザ操作を JSON の手順書に保存し、2回目からはLLMなしで約1.5秒で再生。迷うときだけ小さな判断モデルに聞くCLIとスキル「agent-browser-decisions」</a></li>
+<li><a href="#news-5">Zenn：スキル（SKILL.md）のアンチパターン13選と直し方。長すぎる・網羅しすぎる・複数人で書き足して矛盾する、などの見つけ方と、あり・なしで比べる運用</a></li>
+<li><a href="#news-6">Qiita：claude-code-action で「SDK execution error」「native binary not found」が出たときの直し方。動いていた版のSHAに固定する応急処置と、本当の原因の見つけ方</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>自分のスキルの健康診断</h2>
+<div class="meta">関連ニュース：<a href="#news-5">Zenn：スキル（SKILL.md）のアンチパターン13選と直し方。長すぎる・網羅しすぎる・複数人で書き足して矛盾する、などの見つけ方と、あり・なしで比べる運用</a></div>
+<div class="task"><h4>実験：自分のスキルの健康診断</h4><dl class="kv"><dt>目的</dt><dd>手元のスキル（SKILL.md）を、記事と公式ガイドの観点で点検し、いちばん効く1か所だけを直して効果を確かめる</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Code が使えること、~/.claude/skills/ か、プロジェクトの .claude/skills/ にスキルが1つ以上あること（無ければ、よく頼む作業で1つ作っておく）、スキルの今の状態を git でコミットするか、フォルダごとコピーしておく（元に戻せるように）</dd><dt>所要時間</dt><dd>約20分</dd><dt>費用</dt><dd>Claude Code の利用枠の範囲</dd></dl><b>手順</b><ol><li>自分用のスキル置き場（~/.claude/skills/）と、プロジェクトのスキル置き場（.claude/skills/）に、どんなスキルがあるか確かめる</li><li>直す前に、スキルが合いそうな頼みごとを1つ決め、Claude Code に2回頼んで、スキルが使われたかと結果をメモする</li><li>Claude Code に下のプロンプトを貼り、書き換えはせずに診断だけしてもらう</li><li>出てきた表から「最初に直すべき1つ」だけを選び、自分で（または Claude Code に頼んで）直す</li><li>同じ頼みごとをもう2回して、スキルが使われたかと結果を、直す前のメモと比べる</li><li>良くならなかった場合は、コピーしておいた元の状態に戻し、理由をメモする</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>~/.claude/skills/ と、このプロジェクトの .claude/skills/ にある SKILL.md をすべて読んでください。ファイルは書き換えないでください。次の観点で診断し、スキルごとに表にしてください。
+1. 本文が500行を超えていないか（行数も書く）
+2. description に「何をするか」と「いつ使うか」の両方が書かれているか
+3. 同じ場面で反対のことを言っている規則の組はないか
+4. CLAUDE.md やほかのスキルと重複している規則はないか
+5. 「必ず」「絶対」「ALWAYS」「NEVER」などの強調が多く、理由が書かれていない規則はないか
+6. 日付つきの古い手順や、自分のPC専用の絶対パスが残っていないか
+7. SKILL.md から参照したファイルが、さらに別のファイルを参照していないか
+各問題には、ファイル名・該当箇所・直し方の案を1行で付けてください。最後に「最初に直すべき1つ」を選び、その理由を書いてください。</pre></div><div class="meta">出典：<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices" target="_blank" rel="noopener noreferrer">https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices</a></div><dl class="kv"><dt>完成するもの</dt><dd>スキルの診断表と、1か所を直したスキル、直す前と後の比べたメモ</dd><dt>確認方法</dt><dd>診断表がスキルごとに出ていて、直した1か所について、直す前と後で同じ頼みごとを2回ずつ試した結果（スキルが使われたか・結果の良し悪し）がメモに残っている</dd></dl><div class="meta">参考：<a href="https://zenn.dev/singularity/articles/skill-antipatterns" target="_blank" rel="noopener noreferrer">https://zenn.dev/singularity/articles/skill-antipatterns</a>　<a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/skills</a>　<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices" target="_blank" rel="noopener noreferrer">https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-27 自分のスキルの健康診断
+- 参考ニュース: Zenn：スキル（SKILL.md）のアンチパターン13選と直し方。長すぎる・網羅しすぎる・複数人で書き足して矛盾する、などの見つけ方と、あり・なしで比べる運用
+- ガイド: guides/2026-11-27.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">74</span>/100</span>
+<h2>1. Google、Workspace（Gmail・Driveなど）を使うAIエージェントに、2027年2月1日から自社のMCPサーバー経由を求める規約を公開（紹介記事：Gmailの窓口は送信が一般に使えない）</h2>
+<div class="meta">Hacker News・公開 2026-11-26 09:44</div>
+<div class="meta">出典：<a href="https://techstackups.com/articles/google-workspace-ai-agents-mcp/" target="_blank" rel="noopener noreferrer">https://techstackups.com/articles/google-workspace-ai-agents-mcp/</a></div>
+<p class="concl"><b>結論：</b>Googleは「Workspace AI Tools Addendum」を公開し、AIエージェントやAIに動かされる道具がWorkspaceのデータを使うときは、GoogleのMCPサーバーを通すよう定めました。ヘルプページでは2027年2月1日から始まり、REST APIを直接呼ぶエージェントは標準枠に制限されると説明しています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>メールの返事の下書きだけをAIに作らせ、送るボタンは自分で押す。Googleの新しい決まりとも相性がよく、送り間違いも防げます。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>AIはMCPサーバー経由に</b>：Gmail・Driveなどを使うAIエージェントは、Googleが用意したMCPサーバーを通す必要がある。</li>
+<li><b>2027年2月1日から</b>：Googleのヘルプでは、この決まりは2027年2月1日に始まるとしている。</li>
+<li><b>無料枠は1日5,000回</b>：直接つなぐエージェントは標準の枠に制限される。標準枠は1プロジェクト・1製品で1日5,000回まで。</li>
+<li><b>保存は30日まで・学習禁止</b>：受け取った技術情報を30日より長く保存することや、AIの学習・評価用データにすることは禁止。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>これまでは普通のアプリと同じようにREST APIで自由につなげたが、AIエージェントだけは専用の窓口（MCPサーバー）を通すという区別ができた。</dd>
+<dt>なぜ重要か</dt><dd>Gmailやカレンダーを触る自作エージェントは、来年2月までに作り方の見直しが必要になる。紹介記事によると、Gmailの窓口は検索や下書き作りが中心で、送信や返信は一般には使えないため、できることも変わる。</dd>
+<dt>従来との違い</dt><dd>従来はAPIの使い方に「AIかどうか」の区別がなかった。今後はAIが動かすかどうかで、使う窓口・利用枠・データの扱いが変わる。</dd></dl><ul>
+<li>MCP（Model Context Protocol）は、AIと外部の道具をつなぐ共通のつなぎ方。</li>
+<li>規約では、道具の分類をごまかしてこの決まりを逃れることも禁止している。</li>
+<li>公式の利用枠ページでは、Gmailのsearch_threadsとlist_draftsは1回で10回分として数えられる。</li>
+<li>AIを使わない定期バックアップなどは対象外と紹介記事は説明している。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>Gmailを読む自作エージェントの、来年2月までの移行計画づくり</li>
+<li>メールの返事は下書きだけAIに作らせ、送信は人が行う仕組み</li>
+<li>AIが受け取ったデータを30日で消す設計の見直し</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分の自動化を棚卸しする</h4><dl class="kv"><dt>目的</dt><dd>自分が使う・作っている自動化のうち、Googleの新しい決まりの対象になりそうなものを見つける</dd><dt>使用ツール</dt><dd>ChatGPTやClaudeなどのAIチャット、メモ帳</dd><dt>必要な準備</dt><dd>Gmail・Drive・カレンダーにつないでいる道具や自作スクリプトを思い出して書き出す</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>Googleのサービスにつないでいる道具や自作スクリプトを、メモ帳に箇条書きで書き出す</li><li>下のプロンプトの最後に、その一覧を貼ってAIチャットに送る</li><li>「対象になりそう」と分けられたものについて、Googleの規約とヘルプのページを開いて確かめる</li><li>対象になるものに、来年2月1日までにやることを1行ずつメモする</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次は、私が使っている、または作っている、Googleのサービスにつながる自動化の一覧です。Googleの「Workspace AI Tools Addendum」でいう「AIエージェント、またはAIに動かされる道具」に当たりそうなものと、当たらなさそうなもの（AIを使わない定期バックアップなど）に分けて、表にしてください。迷うものは理由を書き、公式の文書で確かめるべき点を挙げてください。推測で断定しないでください。
+
+一覧：
+- （ここに自動化を書く）</pre></div><div class="meta">出典：<a href="https://workspace.google.com/terms/ai-tools" target="_blank" rel="noopener noreferrer">https://workspace.google.com/terms/ai-tools</a></div><dl class="kv"><dt>完成するもの</dt><dd>対象になりそうな自動化と、やることのメモ</dd><dt>確認方法</dt><dd>すべての自動化が「対象になりそう／ならなさそう／要確認」のどれかに分かれていて、要確認のものに確かめる点が書かれている</dd></dl><div class="meta">参考：<a href="https://workspace.google.com/terms/ai-tools" target="_blank" rel="noopener noreferrer">https://workspace.google.com/terms/ai-tools</a>　<a href="https://developers.google.com/workspace/tools-safety" target="_blank" rel="noopener noreferrer">https://developers.google.com/workspace/tools-safety</a></div></div>
+<h4>発展：下書き専用のメール返信アシスタント（2〜3時間）</h4><p>Gmailを検索して返事が必要なメールを見つけ、AIに返事の下書きを作らせる。送信は人が行う形にして、Googleの新しい決まりとGmailの窓口でできることの範囲に合わせる。</p><ol>
+<li>Googleのヘルプで、Gmailの窓口の道具（検索・スレッドを読む・下書きを作る）と利用枠を確認する</li>
+<li>返事が必要なメールの条件（例：未返信で自分あての質問）を決める</li>
+<li>AIに下書きを作らせ、送信は自分で確認してから行う流れにする</li>
+<li>1日の利用回数が標準枠（5,000回）を超えないか、検索の回数を見積もる</li>
+</ol>
+<h3>利用条件・料金</h3><p>標準枠（Standard Tier）は1日5,000回／プロジェクト／製品まで無料。それ以上は有料のScaled Tierへの登録が必要。料金は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：中：自分の自動化が対象か確かめるのはすぐできるが、作り直しには時間がかかり、Gmailの送信など使えない機能もある。<br>信頼性：Googleの「Workspace AI Tools Addendum」と、Workspace APIとMCPサーバーの利用枠のヘルプ、Gmail APIの利用枠ページで確認。Gmailの送信が一般に使えない点は紹介記事（techstackups）の説明。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">74</span>/100</span>
+<h2>2. Hugging Face「Swarms, Flocks, Gangs」：4体の小型AI（Qwen3-0.6B）に、メッセージで協力することを強化学習で練習させ、成功率と使う文章量の変化を公開（TRLで再現手順つき）</h2>
+<div class="meta">Hugging Face・公開 2026-11-26 00:00</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/training-swarms" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/training-swarms</a></div>
+<p class="concl"><b>結論：</b>Hugging Faceは、同じ小型AIを4体のチームとして動かし、メッセージで情報を集める課題を強化学習で練習させた実験を公開しました。チームは協力が上手になり、成功率が上がる一方で使う文章の量は減りました。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分のエージェントを「1体で全部やる」場合と「3体に分ける」場合で、同じ予算のときにどちらが良い結果を出すか比べてみると面白いです。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>4体のAIで数字を共有</b>：4体がそれぞれ1〜99の数字を1つ持ち、メッセージで送り合って全部を小さい順に並べられたら成功。</li>
+<li><b>成功率 約7%→約82%</b>：練習の最初の5回と最後の5回の平均で、成功率が約6.6%から約82.3%に上がった。</li>
+<li><b>文章量は約37%減</b>：1チームが使う文章の量は約1万2,800から約8,000トークンに減り、送るメッセージの数は増えた。</li>
+<li><b>比べるときは計算量をそろえる</b>：記事は、AIを増やす効果は同じ量の計算で比べるべきだと強調している。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>AIのチームがうまく協力することを、チーム全体の結果だけを報酬にして練習させ、その手順をTRLの例として誰でも再現できる形で公開した。</dd>
+<dt>なぜ重要か</dt><dd>AIを何体も動かすと、本当に協力が役立っているのか、ただ計算を多く使っているだけなのかが分かりにくい。記事は、AIの数も「規模」の1つとして、同じ予算で比べる考え方を示している。</dd>
+<dt>従来との違い</dt><dd>リーダー役のAIだけを訓練する方式とちがい、対等な4体がお互いにメッセージを送り合う形を、同じ1つのモデルで練習させている。</dd></dl><ul>
+<li>4体は同じ1つのモデル（Qwen3-0.6B）を使い、それぞれ別の会話の記録を持つ。</li>
+<li>道具は message（送る）、read_messages（読む）、check_notifications（通知を確かめる）の3つ。</li>
+<li>成功したチームには、使った文章量に応じて最大25%減らした報酬を与え、失敗は0。メッセージ自体への報酬はない。</li>
+<li>1つの問題につき8チームずつ挑戦させ、チーム内で同じ評価を共有して学習する。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自作エージェントを1体と複数体で、同じ予算のもとで比べる評価</li>
+<li>役割を分けたエージェント同士のメッセージのやり取りの設計</li>
+<li>小型モデルを自分の課題向けに強化学習する練習</li>
+</ul>
+<div class="task"><h4>今日すぐできること：1体と複数体を公平に比べる計画を作る</h4><dl class="kv"><dt>目的</dt><dd>自分のエージェントを複数体に分ける価値があるかを、同じ予算で比べる計画にする</dd><dt>使用ツール</dt><dd>Claude Code または AIチャット、ブラウザ</dd><dt>必要な準備</dt><dd>比べたい作業を1つ決める（例：調べものをして要約する）</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（AIチャットの無料枠で可能）</dd></dl><b>手順</b><ol><li>Hugging Faceのブログ記事を開き、「同じ予算で比べる」考え方の部分を読む</li><li>下のプロンプトの「作業」の欄に自分の作業を書いて、AIに送る</li><li>出てきた計画のうち、成功の判定方法が機械で確かめられるかを見直す</li><li>比べる回数と予算の上限を決めてメモする</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次の作業について、AIエージェントを「1体で全部やる」場合と「役割を分けた3体のチーム」の場合を公平に比べる実験計画を作ってください。条件：両方で使える文章量（トークン）の合計の上限を同じにすること、成功かどうかを機械で判定できる基準を決めること、それぞれ何回試すか決めること。最後に、チームのほうが良く見えても実は計算を多く使っただけ、という勘違いを防ぐ注意点を3つ挙げてください。
+
+作業：（ここに作業を書く）</pre></div><dl class="kv"><dt>完成するもの</dt><dd>1体とチームを比べる実験計画（予算・判定方法・回数）</dd><dt>確認方法</dt><dd>両方の予算の上限が同じ数字で書かれ、成功の判定が人の感想ではなく確かめられる条件になっている</dd></dl><div class="meta">参考：<a href="https://huggingface.co/blog/training-swarms" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/training-swarms</a>　<a href="https://github.com/huggingface/trl/tree/main/examples/async_grpo_s3_aggregation" target="_blank" rel="noopener noreferrer">https://github.com/huggingface/trl/tree/main/examples/async_grpo_s3_aggregation</a></div></div>
+<h4>発展：小さな「協力ゲーム」の評価セット（2〜4時間）</h4><p>記事の数字集めの課題をまねて、複数のAIがメッセージで情報を集める小さな課題を作り、手元のエージェントで1体とチームを同じ予算で比べる。</p><ol>
+<li>TRLの例の README と harness フォルダを読み、課題と成功判定の作り方を確かめる</li>
+<li>自分の題材で、情報が分かれていて協力しないと解けない課題を10問作る</li>
+<li>1体の場合とチームの場合で、同じ文章量の上限で解かせて成功率を記録する</li>
+<li>結果を表にして、チームが本当に得をしたかを判断する</li>
+</ol>
+<h3>利用条件・料金</h3><p>記事によると、Hugging Face JobsでH200 2台を使い約5時間・約50ドルが目安。Hugging Face Jobsの料金の詳細は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：低〜中：学習の再現には高価なGPUが必要。ただし「同じ予算で1体と複数体を比べる」考え方は、自分のエージェントにすぐ使える。<br>信頼性：Hugging Face公式ブログ本文と、TRLリポジトリの examples/async_grpo_s3_aggregation（README・コード）で確認。</div></section>
+<section class="card" id="news-3"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">66</span>/100</span>
+<h2>3. NVIDIA、文書の画像を構造化データに変える小型モデル Nemotron 3.5 Parse の学習データ公開、追加学習（SFT＋強化学習）の手順、高速化の工夫を解説</h2>
+<div class="meta">Hugging Face・公開 2026-11-26 05:05</div>
+<div class="meta">出典：<a href="https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin</a></div>
+<p class="concl"><b>結論：</b>NVIDIAは、書類の画像を読み取って表やグラフまで整理されたデータに変える小型モデル Nemotron 3.5 Parse について、学習データの公開、自分の書類に合わせる追加学習の方法、速く動かす工夫をまとめました。歯科の書類の例では、追加学習で最初の1回の成功率がほぼ0%から約96%に上がったと報告しています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>紙の説明書や学校のプリントを写真に撮って読み取らせ、表もそのまま残した「自分専用の検索できるメモ帳」を作ると便利です。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>書類の画像を整理データに</b>：ページの画像から、見出し・段落・表・グラフを読む順番どおりに取り出し、位置も返す。</li>
+<li><b>学習データを3種類公開</b>：グラフ・表・多言語の文字読み取り用の、合成データ3種類を公開した。</li>
+<li><b>自分の書類向けに追加学習</b>：教えて覚えさせる段階と、答えを確かめて報酬を与える段階の2段階で、自分の書類に合わせられる。</li>
+<li><b>約0.6Bの小型モデル</b>：モデルカードでは約6.3億パラメーター。商用・非商用どちらにも使えるとしている。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>モデルだけでなく、学習に使った合成データ（グラフ約998万件、表100万件、多言語文字約790万件）と、追加学習の手順を公開した。</dd>
+<dt>なぜ重要か</dt><dd>AIに資料を読ませて答えさせる仕組み（RAG）では、最初に書類を正しく読み取れるかが結果を左右する。小型で、自分の書類向けに鍛え直せる点が大きい。</dd>
+<dt>従来との違い</dt><dd>前の版（Parse 2.0）より大幅に速く、H200 1台で毎秒約20ページ（前の版は約3ページ）を処理できると報告している。強化学習の段階で、同じ文を繰り返す失敗も大きく減った。</dd></dl><ul>
+<li>画像の大きさに合わせて入力を変える方式で、決まった大きさの枠に押し込まない。</li>
+<li>先読みの小さなモデル（DFlash2）が最大32トークン先まで予想し、本体がまとめて確かめて速くする。</li>
+<li>表やグラフを切り出して読み直す「2回読み・3回読み」で精度を上げられる（その分遅くなる）。</li>
+<li>Transformers や vLLM で動かせる。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>紙の説明書やプリントを写真から検索できるメモに変える</li>
+<li>表やグラフが多いPDFを、AIが読みやすいMarkdownに変換</li>
+<li>決まった様式の申込書を読み取る専用モデルへの追加学習</li>
+</ul>
+<div class="task"><h4>今日すぐできること：モデルカードで使い方を確かめる</h4><dl class="kv"><dt>目的</dt><dd>Nemotron 3.5 Parse を手元で動かすための準備と、変換したい書類を決める</dd><dt>使用ツール</dt><dd>ブラウザ、Python（NVIDIAのGPUがある場合）</dd><dt>必要な準備</dt><dd>NVIDIAのGPUがあるか確認する（無ければ手順3までで止める）、変換してみたい書類の画像を1枚用意する</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（NVIDIAのGPUが必要）</dd><dt>無料の代替</dt><dd>GPUが無い場合は、モデルカードの説明を読み、変換したい書類の一覧と、表やグラフの有無を整理するところまで行う</dd></dl><b>手順</b><ol><li>モデルカードを開き、ライセンスと使い方（Transformers の節）を読む</li><li>手元で変換したい書類を3つ選び、表やグラフがあるかをメモする</li><li>GPUがある場合は、下のコマンドで必要な部品を入れる</li><li>モデルカードの例のコードに自分の書類の画像を指定して、Markdownが出るか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>pip install transformers torchvision timm</pre></div><div class="meta">出典：<a href="https://huggingface.co/nvidia/Nemotron-3.5-Parse" target="_blank" rel="noopener noreferrer">https://huggingface.co/nvidia/Nemotron-3.5-Parse</a></div><dl class="kv"><dt>完成するもの</dt><dd>変換したい書類の一覧と、（GPUがあれば）1ページ分の読み取り結果</dd><dt>確認方法</dt><dd>書類の見出しや表が、Markdownとして順番どおりに出てくる</dd></dl><div class="meta">参考：<a href="https://huggingface.co/nvidia/Nemotron-3.5-Parse" target="_blank" rel="noopener noreferrer">https://huggingface.co/nvidia/Nemotron-3.5-Parse</a>　<a href="https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin" target="_blank" rel="noopener noreferrer">https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin</a></div></div>
+<h4>発展：紙の資料を検索できる自分用ノート（3〜4時間）</h4><p>書類の画像を Nemotron 3.5 Parse でMarkdownに変え、フォルダにためて、AIに質問すると関係する部分を探して答える小さな仕組みを作る。</p><ol>
+<li>モデルカードの手順でモデルを動かし、書類10枚をMarkdownに変換する</li>
+<li>変換結果をファイルごとに保存し、表が崩れていないか目で確かめる</li>
+<li>Claude Code などに、このフォルダから答えを探して出典つきで答えるよう頼む</li>
+<li>読み取りが苦手な書類の種類をメモし、追加学習が必要か判断する</li>
+</ol>
+<h3>利用条件・料金</h3><p>モデルカードによると OpenMDW License 1.1（トークナイザーはMIT）で、商用・非商用に利用可。動かすにはNVIDIAのGPUが必要（必要なメモリ量はモデルカードに記載なし）。</p>
+<div class="meta">実践可能性：中：NVIDIAのGPUがあれば試せる。参考の環境はH100/H200で、家庭用GPUでの動作は未確認。<br>信頼性：Hugging Face上のNVIDIA公式ブログと、モデルカード（nvidia/Nemotron-3.5-Parse）で確認。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">82</span>/100</span>
+<h2>4. Zenn：Claude Codeの決まったブラウザ操作を JSON の手順書に保存し、2回目からはLLMなしで約1.5秒で再生。迷うときだけ小さな判断モデルに聞くCLIとスキル「agent-browser-decisions」</h2>
+<div class="meta">Zenn・公開 2026-11-26 17:04</div>
+<div class="meta">出典：<a href="https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans" target="_blank" rel="noopener noreferrer">https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans</a></div>
+<p class="concl"><b>結論：</b>Claude Codeにブラウザ操作を頼むと、毎回画面を読み直すため時間とお金がかかります。agent-browser-decisions は手順を JSON に保存し、ボタン名の照合だけで再生して、合わないときだけ小さな判断モデルに聞き、それでもだめなら止まる3段構えの道具です。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>毎週同じ管理画面に入力している作業を一度記録し、入力する値だけ変えて流すようにすると、待ち時間もAIの利用料もぐっと減らせます。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>手順を保存して再生</b>：フォーム入力などの手順を JSON の手順書にし、入力する値だけ変えて何度も流せる。</li>
+<li><b>2回目から約1.5秒</b>：作者の計測では、Claude Codeに毎回頼むと約20秒だったのが、保存した手順書なら約1.5秒・AI呼び出し0回。</li>
+<li><b>迷う時だけ判断AI</b>：ボタン名が一致しないときだけ、小さな判断用モデルに候補から選ばせる。APIキーが無ければ使わない。</li>
+<li><b>危ない操作は止まる</b>：自信が低いときや、削除・公開などのボタンは押さずに止まり、人に任せる。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>画面のテキスト一覧を使う agent-browser の上に、「名前の照合→判断モデル→停止」の3段階を重ね、毎回AIに考えさせない形にした。</dd>
+<dt>なぜ重要か</dt><dd>決まった作業までAIに毎回考えさせると、遅く、お金もかかる。記録できる部分は記録して、迷うところだけAIに任せるという分担は、ほかの自動化にも使える考え方。</dd>
+<dt>従来との違い</dt><dd>毎回AIが画面を読んで次の操作を決める方式とちがい、2回目からはAIを呼ばずに動く。判断モデルにも、実際に画面にある候補の中からしか選ばせない。</dd></dl><ul>
+<li>手順書は url・steps・verify（最後に確かめるJavaScript）などを持つ JSON。</li>
+<li>判断モデルの答えは確率0.5以上でないと採用せず、削除・リセット・公開のような名前のボタンへの置き換えは拒否する。</li>
+<li>--heal を付けると、最後の確認が通ったときだけ、見つけた新しいボタン名を手順書に書き戻す。</li>
+<li>--no-decisions で外部のAPIを使わずに動かせる。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>毎週同じ管理画面に入力する作業の自動化</li>
+<li>自作Webアプリの動作確認を、決まった手順で何度も流す</li>
+<li>AIに任せる部分と記録で済む部分を分ける、自動化設計の練習</li>
+</ul>
+<div class="task"><h4>今日すぐできること：agent-browser-decisions を入れて試す</h4><dl class="kv"><dt>目的</dt><dd>ブラウザ操作を記録して再生する道具を手元に入れ、外部APIなしで動かす</dd><dt>使用ツール</dt><dd>agent-browser、agent-browser-decisions、uv、Node.js</dd><dt>必要な準備</dt><dd>Python 3.12以上、Node.js、uv を入れておく、作者の動作確認は macOS のみ</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（判断モデルを使う場合のみAPI利用料）</dd><dt>無料の代替</dt><dd>--no-decisions を付ければ外部のAPIを使わずに動かせる</dd></dl><b>手順</b><ol><li>下のコマンドで agent-browser と agent-browser-decisions を入れる</li><li>記事の手順に沿って、リポジトリに入っているデモを動かす</li><li>外部のAPIを使わない --no-decisions を付けて、デモの手順書を実行する</li><li>手順書の JSON を開き、steps と verify がどう書かれているか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>npm i -g agent-browser &amp;&amp; agent-browser install
+uv tool install git+https://github.com/akitana-airtanker/agent-browser-decisions.git</pre></div><div class="meta">出典：<a href="https://github.com/akitana-airtanker/agent-browser-decisions" target="_blank" rel="noopener noreferrer">https://github.com/akitana-airtanker/agent-browser-decisions</a></div><dl class="kv"><dt>完成するもの</dt><dd>手元で動く agent-browser-decisions と、デモの手順書の実行結果</dd><dt>確認方法</dt><dd>デモの手順書が最後の確認（verify）まで通り、AIを呼ばずに終わる</dd></dl><div class="meta">参考：<a href="https://github.com/akitana-airtanker/agent-browser-decisions" target="_blank" rel="noopener noreferrer">https://github.com/akitana-airtanker/agent-browser-decisions</a>　<a href="https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans" target="_blank" rel="noopener noreferrer">https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans</a></div></div>
+<h4>発展：自分の定型作業の手順書セット（2〜3時間）</h4><p>毎週くり返すブラウザ作業を3つ選び、手順書にして、値だけ変えて流せるようにする。送信や削除のボタンは最後に人が押す形にする。</p><ol>
+<li>くり返している作業を3つ書き出し、入力する値と押すボタンを整理する</li>
+<li>リポジトリの手順書の形（plan.schema.json）に合わせて JSON を作る</li>
+<li>入力値を変数にして、変えたい値だけ指定して流せるようにする</li>
+<li>送信・削除などは手順書に入れず、最後は人が押すようにする</li>
+</ol>
+<h3>利用条件・料金</h3><p>MITライセンスで無料。判断モデル（2段目）を使うときは OpenRouter などのAPIキーと利用料が必要（作者の計測では1回あたりごくわずか）。動作確認は macOS のみ。</p>
+<div class="meta">実践可能性：高：Python 3.12以上・Node.js・uv があれば入れられる。判断モデル無しでも1段目と3段目は動く。<br>信頼性：Zennの作者本人の記事と、GitHubのリポジトリ（README・MITライセンス）で確認。数値は作者の手元での計測。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">76</span>/100</span>
+<h2>5. Zenn：スキル（SKILL.md）のアンチパターン13選と直し方。長すぎる・網羅しすぎる・複数人で書き足して矛盾する、などの見つけ方と、あり・なしで比べる運用</h2>
+<div class="meta">Zenn・公開 2026-11-26 19:55</div>
+<div class="meta">出典：<a href="https://zenn.dev/singularity/articles/skill-antipatterns" target="_blank" rel="noopener noreferrer">https://zenn.dev/singularity/articles/skill-antipatterns</a></div>
+<p class="concl"><b>結論：</b>スキル（SKILL.md）は作った日はうまく動いても、規則を足し続けるうちに悪くなりがちです。記事は、よくある失敗13個について、症状・なぜ悪いか・見つけ方・直し方をまとめ、公式の指針や研究を根拠に挙げています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自分のスキルの description を「こんなときに使う」「こう頼まれたら使う」という形に書き直すだけで、AIがちょうどいい場面で呼び出してくれるようになるかもしれません。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>失敗は書いた後に起きる</b>：失敗のたびに規則を足し、別の人も書き足すうちに、誰も全体を分からない長い文書になる。</li>
+<li><b>長すぎ・矛盾・重複</b>：長すぎる、場合分けを並べすぎる、規則が矛盾・重複する、などを13個にまとめている。</li>
+<li><b>説明には「いつ使うか」</b>：description は要約ではなく、使う場面・頼み方の例・使わない場面を書く。</li>
+<li><b>あり・なしで比べる</b>：まずスキルなしで試して本当の失敗を見つけ、あり・なしで比べてから規則を足す。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>スキルの失敗を「中身の膨らみ」「使われ方」「書き方」「運用」に分け、それぞれにそのまま使える見つけ方（スクリプトや指示文）を付けた。</dd>
+<dt>なぜ重要か</dt><dd>スキルは足すほど良くなるとは限らない。長さや矛盾を定期的に点検し、効果を測ってから規則を足すことで、AIの作業の質と速さを保てる。</dd>
+<dt>従来との違い</dt><dd>「うまくいかなければ規則を足す」というやり方ではなく、規則に理由を書き、確認作業は1つのスクリプトにまとめ、効果を測ってから残すやり方をすすめている。</dd></dl><ul>
+<li>Anthropicの公式ガイドでは、SKILL.md の本文は500行未満にし、詳しい資料は別ファイルに分けるようすすめている。</li>
+<li>参照するファイルは SKILL.md から1段だけにする（入れ子にすると途中までしか読まれないことがある）。</li>
+<li>「必ず」「絶対」などの強調より、理由を書くほうが、書かれていない場面でも判断できる。</li>
+<li>日付つきの古い手順や、自分のPC専用の絶対パスは残さない。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自分やチームのスキルの定期点検</li>
+<li>CLAUDE.md とスキルの規則の重複の整理</li>
+<li>スキルの効果をあり・なしで比べる小さな評価</li>
+</ul>
+<div class="task"><h4>今日すぐできること：description を「いつ使うか」で書き直す</h4><dl class="kv"><dt>目的</dt><dd>スキルの説明文を、AIが使う場面を判断しやすい形にする</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>~/.claude/skills/ か .claude/skills/ に自分のスキルが1つ以上あること（無ければ、よく頼む作業で1つ作る）</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>Claude Code の利用枠の範囲</dd></dl><b>手順</b><ol><li>書き直したいスキルの SKILL.md を1つ選ぶ</li><li>Claude Code に下のプロンプトを送り、description の案を3つもらう</li><li>いちばん「使う場面」がはっきりした案を選んで、description を書き換える</li><li>そのスキルが合いそうな頼みごとをして、スキルが使われるか確かめる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>（スキルのフォルダ名）/SKILL.md を読んでください。本文は変えずに、frontmatter の description だけを書き直す案を3つ出してください。条件：何をするかを1文、いつ使うか（ユーザーの頼み方の例を2つ）、使わない場面を1つ入れること。三人称で、1,024文字以内。最後に、いちばん良い案とその理由を書いてください。ファイルはまだ書き換えないでください。</pre></div><div class="meta">出典：<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices" target="_blank" rel="noopener noreferrer">https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices</a></div><dl class="kv"><dt>完成するもの</dt><dd>書き直した description</dd><dt>確認方法</dt><dd>description に「何をするか」と「いつ使うか」の両方が入り、合いそうな頼みごとでスキルが使われる</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/skills</a>　<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices" target="_blank" rel="noopener noreferrer">https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices</a></div></div>
+<h4>発展：スキル点検の定期レポート（2〜3時間）</h4><p>スキルの行数、強調語の数、日付や絶対パスの有無を数える小さなスクリプトを作り、月に1回点検結果を出す。結果をもとに、規則を足すのではなく減らせないかを考える。</p><ol>
+<li>記事の13項目から、機械で数えられるもの（行数・強調語・日付・絶対パス）を選ぶ</li>
+<li>スキル置き場の SKILL.md をすべて読んで数えるスクリプトを Claude Code に書かせる</li>
+<li>500行を超えるものや、参照の入れ子があるものに印を付けて表にする</li>
+<li>月に1回実行し、前の月と比べて増えた規則に理由があるか確かめる</li>
+</ol>
+<h3>利用条件・料金</h3><p>記事は無料で読める。スキルは Claude Code の機能で、利用には Claude の契約またはAPIが必要。</p>
+<div class="meta">実践可能性：高：自分のスキルを読み直すだけで始められる。<br>信頼性：Zennの記事本文と、Claude Code公式ドキュメント（Skills）、Anthropic公式の Skill authoring best practices で確認。</div></section>
+<section class="card" id="news-6"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">71</span>/100</span>
+<h2>6. Qiita：claude-code-action で「SDK execution error」「native binary not found」が出たときの直し方。動いていた版のSHAに固定する応急処置と、本当の原因の見つけ方</h2>
+<div class="meta">Qiita・公開 2026-11-26 21:31</div>
+<div class="meta">出典：<a href="https://qiita.com/homhom44/items/f61e4877d7400be7f4c8" target="_blank" rel="noopener noreferrer">https://qiita.com/homhom44/items/f61e4877d7400be7f4c8</a></div>
+<p class="concl"><b>結論：</b>GitHub Actions で anthropics/claude-code-action が Claude の動き出す前に落ちる2つのエラーについて、原因と直し方をまとめた記事です。応急処置は動いていた版のSHAに固定すること、根本的には本当のエラーを表示させて原因ごとに直すことをすすめています。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>自動作業の最初に「Claude Code が入っているか確かめる」一行を足しておくと、止まったときにどこで失敗したかがすぐ分かって便利です。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>起動用ファイルが無い問題</b>：インストールは成功と出るのに、起動用のファイルが作られないことがある（公式issue #1817、未解決）。</li>
+<li><b>動いた版のSHAに固定</b>：最後に成功した実行ログからSHAを調べて固定すると、その場は直ることが多い。</li>
+<li><b>先に入れて場所を渡す</b>：別の手順で Claude Code を入れて --version で確かめ、path_to_claude_code_executable で場所を渡す。</li>
+<li><b>本当のエラーを表示</b>：exited with code 1 は原因がいくつもある。残高不足、終了したモデルの指定、出力形式の上書きなど。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>公式のissueに散らばっている報告を、症状ごとに原因と手順に整理した。</dd>
+<dt>なぜ重要か</dt><dd>AIを使った自動作業は、AIが動き出す前の準備で止まることも多い。エラーの見た目は同じでも原因がちがうので、切り分け方を知っていると復旧が早い。</dd>
+<dt>従来との違い</dt><dd>「とりあえず再実行する」のではなく、版の固定・インストールの確認・本当のエラーの表示という順で切り分ける。</dd></dl><ul>
+<li>issue #1817 では、v1.0.218 以降でインストーラーが成功（終了コード0）を返すのに起動用ファイルが無く、再試行も働かないと報告されている。</li>
+<li>応急処置として v1.0.217 のSHA（9c5ddab…）への固定が挙げられている。固定中は更新を受け取れないので、直ったら @v1 に戻す。</li>
+<li>公式ドキュメントでは、claude_args で --model などのCLI引数を渡せる。</li>
+<li>記事では、claude_args に --output-format を入れると子プロセスがすぐ終わる例も紹介している。</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>Claude Code を使った自動作業のワークフローの安定化</li>
+<li>インストール段階の失敗を早く見つける確認の追加</li>
+<li>エラーの原因ごとの対処表づくり</li>
+</ul>
+<div class="task"><h4>今日すぐできること：インストールの確認を足す</h4><dl class="kv"><dt>目的</dt><dd>claude-code-action が起動前に落ちたとき、原因がインストールにあるかすぐ分かるようにする</dd><dt>使用ツール</dt><dd>GitHub Actions、anthropics/claude-code-action</dd><dt>必要な準備</dt><dd>claude-code-action を使っているワークフローがあること</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料（GitHub Actions の無料枠の範囲）</dd></dl><b>手順</b><ol><li>使っているワークフローのファイル（.github/workflows/ の中）を開く</li><li>claude-code-action の手前に、下の Install Claude Code の手順を足す（2.1.265 は issue に書かれた例の版。自分が使いたい版に合わせて変える）</li><li>claude-code-action の with に path_to_claude_code_executable を足す</li><li>ワークフローを実行し、--version の行で版が表示されるか確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>- name: Install Claude Code
+  run: |
+    curl -fsSL https://claude.ai/install.sh | bash -s -- 2.1.265
+    test -x &quot;$HOME/.local/bin/claude&quot; || { echo &quot;claude launcher missing&quot;; exit 1; }
+    &quot;$HOME/.local/bin/claude&quot; --version
+
+- uses: anthropics/claude-code-action@v1
+  with:
+    path_to_claude_code_executable: /home/runner/.local/bin/claude</pre></div><div class="meta">出典：<a href="https://github.com/anthropics/claude-code-action/issues/1817" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code-action/issues/1817</a></div><dl class="kv"><dt>完成するもの</dt><dd>インストールを確かめる手順が入ったワークフロー</dd><dt>確認方法</dt><dd>実行ログに Claude Code の版が表示される。起動用ファイルが無い場合は「claude launcher missing」で止まり、原因がすぐ分かる</dd></dl><div class="meta">参考：<a href="https://github.com/anthropics/claude-code-action/issues/1817" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code-action/issues/1817</a>　<a href="https://code.claude.com/docs/en/github-actions" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/github-actions</a></div></div>
+<h4>発展：自動作業の「止まった理由」表（1〜2時間）</h4><p>claude-code-action が失敗したとき、ログのエラー文から原因の候補と直し方を返す小さな表とチェック手順を作り、次に止まったときすぐ直せるようにする。</p><ol>
+<li>記事と公式issueから、エラー文と原因の組を書き出す</li>
+<li>それぞれに、確かめる方法（版の確認、モデル名、claude_args の中身など）を書く</li>
+<li>Claude Code に、失敗したログを渡すとこの表から原因候補を選ぶよう頼むプロンプトを作る</li>
+<li>わざと間違ったモデル名を指定して失敗させ、表で原因が当たるか試す</li>
+</ol>
+<h3>利用条件・料金</h3><p>claude-code-action は無料。実行には GitHub Actions の実行時間と、Claude のAPIキーまたは契約のトークンが必要。</p>
+<div class="meta">実践可能性：高：ワークフローのファイルを数行変えるだけで試せる。<br>信頼性：Qiitaの記事と、公式リポジトリの issue #1817、Claude Code公式ドキュメント（GitHub Actions）で確認。記事の筆者は手元では再現していない。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>

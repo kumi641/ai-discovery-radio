@@ -1,0 +1,538 @@
+[
+ {
+  "date": "2026-11-10",
+  "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+  "title": "Anthropic、Claude Fable 5.2 と Claude Mythos 5.2 を発表",
+  "publisher": "Hacker News",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.321",
+  "title": "Claude Code v2.1.321：Fable 5.2 を既定のFableに、MCP OAuthやサンドボックスの修正",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://simonwillison.net/2026/Nov/9/details-summary/",
+  "title": "Simon Willison：エージェントが書いたPR説明を <details><summary> に隠し、人が選んだ短い冒頭を置く",
+  "publisher": "Simon Willison",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://zenn.dev/joinclass/articles/restricted-ai-20261108220018-28240",
+  "title": "Zenn：新人にClaude Codeを渡すための制限付き起動ラッパーと権限設計（--restrictedは社内名）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "denyルールで .env を本当に読ませないか検証する"
+ },
+ {
+  "date": "2026-11-10",
+  "url": "https://zenn.dev/okzaq/articles/claude-code-lowpoly-image",
+  "title": "Zenn：画像を出力できないClaude Codeに、PythonのCPUレンダラーでローポリの絵を描かせる",
+  "publisher": "Zenn",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+  "title": "Google、最上位モデルGemini 4 CarbonをGemini API有料枠などで一般公開。GitHub Copilotでも利用可能に",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/",
+  "title": "NVIDIA、待機中のエージェントを保存・復元して高密度に動かすKubernetes向けOSS「Agent Substrate」を紹介",
+  "publisher": "NVIDIA",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
+  "title": "Simon Willisonが引用：Claude Fable 5.2は「コードの持ち主」の書き方に強く反応する（Anthropic公式プロンプトガイド）",
+  "publisher": "Simon Willison",
+  "corner": "practice",
+  "experiment": "「コードはあなたのもの」の一文でA/B比較"
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://github.com/GoogleChrome/modern-web-guidance",
+  "title": "GoogleChrome、コーディングエージェントを最新のWeb標準へ導くスキル集「modern-web-guidance」を公開",
+  "publisher": "Hacker News",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://zenn.dev/shoma46/articles/claude-code-subagent-spec-consistency-review",
+  "title": "Zenn：Claude Codeのskillとサブエージェントだけで「境界をまたぐ不整合」を探すレビューを組んだ記録",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-11",
+  "url": "https://www.blender.org/press/blender-5-3-release/",
+  "title": "Blender 5.3リリース：3D Gaussian Splatsにネイティブ対応、Vulkanが既定に、VSEにOpenTimelineIO初期対応",
+  "publisher": "Blender",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
+  "title": "Google、日常のコーディングとエージェント作業向けの速いモデル「Gemini 4 Hydrogen」を発表",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+  "title": "Google、はい・いいえ／選択／採点に特化したGemini Decisions APIを公開（モデルはGemini Decision 1）",
+  "publisher": "Google",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.323",
+  "title": "Claude Code v2.1.323：権限チェックやサンドボックスの穴を多数修正、試験的なCode Modeを追加、未知のモデルは1M扱いに",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/",
+  "title": "GitHub Blog：エージェントスキルの実践ガイド。手順はファイルで共有し、道具や権限は実行する側が用意する",
+  "publisher": "GitHub",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review",
+  "title": "Zenn：Claude Codeのauto memoryを見返させて整理したら、MEMORY.mdが146行→122行になり、終わった予約を答えに出さなくなった",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "Claude Codeの記憶の大そうじ"
+ },
+ {
+  "date": "2026-11-13",
+  "url": "https://github.com/huggingface/diffusers/releases/tag/v0.43.0",
+  "title": "Diffusers 0.43.0：MiniMax-H3-Image、Pika H3 Flex、P-H3-Image、Kandinsky S2V、PAN 2の5つのモデルに対応",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+  "title": "Claude Code v2.1.325：サンドボックス内のBashも既定で通常の許可確認に。定期実行のスキルも事前確認、権限ルールの抜け穴を多数修正",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
+  "title": "GitHub Copilot、2026年12月14日にClaude Fable 5やGemini 4 Argonなど6モデルを提供終了。代わりのモデルも公表",
+  "publisher": "GitHub",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
+  "title": "IBM、指示・資料・条件をタグで分けてAIに渡す書き方「LLMON」を公開。対応するGranite 4.1 3B／8Bの試作モデルも",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://qiita.com/homhom44/items/babc6175e2b52d156949",
+  "title": "Qiita：Claude Codeで「MCP error -32000: Connection closed」が出たら、サーバーを手で起動して標準出力に余計な文字がないか確かめる",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": "MCP サーバーとの握手を手で試す"
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://zenn.dev/tottoko_hamu/articles/2026-11-14-000106",
+  "title": "Zenn：Claude Codeに手順書を指定しても12回中2回しか読まれなかった。効いたのは注意点の本文を依頼文に貼ることと、機械で止める仕組み",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-14",
+  "url": "https://huggingface.co/blog/3d-lora-finetuning",
+  "title": "Hugging Face：3D生成モデルTRELLIS.2の形の部分だけをLoRAで追加学習するガイド。靴188個で形の再現度が大きく向上",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+  "title": "Claude Code v2.1.330：頼むとグラフを描く内蔵mod「easel」、定期タスクと/loopが最長30日に、危険なrmは承認が必要に",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+  "title": "Google、Gemini API（Interactions API）に Tool Retrieval をプレビュー公開。ツールの定義を必要なときだけ読み込む",
+  "publisher": "Google",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+  "title": "Hugging Face、エージェントの実行環境ごとにモデルを強化学習で合わせる「harness adapters」を公開（Qwen3.8-27B 向け）",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://zenn.dev/hironoah/articles/claude-code-my-workflow-202611",
+  "title": "Zenn：Claude Code の開発手順（2026年11月）。書くのはAI、疑うのは経緯を知らない別のAI、commit と push は自分で",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "git push を止めて、理由と代わりの手順を返すフック"
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://qiita.com/agent_notes376/items/ab784c2c19e9242cec9a",
+  "title": "Qiita：Claude Code の VS Code 拡張で CLAUDE.md が読まれなくなった原因は「フォルダの信頼」（v2.1.323 以降、筆者の解析）",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-21",
+  "url": "https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/",
+  "title": "NVIDIA：開発者が最先端のAIエージェントに指示して、Omniverse の3Dシミュレーションを作る事例を紹介",
+  "publisher": "NVIDIA",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://huggingface.co/blog/inkling2mini",
+  "title": "Thinking Machines Lab、手元の環境向けの中型AI「Inkling 2 Mini」を公開（文章と画像に対応、Hugging Faceブログで紹介）",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://openai.com/index/combatting-adversarial-distillation",
+  "title": "OpenAI、AIの能力を無断で抜き出して別のAIを育てる「adversarial distillation」への多層的な対策を説明",
+  "publisher": "OpenAI",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://qiita.com/homhom44/items/e41dca096fb741f1b3b0",
+  "title": "Qiita：Claude Code が「JavaScript heap out of memory」で落ちたときの対処（--continue で再開、--safe-mode で切り分け、/heapdump で調査）",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-22",
+  "url": "https://zenn.dev/automation_lab/articles/automation-verification-gates",
+  "title": "Zenn：自動化の出力を信じる前に通す3つの検証ゲート（理由つきの実行ログ・件数の照合・差分とサンプルの確認）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "AIに作らせた自動化に「データの会計」を入れる"
+ },
+ {
+  "date": "2026-11-22",
+  "url": "http://ricapar.net/ClawDOS/",
+  "title": "ClawDOS：1983年ごろのIBM PC XT（8088・640KB）の DOS 上で動く、Claude の Messages API を使うAIコーディングエージェント",
+  "publisher": "Hacker News",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://openai.com/index/perplexity-and-intelligence",
+  "title": "OpenAI、AIの進歩を比べる共通の物差しとして perplexity（次の言葉の当てにくさ）を使おうと提案し、社内の数値を公開",
+  "publisher": "OpenAI",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://zenn.dev/natsu529/articles/ef09f78c0dde1d",
+  "title": "Zenn：Claude Code に同じ修正を何通りも試させる agent-mcts。課題文から先にテストを書かせると20回中16回で改善、あいまいなバグ報告では失敗し v0.4.1 で対策",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://zenn.dev/hummer/articles/claude-kitty-omoiyari",
+  "title": "Zenn：Claude Code のセッション間メッセージで並列作業の配管を減らし、状態を背景色で示す claude-kitty を作成。足りなかったのは人の認知への配慮",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "2つの Claude Code に伝言をさせる"
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://qiita.com/akihidem/items/97eac4cb7a451c94a60a",
+  "title": "Qiita：Claude Code の公式ドキュメント 11/22 更新まとめ。Web ページを読む組み込みサブエージェント web-fetch を軸に、権限・フック・環境変数の説明が追記",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-23",
+  "url": "https://github.com/gulivan/worker755",
+  "title": "Show HN：Worker 755。本物のLLMが上司になり、プレイヤーがその「サブエージェント」として指示をこなすブラウザゲーム（MIT、オフラインのモックモードあり）",
+  "publisher": "Hacker News",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.331",
+  "title": "Claude Code v2.1.331：claude doctor に API 接続の確認、MCP ツールが止まる不具合の修正など",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+  "title": "Google DeepMind、AIエージェントのチームと形式検証で量子アルゴリズムを効率化",
+  "publisher": "Google DeepMind",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://huggingface.co/blog/agentic-evals",
+  "title": "Hugging Face「How to build and maintain an agentic evaluation」：エージェント評価の作り方と保ち方",
+  "publisher": "Hugging Face",
+  "corner": "practice",
+  "experiment": "AI作業に小さなテストを作る"
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://zenn.dev/murzim/articles/f5066afd82976c",
+  "title": "AIに「公開しないで」と頼むより、MCPサーバーから公開の操作そのものを外した設計（OAuth×Supabase）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-24",
+  "url": "https://github.com/remotion-dev/remotion/releases/tag/v4.0.546",
+  "title": "Remotion v4.0.546：npx remotion whisper で手元のPCで文字起こし、Studio で任意の要素にエフェクト",
+  "publisher": "Remotion",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://simonwillison.net/2026/Nov/24/datasette-charts/",
+  "title": "Simon Willison、datasette-charts 0.2a0 を公開。Datasette Agent に「グラフにして」と頼むと、チャットの中にグラフを作る",
+  "publisher": "Simon Willison",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+  "title": "OpenAI、アマチュア天文家2人が Codex と Astra を使い、NASA の Kepler・TESS の公開データから系外惑星の候補を見つけた事例を紹介",
+  "publisher": "OpenAI",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://qiita.com/supportapp3/items/b73c21efacc605616bf9",
+  "title": "Qiita：claude mcp add --header の鍵は画面では伏せ字でも、.mcp.json や ~/.claude.json に平文で保存される。grep 1行で洗い出す方法",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": "MCPの鍵を環境変数へ移す"
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://zenn.dev/sbkm/articles/0a8d9931015ba9",
+  "title": "Zenn：AIが書いたポッドキャスト台本は機械のチェックを全部通ったのに、日付などの中身を間違えていた。チェックは形を見て、中身は見ていない",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-25",
+  "url": "https://developer.nvidia.com/blog/how-to-run-nvidia-cosmos-3-on-local-ai-devices-using-hugging-face-diffusers/",
+  "title": "NVIDIA、動画生成もできる世界モデル Cosmos 3 Nano を、12GB の GPU から Hugging Face Diffusers で動かす方法を解説",
+  "publisher": "NVIDIA",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.332",
+  "title": "Claude Code v2.1.332：MCPサーバーが提供するスキルに対応（ベータ）、スキルが読み込み時に動かすコマンドを止められる PreSkillShellCommand フックを追加",
+  "publisher": "Anthropic",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+  "title": "IBM Research、オープンソースのエージェント基盤 CUGA で、インドの言語で声で質問すると英語の農業ハンドブックから答える音声エージェントを公開",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization/",
+  "title": "GitHub Blog：古いアプリを近代化するとき、証拠を集めて「次の安全な一歩」を選ぶ方法と、それを Copilot のエージェントスキル doc-and-modernize にまとめた例",
+  "publisher": "GitHub",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://zenn.dev/anas_alkhatib/articles/e020386e251ca9",
+  "title": "Zenn：AIコーディングエージェントがテストを「通す」ためにやる5つのずる（削除・スキップ・期待値の書き換え・設定の変更・共有コードを甘くする）と、git で見つける方法",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "AIのテストの「ずる」を見つける"
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://zenn.dev/lintsure/articles/44f9e741da85d4",
+  "title": "Zenn：オープンソースのチェックツール Lintsure で、Claude Code などが書いたコードの鍵の直書きや危ない設定を、コミット前に手元で見つける（開発者本人による解説）",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-26",
+  "url": "https://github.com/remotion-dev/remotion/releases/tag/v4.0.547",
+  "title": "Remotion v4.0.547：AIエージェント用の /remotion-elements スキルを追加、Element Library を設定に加える remotion elements add-library コマンドも",
+  "publisher": "Remotion",
+  "corner": "creative",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+  "title": "Google、Workspace（Gmail・Driveなど）を使うAIエージェントに、2027年2月1日から自社のMCPサーバー経由を求める規約を公開（紹介記事：Gmailの窓口は送信が一般に使えない）",
+  "publisher": "Hacker News",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://huggingface.co/blog/training-swarms",
+  "title": "Hugging Face「Swarms, Flocks, Gangs」：4体の小型AI（Qwen3-0.6B）に、メッセージで協力することを強化学習で練習させ、成功率と使う文章量の変化を公開（TRLで再現手順つき）",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+  "title": "NVIDIA、文書の画像を構造化データに変える小型モデル Nemotron 3.5 Parse の学習データ公開、追加学習（SFT＋強化学習）の手順、高速化の工夫を解説",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans",
+  "title": "Zenn：Claude Codeの決まったブラウザ操作を JSON の手順書に保存し、2回目からはLLMなしで約1.5秒で再生。迷うときだけ小さな判断モデルに聞くCLIとスキル「agent-browser-decisions」",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://zenn.dev/singularity/articles/skill-antipatterns",
+  "title": "Zenn：スキル（SKILL.md）のアンチパターン13選と直し方。長すぎる・網羅しすぎる・複数人で書き足して矛盾する、などの見つけ方と、あり・なしで比べる運用",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "自分のスキルの健康診断"
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://qiita.com/homhom44/items/f61e4877d7400be7f4c8",
+  "title": "Qiita：claude-code-action で「SDK execution error」「native binary not found」が出たときの直し方。動いていた版のSHAに固定する応急処置と、本当の原因の見つけ方",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
+  "title": "GitHub、Copilot コードレビューの請求先を選んでいない組織は、2026年12月30日から組織への請求が初期設定に",
+  "publisher": "GitHub",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+  "title": "Hugging Face と ggml-org、AMD の Ryzen・Radeon で llama.cpp の速さを比べられるダッシュボードを公開",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://qiita.com/akihidem/items/4843f7374f096e9c7e07",
+  "title": "Qiita：Claude Code の Scheduled tasks（旧名 routines）の入口と基本仕様。作り方、きっかけの種類、上限を公式ドキュメントから整理",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": "明日の朝の「きのうの作業まとめ」を予約する"
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://qiita.com/tadanok/items/77fa2c7a9d0acd0e3cde",
+  "title": "Qiita：Claude Code・Codex・claude.ai とスキルで、全12章・約9万字の長編小説を書き上げた記録。設定はファイルを正典にし、字数は実測、点検は別のAIに",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://zenn.dev/kekkai3an/articles/aa8fd0ad67f2b9",
+  "title": "Zenn：Claude Code を並列で動かすときの破綻は設計の問題。権限の隔離・作業と文脈の分離・テストによる出力ゲートで「間違えられない構造」を作る提案",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-28",
+  "url": "https://huggingface.co/blog/video-trainium3",
+  "title": "Hugging Face、映像と音を一緒に生成する LTX-2.5 を AWS Trainium3 で動かし、ショット表から短編を作る手順と高速化の工夫を公開",
+  "publisher": "Hugging Face",
+  "corner": "creative",
+  "experiment": null
+ }
+]

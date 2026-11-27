@@ -1,0 +1,40 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["episodes/**", "episodes.json", "guides/**", "data/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: {python-version: "3.13", cache: pip}
+      - run: pip install -q -r requirements.txt -r requirements-dev.txt
+      - run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+      - run: python -m pytest -q
+      - name: Player script parses
+        run: node -e "const h=require('fs').readFileSync('index.html','utf8');const s=[...h.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]).join('\n');new Function(s);console.log('index.html script OK')"
+
+  collect-smoke:
+    # real network check of config/sources.yaml (no secrets needed); the result is kept as an artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v6
+        with: {python-version: "3.13", cache: pip}
+      - run: pip install -q -r requirements.txt
+      - run: python -m radio.collect
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: candidates-smoke, path: work/candidates.json, retention-days: 7, if-no-files-found: ignore}

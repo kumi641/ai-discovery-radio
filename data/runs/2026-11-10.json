@@ -1,0 +1,478 @@
+{
+ "date": "2026-11-10",
+ "made_at": "2026-11-10T10:32:21",
+ "seconds": 453.76,
+ "tts": {
+  "provider": "azure",
+  "chars": 5188,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 44,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.8
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 7.1
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 10.9
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 7,
+   "sec": 0.2
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 4,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.4
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.8
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.7
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.6
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.6
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.2
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.3
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.6
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.9
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.3
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 9,
+   "sec": 0.4
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.1
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.9
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.4
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.2
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.0
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.3
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_796a7f7ee3",
+   "fetched": true,
+   "scores": {
+    "practice": 26,
+    "novelty": 17,
+    "reliability": 24,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "Anthropic公式ページで料金・提供範囲・推奨の使い分けまで確認でき、今日の最大ニュース。"
+  },
+  {
+   "candidate_id": "c_1393243560",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 12,
+    "reliability": 25,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "公式リリースノートでFable 5.2対応とMCP OAuth・サンドボックスのセキュリティ修正を確認、すぐ更新できる。"
+  },
+  {
+   "candidate_id": "c_6ee1dee33e",
+   "fetched": true,
+   "scores": {
+    "practice": 30,
+    "novelty": 10,
+    "reliability": 20,
+    "relevance": 18
+   },
+   "selected": true,
+   "reason": "本人のブログで手法と実例を確認、GitHub公式ドキュメントで記法も裏付けでき、今日から使える。"
+  },
+  {
+   "candidate_id": "c_05142315e2",
+   "fetched": true,
+   "scores": {
+    "practice": 32,
+    "novelty": 9,
+    "reliability": 18,
+    "relevance": 19
+   },
+   "selected": true,
+   "reason": "独自ラッパーである点を明記した誠実な記事で、中身は公式の設定機能で検証可能。今日の実験の土台にした。"
+  },
+  {
+   "candidate_id": "c_34d7612c51",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 13,
+    "reliability": 18,
+    "relevance": 16
+   },
+   "selected": true,
+   "reason": "MITの公開リポジトリと手順を確認でき、Claude Codeで絵を作る具体的な方法として創作にすぐ使える。"
+  },
+  {
+   "candidate_id": "c_773234e7b2",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 8,
+    "reliability": 24,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "Fable 5.2の提供先の話で、Anthropic公式発表と話題が重複するため見送り。"
+  },
+  {
+   "candidate_id": "c_ac841c16ab",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 6,
+    "reliability": 20,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "Fable 5.2と重複するため単独では採らず、Fableニュースの試し方として内容を活用。"
+  },
+  {
+   "candidate_id": "c_058642157c",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 10,
+    "reliability": 22,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "変更点は確認できたが細かい改善の集まりで、新APIの使い方まで確かめきれず今日は見送り。"
+  },
+  {
+   "candidate_id": "c_06e2b9999d",
+   "fetched": true,
+   "scores": {
+    "practice": 8,
+    "novelty": 10,
+    "reliability": 24,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "GitHub Enterprise Cloudの組織向けプレビューで、個人開発者がすぐ試せないため見送り。"
+  },
+  {
+   "candidate_id": "c_52703aebee",
+   "fetched": true,
+   "scores": {
+    "practice": 5,
+    "novelty": 2,
+    "reliability": 15,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "リリース本文が空で、変更内容を確認できないため見送り。"
+  },
+  {
+   "candidate_id": "c_72c614be6a",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 6,
+    "reliability": 15,
+    "relevance": 17
+   },
+   "selected": false,
+   "reason": "指示の型など有益だが、今日はClaude Code関連の実践記事を2本に絞ったため見送り。"
+  },
+  {
+   "candidate_id": "c_d96d142f37",
+   "fetched": true,
+   "scores": {
+    "practice": 18,
+    "novelty": 5,
+    "reliability": 10,
+    "relevance": 14
+   },
+   "selected": false,
+   "reason": "記事自体が適用後の効果を未確認としており、紹介するには根拠が弱い。"
+  },
+  {
+   "candidate_id": "c_51bc8200bf",
+   "fetched": true,
+   "scores": {
+    "practice": 6,
+    "novelty": 10,
+    "reliability": 18,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "企業事例中心で、NemoClawやOpenShellを個人が使えるか記事から確認できなかった。"
+  },
+  {
+   "candidate_id": "c_23b94c6976",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 6,
+    "reliability": 5,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "本文が403で読めず、内容を確認できないため採用しない。"
+  },
+  {
+   "candidate_id": "c_932fe34bad",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 5,
+    "reliability": 5,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "企業の導入事例で優先度が低く、本文も未確認。"
+  },
+  {
+   "candidate_id": "c_f37b680abc",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 8,
+    "reliability": 5,
+    "relevance": 6
+   },
+   "selected": false,
+   "reason": "社内インフラの話で個人の実践につながりにくく、本文も未確認。"
+  },
+  {
+   "candidate_id": "c_255b56db4a",
+   "fetched": false,
+   "scores": {
+    "practice": 4,
+    "novelty": 4,
+    "reliability": 5,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "第三者ベンチマークで、Fable 5.2は公式発表で扱うため見送り。"
+  },
+  {
+   "candidate_id": "c_a78801b830",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 3,
+    "reliability": 3,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "二次報道で一次情報を確認できず、実践にもつながらない。"
+  },
+  {
+   "candidate_id": "c_1b18e8c9ac",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 3,
+    "reliability": 2,
+    "relevance": 4
+   },
+   "selected": false,
+   "reason": "個人リポジトリの主張で検証できず、扱うべきではない。"
+  },
+  {
+   "candidate_id": "c_feb2ba2115",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 10,
+    "reliability": 5,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "本文を確認しておらず、見出しだけでは紹介しない。"
+  },
+  {
+   "candidate_id": "c_b5de157b18",
+   "fetched": false,
+   "scores": {
+    "practice": 6,
+    "novelty": 3,
+    "reliability": 4,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "他のニュースのまとめ記事で、元の話題と重複する。"
+  },
+  {
+   "candidate_id": "c_baaf713b11",
+   "fetched": false,
+   "scores": {
+    "practice": 14,
+    "novelty": 6,
+    "reliability": 8,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "面白い事例だが優先度の高い候補を先に確認し、今日は見送り。"
+  },
+  {
+   "candidate_id": "c_1d660dc4ea",
+   "fetched": false,
+   "scores": {
+    "practice": 1,
+    "novelty": 2,
+    "reliability": 3,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "資金調達の二次報道で、制作への応用がない。"
+  }
+ ],
+ "warnings": []
+}

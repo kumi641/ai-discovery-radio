@@ -1,0 +1,37 @@
+name: mail-test
+
+# Send the "show is ready" Gmail for an episode that already exists, to check GMAIL_ADDRESS /
+# GMAIL_APP_PASSWORD after registering them. Makes no episode and changes nothing in the repository.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "送る回の日付（YYYY-MM-DD）。空なら最新の回"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  mail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v6
+        with: {python-version: "3.13", cache: pip}
+      - run: pip install -q -r requirements.txt
+      - name: Send
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          if [ -z "$GMAIL_ADDRESS" ] || [ -z "$GMAIL_APP_PASSWORD" ]; then echo "::error::GMAIL_ADDRESS / GMAIL_APP_PASSWORD are not set"; exit 1; fi
+          D="$INPUT_DATE"
+          [ -n "$D" ] || D=$(python -c 'import json;print(json.load(open("episodes.json",encoding="utf-8"))[0]["date"])')
+          [[ "$D" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "::error::date must be YYYY-MM-DD"; exit 1; }
+          python -m radio.notify "$D"

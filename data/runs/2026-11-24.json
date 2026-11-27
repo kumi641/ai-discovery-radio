@@ -1,0 +1,526 @@
+{
+ "date": "2026-11-24",
+ "made_at": "2026-11-24T07:14:13",
+ "seconds": 363.13,
+ "tts": {
+  "provider": "azure",
+  "chars": 3945,
+  "voice": "ja-JP-NanamiNeural"
+ },
+ "candidates": 27,
+ "sources": [
+  {
+   "source": "openai-news",
+   "ok": true,
+   "items": 10,
+   "sec": 0.5
+  },
+  {
+   "source": "anthropic-news",
+   "ok": true,
+   "items": 6,
+   "sec": 7.1
+  },
+  {
+   "source": "anthropic-engineering",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "deepmind-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.1
+  },
+  {
+   "source": "google-ai-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "google-developers",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "meta-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 10.4
+  },
+  {
+   "source": "github-changelog",
+   "ok": true,
+   "items": 0,
+   "sec": 0.1
+  },
+  {
+   "source": "github-blog-ai",
+   "ok": true,
+   "items": 5,
+   "sec": 0.1
+  },
+  {
+   "source": "nvidia-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.2
+  },
+  {
+   "source": "nvidia-developer",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "huggingface-blog",
+   "ok": true,
+   "items": 10,
+   "sec": 0.3
+  },
+  {
+   "source": "stability-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.5
+  },
+  {
+   "source": "bfl-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 5.0
+  },
+  {
+   "source": "runway-news",
+   "ok": true,
+   "items": 2,
+   "sec": 2.6
+  },
+  {
+   "source": "elevenlabs-blog",
+   "ok": true,
+   "items": 4,
+   "sec": 4.6
+  },
+  {
+   "source": "rel-claude-code",
+   "ok": true,
+   "items": 2,
+   "sec": 0.7
+  },
+  {
+   "source": "rel-codex",
+   "ok": true,
+   "items": 2,
+   "sec": 0.9
+  },
+  {
+   "source": "rel-mcp-spec",
+   "ok": true,
+   "items": 2,
+   "sec": 0.1
+  },
+  {
+   "source": "rel-claude-agent-sdk",
+   "ok": true,
+   "items": 2,
+   "sec": 0.1
+  },
+  {
+   "source": "rel-comfyui",
+   "ok": true,
+   "items": 1,
+   "sec": 0.5
+  },
+  {
+   "source": "rel-diffusers",
+   "ok": true,
+   "items": 1,
+   "sec": 1.6
+  },
+  {
+   "source": "rel-remotion",
+   "ok": true,
+   "items": 1,
+   "sec": 1.5
+  },
+  {
+   "source": "blender-news",
+   "ok": true,
+   "items": 0,
+   "sec": 0.4
+  },
+  {
+   "source": "hf-daily-papers",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "simonwillison",
+   "ok": true,
+   "items": 6,
+   "sec": 0.2
+  },
+  {
+   "source": "latent-space",
+   "ok": true,
+   "items": 3,
+   "sec": 0.6
+  },
+  {
+   "source": "hn-ai",
+   "ok": true,
+   "items": 8,
+   "sec": 0.3
+  },
+  {
+   "source": "zenn-claudecode",
+   "ok": true,
+   "items": 4,
+   "sec": 0.1
+  },
+  {
+   "source": "zenn-aiagent",
+   "ok": true,
+   "items": 3,
+   "sec": 0.1
+  },
+  {
+   "source": "qiita-claudecode",
+   "ok": true,
+   "items": 3,
+   "sec": 0.5
+  }
+ ],
+ "evaluated": [
+  {
+   "candidate_id": "c_800aeca2d3",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 10,
+    "reliability": 25,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "Claude Code の公式リリースノートで、claude doctor の通信チェックなど今日すぐ試せる変更がある。"
+  },
+  {
+   "candidate_id": "c_1ecba3f349",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 13,
+    "reliability": 25,
+    "relevance": 15
+   },
+   "selected": true,
+   "reason": "Whisper による手元での文字起こしコマンドが加わり、公式ドキュメントで使い方を確認できた。"
+  },
+  {
+   "candidate_id": "c_61dcf11694",
+   "fetched": true,
+   "scores": {
+    "practice": 8,
+    "novelty": 19,
+    "reliability": 25,
+    "relevance": 14
+   },
+   "selected": true,
+   "reason": "AIエージェントのチームと証明ツールで量子アルゴリズムを改良した一次情報で、新規性が高い。"
+  },
+  {
+   "candidate_id": "c_813a8ce24a",
+   "fetched": true,
+   "scores": {
+    "practice": 28,
+    "novelty": 13,
+    "reliability": 17,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "MCPサーバーで公開操作そのものを持たせない設計判断が具体的で、個人開発にそのまま活かせる。"
+  },
+  {
+   "candidate_id": "c_6fd4c32fe3",
+   "fetched": true,
+   "scores": {
+    "practice": 30,
+    "novelty": 14,
+    "reliability": 25,
+    "relevance": 20
+   },
+   "selected": true,
+   "reason": "エージェントの評価の作り方を手順つきで解説した一次情報で、今日の実験に向く。"
+  },
+  {
+   "candidate_id": "c_c29dfdcbd3",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "アルファ版の番号だけで変更内容の説明がない。"
+  },
+  {
+   "candidate_id": "c_a2d694ad8e",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "アルファ版の番号だけで変更内容の説明がない。"
+  },
+  {
+   "candidate_id": "c_b7fc35d5cc",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 10,
+    "reliability": 12,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "新しいブラウザの話で、AIとの関係が薄い。"
+  },
+  {
+   "candidate_id": "c_ce223767cc",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 10,
+    "reliability": 5,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "話題性は高いが一次情報で検証しにくく、実践にもつながりにくい。"
+  },
+  {
+   "candidate_id": "c_39c2da17ce",
+   "fetched": true,
+   "scores": {
+    "practice": 10,
+    "novelty": 10,
+    "reliability": 25,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "検索の個人向け機能で、制作や開発への応用が小さい。"
+  },
+  {
+   "candidate_id": "c_ca38829e73",
+   "fetched": false,
+   "scores": {
+    "practice": 5,
+    "novelty": 12,
+    "reliability": 15,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "ロボット研究の話で、リスナーの関心から遠い。"
+  },
+  {
+   "candidate_id": "c_bb341d3d21",
+   "fetched": true,
+   "scores": {
+    "practice": 20,
+    "novelty": 5,
+    "reliability": 15,
+    "relevance": 15
+   },
+   "selected": false,
+   "reason": "役立つが特定のエラーへの対処で、番組全体の話題としては狭い。"
+  },
+  {
+   "candidate_id": "c_f8a4e02f42",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 3,
+    "reliability": 15,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "法務部門向けの企業向け動画で、個人の制作に結びつかない。"
+  },
+  {
+   "candidate_id": "c_680b35173b",
+   "fetched": false,
+   "scores": {
+    "practice": 3,
+    "novelty": 3,
+    "reliability": 15,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "企業の導入事例で、個人で真似しにくい。"
+  },
+  {
+   "candidate_id": "c_caabaaab1b",
+   "fetched": true,
+   "scores": {
+    "practice": 24,
+    "novelty": 10,
+    "reliability": 15,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "良い記事だが、過去に記憶の大そうじの実験を扱っており内容が近い。"
+  },
+  {
+   "candidate_id": "c_8cc270b184",
+   "fetched": true,
+   "scores": {
+    "practice": 15,
+    "novelty": 5,
+    "reliability": 18,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "AIで見本ページを作った小さな例で、話題として弱い。"
+  },
+  {
+   "candidate_id": "c_21bd1d482a",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 8,
+    "reliability": 10,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "PythonのWebサーバーの話が中心で、AIの話題として弱い。"
+  },
+  {
+   "candidate_id": "c_5620b2b0fa",
+   "fetched": false,
+   "scores": {
+    "practice": 12,
+    "novelty": 10,
+    "reliability": 8,
+    "relevance": 12
+   },
+   "selected": false,
+   "reason": "実験の始まりの紹介段階で、今回は優先度の高い候補を選んだ。"
+  },
+  {
+   "candidate_id": "c_1af1f1f355",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 2
+   },
+   "selected": false,
+   "reason": "PowerShell のスクリプトの話で、AIとの関係が薄い。"
+  },
+  {
+   "candidate_id": "c_0c785c27d4",
+   "fetched": true,
+   "scores": {
+    "practice": 15,
+    "novelty": 12,
+    "reliability": 12,
+    "relevance": 16
+   },
+   "selected": false,
+   "reason": "考え方の紹介が中心で、具体的な手順は記事に書かれていない。"
+  },
+  {
+   "candidate_id": "c_2f50af0073",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 3,
+    "reliability": 10,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "法人の審査向けの話で、個人の制作から遠い。"
+  },
+  {
+   "candidate_id": "c_a9fa8fdb0a",
+   "fetched": true,
+   "scores": {
+    "practice": 22,
+    "novelty": 8,
+    "reliability": 15,
+    "relevance": 18
+   },
+   "selected": false,
+   "reason": "CLAUDE.md の見直しは過去の実験と近く、今回は見送った。"
+  },
+  {
+   "candidate_id": "c_7e644242fc",
+   "fetched": false,
+   "scores": {
+    "practice": 10,
+    "novelty": 8,
+    "reliability": 8,
+    "relevance": 5
+   },
+   "selected": false,
+   "reason": "本文を確認しておらず、今回は優先度の高い候補を選んだ。"
+  },
+  {
+   "candidate_id": "c_8f33c58050",
+   "fetched": false,
+   "scores": {
+    "practice": 8,
+    "novelty": 12,
+    "reliability": 8,
+    "relevance": 10
+   },
+   "selected": false,
+   "reason": "専門的な実験で、個人がすぐ試しにくい。"
+  },
+  {
+   "candidate_id": "c_4f0ed76760",
+   "fetched": false,
+   "scores": {
+    "practice": 15,
+    "novelty": 5,
+    "reliability": 5,
+    "relevance": 8
+   },
+   "selected": false,
+   "reason": "二次情報の入門記事で、本文を確認していない。"
+  },
+  {
+   "candidate_id": "c_38c61351fe",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 3,
+    "reliability": 5,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "電力の話で、制作や開発への応用がない。"
+  },
+  {
+   "candidate_id": "c_67786b6377",
+   "fetched": false,
+   "scores": {
+    "practice": 2,
+    "novelty": 5,
+    "reliability": 5,
+    "relevance": 3
+   },
+   "selected": false,
+   "reason": "AIの意識についての論考で、実践につながらない。"
+  }
+ ],
+ "warnings": []
+}

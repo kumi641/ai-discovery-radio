@@ -1,0 +1,10 @@
+audio/
+.DS_Store
+__pycache__/
+work/
+private/
+.venv/
+.deps/
+.pytest_cache/
+*.tmp
+.env

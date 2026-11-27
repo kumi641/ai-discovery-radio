@@ -1,0 +1,282 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>速いGeminiと「選ぶだけAI」、記憶の大そうじ｜実践ガイド 2026-11-13</title><style>
+:root{--bg:#f7f7f4;--fg:#1d1f24;--muted:#5d6370;--card:#fff;--line:#e3e3dd;--accent:#e2365b;--accent2:#0f8f8a;--code:#f0f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#12141b;--fg:#e9eaee;--muted:#a2a7b4;--card:#1b1e28;--line:#2c303d;--accent:#ff6b8a;--accent2:#3fe0dc;--code:#0d0f15}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:820px;margin:0 auto;padding:16px 16px 64px}
+a{color:var(--accent2);word-break:break-all}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin:0 -16px 16px;padding:10px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+h1{font-size:1.6rem;line-height:1.4;margin:.4em 0}h2{font-size:1.3rem;margin:0 0 .4em;line-height:1.45}h3{font-size:1.05rem;margin:1.2em 0 .3em}h4{margin:1em 0 .3em}
+.date{color:var(--muted);font-size:14px}.lead{font-size:1.05rem;border-left:4px solid var(--accent);padding:.2em .8em;margin:1em 0}
+nav.toc ol{padding-left:1.4em;margin:.4em 0}nav.toc li{margin:.2em 0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+section.exp{border:2px solid var(--accent)}
+.meta{color:var(--muted);font-size:13px}.badge{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;background:var(--accent2);color:#fff;margin-right:6px}
+.exp .badge{background:var(--accent)}
+.task{background:var(--bg);border-radius:10px;padding:12px 14px;margin:10px 0}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 10px;margin:.4em 0}dl.kv dt{color:var(--muted);font-size:14px}dl.kv dd{margin:0}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr}dl.kv dt{margin-top:6px}}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font-size:14px;margin:0}
+.snip{position:relative;margin:10px 0}.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+ul.pts li{margin:.3em 0}.score{font-weight:700;color:var(--accent)}
+.concl{font-size:1.05rem;margin:.8em 0}.idea{background:var(--bg);border-left:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
+details{margin:.6em 0}summary{cursor:pointer;color:var(--accent2)}
+footer{color:var(--muted);font-size:13px;margin-top:32px}
+</style></head><body><main>
+<header class="top"><a class="btn primary" href="../#2026-11-13/ja">▶ 放送を聴く</a>
+<a class="btn" href="#experiment">今日の実験</a><a class="btn" href="index.html">ガイド一覧</a></header>
+<div class="date">2026年11月13日（金）・放送 約8分</div>
+<h1>速いGeminiと「選ぶだけAI」、記憶の大そうじ</h1>
+<p class="lead">Googleが日常作業向けのGemini 4 Hydrogenと、はい・いいえや選択に特化したDecisions APIを発表。Claude Codeは安全面を大きく直し、手順書（スキル）や記憶を自分で整える実践も話題に。</p>
+<nav class="toc"><b>目次</b><ol><li><a href="#experiment">今日の実験：Claude Codeの記憶の大そうじ</a></li>
+<li><a href="#news-1">Google、日常のコーディングとエージェント作業向けの速いモデル「Gemini 4 Hydrogen」を発表</a></li>
+<li><a href="#news-2">Google、はい・いいえ／選択／採点に特化したGemini Decisions APIを公開（モデルはGemini Decision 1）</a></li>
+<li><a href="#news-3">Claude Code v2.1.323：権限チェックやサンドボックスの穴を多数修正、試験的なCode Modeを追加、未知のモデルは1M扱いに</a></li>
+<li><a href="#news-4">GitHub Blog：エージェントスキルの実践ガイド。手順はファイルで共有し、道具や権限は実行する側が用意する</a></li>
+<li><a href="#news-5">Zenn：Claude Codeのauto memoryを見返させて整理したら、MEMORY.mdが146行→122行になり、終わった予約を答えに出さなくなった</a></li>
+<li><a href="#news-6">Diffusers 0.43.0：MiniMax-H3-Image、Pika H3 Flex、P-H3-Image、Kandinsky S2V、PAN 2の5つのモデルに対応</a></li>
+</ol></nav>
+<section class="card exp" id="experiment"><span class="badge">今日の実験</span>
+<h2>Claude Codeの記憶の大そうじ</h2>
+<div class="meta">関連ニュース：<a href="#news-5">Zenn：Claude Codeのauto memoryを見返させて整理したら、MEMORY.mdが146行→122行になり、終わった予約を答えに出さなくなった</a></div>
+<div class="task"><h4>実験：Claude Codeの記憶の大そうじ</h4><dl class="kv"><dt>目的</dt><dd>auto memory の目次（MEMORY.md）を、終わった用事を消さずに移しながら短く整理し、答えが古い情報に引っぱられないようにする</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>しばらく使っていて auto memory がたまっている Claude Code のプロジェクト、念のため、auto memory のフォルダ（~/.claude/projects/&lt;project&gt;/memory/）をどこかにコピーしておく</dd><dt>所要時間</dt><dd>約20分</dd><dt>費用</dt><dd>Claude Codeの利用プランの範囲内（追加の費用なし）</dd><dt>無料の代替</dt><dd>Claude Codeを使わない場合でも、/memory で開いたファイルを手で見直す方法は同じ考え方で使える</dd></dl><b>手順</b><ol><li>Claude Codeで /memory と打ち、auto memory のフォルダを開いて MEMORY.md の行数と、終わった用事の行を確認する</li><li>整理する前に、終わった用事に関係する質問（例：「まだ終わっていない予定は？」）を1つして、答えをメモする</li><li>~/.claude/skills/memory-review/SKILL.md を作り、下の内容を貼り付ける</li><li>Claude Codeで /memory-review と打って実行する。編集の確認が出たら、中身を読んでから許可する</li><li>報告された変更前後の行数を確かめ、移した行が archive_index.md にあり、MEMORY.md から1行でたどれるか確認する</li><li>新しい会話を始めて、手順2と同じ質問をし、終わった用事が答えに出なくなったか比べる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>---
+name: memory-review
+description: auto memory の MEMORY.md を見直して整理する（週1回の見直し用）
+disable-model-invocation: true
+---
+
+auto memory のフォルダを見直して整理してください。
+
+- MEMORY.md は1行1件の短い索引にする
+- 重複したメモはまとめる
+- 終わった予定・片付いた作業は削除せず archive_index.md に移し、MEMORY.md から1行でリンクする
+- 今の方針と食い違うメモは、どちらを残すか私に確認する
+- 最後に、変更前と変更後の MEMORY.md の行数と、移した行の一覧を報告する
+</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/skills</a></div><dl class="kv"><dt>完成するもの</dt><dd>短く整理された MEMORY.md と、終わった用事をまとめた archive_index.md</dd><dt>確認方法</dt><dd>MEMORY.md の行数が減り、移した行が archive_index.md からたどれ、整理後の質問で終わった用事が答えに出てこない</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/skills</a>　<a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/memory</a>　<a href="https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review" target="_blank" rel="noopener noreferrer">https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review</a></div></div>
+<details><summary>実践ログに記録する（非公開の private/practice-log.md に貼り付け）</summary>
+<div class="snip"><button class="btn copy" type="button">コピー</button><pre>## 2026-11-13 Claude Codeの記憶の大そうじ
+- 参考ニュース: Zenn：Claude Codeのauto memoryを見返させて整理したら、MEMORY.mdが146行→122行になり、終わった予約を答えに出さなくなった
+- ガイド: guides/2026-11-13.html#experiment
+- 実施日: 
+- 状況: 未着手
+- 制作物: 
+- 学んだこと: 
+- 次に試したいこと: 
+</pre></div>
+</details></section>
+<section class="card" id="news-1"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">82</span>/100</span>
+<h2>1. Google、日常のコーディングとエージェント作業向けの速いモデル「Gemini 4 Hydrogen」を発表</h2>
+<div class="meta">Google DeepMind・公開 2026-11-12 18:00</div>
+<div class="meta">出典：<a href="https://deepmind.google/blog/introducing-gemini-4-hydrogen/" target="_blank" rel="noopener noreferrer">https://deepmind.google/blog/introducing-gemini-4-hydrogen/</a></div>
+<p class="concl"><b>結論：</b>Googleが新モデルGemini 4 Hydrogenを発表した。深く考える上位モデル（Carbon、Argon）に対し、Hydrogenは毎日くり返す作業を速くこなす役目。コード修正や資料のまとめ、アプリの試作などが得意だとしている。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>長い説明書のPDFや表を渡して、出典つきの要点メモを作らせると、調べものがぐっと楽になります。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>毎日の作業向けの速いモデル</b>：Googleは「エージェント作業の毎日の相棒」と説明。小さなコード修正や調べものを速くこなす。</li>
+<li><b>上位モデルと手分けできる</b>：上位モデルのCarbonが全体をまとめ、Hydrogenが作業や確認を担当する使い方も紹介された。</li>
+<li><b>長い資料もまとめて読める</b>：とても長い入力を受け付け、PDF・表・音声・動画をまとめて出典つきの報告にできるとしている。</li>
+<li><b>AI Studioやアプリで利用可</b>：Gemini APIとGoogle AI Studio、Geminiアプリなどで提供。無料ユーザーはアプリの自動選択で使われる場合がある。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>上位モデルに近い成績を、より速く安くねらう「毎日使い」の位置づけ。考える深さを4段階で選べ、新たに一番深い「xhigh」が加わった。</dd>
+<dt>なぜ重要か</dt><dd>AIに作業を任せるとき、全部を一番高いモデルでやる必要がなくなる。速いモデルに細かい作業を任せ、難しい所だけ上位モデルに回すという分担がしやすくなる。</dd>
+<dt>従来との違い</dt><dd>Googleによると、前の速いモデル（Gemini 3.8 Flash）より作業の成功率が大きく上がり、約2.5倍速く終わる。数値はGoogle自身の発表。</dd></dl><ul>
+<li>ファイルの読み込みや検索をまとめて並行して行い、大きなコードでも早く全体をつかむ</li>
+<li>考える深さを low / medium / high（初期値）/ xhigh から選び、質・速さ・費用を調整できる</li>
+<li>入力と出力の上限はそれぞれ最大100万トークン</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人開発：小さなバグ修正やコードの質問を速いモデルに任せる</li>
+<li>自動化：長いPDFや表を読ませて出典つきの要約を作る</li>
+<li>エージェント：上位モデルが指示し、速いモデルが作業と確認をこなす分担</li>
+</ul>
+<div class="task"><h4>今日すぐできること：長い資料を出典つきで要約させる</h4><dl class="kv"><dt>目的</dt><dd>Gemini 4 Hydrogenの資料まとめの力を自分の資料で確かめる</dd><dt>使用ツール</dt><dd>Google AI Studio</dd><dt>必要な準備</dt><dd>Googleアカウント、要約したいPDFや表のファイル（公開してよいもの）</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料で試せる（無料枠の回数制限は未確認）</dd><dt>無料の代替</dt><dd>Geminiアプリの無料プランでも、自動選択でHydrogenが使われる場合がある</dd></dl><b>手順</b><ol><li>Google AI Studioを開き、モデルの一覧からGemini 4 Hydrogenを選ぶ</li><li>要約したいPDFや表のファイルを添付する</li><li>下のプロンプトを貼り付けて実行する</li><li>出てきた要点の出典ページを、元の資料で2つほど確かめる</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>添付した資料を読んで、大事な点を5つ、短い箇条書きでまとめてください。それぞれの点に、根拠になったページ番号か表の場所を書いてください。資料に書かれていないことは書かないでください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>出典つきの要点メモ（5項目）</dd><dt>確認方法</dt><dd>5つの要点それぞれについて、示されたページに本当にその内容が書かれている</dd></dl><div class="meta">参考：<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/" target="_blank" rel="noopener noreferrer">https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/</a></div></div>
+<h4>発展：「調べ係」と「まとめ係」を分けた資料整理エージェント（2〜3時間）</h4><p>速いHydrogenに資料の読み込みと下書きを任せ、最後の確認だけ上位モデルか自分で行う小さな仕組みを作る。</p><ol>
+<li>要約したい資料の置き場所を1つ決める</li>
+<li>Hydrogenで各資料の出典つき要約を作るスクリプトを書く</li>
+<li>要約を1つの報告にまとめ、出典が本当にあるかを人がチェックする</li>
+</ol>
+<h3>利用条件・料金</h3><p>API料金は入力100万トークンあたり1.50ドル、出力100万トークンあたり7.50ドル（公式発表）。Google AI Studioの無料枠での回数制限は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：高：Google AI StudioやGeminiアプリからブラウザで試せる。<br>信頼性：Google公式ブログの発表本文で確認。性能の数字はGoogleと協力先による自己申告。</div></section>
+<section class="card" id="news-2"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">90</span>/100</span>
+<h2>2. Google、はい・いいえ／選択／採点に特化したGemini Decisions APIを公開（モデルはGemini Decision 1）</h2>
+<div class="meta">Google・公開 2026-11-11 18:00</div>
+<div class="meta">出典：<a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/" target="_blank" rel="noopener noreferrer">https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/</a></div>
+<p class="concl"><b>結論：</b>Googleが、決まった選択肢の中から判断することに特化したGemini Decisions APIを公開した。はい・いいえ、選択、採点の3種類の質問に、確率と自信の値で答える。出力の料金はかからない。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>届いた問い合わせメールを「急ぎかどうか」「どの種類か」に自動で振り分け、自信が低いものだけ自分で見るようにすると、受信箱の整理が楽になります。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>文章を書かず「判断」だけ返す</b>：答えの文章を少しずつ作るのではなく、選択肢ごとの確からしさを一度に計算して返す。</li>
+<li><b>質問は3種類</b>：はい／いいえ（noul）、選択肢から選ぶ（choice）、決めた基準で点をつける（score）の3種類。</li>
+<li><b>自信の度合いも数字で返る</b>：どの答えにも0〜1の自信の値がつくので、迷ったときだけ人に回すといった仕組みが作れる。</li>
+<li><b>画像・音声・動画も判断</b>：文章・画像・音声・動画・PDFをまとめて1回で判断できる。1回で最大1,000問まで聞ける。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>文章を作らず、選択肢の確からしさを1回の計算で返す「判断専用」のモデル。画像・音声・動画・PDFもそのまま判断材料にできる。</dd>
+<dt>なぜ重要か</dt><dd>エージェントの中では「どの道具を使うか」「ルール違反か」など、小さな判断が何度も出てくる。これを安く速く、自信の値つきで任せられるので、迷う場面だけ人や大きなモデルに回せる。</dd>
+<dt>従来との違い</dt><dd>ふつうのチャット型AIに選ばせる場合と比べ、答えが決まった形で返り、自信の度合いも数字で分かる。Googleは、同社の軽量モデルより約5分の1の費用だとしている。</dd></dl><ul>
+<li>質問ごとに noul（はい／いいえ）、choice（2〜255個の選択肢）、score（0から始まる段階の採点）を指定する</li>
+<li>共通の入力（画像や文章）は1回分だけ課金され、質問が増えても追加は質問文の分だけ</li>
+<li>Pythonでは google-genai SDK（3.2以降）の v1beta から呼び出す</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自動化：問い合わせメールを「急ぎ？」「どの種類？」で振り分ける</li>
+<li>エージェント：次に使う道具を選ぶ判断だけをこのAPIに任せる</li>
+<li>画像・動画：投稿された画像がルールに合っているかを、自信の値つきで判定する</li>
+</ul>
+<div class="task"><h4>今日すぐできること：はい・いいえ判定を1回動かす</h4><dl class="kv"><dt>目的</dt><dd>Decisions APIが確率と自信の値を返すことを自分の手で確かめる</dd><dt>使用ツール</dt><dd>Google AI Studio、Python、google-genai SDK</dd><dt>必要な準備</dt><dd>Google AI StudioでAPIキーを作る、Python 3が入ったパソコン</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>無料枠で可能（試作用の無料枠あり。上限は未確認）</dd><dt>無料の代替</dt><dd>Google AI Studioの公式デモアプリをブラウザで触るだけでも仕組みは分かる</dd></dl><b>手順</b><ol><li>Google AI StudioでAPIキーを作り、環境変数に設定する</li><li>下のコマンドでSDKを最新にする（3.2以降が必要）</li><li>公式ドキュメントのはい・いいえ（noul）の例をコピーして実行する</li><li>質問文と入力の文章を、自分の例（例：このメールは急ぎか）に書き換えて再実行する</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>pip install -U google-genai</pre></div><div class="meta">出典：<a href="https://aistudio.google.com/docs/decisions-api" target="_blank" rel="noopener noreferrer">https://aistudio.google.com/docs/decisions-api</a></div><dl class="kv"><dt>完成するもの</dt><dd>自分の文章に対する、はい・いいえの確率と自信の値</dd><dt>確認方法</dt><dd>実行結果に P(yes) の確率と confidence の値が表示され、入力を変えると数字が変わる</dd></dl><div class="meta">参考：<a href="https://aistudio.google.com/docs/decisions-api" target="_blank" rel="noopener noreferrer">https://aistudio.google.com/docs/decisions-api</a>　<a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/" target="_blank" rel="noopener noreferrer">https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/</a></div></div>
+<h4>発展：自信の値で人に回す、問い合わせ振り分けボット（2〜3時間）</h4><p>メールやフォームの内容を choice で種類分けし、noul で急ぎかを判定。自信の値が低いものだけ人の確認待ちに回す。</p><ol>
+<li>振り分けたい種類（例：不具合・質問・要望・その他）を決める</li>
+<li>Decisions APIで種類と急ぎかどうかを1回のリクエストでまとめて聞く</li>
+<li>自信の値がしきい値より低いものを「要確認」フォルダに入れる</li>
+</ol>
+<h3>利用条件・料金</h3><p>入力100万トークンあたり0.10ドル、出力は無料（公式発表）。Google AI Studioで試作用の無料枠があると案内されている。細かい回数制限は未確認（公式の料金ページで確認）。</p>
+<div class="meta">実践可能性：高：APIキーを取り、Pythonの公式サンプルを少し書き換えるだけで試せる。<br>信頼性：Google公式ブログと公式ドキュメント（AI Studio）で確認。性能比較はGoogle自身の測定。</div></section>
+<section class="card" id="news-3"><span class="badge">最新AIニュース</span>
+<span class="meta">評価 <span class="score">81</span>/100</span>
+<h2>3. Claude Code v2.1.323：権限チェックやサンドボックスの穴を多数修正、試験的なCode Modeを追加、未知のモデルは1M扱いに</h2>
+<div class="meta">Anthropic・公開 2026-11-12 22:12</div>
+<div class="meta">出典：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.323</a></div>
+<p class="concl"><b>結論：</b>Claude Code v2.1.323は、Bashの権限チェックやサンドボックスを回避できた穴を多数ふさいだ大きめの更新。試験的なCode Modeや、プラグインの対応バージョン宣言も加わった。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>権限チェックの穴を多数修正</b>：許可ルールをすり抜けて確認なしでコマンドが動くケースや、サンドボックスが途中で切れるケースなどが直った。</li>
+<li><b>試験的なCode Modeが登場</b>：Claudeが道具を呼ぶためにJavaScriptを書く、オプトイン（自分で有効にする）の試験機能。</li>
+<li><b>未知のモデルは1M扱いに</b>：名前を知らないモデルの「一度に覚えておける量」を200Kから1Mとみなすように変更。小さいモデルでは設定で戻せる。</li>
+<li><b>古いMCPクライアントを削除</b>：MCP v1クライアントが削除され、MCP_SDK_GENERATION=v1 はv2の互換モードで動くようになった。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>Code Mode（試験的・オプトイン）、plugin.jsonの engines[&quot;claude-code&quot;]、`*` を含む許可ルールへの起動時警告などが追加された。</dd>
+<dt>なぜ重要か</dt><dd>AIに作業を任せるほど「許可した範囲だけで動く」ことが大事になる。今回はその土台の穴が多く直ったので、自分で許可ルールを書いている人ほど更新の意味が大きい。</dd>
+<dt>従来との違い</dt><dd>これまで確認なしで通っていた一部のコマンドで、確認を求められるようになる。auto モードが使えないときは、より安全な手動モードで始まるようになった。</dd></dl><ul>
+<li>Bash(ls*) のように後ろに * がつく許可ルールが、一部で確認を飛ばしていた問題を修正</li>
+<li>sudo や env などで包んだコマンドが deny/ask ルールをすり抜けるケースを修正</li>
+<li>Read の deny ルールがかかったパスに、Write/Edit で書けてしまうケースを修正</li>
+<li>未知のモデルIDの想定量を1Mに変更。小さいモデルでは CLAUDE_CODE_DISABLE_1M_CONTEXT=1 で200Kのまま</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自動化：毎朝動かしている claude -p の処理で、許可ルールの警告が出ていないか確認する</li>
+<li>個人開発：Bashの許可ルールに * を使っている所を見直す</li>
+</ul>
+<div class="task"><h4>今日すぐできること：更新して許可ルールの警告を確かめる</h4><dl class="kv"><dt>目的</dt><dd>v2.1.323以降で、自分の許可ルールに注意が出ていないか確認する</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>Claude Codeが使える環境</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>Claude Codeの利用プランの範囲内</dd><dt>無料の代替</dt><dd>リリースノートを読んで、自分の settings.json に当てはまる項目がないか確認するだけでもよい</dd></dl><b>手順</b><ol><li>Claude Codeを最新版に更新する</li><li>下のコマンドでバージョンが2.1.323以降になったか確かめる</li><li>Claude Codeを起動し、許可ルールについての警告が出ていないか見る</li><li>警告が出たルール（例：変数の値に * を含むもの）を、より具体的な書き方に直す</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>claude --version</pre></div><div class="meta">出典：<a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/memory</a></div><dl class="kv"><dt>完成するもの</dt><dd>警告の出ない、見直し済みの許可ルール</dd><dt>確認方法</dt><dd>バージョンが2.1.323以降で、起動時に許可ルールの警告が出ない</dd></dl><div class="meta">参考：<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/claude-code/releases/tag/v2.1.323</a></div></div>
+<h4>発展：許可ルールの点検メモを作る（30分〜1時間）</h4><p>今回直った穴の一覧を手がかりに、自分の settings.json の許可・拒否ルールを一つずつ見直し、理由をメモに残す。</p><ol>
+<li>settings.json の permissions を書き出す</li>
+<li>リリースノートの修正項目と照らし合わせ、* を使ったルールを洗い出す</li>
+<li>必要なものだけ具体的な書き方に直し、変えた理由をメモする</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Code自体の利用にはClaudeの有料プランかAPIの利用料が必要（このリリースによる料金の変更は記載なし）。</p>
+<div class="meta">実践可能性：高：更新するだけ。許可ルールを書いている人は起動時の警告を確認する。<br>信頼性：Anthropic公式のGitHubリリースノートで確認。Code Modeの説明ページは開けなかったため、詳細は扱わない。</div></section>
+<section class="card" id="news-4"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">86</span>/100</span>
+<h2>4. GitHub Blog：エージェントスキルの実践ガイド。手順はファイルで共有し、道具や権限は実行する側が用意する</h2>
+<div class="meta">GitHub・公開 2026-11-12 22:54</div>
+<div class="meta">出典：<a href="https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/" target="_blank" rel="noopener noreferrer">https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/</a></div>
+<p class="concl"><b>結論：</b>GitHubブログが、くり返す仕事の手順を「スキル」としてファイルにまとめ、いろいろなAIエージェントで使い回す方法を解説した。手順は共有できても、道具・認証・権限はそれを動かす環境が用意する、という線引きが要点。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>公開前のチェック手順をスキルにして .claude/skills に置けば、Claude CodeでもCopilotでも同じ確認を呼び出せます。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>手順を1つのファイルに書く</b>：スキルはSKILL.mdを中心にしたフォルダ。いつ・どう作業するかを書いておく。</li>
+<li><b>いろいろなAIで使い回せる</b>：同じスキルから、Claude Code・Cursor・Copilot向けのファイルを作り分ける例が紹介された。</li>
+<li><b>スキルは権限を与えない</b>：スキルは「やり方」を教えるだけ。データベースなどへのアクセスは実行する環境が用意する。</li>
+<li><b>自分の仕事は別のAIが確認</b>：AIに自分の仕事を採点させず、別の確認役が元の依頼と変更点だけを見て判定する例（Proof Agent）。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>1つのスキルから各エージェント用のファイルを作り分ける実例と、確認役を分ける「Proof Agent」、複数スキルでデータ処理を進める「Data Forge」という具体的なデモが公開された。</dd>
+<dt>なぜ重要か</dt><dd>同じ手順をAIごとに書き直す手間がなくなる。また「スキルは権限を与えない」という整理は、AIに任せる範囲を安全に決めるうえで役に立つ。</dd>
+<dt>従来との違い</dt><dd>長い指示を毎回プロンプトに貼る代わりに、手順をファイルで管理し、レビューやバージョン管理ができる。</dd></dl><ul>
+<li>SKILL.md の先頭に name と description を書き、本文に手順を書く</li>
+<li>Copilotはリポジトリの .github/skills・.claude/skills・.agents/skills からスキルを読む</li>
+<li>Claude Codeは .claude/skills/&lt;名前&gt;/SKILL.md を読み、/名前 で呼び出せる</li>
+<li>共通の情報（名前や表の構成）は1つの設定ファイルにまとめ、各スキルはそれを読む</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>個人開発：公開前チェックの手順をスキルにして毎回同じ確認をさせる</li>
+<li>エージェント：作る役と確かめる役を別のスキルに分ける</li>
+<li>自動化：記事やリリースノートの下書き手順をスキルにして使い回す</li>
+</ul>
+<div class="task"><h4>今日すぐできること：公開前チェックのスキルを1つ作る</h4><dl class="kv"><dt>目的</dt><dd>SKILL.md を1つ置いて、エージェントから呼び出せることを確かめる</dd><dt>使用ツール</dt><dd>Claude Code（またはGitHub Copilot）、テキストエディタ</dd><dt>必要な準備</dt><dd>自分のリポジトリを1つ、Claude CodeかGitHub Copilotが使える環境</dd><dt>所要時間</dt><dd>約15分</dd><dt>費用</dt><dd>スキル自体は無料（エージェントの利用料は別）</dd><dt>無料の代替</dt><dd>無料で使えるエージェントがない場合も、SKILL.md を書いておけば後で使い回せる</dd></dl><b>手順</b><ol><li>リポジトリに .claude/skills/pre-release-check/ フォルダを作る</li><li>その中に SKILL.md を作り、下の内容を貼り付ける</li><li>Claude Codeで /pre-release-check と打って実行する</li><li>報告が4つの項目に沿っているかを確かめる</li></ol><b>コピーして使うコマンド</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>---
+name: pre-release-check
+description: 公開前のチェックをするときに使う。テスト、READMEの更新、秘密情報の混入を確認する。
+---
+
+# 公開前チェック
+
+1. テストを実行し、結果を報告する
+2. README に今回の変更が書かれているか確認する
+3. APIキーやパスワードがコードに入っていないか確認する
+4. 問題があれば一覧にし、自分では直さずに報告する
+</pre></div><div class="meta">出典：<a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills" target="_blank" rel="noopener noreferrer">https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills</a></div><dl class="kv"><dt>完成するもの</dt><dd>どのエージェントからも呼べる公開前チェックのスキル</dd><dt>確認方法</dt><dd>/pre-release-check の実行結果に、テスト・README・秘密情報・問題一覧の4項目がそろっている</dd></dl><div class="meta">参考：<a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills" target="_blank" rel="noopener noreferrer">https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills</a>　<a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/skills</a></div></div>
+<h4>発展：「作る役」と「確かめる役」を分けたスキルセット（2〜3時間）</h4><p>記事のProof Agentを参考に、実装用のスキルと、元の依頼と変更点だけを見て判定する確認用スキルを分けて作る。</p><ol>
+<li>Proof AgentのSKILL.mdを読んで、確認役の書き方を学ぶ</li>
+<li>自分のプロジェクト用に、依頼と変更点だけを見てPASS/FAILを返す確認スキルを書く</li>
+<li>実装のあとに確認スキルを呼び、根拠つきの判定が出るか試す</li>
+</ol>
+<h3>利用条件・料金</h3><p>スキルの仕組み自体に料金はない。動かすエージェント（Claude Code、Copilotなど）の利用料は別。</p>
+<div class="meta">実践可能性：高：テキストファイルを1つ置くだけで試せる。<br>信頼性：GitHub公式ブログと、GitHub DocsおよびClaude Code公式ドキュメントのスキルのページで確認。</div></section>
+<section class="card" id="news-5"><span class="badge">エンジニアの実践ノウハウ</span>
+<span class="meta">評価 <span class="score">79</span>/100</span>
+<h2>5. Zenn：Claude Codeのauto memoryを見返させて整理したら、MEMORY.mdが146行→122行になり、終わった予約を答えに出さなくなった</h2>
+<div class="meta">Zenn・公開 2026-11-12 22:02</div>
+<div class="meta">出典：<a href="https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review" target="_blank" rel="noopener noreferrer">https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review</a></div>
+<p class="concl"><b>結論：</b>Claude Codeのauto memoryの目次（MEMORY.md）を見直し用コマンドで整理させ、整理前と後で答えを比べた記事。整理後は終わった予約を答えに持ち出さなくなった。</p>
+<div class="idea">💡 <b>こう使うと面白い：</b>週に一度、記憶の見直しコマンドを走らせて、終わった予定や片付いた作業を記憶から片付ける習慣にすると、答えがすっきりします。</div>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>記憶は書きっぱなしになりがち</b>：Claude Codeは覚えたことをMEMORY.mdという目次に書き足すが、人が見直さないと古い行が残る。</li>
+<li><b>古い予定が答えに混ざった</b>：公開日を過ぎた予約が目次に残っていて、質問すると2回とも答えに含めた。</li>
+<li><b>整理で146行→122行に</b>：見直し用のコマンドで1回整理させると行数とサイズが減り、入力の量も約2割減った。</li>
+<li><b>消さずに別ファイルへ移す</b>：終わった予約は削除せず、目次から1行でリンクした別の索引ファイルに移された。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>auto memoryを「書いたら終わり」にせず、定期的にAI自身に見返させる手順と、その前後の比較結果を示した。</dd>
+<dt>なぜ重要か</dt><dd>MEMORY.mdは毎回の会話の最初に読み込まれ、先頭の200行か25KBまでしか読まれない。古い行が残ると、答えが古い情報に引っぱられたり、大事な行が読まれなくなったりする。</dd>
+<dt>従来との違い</dt><dd>CLAUDE.mdは人が書く指示、auto memoryはClaudeが自分で書くメモ。後者は人が見ないまま増えるので、見直しの仕組みが別に必要になる。</dd></dl><ul>
+<li>auto memoryは ~/.claude/projects/&lt;project&gt;/memory/ に保存され、MEMORY.mdが目次、個別のメモは必要なときだけ読まれる</li>
+<li>MEMORY.mdは先頭200行または25KBまでが毎回読み込まれる</li>
+<li>/memory からauto memoryのフォルダを開いて、直接読んだり直したりできる</li>
+<li>記事の検証は1つの記憶・1モデル・各2回という小さな試し</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>自動化：週1回、記憶の見直しを実行する習慣にする</li>
+<li>エージェント：長く動かすエージェントの記憶を、終わった用事と今の方針に分けて整理する</li>
+</ul>
+<div class="task"><h4>今日すぐできること：自分の記憶の目次を読んでみる</h4><dl class="kv"><dt>目的</dt><dd>auto memoryに古い行が残っていないかを確かめる</dd><dt>使用ツール</dt><dd>Claude Code</dd><dt>必要な準備</dt><dd>しばらく使ったClaude Codeのプロジェクト</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>Claude Codeの利用プランの範囲内</dd></dl><b>手順</b><ol><li>Claude Codeで /memory と打ち、auto memoryのフォルダを開く</li><li>MEMORY.md を開いて、全体の行数を見る</li><li>Claude Codeに下のプロンプトを送り、古くなった行の候補を出してもらう</li><li>候補が本当に古いかを自分で確かめる（まだ消さない）</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>auto memory の MEMORY.md を読んで、もう終わった予定・片付いた作業・今の方針と食い違う行の候補を一覧にしてください。それぞれ理由を一言そえてください。まだ何も編集しないでください。</pre></div><dl class="kv"><dt>完成するもの</dt><dd>古くなった記憶の候補リスト</dd><dt>確認方法</dt><dd>候補リストの行が、MEMORY.md の実際の行と一致している</dd></dl><div class="meta">参考：<a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener noreferrer">https://code.claude.com/docs/en/memory</a>　<a href="https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review" target="_blank" rel="noopener noreferrer">https://zenn.dev/zundamon_tools/articles/claude-code-auto-memory-review</a></div></div>
+<h4>発展：記憶の見直しを週1回の定例にする（1〜2時間）</h4><p>今日の実験で作る見直しスキルを、手元の定期タスクから週1回呼び、変更前後の行数をログに残す。</p><ol>
+<li>今日の実験の memory-review スキルを用意する</li>
+<li>手元のパソコンで動く定期実行から週1回呼ぶ（auto memoryは手元のマシンにしかない点に注意）</li>
+<li>変更前後の行数と移した行をログに残し、月に一度ざっと見る</li>
+</ol>
+<h3>利用条件・料金</h3><p>Claude Codeの利用プランの範囲内。追加の費用はなし。</p>
+<div class="meta">実践可能性：高：自分のClaude Codeでそのまま試せる。ただし記憶を消しすぎないよう、内容を確認しながら行う。<br>信頼性：記事はコミュニティの検証（小規模）。auto memoryの保存場所・読み込みの上限・/memory の機能はClaude Code公式ドキュメントで確認。</div></section>
+<section class="card" id="news-6"><span class="badge">クリエイティブAI</span>
+<span class="meta">評価 <span class="score">73</span>/100</span>
+<h2>6. Diffusers 0.43.0：MiniMax-H3-Image、Pika H3 Flex、P-H3-Image、Kandinsky S2V、PAN 2の5つのモデルに対応</h2>
+<div class="meta">Hugging Face・公開 2026-11-12 06:38</div>
+<div class="meta">出典：<a href="https://github.com/huggingface/diffusers/releases/tag/v0.43.0" target="_blank" rel="noopener noreferrer">https://github.com/huggingface/diffusers/releases/tag/v0.43.0</a></div>
+<p class="concl"><b>結論：</b>画像・動画生成のライブラリDiffusersの0.43.0が公開され、画像の生成と編集、音つき動画、話す人の動画、世界シミュレーションの5つのモデルが加わった。注意の計算方式やLoRAの扱いなども改善された。</p>
+<h3>重要ポイント</h3><ul class="pts">
+<li><b>画像の生成と編集</b>：MiniMax-H3-ImageとP-H3-Imageは、文章から画像を作り、参考画像を使った編集もできる。</li>
+<li><b>音つき動画の生成</b>：Pika H3 Flexは、ステレオ音声と合った動画を6ステップで作る。最初や最後のコマを指定できる。</li>
+<li><b>写真と声から話す動画</b>：Kandinsky S2Vは、人の写真と話し声から、声に合わせて全身が動く動画を5秒ずつ作る。</li>
+<li><b>動きを予想する世界シミュレーション</b>：PAN 2は、動きやカメラの指示から場面の変化を作る。安全チェックが初期状態で有効。</li>
+</ul><h3>技術解説</h3><dl class="kv">
+<dt>何が新しいか</dt><dd>5つの新モデルが「部品を組み合わせる」形式（モジュラーパイプライン）で使えるようになった。AMDのGPU向けの高速化も追加。</dd>
+<dt>なぜ重要か</dt><dd>いろいろな会社の新しい生成モデルを、同じPythonの書き方で試せる。画像・動画・音を組み合わせた制作の選択肢が広がる。</dd>
+<dt>従来との違い</dt><dd>これまで個別のコードが必要だった新モデルを、Diffusersの共通の読み込み方（ModularPipeline.from_pretrained と load_components）で扱える。</dd></dl><ul>
+<li>MiniMax-H3-Imageは6ステップの固定スケジュールと、短い指示を詳しく書き直すプロンプト補強の仕組みを持つ</li>
+<li>Kandinsky S2Vは5秒ごとに動画を作り、前の区切りの記憶を引き継ぐ。音声はそのまま音として使う</li>
+<li>PAN 2は290億パラメータの大きなモデルで、安全チェックに別パッケージ pan2-guardrail が必要</li>
+<li>torch 2.6以上・transformers 4.41.2以上の最低バージョンが強制されるようになった</li>
+</ul><h3>実践アイデア</h3><ul>
+<li>画像・動画：参考画像を使って、キャラクターの絵を同じ雰囲気でそろえる</li>
+<li>音楽：自分の曲に合わせた短い動画を作る</li>
+<li>動画：写真と声からナレーション動画を作る</li>
+</ul>
+<div class="task"><h4>今日すぐできること：新モデル5つを自分の制作目線で整理する</h4><dl class="kv"><dt>目的</dt><dd>どのモデルが自分の制作に使えそうかを短時間で見きわめる</dd><dt>使用ツール</dt><dd>Claude などのチャットAI、Webブラウザ</dd><dt>必要な準備</dt><dd>リリースノートのページ</dd><dt>所要時間</dt><dd>約10分</dd><dt>費用</dt><dd>無料</dd></dl><b>手順</b><ol><li>Diffusers 0.43.0 のリリースノートを開く</li><li>下のプロンプトとリリースノートの本文をチャットAIに渡す</li><li>表を見て、気になったモデルを1つ選び、リリースノートからその説明ページを開く</li><li>必要なマシン性能とライセンスを説明ページで確認する</li></ol><b>コピーして使うプロンプト</b><div class="snip"><button class="btn copy" type="button">コピー</button><pre>次のリリースノートを読んで、新しく加わった5つのモデルを「何が作れるか」「入力に何が要るか」「注意点」の3列の表にしてください。リリースノートに書かれていないことは「記載なし」と書いてください。
+
+（ここにリリースノートの本文を貼る）</pre></div><dl class="kv"><dt>完成するもの</dt><dd>5つのモデルの比較表と、試したいモデル1つ</dd><dt>確認方法</dt><dd>表の内容がリリースノートの記述と食い違っていない</dd></dl><div class="meta">参考：<a href="https://github.com/huggingface/diffusers/releases/tag/v0.43.0" target="_blank" rel="noopener noreferrer">https://github.com/huggingface/diffusers/releases/tag/v0.43.0</a></div></div>
+<h4>発展：自作曲に合わせた短い動画を作る（3〜4時間）</h4><p>GPUが使える環境で、Pika H3 FlexやKandinsky S2Vの説明ページを読み、自分の曲や声に合わせた短い動画づくりに挑戦する。</p><ol>
+<li>説明ページで必要な性能とライセンスを確認する</li>
+<li>モデルの読み込みと1本の生成を説明ページどおりに試す</li>
+<li>自分の音声や画像に差し替えて、短い動画を1本作る</li>
+</ol>
+<h3>利用条件・料金</h3><p>Diffusers自体はオープンソース。各モデルのライセンスと必要なマシン性能はリリースノートに記載がなく未確認（各モデルの説明ページで確認）。</p>
+<div class="meta">実践可能性：低〜中：モデルによっては大きなGPUが必要。必要な性能は各モデルの説明ページで確認が必要。<br>信頼性：Hugging Face公式のGitHubリリースノートで確認。</div></section>
+<footer>公開情報をもとに AI（Claude）が作成しました。手順・コマンド・料金は、必ず出典で確認してから実行してください。
+<br><a href="../">AI Discovery &amp; Build Radio</a></footer>
+</main><script>
+document.addEventListener('click',async e=>{const b=e.target.closest('.copy');if(!b)return;
+const t=b.parentNode.querySelector('pre').innerText;try{await navigator.clipboard.writeText(t);b.textContent='コピーしました';}
+catch{b.textContent='選択してコピーしてください';}setTimeout(()=>b.textContent='コピー',1600);});
+</script></body></html>
