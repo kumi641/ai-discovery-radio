@@ -438,5 +438,53 @@
   "publisher": "Remotion",
   "corner": "creative",
   "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+  "title": "Google、Workspace（Gmail・Driveなど）を使うAIエージェントに、2027年2月1日から自社のMCPサーバー経由を求める規約を公開（紹介記事：Gmailの窓口は送信が一般に使えない）",
+  "publisher": "Hacker News",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://huggingface.co/blog/training-swarms",
+  "title": "Hugging Face「Swarms, Flocks, Gangs」：4体の小型AI（Qwen3-0.6B）に、メッセージで協力することを強化学習で練習させ、成功率と使う文章量の変化を公開（TRLで再現手順つき）",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+  "title": "NVIDIA、文書の画像を構造化データに変える小型モデル Nemotron 3.5 Parse の学習データ公開、追加学習（SFT＋強化学習）の手順、高速化の工夫を解説",
+  "publisher": "Hugging Face",
+  "corner": "news",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://zenn.dev/airtanker/articles/agent-browser-decisions-three-tier-plans",
+  "title": "Zenn：Claude Codeの決まったブラウザ操作を JSON の手順書に保存し、2回目からはLLMなしで約1.5秒で再生。迷うときだけ小さな判断モデルに聞くCLIとスキル「agent-browser-decisions」",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": null
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://zenn.dev/singularity/articles/skill-antipatterns",
+  "title": "Zenn：スキル（SKILL.md）のアンチパターン13選と直し方。長すぎる・網羅しすぎる・複数人で書き足して矛盾する、などの見つけ方と、あり・なしで比べる運用",
+  "publisher": "Zenn",
+  "corner": "practice",
+  "experiment": "自分のスキルの健康診断"
+ },
+ {
+  "date": "2026-11-27",
+  "url": "https://qiita.com/homhom44/items/f61e4877d7400be7f4c8",
+  "title": "Qiita：claude-code-action で「SDK execution error」「native binary not found」が出たときの直し方。動いていた版のSHAに固定する応急処置と、本当の原因の見つけ方",
+  "publisher": "Qiita",
+  "corner": "practice",
+  "experiment": null
  }
 ]
